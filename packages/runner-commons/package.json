@@ -12,7 +12,9 @@
   "homepage": "https://e2e-test-quest.github.io/uuv/",
   "keywords": ["uuv", "UUV"],
   "scripts": {
-    "package": "npm pack --pack-destination=\"../../dist/packages\""
+    "package": "cp ../../LICENSE ./dist && cp ../../CONTRIBUTING.md ./dist && cp ../../DCO.txt ./dist && npm pack --pack-destination=\"../../dist/packages\"",
+    "lint": "npx eslint"
+
   },
   "files": [
     "dist/index.d.ts",

@@ -32,7 +32,7 @@
     "launch": "ts-node launcher/uuv-assistant-launcher.ts",
     "launch:custom": "ts-node tests/uuv-assistant-custom-launcher.ts",
     "conf:build": "node compute-conf.js",
-    "package": "npm pack --pack-destination=\"../../dist/packages\""
+    "package": "cp ../../LICENSE ./dist && cp ../../CONTRIBUTING.md ./dist && cp ../../DCO.txt ./dist && npm pack --pack-destination=\"../../dist/packages\""
   },
   "dependencies": {
     "@cucumber/cucumber": "9.1.0",
