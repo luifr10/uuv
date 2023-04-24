@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import {Context} from "./_context";
+import { Context } from "./_context";
 
 beforeEach(function () {
     cy.wrap(new Context()).as("context");
@@ -33,13 +33,13 @@ export function assertTextContent<Subject>(
 }
 
 export function findWithRoleAndName(role: string, name: string) {
-    cy.uuvFindByRole(role, {name})
+    cy.uuvFindByRole(role, { name })
         .uuvFoundedElement()
         .should("exist");
 }
 
 export function withinRoleAndName(role: string, name: string) {
-    const foundedElement = cy.uuvFindByRole(role, {name, hidden: true})
+    const foundedElement = cy.uuvFindByRole(role, { name, hidden: true })
         .uuvFoundedElement()
         .should("exist");
 
@@ -49,12 +49,12 @@ export function withinRoleAndName(role: string, name: string) {
 }
 
 export function notFoundWithRoleAndName(role: string, name: string) {
-    cy.uuvFindByRole(role, {name})
+    cy.uuvFindByRole(role, { name })
         .should("not.exist");
 }
 
 export function findWithRoleAndNameAndContent(expectedRole: string, name: string, expectedTextContent: string) {
-    cy.uuvFindByRole(expectedRole, {name})
+    cy.uuvFindByRole(expectedRole, { name })
         .uuvFoundedElement()
         .should("exist")
         .then((response) => {
@@ -64,7 +64,7 @@ export function findWithRoleAndNameAndContent(expectedRole: string, name: string
 }
 
 export function findWithRoleAndNameAndContentDisable(expectedRole: string, name: string, expectedTextContent: string) {
-    cy.uuvFindByRole(expectedRole, {name})
+    cy.uuvFindByRole(expectedRole, { name })
         .uuvFoundedElement()
         .should("exist")
         .then((response) => {
@@ -76,7 +76,7 @@ export function findWithRoleAndNameAndContentDisable(expectedRole: string, name:
 }
 
 export function findWithRoleAndNameAndContentEnable(expectedRole: string, name: string, expectedTextContent: string) {
-    cy.uuvFindByRole(expectedRole, {name})
+    cy.uuvFindByRole(expectedRole, { name })
         .uuvFoundedElement()
         .should("exist")
         .then((response) => {

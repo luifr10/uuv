@@ -14,7 +14,7 @@ export async function setupNodeEvents (
         resolve: {
           extensions: [".ts", ".js"],
           alias: {
-            '@uuv/runner-commons': '@uuv/runner-commons/dist/index.js',
+            "@uuv/runner-commons": "@uuv/runner-commons/dist/index.js",
           },
           fallback: {
             fs: false

@@ -1,2 +1,2 @@
 /// <reference types="cypress" />
-import '@uuv/cypress/commands';
+import "@uuv/cypress/commands";

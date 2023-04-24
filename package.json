@@ -8,7 +8,22 @@
     "type": "git",
     "url": "https://github.com/e2e-test-quest/uuv"
   },
-  "keywords": [ "uuv", "UUV" ,"E2E", "test", "testing", "cypress", "testing-library", "cucumber", "gherkin"],
+  "keywords": [
+    "uuv",
+    "UUV",
+    "E2E",
+    "end-to-end",
+    "test",
+    "testing",
+    "cypress",
+    "playwright",
+    "testing-library",
+    "accessibility",
+    "accessibilité",
+    "a11y",
+    "cucumber",
+    "gherkin"
+  ],
   "scripts": {
     "nx": "nx"
   },
@@ -23,8 +38,8 @@
     "@nrwl/linter": "15.9.2",
     "@types/jest": "29.4.0",
     "@types/node": "16.18.25",
-    "@typescript-eslint/eslint-plugin": "5.36.1",
-    "@typescript-eslint/parser": "5.36.1",
+    "@typescript-eslint/eslint-plugin": "5.59.0",
+    "@typescript-eslint/parser": "5.59.0",
     "eslint": "8.39.0",
     "eslint-config-prettier": "8.8.0",
     "jest": "29.4.1",

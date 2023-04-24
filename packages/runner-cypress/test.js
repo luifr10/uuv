@@ -24,16 +24,16 @@ let command;
 command = () => {
     return cypress
         .run({
-            project: '.',
-            browser: 'chrome'
+            project: ".",
+            browser: "chrome"
         });
 };
 
 if (process.argv.length === 2) {
-    console.error(chalk.red('Expected at least one argument! (--run or --open)'));
+    console.error(chalk.red("Expected at least one argument! (--run or --open)"));
     process.exit(1);
 } else {
-    if (process.argv[2] && (process.argv[2] === '--run' || process.argv[2] === '--open')) {
+    if (process.argv[2] && (process.argv[2] === "--run" || process.argv[2] === "--open")) {
         mode = process.argv[2];
     }
 }
@@ -41,58 +41,58 @@ if (process.argv.length === 2) {
 testUUV();
 
 async function testUUV() {
-    const handler = require('serve-handler');
-    const http = require('http');
-    const Os = require('os');
-    const isAdmin = require('is-admin');
-    const chalk = require('chalk');
+    const handler = require("serve-handler");
+    const http = require("http");
+    const Os = require("os");
+    const isAdmin = require("is-admin");
+    const chalk = require("chalk");
     const port = 9001;
-    const figlet = require('figlet');
+    const figlet = require("figlet");
 
-    figlet.text('UUV', {
-        font: 'Big',
-        horizontalLayout: 'default',
-        verticalLayout: 'default',
+    figlet.text("UUV", {
+        font: "Big",
+        horizontalLayout: "default",
+        verticalLayout: "default",
         width: 80,
         whitespaceBreak: true
     }, function (err, data) {
         if (err) {
-            console.error(chalk.red('Something went wrong...'));
+            console.error(chalk.red("Something went wrong..."));
             console.dir(err);
             process.exit(-1);
         }
         console.log(chalk.blue(data));
     });
 
-    if (Os.platform() === 'win32' && await isAdmin()) {
-        console.error(chalk.red(`Please re-run this command without administrator privileges`));
-        process.exit(-1)
+    if (Os.platform() === "win32" && await isAdmin()) {
+        console.error(chalk.red("Please re-run this command without administrator privileges"));
+        process.exit(-1);
     }
 
     const server = http.createServer((request, response) => {
         return handler(request, response);
     });
 
-    server.listen({port}, () => {
+    server.listen({ port }, () => {
         console.log(`Running at http://localhost:${port}`);
         if (mode === "--open") {
             command = () => {
                 return cypress
                     .open({
-                        project: '.',
-                        browser: 'chrome'
+                        project: ".",
+                        browser: "chrome"
                     });
-            }
+            };
         }
         command()
             .then(async (result) => {
                 server.close();
                 if (result) {
                     console.log(`Tests suite have been executed in ${chalk.blue(result.totalDuration)} ms`);
-                    console.log(`Status ${result.totalFailed ? chalk.red('failed') : chalk.green('success')}`);
+                    console.log(`Status ${result.totalFailed ? chalk.red("failed") : chalk.green("success")}`);
                     process.exit(result.totalFailed);
                 } else {
-                    console.error(chalk.red('An error occured'));
+                    console.error(chalk.red("An error occured"));
                     server.close();
                     process.exit(-1);
                 }

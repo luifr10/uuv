@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import {LANG} from "./lang-enum";
-import {Common, fs, GenerateFileProcessing, STEP_DEFINITION_FILE_NAME, TEST_RUNNER_ENUM} from "./common";
+import { LANG } from "./lang-enum";
+import { Common, fs, GenerateFileProcessing, STEP_DEFINITION_FILE_NAME, TEST_RUNNER_ENUM } from "./common";
 
 export class BaseStepDefinition extends GenerateFileProcessing {
     constructor(baseDir: string, runner: TEST_RUNNER_ENUM, stepDefinitionFileName: STEP_DEFINITION_FILE_NAME) {
@@ -44,6 +44,8 @@ export class BaseStepDefinition extends GenerateFileProcessing {
             .replace("../../../cypress/commands", "../../../../cypress/commands")
             .replace("../../../playwright/chromium", "../../../../playwright/chromium")
             .replace("../i18n/template.json", "../../i18n/template.json")
+            .replace("import {key} from \"@uuv/runner-commons\";", "")
+            .replace("import { key } from \"@uuv/runner-commons\";", "")
             .replace("./core-engine", "../core-engine");
         const wordings = fs.readFileSync(wordingFile);
         const wordingsJson = JSON.parse(wordings.toString());
@@ -62,7 +64,7 @@ export class BaseStepDefinition extends GenerateFileProcessing {
         const data = fs.readFileSync(
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             this.stepDefinitionFile!,
-            {encoding: "utf8"});
+            { encoding: "utf8" });
         const updatedData = this.computeWordingFile(data, wordingFile);
         Common.writeWordingFile(generatedFile, updatedData);
     }

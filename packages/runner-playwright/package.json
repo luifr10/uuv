@@ -16,6 +16,9 @@
     "E2E",
     "test",
     "testing",
+    "accessibility",
+    "accessibilité",
+    "a11y",
     "playwright",
     "testing-library",
     "cucumber",
@@ -23,11 +26,12 @@
   ],
   "scripts": {
     "generate:step-definitions": "ts-node generate-step-definitions.ts",
-    "package": "cp ../../LICENSE ./dist && cp ../../CONTRIBUTING.md ./dist && cp ../../DCO.txt ./dist && npm pack --pack-destination=\"../../dist/packages\"",
+    "package": "npm pack --pack-destination=\"../../dist/packages\"",
     "postinstall": "node postinstall.js",
     "serverTest:run": "ts-node playwright/run-test-app.ts 9002",
     "test:run": "npx bddgen -o tests/.features-gen && ts-node playwright/translate-features.ts && npx playwright test",
-    "test:alone:run": "npx playwright test"
+    "test:alone:run": "npx playwright test",
+    "test": "npm run test:run"
   },
   "dependencies": {
     "@uuv/runner-commons": "1.2.0-beta-20230424",
@@ -67,11 +71,15 @@
     }
   },
   "devDependencies": {
+    "@cucumber/cucumber": "9.1.0",
     "@playwright/test": "1.32.3",
     "@types/minimist": "1.2.2",
     "@types/node": "18.15.11",
     "axe-playwright": "1.2.3",
     "cross-env": "7.0.3",
+    "eslint-plugin-cucumber": "2.0.0",
+    "eslint-plugin-jest": "27.2.1",
+    "eslint-plugin-playwright": "0.12.0",
     "playwright": "1.32.3",
     "playwright-bdd": "2.1.0",
     "serve-handler": "6.1.5",

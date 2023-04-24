@@ -17,6 +17,9 @@
     "testing",
     "cypress",
     "testing-library",
+    "accessibility",
+    "accessibilité",
+    "a11y",
     "cucumber",
     "playwright",
     "gherkin"
@@ -32,17 +35,11 @@
     "launch": "ts-node launcher/uuv-assistant-launcher.ts",
     "launch:custom": "ts-node tests/uuv-assistant-custom-launcher.ts",
     "conf:build": "node compute-conf.js",
-    "package": "cp ../../LICENSE ./dist && cp ../../CONTRIBUTING.md ./dist && cp ../../DCO.txt ./dist && npm pack --pack-destination=\"../../dist/packages\""
+    "package": "npm pack --pack-destination=\"../../dist/packages\""
   },
   "dependencies": {
     "@cucumber/cucumber": "9.1.0",
     "playwright-chromium": "1.32.3"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
   },
   "browserslist": {
     "production": [
@@ -57,30 +54,34 @@
     ]
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^13.0.0",
-    "@testing-library/user-event": "^13.2.1",
-    "@types/jest": "^27.0.1",
-    "@types/jquery": "^3.5.16",
-    "@types/node": "^16.7.13",
-    "@types/react": "^18.0.0",
-    "@types/react-dom": "^18.0.0",
-    "@types/styled-components": "^5.1.26",
-    "bootstrap": "^5.2.3",
-    "deepmerge": "^4.3.1",
-    "dom-accessibility-api": "^0.5.16",
-    "grommet-icons": "^4.10.0",
-    "inspector-dom": "^0.1.1",
+    "@testing-library/jest-dom": "5.14.1",
+    "@testing-library/react": "13.0.0",
+    "@testing-library/user-event": "13.2.1",
+    "@types/jest": "27.0.1",
+    "@types/jquery": "3.5.16",
+    "@types/node": "16.7.13",
+    "@types/react": "18.0.0",
+    "@types/react-dom": "18.0.0",
+    "@types/styled-components": "5.1.26",
+    "@typescript-eslint/eslint-plugin": "5.59.0",
+    "@typescript-eslint/parser": "5.59.0",
+    "bootstrap": "5.2.3",
+    "deepmerge": "4.3.1",
+    "dom-accessibility-api": "0.5.16",
+    "eslint": "8.39.0",
+    "eslint-plugin-react": "7.32.2",
+    "grommet-icons": "4.10.0",
+    "inspector-dom": "0.1.1",
     "minimist": "1.2.8",
-    "react": "^18.2.0",
-    "react-bootstrap": "^2.7.4",
-    "react-dom": "^18.2.0",
-    "react-scripts": "^5.0.1",
+    "react": "18.2.0",
+    "react-bootstrap": "2.7.4",
+    "react-dom": "18.2.0",
+    "react-scripts": "5.0.1",
     "replace-json-property": "1.8.0",
-    "styled-components": "^5.3.9",
-    "ts-node": "^10.9.1",
-    "typescript": "^4.4.2",
-    "web-vitals": "^2.1.0"
+    "styled-components": "5.3.9",
+    "ts-node": "10.9.1",
+    "typescript": "4.4.2",
+    "web-vitals": "2.1.0"
   },
   "files": [
     "dist/launcher/**/*",

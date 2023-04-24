@@ -31,7 +31,16 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["packages/runner-playwright/**/*.ts"]
+        "lintFilePatterns": ["packages/runner-playwright/**/*.{ts,js,feature}"],
+        "fix": true,
+        "eslintConfig": "packages/runner-playwright/.eslintrc.json"
+      }
+    },
+    "test": {
+      "executor": "@nrwl/node:node",
+      "outputs": ["{workspaceRoot}/reports/{projectRoot}"],
+      "options": {
+        "buildTarget": "runner-playwright:test"
       }
     }
   },

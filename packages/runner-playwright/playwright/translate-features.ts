@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-import {Common, fs} from "@uuv/runner-commons";
+import { Common, fs } from "@uuv/runner-commons";
 
 const FEATURE_DIR = `${__dirname}/../tests/.features-gen/e2e`;
-console.debug("dirName: ", FEATURE_DIR)
+console.debug("dirName: ", FEATURE_DIR);
 const filenames = fs.readdirSync(FEATURE_DIR,
-    {encoding: "utf8"});
+    { encoding: "utf8" });
 filenames.forEach(file => {
      // console.debug("fileName: ",file)
     const generatedFile = `${FEATURE_DIR}/${file}`;
     let data = fs.readFileSync(
         generatedFile,
-        {encoding: "utf8"});
+        { encoding: "utf8" });
     data = data
         .replaceAll("Soit", "Given")
         .replaceAll("Sachant que", "Given")
@@ -53,7 +53,7 @@ filenames.forEach(file => {
         .replaceAll("Et", "And")
         .replaceAll("Mais que", "But")
         .replaceAll("Mais qu'", "But")
-        .replaceAll("Mais", "But")
+        .replaceAll("Mais", "But");
     data = "/*******************************\n" +
         "NE PAS MODIFIER, FICHIER GENERE\n" +
         "*******************************/\n\n" +

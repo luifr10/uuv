@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import {When} from "@badeball/cypress-cucumber-preprocessor";
+import { When } from "@badeball/cypress-cucumber-preprocessor";
 
-When('je suis une phrase custom qui vérifie l\'existence d\'un noeud par le sélecteur {string}', (selector: string) => {
+When("je suis une phrase custom qui vérifie l'existence d'un noeud par le sélecteur {string}", function(selector: string) {
     return cy.get(selector).should("exist");
 });

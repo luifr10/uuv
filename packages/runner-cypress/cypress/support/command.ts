@@ -1,2 +1,2 @@
 /// <reference types="cypress" />
-import '../../src/cypress/commands';
+import "../../src/cypress/commands";

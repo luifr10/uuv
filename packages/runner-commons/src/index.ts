@@ -4,4 +4,4 @@ export * from "./step-definition-generator/generate-step-definitions-documentati
 export * from "./runner/step-definitions/_constant";
 export * from "./runner/step-definitions/_i-context";
 import key from "./assets/i18n/template.json";
-export {key};
+export { key };

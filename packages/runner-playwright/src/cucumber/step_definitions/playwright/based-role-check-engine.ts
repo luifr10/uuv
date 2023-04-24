@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import {key} from "@uuv/runner-commons";
-import {Then, When} from "@cucumber/cucumber";
+import { key } from "@uuv/runner-commons";
+import { Then, When } from "@cucumber/cucumber";
 import {
     findWithRoleAndName,
     findWithRoleAndNameAndContent, findWithRoleAndNameAndContentDisable, findWithRoleAndNameAndContentEnable,
     notFoundWithRoleAndName,
     withinRoleAndName
 } from "./core-engine";
-import {World} from "playwright-bdd";
+import { World } from "playwright-bdd";
 
 When(`${key.when.withinElement.roleAndName}`, async function (this: World, name: string) {
     return await withinRoleAndName(this, "$roleId", name);

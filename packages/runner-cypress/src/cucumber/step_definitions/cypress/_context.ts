@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import {IContext} from "@uuv/runner-commons";
-import {DEFAULT_TIMEOUT} from "@uuv/runner-commons";
+import { IContext } from "@uuv/runner-commons";
+import { DEFAULT_TIMEOUT } from "@uuv/runner-commons";
 
 
 export class Context implements IContext {

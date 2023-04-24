@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import {BaseStepDefinition} from "./generate-base-step-definitions";
-import {BasedRoleStepDefinition} from "./generate-based-role-step-definitions";
-import {STEP_DEFINITION_FILE_NAME, TEST_RUNNER_ENUM} from "./common";
+import { BaseStepDefinition } from "./generate-base-step-definitions";
+import { BasedRoleStepDefinition } from "./generate-based-role-step-definitions";
+import { STEP_DEFINITION_FILE_NAME, TEST_RUNNER_ENUM } from "./common";
 
 
 export function generateStepDefinitionForRunner(baseDir: string, runner: TEST_RUNNER_ENUM) {

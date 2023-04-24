@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
-import '@testing-library/cypress/add-commands';
-import 'cypress-axe';
-import {ByRoleOptions} from "@testing-library/cypress";
+import "@testing-library/cypress/add-commands";
+import "cypress-axe";
+import { ByRoleOptions } from "@testing-library/cypress";
 import {
   uuvCheckContextFocusedElement,
   uuvFindAllByRole,
@@ -29,7 +29,7 @@ import {
   uuvGetContext,
   uuvPatchContext
 } from "../cucumber/step_definitions/cypress/_.common";
-import {Context} from "../cucumber/step_definitions/cypress/_context";
+import { Context } from "../cucumber/step_definitions/cypress/_context";
 
 declare global {
   namespace Cypress {
@@ -47,12 +47,12 @@ declare global {
   }
 }
 
-Cypress.Commands.add('uuvGetContext', uuvGetContext);
-Cypress.Commands.add('uuvCheckContextFocusedElement', uuvCheckContextFocusedElement);
-Cypress.Commands.add('uuvPatchContext', uuvPatchContext);
-Cypress.Commands.add('uuvFindByText', uuvFindByText);
-Cypress.Commands.add('uuvFindByTestId', uuvFindByTestId);
-Cypress.Commands.add('uuvFindByRole', uuvFindByRole);
-Cypress.Commands.add('uuvFindByLabelText', uuvFindByLabelText);
-Cypress.Commands.add('uuvFindAllByRole', uuvFindAllByRole);
-Cypress.Commands.add('uuvFoundedElement', {prevSubject: true}, uuvFoundedElement);
+Cypress.Commands.add("uuvGetContext", uuvGetContext);
+Cypress.Commands.add("uuvCheckContextFocusedElement", uuvCheckContextFocusedElement);
+Cypress.Commands.add("uuvPatchContext", uuvPatchContext);
+Cypress.Commands.add("uuvFindByText", uuvFindByText);
+Cypress.Commands.add("uuvFindByTestId", uuvFindByTestId);
+Cypress.Commands.add("uuvFindByRole", uuvFindByRole);
+Cypress.Commands.add("uuvFindByLabelText", uuvFindByLabelText);
+Cypress.Commands.add("uuvFindAllByRole", uuvFindAllByRole);
+Cypress.Commands.add("uuvFoundedElement", { prevSubject: true }, uuvFoundedElement);

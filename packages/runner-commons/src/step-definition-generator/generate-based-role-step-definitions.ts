@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import {Common, fs, GenerateFileProcessing, STEP_DEFINITION_FILE_NAME, TEST_RUNNER_ENUM} from "./common";
-import {LANG} from "./lang-enum";
+import { Common, fs, GenerateFileProcessing, STEP_DEFINITION_FILE_NAME, TEST_RUNNER_ENUM } from "./common";
+import { LANG } from "./lang-enum";
 
 export class BasedRoleStepDefinition extends GenerateFileProcessing {
     constructor(baseDir: string, runner: TEST_RUNNER_ENUM, stepDefinitionFileName: STEP_DEFINITION_FILE_NAME) {
@@ -41,7 +41,7 @@ export class BasedRoleStepDefinition extends GenerateFileProcessing {
         const data = fs.readFileSync(
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             this.stepDefinitionFile!,
-            {encoding: "utf8"});
+            { encoding: "utf8" });
         this.computeWordingFile(data, wordingFile);
     }
 
@@ -60,6 +60,8 @@ export class BasedRoleStepDefinition extends GenerateFileProcessing {
             dataUpdated = dataUpdated
                 .replace("../../cypress/commands", "../../../../../../cypress/commands")
                 .replace("../i18n/template.json", "../../../../i18n/template.json")
+                .replace("import { key } from \"@uuv/runner-commons\";", "")
+                .replace("import {key} from \"@uuv/runner-commons\";", "")
                 .replace("./core-engine", "../../../core-engine");
             wordingsJson.enriched.forEach((conf) => {
                 // console.debug(">> conf", conf)

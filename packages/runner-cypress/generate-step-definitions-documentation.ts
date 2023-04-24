@@ -14,6 +14,6 @@
  * limitations under the License.
  */
 
-import {runGenerateDoc} from "@uuv/runner-commons";
+import { runGenerateDoc } from "@uuv/runner-commons";
 
 runGenerateDoc(`${__dirname}/../docs`);

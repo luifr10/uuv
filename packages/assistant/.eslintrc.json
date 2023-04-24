@@ -5,9 +5,18 @@
     },
     "extends": [
         "eslint:recommended",
-        "plugin:@typescript-eslint/recommended"
+        "plugin:@typescript-eslint/recommended",
+        "plugin:react/recommended",
+        "react-app",
+        "react-app/jest"
     ],
     "overrides": [
+        {
+            "files": ["**/UuvAssistantComponent.tsx"],
+            "rules": {
+                "@typescript-eslint/no-var-requires": "off"
+            }
+        }
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -16,7 +25,8 @@
     },
     "plugins": [
         "@typescript-eslint",
-        "jest"
+        "jest",
+        "react"
     ],
     "rules": {
         "no-negated-in-lhs": "error",

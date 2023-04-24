@@ -1,8 +1,9 @@
 import http from "http";
 import handler from "serve-handler/src";
+import minimist from "minimist";
 
-let argv = require("minimist")(process.argv.slice(1));
-let port = findPort(argv);
+const argv = minimist(process.argv.slice(1));
+const port = findPort(argv);
 
 function findPort(argv: any) {
     if (argv._.length < 1) {
@@ -13,7 +14,7 @@ function findPort(argv: any) {
 
 const callback = () => {
     console.log("");
-}
+};
 runAppTest(port, callback);
 
 export function runAppTest(port, callback) {
@@ -21,7 +22,7 @@ export function runAppTest(port, callback) {
         return handler(request, response);
     });
 
-    server.listen({port}, () => {
+    server.listen({ port }, () => {
         console.log(`Running at http://localhost:${port}`);
         callback();
     });
