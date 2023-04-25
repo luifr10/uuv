@@ -22,7 +22,7 @@
     "@nrwl/js": "15.9.2",
     "@nrwl/linter": "15.9.2",
     "@types/jest": "29.4.0",
-    "@types/node": "16.11.7",
+    "@types/node": "16.18.25",
     "@typescript-eslint/eslint-plugin": "5.36.1",
     "@typescript-eslint/parser": "5.36.1",
     "eslint": "8.15.0",
