@@ -21,10 +21,10 @@
   },
   "dependencies": {
     "@uuv/runner-commons": "1.2.0-beta-20230424",
-    "axe-core": "4.6.3",
+    "axe-core": "4.7.0",
     "chalk": "4.1.2",
     "cucumber-json-report-formatter": "0.1.4",
-    "figlet": "1.5.2",
+    "figlet": "1.6.0",
     "is-admin": "2.1.1",
     "minimist": "1.2.8",
     "multiple-cucumber-html-reporter": "3.2.0",
@@ -67,6 +67,6 @@
     "@playwright/test": "1.32.3",
     "axe-playwright": "1.2.3",
     "playwright": "1.32.3",
-    "playwright-bdd": "2.0.0"
+    "playwright-bdd": "2.1.0"
   }
 }
