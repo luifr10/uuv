@@ -67,6 +67,6 @@
     "@playwright/test": "1.32.3",
     "axe-playwright": "1.2.3",
     "playwright": "1.32.3",
-    "playwright-bdd": "2.0.0"
+    "playwright-bdd": "2.1.0"
   }
 }
