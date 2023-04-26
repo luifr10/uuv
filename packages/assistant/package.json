@@ -9,7 +9,18 @@
     "url": "https://github.com/e2e-test-quest/uuv"
   },
   "homepage": "https://e2e-test-quest.github.io/uuv/",
-  "keywords": [ "uuv", "UUV" ,"E2E", "test", "testing", "cypress", "testing-library", "cucumber", "playwright", "gherkin"],
+  "keywords": [
+    "uuv",
+    "UUV",
+    "E2E",
+    "test",
+    "testing",
+    "cypress",
+    "testing-library",
+    "cucumber",
+    "playwright",
+    "gherkin"
+  ],
   "bin": {
     "uuv-assistant": "./dist/launcher/uuv-assistant-launcher.js"
   },
@@ -24,7 +35,8 @@
     "package": "npm pack --pack-destination=\"../../dist/packages\""
   },
   "dependencies": {
-    "playwright-chromium":  "1.32.3"
+    "@cucumber/cucumber": "9.1.0",
+    "playwright-chromium": "1.32.3"
   },
   "eslintConfig": {
     "extends": [
@@ -45,15 +57,15 @@
     ]
   },
   "devDependencies": {
-    "@types/jquery": "^3.5.16",
-    "@types/styled-components": "^5.1.26",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
     "@types/jest": "^27.0.1",
+    "@types/jquery": "^3.5.16",
     "@types/node": "^16.7.13",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
+    "@types/styled-components": "^5.1.26",
     "bootstrap": "^5.2.3",
     "deepmerge": "^4.3.1",
     "dom-accessibility-api": "^0.5.16",
@@ -63,12 +75,12 @@
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.4",
     "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
+    "replace-json-property": "1.8.0",
     "styled-components": "^5.3.9",
     "ts-node": "^10.9.1",
     "typescript": "^4.4.2",
-    "web-vitals": "^2.1.0",
-    "replace-json-property": "1.8.0"
+    "web-vitals": "^2.1.0"
   },
   "files": [
     "dist/launcher/**/*",

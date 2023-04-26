@@ -10,7 +10,17 @@
     "url": "https://github.com/e2e-test-quest/uuv"
   },
   "homepage": "https://e2e-test-quest.github.io/uuv/",
-  "keywords": [ "uuv", "UUV" ,"E2E", "test", "testing", "playwright", "testing-library", "cucumber", "gherkin"],
+  "keywords": [
+    "uuv",
+    "UUV",
+    "E2E",
+    "test",
+    "testing",
+    "playwright",
+    "testing-library",
+    "cucumber",
+    "gherkin"
+  ],
   "scripts": {
     "generate:step-definitions": "ts-node generate-step-definitions.ts",
     "package": "npm pack --pack-destination=\"../../dist/packages\"",
@@ -29,7 +39,8 @@
     "minimist": "1.2.8",
     "multiple-cucumber-html-reporter": "3.2.0",
     "ts-node": "10.9.1",
-    "typescript": "4.9.5"
+    "typescript": "4.9.5",
+    "@cucumber/cucumber": "9.1.0"
   },
   "types": "./dist/index.d.ts",
   "main": "./dist/index.js",
@@ -56,17 +67,16 @@
     }
   },
   "devDependencies": {
+    "@playwright/test": "1.32.3",
     "@types/minimist": "1.2.2",
     "@types/node": "18.15.11",
+    "axe-playwright": "1.2.3",
     "cross-env": "7.0.3",
+    "playwright": "1.32.3",
+    "playwright-bdd": "2.1.0",
     "serve-handler": "6.1.5",
     "ts-loader": "9.4.2",
     "tsconfig-paths": "4.2.0",
-    "webpack": "5.76.1",
-    "@cucumber/cucumber": "9.1.0",
-    "@playwright/test": "1.32.3",
-    "axe-playwright": "1.2.3",
-    "playwright": "1.32.3",
-    "playwright-bdd": "2.1.0"
+    "webpack": "5.76.1"
   }
 }
