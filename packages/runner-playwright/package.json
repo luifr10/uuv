@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@uuv/runner-commons": "1.2.0-beta-20230424",
-    "axe-core": "4.6.3",
+    "axe-core": "4.7.0",
     "chalk": "4.1.2",
     "cucumber-json-report-formatter": "0.1.4",
     "figlet": "1.5.2",
