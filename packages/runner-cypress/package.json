@@ -95,6 +95,6 @@
     "serve-handler": "6.1.5",
     "ts-loader": "9.4.2",
     "tsconfig-paths": "4.2.0",
-    "webpack": "5.76.1"
+    "webpack": "5.81.0"
   }
 }
