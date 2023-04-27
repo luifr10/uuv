@@ -50,8 +50,10 @@ interface UuvAssistantProps {
 }
 
 class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssistantState> {
+    /* eslint-disable  @typescript-eslint/no-explicit-any */
     private inspector: any;
 
+    /* eslint-disable  @typescript-eslint/no-explicit-any */
     constructor(props: any) {
         console.log("constructor: ");
         super(props);
@@ -114,6 +116,7 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
     }
 
     private translate(el: HTMLElement) {
+        // eslint-disable-next-line max-len
         return this.props.translator ? this.props.translator(el) : `Then I should see an element with role "${getRole(el)}" and name "${computeAccessibleName(el)}"`;
     }
 

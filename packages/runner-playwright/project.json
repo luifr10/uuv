@@ -35,13 +35,6 @@
         "fix": true,
         "eslintConfig": "packages/runner-playwright/.eslintrc.json"
       }
-    },
-    "test": {
-      "executor": "@nrwl/node:node",
-      "outputs": ["{workspaceRoot}/reports/{projectRoot}"],
-      "options": {
-        "buildTarget": "runner-playwright:test"
-      }
     }
   },
   "tags": []
