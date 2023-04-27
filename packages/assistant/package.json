@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "@cucumber/cucumber": "9.1.0",
-    "playwright-chromium": "1.32.3"
+    "playwright-chromium": "1.33.0"
   },
   "browserslist": {
     "production": [
