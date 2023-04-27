@@ -16,7 +16,7 @@
     {
       "matchDepTypes": ["devDependencies"],
       "automerge": true,
-      "automergeType": "branch",
+      "automergeType": "pr",
       "automergeStrategy": "rebase"
     }
   ]
