@@ -2,7 +2,10 @@ name: 'UUV CI/CD'
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "dev", "main" ]
+  pull_request:
+    branches: [ "dev" ]
+
 
 env:
   NODE_VERSION: 18.14.0
@@ -35,7 +38,8 @@ jobs:
     needs: install
     steps:
       - uses: actions/checkout@v3
-      - uses: ./.github/actions/nx-run-many
+      - name: Build artifact
+        uses: ./.github/actions/nx-run-many
         with:
           node-version: ${{env.NODE_VERSION}}
           target: "build"
@@ -47,6 +51,7 @@ jobs:
             packages/runner-commons/dist
             packages/runner-cypress/dist
             packages/runner-cypress/src/cucumber/step_definitions/cypress/generated
+            packages/runner-playwright/src/cucumber/step_definitions/playwright/generated
             packages/docs/docs/03-wordings/01-generated-wording-description
             packages/assistant/dist
             packages/assistant/build
@@ -61,10 +66,12 @@ jobs:
     needs: install
     steps:
       - uses: actions/checkout@v3
-      - uses: ./.github/actions/nx-run-many
+      - name: Execution des tests unitaires
+        uses: ./.github/actions/nx-run-many
         with:
           node-version: ${{env.NODE_VERSION}}
           target: "test"
+          exclude: "runner-cypress,runner-playwright"
 
   test-cypress:
     runs-on: ubuntu-latest
@@ -73,49 +80,43 @@ jobs:
     needs: build
     steps:
       - uses: actions/checkout@v3
-      - name: Cache node modules
-        uses: actions/cache@v3
+      - name: Execution des tests unitaires cypress
+        uses: ./.github/actions/nx-test-runner
         with:
-          key: cache-node-modules
-          path: |
-            node_modules
-            packages/assistant/node_modules
-            packages/docs/node_modules
-            packages/runner-commons/node_modules
-            packages/runner-cypress/node_modules
-            packages/runner-playwright/node_modules
-      - name: Download build artifact
-        uses: actions/download-artifact@v3
+          node-version: ${{env.NODE_VERSION}}
+          runner-name: "cypress"
+
+  test-playwright:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v3
+      - name: Execution des tests unitaires playwright
+        uses: ./.github/actions/nx-test-runner
         with:
-          name: build-artifacts
-          path: packages
-      - name: Use Node.js ${{ inputs.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ inputs.node-version }}
-      - run: ls -R && ls -al packages/runner-commons/dist
-      - run: npm ci
-      - run: cd packages/runner-cypress && npm run test:run
+          node-version: ${{env.NODE_VERSION}}
+          runner-name: "playwright"
 
   lint:
     runs-on: ubuntu-latest
     needs: install
     steps:
       - uses: actions/checkout@v3
-      - uses: ./.github/actions/nx-run-many
+      - name: Lint for all projects
+        uses: ./.github/actions/nx-run-many
         with:
           node-version: ${{env.NODE_VERSION}}
           target: "lint"
-        continue-on-error: true
-
 
   publish-npm-assistant:
-    needs: [lint, build, test, test-cypress]
+    if: github.ref == 'refs/heads/main'
+    needs: [lint, build, test, test-cypress, test-playwright]
     runs-on: ubuntu-latest
     environment: prod-assistant
     steps:
       - uses: actions/checkout@v3
-      - uses: ./.github/actions/npm-publish
+      - name: Publish @uuv/assistant
+        uses: ./.github/actions/npm-publish
         with:
           node-version: ${{env.NODE_VERSION}}
           app-name: "assistant"
@@ -123,12 +124,14 @@ jobs:
           npm-token: ${{secrets.NPM_ACCESS_TOKEN}}
 
   publish-npm-runner-commons:
-    needs: [lint, build, test, test-cypress]
+    if: github.ref == 'refs/heads/main'
+    needs: [lint, build, test, test-cypress, test-playwright]
     runs-on: ubuntu-latest
     environment: prod-runner-commons
     steps:
       - uses: actions/checkout@v3
-      - uses: ./.github/actions/npm-publish
+      - name: Publish @uuv/runner-commons
+        uses: ./.github/actions/npm-publish
         with:
           node-version: ${{env.NODE_VERSION}}
           app-name: "runner-commons"
@@ -137,20 +140,38 @@ jobs:
 
 
   publish-npm-runner-cypress:
-    needs: [lint, build, test, test-cypress]
+    if: github.ref == 'refs/heads/main'
+    needs: [lint, build, test, test-cypress, test-playwright]
     runs-on: ubuntu-latest
     environment: prod-runner-cypress
     steps:
       - uses: actions/checkout@v3
-      - uses: ./.github/actions/npm-publish
+      - name: Publish @uuv/cypress
+        uses: ./.github/actions/npm-publish
         with:
           node-version: ${{env.NODE_VERSION}}
           app-name: "runner-cypress"
           npm-package-scope: ${{env.NPM_PACKAGE_SCOPE}}
           npm-token: ${{secrets.NPM_ACCESS_TOKEN}}
 
+  publish-npm-runner-playwright:
+    if: github.ref == 'refs/heads/main'
+    needs: [ lint, build, test, test-cypress, test-playwright ]
+    runs-on: ubuntu-latest
+    environment: prod-runner-playwright
+    steps:
+      - uses: actions/checkout@v3
+      - name: Publish @uuv/playwright
+        uses: ./.github/actions/npm-publish
+        with:
+          node-version: ${{env.NODE_VERSION}}
+          app-name: "runner-playwright"
+          npm-package-scope: ${{env.NPM_PACKAGE_SCOPE}}
+          npm-token: ${{secrets.NPM_ACCESS_TOKEN}}
+
   publish-docs:
-    needs: [lint, build, test, test-cypress]
+    if: github.ref == 'refs/heads/main'
+    needs: [ lint, build, test, test-cypress, test-playwright ]
     permissions:
       pages: write
       id-token: write

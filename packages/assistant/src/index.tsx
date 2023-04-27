@@ -20,6 +20,7 @@ import "./index.css";
 import UuvAssistantComponent from "./UuvAssistantComponent";
 import reportWebVitals from "./reportWebVitals";
 
+/* eslint-disable  @typescript-eslint/no-explicit-any */
 document.addEventListener("UUVAssistantReadyToLoad", (e: any) => {
     console.log("event listened: UUVAssistantReadyToLoad");
     const root = ReactDOM.createRoot(

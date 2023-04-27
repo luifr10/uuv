@@ -1,16 +1,12 @@
-name: NX Run Many
-description: Action for run Nx Many target
+name: Run Test for runners
+description: Action for run test for a runner
 inputs:
   node-version:
     required: true
     description: Nodejs version
-  target:
+  runner-name:
     required: true
-    description: Target command to run
-  exclude:
-    required: true
-    default: ""
-    description: Projects to exclude
+    description: Targeted runner
 runs:
   using: "composite"
   steps:
@@ -25,9 +21,16 @@ runs:
           packages/runner-commons/node_modules
           packages/runner-cypress/node_modules
           packages/runner-playwright/node_modules
+    - name: Download build artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: build-artifacts
+        path: packages
     - name: Use Node.js ${{ inputs.node-version }}
       uses: actions/setup-node@v3
       with:
         node-version: ${{ inputs.node-version }}
-    - run: npm run nx run-many -- --all --target=${{ inputs.target }} --exclude=${{ inputs.exclude }}
+    - run: npm ci
+      shell: bash
+    - run: cd packages/runner-${{ inputs.runner-name }} && npm run test:run
       shell: bash
