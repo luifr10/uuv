@@ -11,7 +11,7 @@ const config = {
   favicon: 'img/uuv.png',
 
   // Set the production url of your site here
-  url: 'https://e2e-testing.pages.gitlab.com/',
+  url: 'https://e2e-test-quest.github.io/',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/uuv/',
@@ -77,7 +77,7 @@ const config = {
             label: 'Docs',
           },
           {
-            href: 'https://gitlab.com/e2e-testing/uuv/-/issues',
+            href: 'https://github.com/e2e-test-quest/uuv/issues',
             label: 'Issues',
             position: 'right',
           },
@@ -104,11 +104,11 @@ const config = {
             items: [
               {
                 label: 'Louis Fredice NJAKO MOLOM',
-                href: 'https://gitlab.com/curacao',
+                href: 'https://github.com/luifr10',
               },
               {
                 label: 'Stanley SERVICAL',
-                href: 'https://gitlab.com/stanleyservical',
+                href: 'https://github.com/stanlee974',
               }
             ],
           }

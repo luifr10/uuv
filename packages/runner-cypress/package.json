@@ -2,7 +2,7 @@
   "name": "@uuv/cypress",
   "version": "1.2.0-beta-20230424",
   "type": "commonjs",
-  "author": "Louis Fredice NJAKO MOLOM (https://gitlab.com/curacao) & Stanley SERVICAL (https://gitlab.com/stanleyservical)",
+  "author": "Louis Fredice NJAKO MOLOM (https://github.com/luifr10) & Stanley SERVICAL (https://github.com/stanlee974)",
   "description": "A transpiler from cucumber step definitions to cypress.",
   "license": "Apache-2.0",
   "homepage": "https://e2e-test-quest.github.io/uuv/",

@@ -1,7 +1,7 @@
 {
   "name": "@uuv/assistant",
   "version": "1.2.0-beta-20230424",
-  "author": "Louis Fredice NJAKO MOLOM (https://gitlab.com/curacao) & Stanley SERVICAL (https://gitlab.com/stanleyservical)",
+  "author": "Louis Fredice NJAKO MOLOM (https://github.com/luifr10) & Stanley SERVICAL (https://github.com/stanlee974)",
   "description": "UUV wizard used to improve the life of testers and developers by generating cucumber phrases from the GUI.",
   "license": "Apache-2.0",
   "repository": {
@@ -77,7 +77,7 @@
     "react": "18.2.0",
     "react-bootstrap": "2.7.4",
     "react-dom": "18.2.0",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "replace-json-property": "1.8.0",
     "styled-components": "5.3.10",
     "ts-node": "10.9.1",

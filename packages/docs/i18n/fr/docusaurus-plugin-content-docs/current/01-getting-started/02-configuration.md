@@ -16,7 +16,10 @@ Modifier le fichier `package.json` pour rajouter les lignes suivantes dans la se
   ...
 }
 ```
-### Cypress
+
+<Tabs>
+<TabItem value="cypress" label="Cypress">
+
 :::caution
 Cette étape n'est nécessaire que si vous avez choisi le runner `Cypress` et que vous n'arrivez pas à [exécuter normalement les tests](/docs/test/running-test).
 :::
@@ -33,7 +36,9 @@ Modifier le fichier `package.json` pour rajouter les lignes suivantes dans la se
 }
 ```
 
-### Playwright
+</TabItem>
+<TabItem value="playwright" label="Playwright">
+
 :::caution
 Cette étape n'est nécessaire que si vous avez choisi le runner `Playwright` et que vous n'arrivez pas à [exécuter normalement les tests](/docs/test/running-test).
 :::
@@ -50,6 +55,9 @@ Modifier le fichier `package.json` pour rajouter les lignes suivantes dans la se
 }
 ```
 
+</TabItem>
+</Tabs>
+
 ## Mise à jour du .gitignore
 
 Modifier le fichier `.gitignore` pour rajouter les lignes suivantes :
@@ -59,9 +67,11 @@ Modifier le fichier `.gitignore` pour rajouter les lignes suivantes :
 /uuv/reports
 ```
 
-
 ## (Optionnel) Ajout des types Typescripts
-### Cypress
+
+<Tabs>
+<TabItem value="cypress" label="Cypress">
+
 :::info
 Cette étape n'est nécessaire que si vous prévoyez de rajouter vos propres [step_definitions](/docs/wordings/add-custom-step-definition).
 :::
@@ -87,5 +97,9 @@ Ajouter un nouveau fichier `tsconfig.e2e.json` pour inclure les types nécessair
 }
 ```
 
-### Playwright
+</TabItem>
+<TabItem value="playwright" label="Playwright">
 WIP
+</TabItem>
+</Tabs>
+

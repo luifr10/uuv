@@ -5,7 +5,7 @@
     ":rebaseStalePrs"
   ],
   "baseBranches": ["dev"],
-  "assignees": ["stanlee974", "curacao"],
+  "assignees": ["stanlee974", "luifr10"],
   "packageRules": [
     {
       "description": "Automatically merge minor and patch-level updates",

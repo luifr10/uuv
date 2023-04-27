@@ -1,7 +1,7 @@
 {
   "name": "uuv",
   "version": "1.2.0-beta-20230424",
-  "author": "Louis Fredice NJAKO MOLOM (https://gitlab.com/curacao) & Stanley SERVICAL (https://gitlab.com/stanleyservical)",
+  "author": "Louis Fredice NJAKO MOLOM (https://github.com/luifr10) & Stanley SERVICAL (https://github.com/stanlee974)",
   "description": "A transpiler from cucumber step definitions to target runtime engine language",
   "license": "Apache-2.0",
   "repository": {

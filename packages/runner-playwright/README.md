@@ -2,14 +2,14 @@
 
 # @uuv/runner-playwright
 <p align="center">  
-<a href="https://e2e-test-quest.github.io">  
+<a href="https://e2e-test-quest.github.io/uuv/">  
 <picture>  
-<img alt="UUV Logo" src="https://e2e-test-quest.github.io/uuv/img/uuv.png">  
+<img alt="UUV Logo" src="../docs/static/img/uuv.png">  
 </picture>  
 </a>  
 </p>  
 <p align="center">  
-<a href="https://e2e-test-quest.github.io">Documentation</a>  
+<a href="https://e2e-test-quest.github.io/uuv/"><img src="https://img.shields.io/badge/documentation-black?&style=for-the-badge&logo=github&logoColor=white" alt="documentation"/></a>  
 </p>  
 
 <h3 align="center">  
@@ -46,10 +46,10 @@ We can use the playwright engine to run test or cypress with [uuv/cypress](https
 ## Installing
 
 
-[documentation to install uuv playwright](https://e2e-test-quest.github.io/uuv/docs/getting-started/installation#playwright)  
-[documentation to configure uuv playwright](https://e2e-test-quest.github.io/uuv/docs/getting-started/configuration#playwright)  
-[documentation to write test](https://e2e-test-quest.github.io/uuv/docs/test/first-test)  
-[documentation to run test](https://e2e-test-quest.github.io/uuv/docs/test/running-test)
+[documentation for install uuv playwright](https://e2e-test-quest.github.io/uuv/docs/getting-started/installation#playwright)  
+[documentation for configure uuv playwright](https://e2e-test-quest.github.io/uuv/docs/getting-started/configuration#playwright)  
+[documentation for write test](https://e2e-test-quest.github.io/uuv/docs/test/first-test)  
+[documentation for run test](https://e2e-test-quest.github.io/uuv/docs/test/running-test)
 
 ## License
 

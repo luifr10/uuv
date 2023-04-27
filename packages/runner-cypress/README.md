@@ -2,14 +2,14 @@
 
 # @uuv/runner-cypress
 <p align="center">  
-<a href="https://e2e-test-quest.github.io">  
+<a href="https://e2e-test-quest.github.io/uuv/">  
 <picture>  
-<img alt="UUV Logo" src="https://e2e-test-quest.github.io/uuv/img/uuv.png">  
+<img alt="UUV Logo" src="../docs/static/img/uuv.png">  
 </picture>  
 </a>  
 </p>  
 <p align="center">  
-<a href="https://e2e-test-quest.github.io">Documentation</a>  
+<a href="https://e2e-test-quest.github.io/uuv/"><img src="https://img.shields.io/badge/documentation-black?&style=for-the-badge&logo=github&logoColor=white" alt="documentation"/></a>  
 </p>  
 
 <h3 align="center">  
@@ -35,6 +35,21 @@ Make test writing fast, understandable by any human understanding English or Fre
 </a><br />  
 </p>  
 
+<div align="center">  
+<h4>  
+Demo in english 
+</h4>
+<a href="https://player.vimeo.com/video/822253247?texttrack=en&h=617306172d&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" rel="nofollow">
+    <img alt="runner-cypress in english" src="./src/assets/thumb.PNG" style="max-width: 100%;" width="75%" height="75%">
+  </a>
+<h4>  
+Demo in french 
+</h4>
+<a href="https://player.vimeo.com/video/822253247?texttrack=fr&h=617306172d&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" rel="nofollow">
+    <img alt="runner-cypress in french" src="./src/assets/thumb.PNG" style="max-width: 100%;" width="75%" height="75%">
+  </a>
+</div> 
+
 ## What is UUV cypress?
 
 <p align="center">  
@@ -46,10 +61,10 @@ We can use the cypress engine to run test or playwright with [@uuv/playwright](h
 ## Installing
 
 
-[documentation to install uuv cypress](https://e2e-test-quest.github.io/uuv/docs/getting-started/installation#cypress)  
-[documentation to configure uuv cypress](https://e2e-test-quest.github.io/uuv/docs/getting-started/configuration#cypress)  
-[documentation to write test](https://e2e-test-quest.github.io/uuv/docs/test/first-test)  
-[documentation to run test](https://e2e-test-quest.github.io/uuv/docs/test/running-test)
+[documentation for install uuv cypress](https://e2e-test-quest.github.io/uuv/docs/getting-started/installation#cypress)  
+[documentation for configure uuv cypress](https://e2e-test-quest.github.io/uuv/docs/getting-started/configuration#cypress)  
+[documentation for write test](https://e2e-test-quest.github.io/uuv/docs/test/first-test)  
+[documentation for run test](https://e2e-test-quest.github.io/uuv/docs/test/running-test)
 
 ## License
 

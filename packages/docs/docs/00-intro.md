@@ -27,7 +27,7 @@ Therefore, several additional questions arise:
 
 To answer the above issues and many others, our solution is to set up a coherent ecosystem based on tools that are references in their field.
 
-![Ecosystème UUV](@site/static/img/docs/uuv-ecosysteme.png)
+![Ecosystème UUV](@site/static/img/docs/ecosystem-uuv.png)
 
 - ### Accessibility
   - *[Testing Library](https://testing-library.com/docs/)* : To perform checks in the DOM based on the [accessible roles and attributes](https://www.w3.org/TR/accname-1.1/)

@@ -71,12 +71,12 @@ Git commits in _UUV_ shall be:
 
 1. **atomic** (1 commit `=` 1 and only 1 _thing_),
 2. **semantic** (using [semantic-release commit message syntax](https://semantic-release.gitbook.io/semantic-release/#commit-message-format)).
-3. **pattern**
+3. **pattern** 
    - **SCOPE**: one of (bug, chore, enhancement, documentation)
    - **ACTION**: close, closes, closed, fix, fixes, fixed, resolve, resolves, resolved
 
    - **SCOPE**: commit message, **ACTION** #issue_identifier
-   - Example :
+   - Example : 
    ```bash
    chore: upgrade library @badeball/cypress-cucumber-preprocessor version, fix #51
    ```

@@ -5,12 +5,24 @@ import TabItem from '@theme/TabItem';
 
 ## Opening runner
 
+<Tabs>
+<TabItem value="cypress" label="Cypress">
+
 :::tip
-- Pour le runner `Cypress` modifier l'url, changer le paramètre `e2e.baseUrl` dans le fichier `uuv/cypress.config.ts` afin de renseigner l'url
-cible.
-- [WIP] Pour le runner `Plawright` modifier l'url, changer le paramètre `e2e.baseUrl` dans le fichier `uuv/cypress.config.ts` afin de renseigner l'url
-    cible.
+Modify the url, change the `e2e.baseUrl` parameter in the `uuv/cypress.config.ts` file in order to fill the
+target url.
 :::
+
+</TabItem>
+<TabItem value="playwright" label="Playwright">
+
+:::tip
+[WIP] Modify the url, change the `e2e.baseUrl` parameter in the `uuv/cypress.config.ts` file in order to fill the
+    target url.
+:::
+
+</TabItem>
+</Tabs>
 
 From powershell or cmd terminal **in non-administrator mode** :
 
@@ -65,7 +77,9 @@ yarn uuv e2e -- --browser=edge --env="{'TAGS':'@mobile'}" --generateHtmlReport
 </TabItem>
 </Tabs>
 
-### Cypress
+<Tabs>
+<TabItem value="cypress" label="Cypress">
+
 :::tip
 To modify the BASE_URL in E2E mode, simply set the environment variable :
 
@@ -95,6 +109,11 @@ export CYPRESS_BASE_URL=http://localhost:4200
 | `env` | Environment variables                                                                                         | Json object containing the properties: <br/> - `TAGS` : To target the [cucumber tags](https://cucumber.io/docs/cucumber/api/?lang=javascript#tags) <br/> - `...` : All [possible properties](https://docs.cypress.io/guides/references/configuration#Global) for cypress |
 | `generateHtmlReport` | When this option is present, an html report of the executed tests will be generated here : `./reports/e2e/html/` | N/A                                                                                                                                                                                                                                                                                    |
 
+</TabItem>
+<TabItem value="playwright" label="Playwright">
 
-### Playwright
 WIP
+
+</TabItem>
+</Tabs>
+

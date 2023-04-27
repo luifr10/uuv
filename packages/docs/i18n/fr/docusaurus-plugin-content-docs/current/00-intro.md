@@ -33,7 +33,7 @@ Dès lors, plusieurs questions complémentaires se posent :
 Pour répondre aux problématiques ci-dessus et bien d'autres, notre solution est de mettre en place un écosystème cohérent s'appuyant sur des outils qui sont des références dans leur domaine.
 
 ## Ecosystème
-![Ecosystème UUV](@site/static/img/docs/uuv-ecosysteme.png)
+![Ecosystème UUV](@site/static/img/docs/ecosystem-uuv.png)
 
 - ### Accessibilité
   - *[Testing Library](https://testing-library.com/docs/)* : Pour effectuer des vérifications de DOM basées [les roles et attributs accessibles](https://www.w3.org/TR/accname-1.1/)

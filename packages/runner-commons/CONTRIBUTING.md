@@ -5,7 +5,7 @@ We try to make it easy, and all contributions, even the smaller ones, are more t
 This includes bug reports, fixes, documentation, examples...
 But first, read this page (including the small print at the end).
 
-Contributions are available on https://github.com/e2e-test-quest/uuv
+Contributions are available on https://gitlab.com/e2e-testing/uuv
 
 ## Legal
 
@@ -61,8 +61,8 @@ To contribute:
 
 1. Create an issue describing the bug or enhancement you want to propose (select the right issue template).
 2. Make sure the issue has been reviewed and agreed.
-3. Create a pull Request, from your **own** fork (see [forking workflow](https://docs.github.com/en/get-started/quickstart/fork-a-repo) documentation).
-   Don't hesitate to mark yourPMR as `Draft` as long as you think it's not ready to be reviewed.
+3. Create a Merge Request, from your **own** fork (see [forking workflow](https://docs.gitlab.com/ee/user/project/repository/forking_workflow.html) documentation).
+   Don't hesitate to mark your MR as `Draft` as long as you think it's not ready to be reviewed.
 
 ### Git Commit Conventions
 
@@ -71,12 +71,11 @@ Git commits in _UUV_ shall be:
 
 1. **atomic** (1 commit `=` 1 and only 1 _thing_),
 2. **semantic** (using [semantic-release commit message syntax](https://semantic-release.gitbook.io/semantic-release/#commit-message-format)).
-3. **pattern**
-   - **SCOPE**: one of (bug, chore, enhancement, documentation)
-   - **ACTION**: close, closes, closed, fix, fixes, fixed, resolve, resolves, resolved
-
-   - **SCOPE**: commit message, **ACTION** #issue_identifier
-   - Example :
+3. **pattern** 
+   - **SCOPE** : one of (UUV, COMMONS, CYPRESS, PLAYWRIGHT, ASSISTANT, EXTENSION, DOCS)
+   - ***TYPE*** : one of (FEAT, FIX, TECH, REFACTOR)
+   - [**SCOPE**] [***TYPE***] #issue_identifier: commit message
+   - Example : 
    ```bash
-   chore: upgrade library @badeball/cypress-cucumber-preprocessor version, fix #51
+   [CYPRESS] [FEAT] #51: upgrade library @badeball/cypress-cucumber-preprocessor version
    ```
