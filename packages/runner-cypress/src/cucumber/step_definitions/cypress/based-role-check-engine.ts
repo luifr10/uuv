@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import {Then, When,} from "@badeball/cypress-cucumber-preprocessor";
+import { Then, When, } from "@badeball/cypress-cucumber-preprocessor";
 import "../../cypress/commands";
 import {
     findWithRoleAndName,
@@ -24,40 +24,40 @@ import {
     notFoundWithRoleAndName,
     withinRoleAndName
 } from "./core-engine";
-import {key} from "@uuv/runner-commons";
+import { key } from "@uuv/runner-commons";
 
-When(`${key.when.withinElement.roleAndName}`, (name: string) => {
+When(`${key.when.withinElement.roleAndName}`, function(name: string) {
     return withinRoleAndName("$roleId", name);
 });
 
-Then(`${key.then.element.withRoleAndName}`, (name: string) => {
+Then(`${key.then.element.withRoleAndName}`, async function(name: string) {
     findWithRoleAndName("$roleId", name);
 });
 
 Then(
     `${key.then.element.not.withRoleAndName}`,
-    (name: string) => {
+    async function(name: string) {
         notFoundWithRoleAndName("$roleId", name);
     }
 );
 
 Then(
     `${key.then.element.withRoleAndNameAndContent}`,
-    (name: string, expectedTextContent: string) => {
+    async function(name: string, expectedTextContent: string) {
         findWithRoleAndNameAndContent("$roleId", name, expectedTextContent);
     }
 );
 
 Then(
     `${key.then.element.withRoleAndNameAndContentDisabled}`,
-    (name: string, expectedTextContent: string) => {
+    async function(name: string, expectedTextContent: string) {
         findWithRoleAndNameAndContentDisable("$roleId", name, expectedTextContent);
     }
 );
 
 Then(
     `${key.then.element.withRoleAndNameAndContentEnabled}`,
-    (name: string, expectedTextContent: string) => {
+    async function(name: string, expectedTextContent: string) {
         findWithRoleAndNameAndContentEnable("$roleId", name, expectedTextContent);
     }
 );

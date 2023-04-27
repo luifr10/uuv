@@ -14,26 +14,26 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import './UuvAssistantComponent.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import {Button, Navbar, OverlayTrigger, Toast, ToastContainer, Tooltip} from "react-bootstrap";
-import {base, Clear, Copy, Select} from "grommet-icons";
+import React from "react";
+import "./UuvAssistantComponent.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Button, Navbar, OverlayTrigger, Toast, ToastContainer, Tooltip } from "react-bootstrap";
+import { base, Clear, Copy, Select } from "grommet-icons";
 import deepmerge from "deepmerge";
-import {ThemeProvider} from "styled-components";
-import {computeAccessibleName, getRole} from "dom-accessibility-api";
+import { ThemeProvider } from "styled-components";
+import { computeAccessibleName, getRole } from "dom-accessibility-api";
 
-const Inspector = require('inspector-dom');
+const Inspector = require("inspector-dom");
 
 const theme = deepmerge(base, {
     global: {
         colors: {
-            brand: 'white',
+            brand: "white",
         },
     },
     icon: {
         size: {
-            medium: '16px',
+            medium: "16px",
         },
     },
 });
@@ -41,7 +41,7 @@ const theme = deepmerge(base, {
 
 interface UuvAssistantState {
     generatedScript?: string;
-    currentAction: 'selection' | 'none';
+    currentAction: "selection" | "none";
     resultCopied: boolean;
 }
 
@@ -53,7 +53,7 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
     private inspector: any;
 
     constructor(props: any) {
-        console.log('constructor: ');
+        console.log("constructor: ");
         super(props);
         this.state = {
             currentAction: "none",
@@ -66,7 +66,7 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
     }
 
     reset() {
-        console.log('reset');
+        console.log("reset");
         this.inspector.cancel();
         this.setState({
             ...this.state,
@@ -89,7 +89,7 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
     }
 
     startSelect() {
-        console.log('startSelect');
+        console.log("startSelect");
         this.inspector.enable();
         this.setState({
             ...this.state,
@@ -99,9 +99,9 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
 
     buildSelector() {
         this.inspector = new Inspector({
-            root: 'body',
-            excluded: ['#uvv-assistant-root'],
-            outlineStyle: '2px solid red',
+            root: "body",
+            excluded: ["#uvv-assistant-root"],
+            outlineStyle: "2px solid red",
             onClick: (el: HTMLElement) => {
                 this.setState({
                     ...this.state,
@@ -132,7 +132,7 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
                     <ToastContainer
                         className="p-3"
                         position="top-end"
-                        style={{zIndex: 1}}
+                        style={{ zIndex: 1 }}
                     >
                         <Toast onClose={() => this.setShowResultCopiedToast(false)} show={this.state.resultCopied}
                                delay={3000} autohide bg="success">
@@ -146,7 +146,7 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
                         <div className="w-100 d-flex flex-row align-items-stretch gap-3 ps-4 pe-4">
                             <div>
                                 <OverlayTrigger
-                                    placement={'top'}
+                                    placement={"top"}
                                     overlay={
                                         <Tooltip>
                                             Annuler
@@ -154,12 +154,12 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
                                     }
                                 >
                                     <Button variant="secondary" className="IconBtn m-1" onClick={this.reset}
-                                            disabled={this.state.currentAction === 'none'}>
+                                            disabled={this.state.currentAction === "none"}>
                                         <Clear color='brand' size='medium'/>
                                     </Button>
                                 </OverlayTrigger>
                                 <OverlayTrigger
-                                    placement={'top'}
+                                    placement={"top"}
                                     overlay={
                                         <Tooltip>
                                             Sélectionner un élément
@@ -167,7 +167,7 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
                                     }
                                 >
                                     <Button variant="primary" className="IconBtn m-1" onClick={this.startSelect}
-                                            disabled={this.state.currentAction === 'selection'}>
+                                            disabled={this.state.currentAction === "selection"}>
                                         <Select color='brand' size='medium'/>
                                     </Button>
                                 </OverlayTrigger>
@@ -184,7 +184,7 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
                             </div>
                             <div>
                                 <OverlayTrigger
-                                    placement={'top'}
+                                    placement={"top"}
                                     overlay={
                                         <Tooltip>
                                             Copier

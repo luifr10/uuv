@@ -15,17 +15,17 @@
  */
 
 import { ByRoleOptions } from "@testing-library/cypress";
-import {Context} from "./_context";
+import { Context } from "./_context";
 import Chainable = Cypress.Chainable;
 
 export const uuvGetContext = (): Chainable<Context> => {
-  return cy.get<Context>('@context');
-}
+  return cy.get<Context>("@context");
+};
 
 export function uuvCheckContextFocusedElement(): Cypress.Chainable<Context> {
-  return cy.get<Context>('@context')
+  return cy.get<Context>("@context")
         .then(context => {
-          console.log('focusedElement: ', context);
+          console.log("focusedElement: ", context);
           if (!context.focusedElement) {
             throw new Error("No element currently selected");
           }
@@ -34,12 +34,12 @@ export function uuvCheckContextFocusedElement(): Cypress.Chainable<Context> {
 }
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
-export function uuvPatchContext(partOfContext: any): Cypress.Chainable<Context>{
-  return cy.get<Context>('@context').then(context => {
+export function uuvPatchContext(partOfContext: any): Cypress.Chainable<Context> {
+  return cy.get<Context>("@context").then(context => {
     cy.wrap({
       ...context,
       ...partOfContext
-    }).as('context');
+    }).as("context");
   });
 }
 
@@ -55,21 +55,21 @@ function addContextOptions(context: Context, roleOptions: any): any {
 /* eslint-disable  @typescript-eslint/ban-types */
 function abstractFindBy(callBackFunction: Function, inputToSearch: any, inputOptions: any) : Cypress.Chainable<JQuery<HTMLElement>> {
   return cy.uuvGetContext().then(context => {
-    console.log('context');
+    console.log("context");
     console.log(context);
     const parentElement = context.focusedElement;
     const options = addContextOptions(context, inputOptions);
 
     if (parentElement) {
-      console.log('parentElement: ', parentElement);
-      return parentElement.should('exist').within(() => {
-        callBackFunction(inputToSearch, options).as('foundedChildElement');
+      console.log("parentElement: ", parentElement);
+      return parentElement.should("exist").within(() => {
+        callBackFunction(inputToSearch, options).as("foundedChildElement");
       });
     }
 
     cy.wrap(null).as("foundedChildElement");
     return callBackFunction(inputToSearch, options);
-  })
+  });
 }
 
 export function uuvFindAllByRole(role: string, roleOptions: ByRoleOptions) : Cypress.Chainable<JQuery<HTMLElement>> {
@@ -100,10 +100,10 @@ export function uuvFindByText(textToSearch: string, roleOptions: ByRoleOptions) 
   return abstractFindBy(
     cy.findByText,
     (content: any, element: any) => {
-      const hasText = (elem: any) => elem.textContent === textToSearch
-      const elementHasText = hasText(element)
-      const childrenDontHaveText = Array.from(element?.children || []).every(child => !hasText(child))
-      return elementHasText && childrenDontHaveText
+      const hasText = (elem: any) => elem.textContent === textToSearch;
+      const elementHasText = hasText(element);
+      const childrenDontHaveText = Array.from(element?.children || []).every(child => !hasText(child));
+      return elementHasText && childrenDontHaveText;
     },
     roleOptions
   );
@@ -118,9 +118,9 @@ export function uuvFindByTestId(testId: string) : Cypress.Chainable<JQuery<HTMLE
 }
 
 export function uuvFoundedElement(subject) : Cypress.Chainable<JQuery<HTMLElement>> {
-  return cy.get('@foundedChildElement')
+  return cy.get("@foundedChildElement")
       .then((response: any) => {
-        return response !== 'empty' && response !== null ? response.foundedChildElement : subject;
+        return response !== "empty" && response !== null ? response.foundedChildElement : subject;
       });
 }
 

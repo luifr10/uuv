@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import {DEFAULT_TIMEOUT} from "@uuv/runner-commons";
-import {IContext} from "@uuv/runner-commons";
-import {Locator} from "playwright";
+import { DEFAULT_TIMEOUT } from "@uuv/runner-commons";
+import { IContext } from "@uuv/runner-commons";
+import { Locator } from "playwright";
 
 export class Context implements IContext {
   public focusedElement ?: Locator;

@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
 import UuvAssistantComponent from "./UuvAssistantComponent";
-import reportWebVitals from './reportWebVitals';
+import reportWebVitals from "./reportWebVitals";
 
 document.addEventListener("UUVAssistantReadyToLoad", (e: any) => {
     console.log("event listened: UUVAssistantReadyToLoad");
     const root = ReactDOM.createRoot(
-        document.getElementById('uvv-assistant-root') as HTMLElement
+        document.getElementById("uvv-assistant-root") as HTMLElement
     );
     root.render(
         <UuvAssistantComponent translator={e.detail.translator}/>

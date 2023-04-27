@@ -69,6 +69,7 @@ build-runner-cypress:
     - npm run nx generate:step-definitions runner-cypress
     - npm run nx generate:step-definitions-documentation runner-cypress
     - npm run nx build runner-cypress
+    - cp ./LICENSE packages/runner-cypress/dist && cp ./CONTRIBUTING.md packages/runner-cypress/dist && cp ./DCO.txt packages/runner-cypress/dist
   needs:
     - install
     - build-runner-commons
@@ -89,6 +90,7 @@ build-assistant:
     - npm run nx react:build assistant
     - npm run nx tsc:build assistant
     - npm run nx conf:build assistant
+    - cp ./LICENSE packages/assistant/dist && cp ./CONTRIBUTING.md packages/assistant/dist && cp ./DCO.txt packages/assistant/dist
   needs:
     - install
   cache:

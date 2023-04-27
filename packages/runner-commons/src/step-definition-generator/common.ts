@@ -16,7 +16,7 @@
 
 import fs from "fs";
 
-export {fs};
+export { fs };
 
 export abstract class GenerateFileProcessing {
     baseDir?: string;
@@ -24,7 +24,7 @@ export abstract class GenerateFileProcessing {
     generatedDir?: string = "";
     protected constructor(baseDir: string, runner: TEST_RUNNER_ENUM, stepDefinitionFileName: STEP_DEFINITION_FILE_NAME) {
         this.baseDir = baseDir;
-        this.stepDefinitionFile = `${this.baseDir}/src/cucumber/step_definitions/${runner.toString()}/${stepDefinitionFileName.toString()}.ts`
+        this.stepDefinitionFile = `${this.baseDir}/src/cucumber/step_definitions/${runner.toString()}/${stepDefinitionFileName.toString()}.ts`;
         this.generatedDir = `${this.baseDir}/src/cucumber/step_definitions/${runner.toString()}/generated`;
     }
     abstract runGenerate();
@@ -49,7 +49,7 @@ export class Common {
             `[CREATE] ${directory} CREATE successfully`
         );
         if (!fs.existsSync(directory)) {
-            fs.mkdirSync(directory, { recursive: true});
+            fs.mkdirSync(directory, { recursive: true });
         }
     }
 
@@ -60,7 +60,7 @@ export class Common {
             fs.rmSync(generatedFile);
             const url = generatedFile.split("/");
             console.log(
-                `[DEL] ${url[url.length-1]} deleted successfully`
+                `[DEL] ${url[url.length - 1]} deleted successfully`
             );
         }
     }
@@ -72,7 +72,7 @@ export class Common {
             fs.rmSync(folder, { recursive: true, force: true });
             const url = folder.split("/");
             console.log(
-                `[DEL] ${url[url.length-1]} deleted successfully`
+                `[DEL] ${url[url.length - 1]} deleted successfully`
             );
         }
     }

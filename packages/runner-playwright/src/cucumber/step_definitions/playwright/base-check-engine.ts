@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import {DEFAULT_TIMEOUT, fs, key} from "@uuv/runner-commons";
-import {checkA11y, injectAxe} from "axe-playwright";
-import {Locator} from "playwright";
-import {devices, expect} from '@playwright/test';
-import {World} from "playwright-bdd";
-import {DataTable} from "@cucumber/cucumber";
+import { DEFAULT_TIMEOUT, fs, key } from "@uuv/runner-commons";
+import { checkA11y, injectAxe } from "axe-playwright";
+import { Locator } from "playwright";
+import { devices, expect } from "@playwright/test";
+import { World } from "playwright-bdd";
+import { DataTable } from "@cucumber/cucumber";
 import {
     addCookieWhenValueIsList,
     COOKIE_NAME, deleteCookieByName,
@@ -36,16 +36,16 @@ import {
     withinRoleAndName
 } from "./core-engine";
 
-const {Given, When, Then} = require("@cucumber/cucumber");
+import { Given, When, Then } from "@cucumber/cucumber";
 
 Given(`${key.given.viewport.preset}`, async function(this: World, viewportPreset: string) {
-    await this.page.setViewportSize(devices[viewportPreset].viewport)
+    await this.page.setViewportSize(devices[viewportPreset].viewport);
 });
 
 Given(
     `${key.given.viewport.withWidthAndHeight}`, async function
     (this: World, width: number, height: number) {
-        await this.page.setViewportSize({width: width, height: height});
+        await this.page.setViewportSize({ width: width, height: height });
     }
 );
 
@@ -55,14 +55,14 @@ Given(`${key.when.visit}`, { timeout: 60 * 1000 }, async function (this: World, 
 });
 
 When(`${key.when.click}`, async function (this: World) {
-    await getPageOrElement(this).then((element: Locator) => element.click({timeout: DEFAULT_TIMEOUT}));
+    await getPageOrElement(this).then((element: Locator) => element.click({ timeout: DEFAULT_TIMEOUT }));
 });
 
 // TODO : permet de gérer les label accessibles donc pas que les aria : https://playwright.dev/docs/api/class-locator#locator-get-by-label
 When(`${key.when.withinElement.ariaLabel}`, async function (this: World, expectedAriaLabel: string) {
     expectedAriaLabel = encodeURIComponent(expectedAriaLabel);
     await getPageOrElement(this).then((element) => expect(element.getByLabel(expectedAriaLabel)).toHaveCount(1));
-    await addCookieWhenValueIsList(this,COOKIE_NAME.SELECTED_ELEMENT, {name: FILTER_TYPE.ARIA_LABEL, value: expectedAriaLabel});
+    await addCookieWhenValueIsList(this, COOKIE_NAME.SELECTED_ELEMENT, { name: FILTER_TYPE.ARIA_LABEL, value: expectedAriaLabel });
 });
 When(`${key.when.resetContext}`, async function (this: World) {
     await this.context.clearCookies();
@@ -70,12 +70,12 @@ When(`${key.when.resetContext}`, async function (this: World) {
 
 When(`${key.when.withinElement.selector}`, async function (this: World, selector: string) {
     await getPageOrElement(this).then((element) => expect(element.locator(selector)).toHaveCount(1));
-    await addCookieWhenValueIsList(this, COOKIE_NAME.SELECTED_ELEMENT, {name: FILTER_TYPE.SELECTOR, value: selector});
+    await addCookieWhenValueIsList(this, COOKIE_NAME.SELECTED_ELEMENT, { name: FILTER_TYPE.SELECTOR, value: selector });
 });
 
 When(`${key.when.type}`, async function (this: World, textToType: string) {
     await getPageOrElement(this).then(async (element: Locator) => {
-        await element.focus({timeout: 10000});
+        await element.focus({ timeout: 10000 });
         await element.fill(textToType);
          // console.debug(await showAttributesInLocator(element));
     });
@@ -93,14 +93,14 @@ When(`${key.when.withinElement.roleAndName}`, async function (this: World, role:
 When(`${key.when.withinElement.testId}`, async function (this: World, testId: string) {
     testId = encodeURIComponent(testId);
     await getPageOrElement(this).then(async (element) => await expect(element.getByTestId(testId)).toHaveCount(1));
-    await addCookieWhenValueIsList(this, COOKIE_NAME.SELECTED_ELEMENT, {name: FILTER_TYPE.TEST_ID, value: testId});
+    await addCookieWhenValueIsList(this, COOKIE_NAME.SELECTED_ELEMENT, { name: FILTER_TYPE.TEST_ID, value: testId });
 });
 
 
 When(
     `${key.when.mock.withBody}`,
     async function (this: World, verb: string, url: string, name: string, body: any) {
-        await addCookieWhenValueIsList(this, COOKIE_NAME.MOCK_URL, {name: name, url: url});
+        await addCookieWhenValueIsList(this, COOKIE_NAME.MOCK_URL, { name: name, url: url });
         await this.page.route(url, async route => {
             const json = body;
             await route.fulfill({ json });
@@ -111,7 +111,7 @@ When(
 When(
     `${key.when.mock.withStatusCode}`,
     async function (this: World, verb: string, url: string, name: string, statusCode: number) {
-        await addCookieWhenValueIsList(this, COOKIE_NAME.MOCK_URL, {name: name, url: url});
+        await addCookieWhenValueIsList(this, COOKIE_NAME.MOCK_URL, { name: name, url: url });
         await this.page.route(url, async route => {
             await route.fulfill({ status: statusCode });
         });
@@ -121,7 +121,7 @@ When(
 When(
     `${key.when.mock.withFixture}`,
     async function (this: World, verb: string, url: string, name: string, fixture: any) {
-        await addCookieWhenValueIsList(this, COOKIE_NAME.MOCK_URL, {name: name, url: url});
+        await addCookieWhenValueIsList(this, COOKIE_NAME.MOCK_URL, { name: name, url: url });
         const data = await fs.readFileSync(`playwright/fixtures/${fixture}`);
         await this.page.route(url, async route => {
             await route.fulfill({ body: data });
@@ -138,7 +138,7 @@ When(
     async function (this: World, url: string, method: string, headersToSet: DataTable) {
         await this.page.route(url, async route => {
             const headers = route.request().headers();
-            await route.continue({ headers: {...headers, ...headersToSet.rowsHash() }});
+            await route.continue({ headers: { ...headers, ...headersToSet.rowsHash() } });
         });
     }
 );
@@ -148,7 +148,7 @@ When(
     async function (this: World, url: string, headersToSet: DataTable) {
         await this.page.route(url, async route => {
             const headers = route.request().headers();
-            await route.continue({ headers: {...headers, ...headersToSet.rowsHash() }});
+            await route.continue({ headers: { ...headers, ...headersToSet.rowsHash() } });
         });
     }
 );
@@ -159,21 +159,21 @@ Then(`${key.then.element.withRoleAndName}`, async function (this: World, role: s
 
 Then(`${key.then.element.withContent}`, async function (this: World, textContent: string) {
     // TODO partie pris de faire en exactitude. A voir si on doit faire 2 phrases https://playwright.dev/docs/api/class-locator#locator-get-by-text
-    await getPageOrElement(this).then((element) => expect(element.getByText(textContent, {exact: true})).toHaveCount(1));
+    await getPageOrElement(this).then((element) => expect(element.getByText(textContent, { exact: true })).toHaveCount(1));
 });
 
 Then(`${key.then.element.not.withContent}`, async function(this: World, textContent: string) {
-    await getPageOrElement(this).then((element) => expect(element.getByText(textContent, {exact: true})).toHaveCount(0));
+    await getPageOrElement(this).then((element) => expect(element.getByText(textContent, { exact: true })).toHaveCount(0));
 });
 
 Then(`${key.then.element.withTestId}`, async function(this: World, testId: string) {
     testId = encodeURIComponent(testId);
-    await getPageOrElement(this).then((element) => expect(element.getByTestId(testId, {exact: true})).toHaveCount(1));
+    await getPageOrElement(this).then((element) => expect(element.getByTestId(testId, { exact: true })).toHaveCount(1));
 });
 
 Then(`${key.then.element.not.withTestId}`, async function(this: World, testId: string) {
     testId = encodeURIComponent(testId);
-    await getPageOrElement(this).then((element) => expect(element.getByTestId(testId, {exact: true})).toHaveCount(0));
+    await getPageOrElement(this).then((element) => expect(element.getByTestId(testId, { exact: true })).toHaveCount(0));
 });
 
 Then(
@@ -233,7 +233,7 @@ Then(`${key.then.wait.mock}`, async function(this: World, name: string) {
     const cookie = await getCookie(this, COOKIE_NAME.MOCK_URL);
     const mockUrls: MockType[] = JSON.parse(cookie.value);
     const mockUrl: MockType | undefined = mockUrls.find(mock => mock.name === name);
-    await expect(mockUrl).not.toBeUndefined;
+    await expect(mockUrl).not.toBeUndefined();
     const requestPromise = await this.page.waitForResponse(mockUrl?.url);
     const request = await requestPromise;
     await deleteCookieByValue(this, COOKIE_NAME.MOCK_URL, mockUrl);
@@ -265,7 +265,7 @@ Then(
         await withinRoleAndName(this, "list", expectedListName);
         await getPageOrElement(this).then(async (element) => {
             const listitem = await element.getByRole("listitem").all();
-            let foundedElement: any[] = [];
+            const foundedElement: any[] = [];
             for (const element of listitem) {
                 const textContent = await element.textContent();
                 foundedElement.push([textContent]);
@@ -277,6 +277,5 @@ Then(
         });
     }
 );
-
 
 

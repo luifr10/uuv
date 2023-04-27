@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import {When} from "@cucumber/cucumber";
-import {World} from "playwright-bdd";
+import { When } from "@cucumber/cucumber";
+import { World } from "playwright-bdd";
 
-When('je suis une phrase custom qui vérifie l\'existence d\'un noeud par le sélecteur {string}', async function (this: World, selector: string) {
+When("je suis une phrase custom qui vérifie l'existence d'un noeud par le sélecteur {string}", async function (this: World, selector: string) {
     await this.page.locator(selector);
 });
 

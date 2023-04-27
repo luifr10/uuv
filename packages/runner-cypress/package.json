@@ -13,14 +13,29 @@
   "bin": {
     "uuv": "./dist/lib/uuv-cli.js"
   },
-  "keywords": [ "uuv", "UUV" ,"E2E", "test", "testing", "cypress", "testing-library", "cucumber", "gherkin"],
+  "keywords": [
+    "uuv",
+    "UUV",
+    "E2E",
+    "end-to-end",
+    "test",
+    "testing",
+    "cypress",
+    "testing-library",
+    "accessibility",
+    "accessibilité",
+    "a11y",
+    "cucumber",
+    "gherkin"
+  ],
   "scripts": {
     "generate:step-definitions": "ts-node generate-step-definitions.ts",
     "generate:step-definitions-documentation": "ts-node generate-step-definitions-documentation.ts",
     "package": "npm pack --pack-destination=\"../../dist/packages\"",
     "postinstall": "node postinstall.js",
     "test:run": "node test.js --run",
-    "test:open": "node test.js --open"
+    "test:open": "node test.js --open",
+    "test": "npm run test:run"
   },
   "dependencies": {
     "@badeball/cypress-cucumber-preprocessor": "16.0.3",
@@ -76,6 +91,7 @@
     "@types/minimist": "1.2.2",
     "@types/node": "18.15.11",
     "cross-env": "7.0.3",
+    "eslint-plugin-cypress": "2.13.2",
     "serve-handler": "6.1.5",
     "ts-loader": "9.4.2",
     "tsconfig-paths": "4.2.0",

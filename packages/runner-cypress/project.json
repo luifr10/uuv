@@ -35,7 +35,9 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["packages/runner-cypress/src/**/*.ts"]
+        "lintFilePatterns": ["packages/runner-cypress/src/**/*.{ts,js,feature}"],
+        "fix": true,
+        "eslintConfig": "packages/runner-cypress/.eslintrc.json"
       }
     }
   },

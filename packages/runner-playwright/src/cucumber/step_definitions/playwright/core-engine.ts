@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import {World} from "playwright-bdd";
-import {BrowserContext, expect} from "@playwright/test";
+import { World } from "playwright-bdd";
+import { BrowserContext, expect } from "@playwright/test";
 import assert from "assert";
-import {Cookie, Locator, Page} from "playwright";
-import {escape} from "querystring";
+import { Cookie, Locator, Page } from "playwright";
+import { escape } from "querystring";
 
 export enum COOKIE_NAME {
     SELECTED_ELEMENT="selectedElement",
@@ -39,7 +39,7 @@ export enum FILTER_TYPE {
 export type MockType = {name; string, url: any}
 export type FilterType = {name: FILTER_TYPE, value: any}
 
-export async function getPageOrElement(world: World): Promise<any>{
+export async function getPageOrElement(world: World): Promise<any> {
     let pointer: Locator | Page = world.page;
    await getCookie(world, COOKIE_NAME.SELECTED_ELEMENT).then(async cookie => {
         // console.debug("cookieGetPageOrElement", cookie)
@@ -55,7 +55,7 @@ export async function getPageOrElement(world: World): Promise<any>{
                         pointer = pointer.getByLabel(filter.value);
                         break;
                     case FILTER_TYPE.ROLE:
-                        pointer = pointer.getByRole(filter.value, {includeHidden: true});
+                        pointer = pointer.getByRole(filter.value, { includeHidden: true });
                         break;
                     case FILTER_TYPE.TEST_ID:
                         pointer = pointer.getByTestId(filter.value);
@@ -70,7 +70,7 @@ export async function getPageOrElement(world: World): Promise<any>{
                 await expect(pointer as Locator).toHaveCount(1);
             }
         }
-    })
+    });
     return pointer;
 }
 export async function addCookieWhenValueIsList(world: World, cookieName: COOKIE_NAME, value: any) {
@@ -79,12 +79,12 @@ export async function addCookieWhenValueIsList(world: World, cookieName: COOKIE_
     const cookie = await getCookie(world, cookieName);
     if (cookie.value !== COOKIE_VALUE.NOT_EXIST.toString()) {
         // console.debug("cookieValue", cookie.value);
-        let cookieValue: any[] = JSON.parse(cookie.value);
+        const cookieValue: any[] = JSON.parse(cookie.value);
         cookieValue.push(value);
         // console.debug("cookieValueJSON", JSON.stringify(cookieValue));
-        await world.context.addCookies([{name: cookieNameStr, value:JSON.stringify(cookieValue), path: "/", domain: ".gitlab.com"}]);
+        await world.context.addCookies([{ name: cookieNameStr, value: JSON.stringify(cookieValue), path: "/", domain: ".gitlab.com" }]);
     } else {
-        await world.context.addCookies([{name: cookieNameStr, value:`[${JSON.stringify(value)}]`, path: "/", domain: ".gitlab.com"}]);
+        await world.context.addCookies([{ name: cookieNameStr, value: `[${JSON.stringify(value)}]`, path: "/", domain: ".gitlab.com" }]);
     }
 }
 export async function getCookie(world: World, cookieName: COOKIE_NAME) {
@@ -113,36 +113,36 @@ export async function deleteCookieByValue(world: World, cookieName: COOKIE_NAME,
         .map((cookie) => {
             if (cookie.name === `${cookieName.toString()}_${world.testInfo.testId}`) {
                 const mocks: [] = JSON.parse(cookie.value);
-                mocks.filter(mock => mock[0] !== node[0] && mock[1] !== node[1])
+                mocks.filter(mock => mock[0] !== node[0] && mock[1] !== node[1]);
             }
             return cookie;
-        })
+        });
 
-    await world.context.clearCookies()
-    await world.context.addCookies(filteredCookies)
+    await world.context.clearCookies();
+    await world.context.addCookies(filteredCookies);
 }
 export async function deleteCookieByName(world: World, cookieName: COOKIE_NAME) {
     const filteredCookies = (await world.context
         .cookies())
-        .filter((cookie) => cookie.name !== `${cookieName.toString()}_${world.testInfo.testId}`)
+        .filter((cookie) => cookie.name !== `${cookieName.toString()}_${world.testInfo.testId}`);
 
-    await world.context.clearCookies()
-    await world.context.addCookies(filteredCookies)
+    await world.context.clearCookies();
+    await world.context.addCookies(filteredCookies);
 }
 
 export async function findWithRoleAndName(world: World, role: string, name: string) {
-    await findWithRoleAndNameAndContent(world, role, name)
+    await findWithRoleAndNameAndContent(world, role, name);
 }
 
 export async function withinRoleAndName(world: World, role: string, name: string) {
     await findWithRoleAndNameAndContent(world, role, name);
-    await addCookieWhenValueIsList(world ,COOKIE_NAME.SELECTED_ELEMENT, {name: FILTER_TYPE.SELECTOR, value: `role=${role}[name="${name}"]`});
+    await addCookieWhenValueIsList(world, COOKIE_NAME.SELECTED_ELEMENT, { name: FILTER_TYPE.SELECTOR, value: `role=${role}[name="${name}"]` });
 
 }
 
 export async function notFoundWithRoleAndName(world: World, role: string, name: string) {
     role = encodeURIComponent(role);
-    await getPageOrElement(world).then(async (element) => await expect(element.getByRole(role, {name: name, includeHidden: true})).toHaveCount(0));
+    await getPageOrElement(world).then(async (element) => await expect(element.getByRole(role, { name: name, includeHidden: true })).toHaveCount(0));
 
 }
 
@@ -150,7 +150,7 @@ export async function findWithRoleAndNameAndContent(world: World, expectedRole: 
     expectedRole = encodeURIComponent(expectedRole);
     await getPageOrElement(world).then(async (element) => {
            // console.log("final:",expectedRole,name)
-           const byRole = await element.getByRole(expectedRole, {name: name, includeHidden : true});
+           const byRole = await element.getByRole(expectedRole, { name: name, includeHidden: true });
            await expect(byRole).toHaveCount(1);
         if (expectedTextContent !== undefined) {
              await checkTextContentLocator(byRole, expectedTextContent);
@@ -161,17 +161,18 @@ export async function findWithRoleAndNameAndContent(world: World, expectedRole: 
 export async function findWithRoleAndNameAndContentDisable(world: World, expectedRole: string, name: string, expectedTextContent: string) {
     expectedRole = encodeURIComponent(expectedRole);
     await getPageOrElement(world).then(async(element) => {
-        const byRole = await element.getByRole(expectedRole, {name: name, includeHidden: true});
-        await expect(byRole).toHaveCount(1)
+        const byRole = await element.getByRole(expectedRole, { name: name, includeHidden: true });
+        await expect(byRole).toHaveCount(1);
         await checkTextContentLocator(byRole, expectedTextContent);
         await expect(byRole).toBeDisabled();
-    });}
+    });
+}
 
 export async function findWithRoleAndNameAndContentEnable(world: World, expectedRole: string, name: string, expectedTextContent: string) {
     expectedRole = encodeURIComponent(expectedRole);
     await getPageOrElement(world).then(async (element) => {
-        const byRole = element.getByRole(expectedRole, {name: name, includeHidden: true});
-        await expect(byRole).toHaveCount(1)
+        const byRole = element.getByRole(expectedRole, { name: name, includeHidden: true });
+        await expect(byRole).toHaveCount(1);
         await checkTextContentLocator(byRole, expectedTextContent);
         await expect(byRole).toBeEnabled();
     });
@@ -194,23 +195,23 @@ export async function checkTextContentLocator(locator: Locator, expectedTextCont
    // await showAttributesInLocator(locator);
     try {
         await expect(locator).toHaveValue(expectedTextContent);
-    } catch (err){
+    } catch (err) {
         console.error("No value found for locator: ", locator);
         try {
             await expect(await locator.getAttribute("value")).toBe(expectedTextContent);
-        } catch (err){
+        } catch (err) {
             console.error("No attribute value found for locator: ", locator);
             try {
-                if ("true"){
+                if (expectedTextContent === "true") {
                     await expect(locator).toBeChecked();
                 } else {
                     await expect(locator).not.toBeChecked();
                 }
-            } catch (err){
+            } catch (err) {
                 console.error("Can't verify check for locator: ", locator);
                 try {
                     await expect(locator).toHaveText(expectedTextContent);
-                } catch (err){
+                } catch (err) {
                     console.error("No text found for locator: ", locator);
                     throw new Error(`Content '${expectedTextContent}' isn't present in locator '${locator}'`);
                 }

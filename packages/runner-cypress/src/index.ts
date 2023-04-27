@@ -1,1 +1,1 @@
-export {setupNodeEvents} from "./cypress/cypress.config";
+export { setupNodeEvents } from "./cypress/cypress.config";
