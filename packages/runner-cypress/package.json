@@ -91,7 +91,7 @@
     "@types/minimist": "1.2.2",
     "@types/node": "18.15.11",
     "cross-env": "7.0.3",
-    "eslint-plugin-cypress": "2.13.2",
+    "eslint-plugin-cypress": "2.13.3",
     "serve-handler": "6.1.5",
     "ts-loader": "9.4.2",
     "tsconfig-paths": "4.2.0",
