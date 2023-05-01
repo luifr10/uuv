@@ -26,7 +26,8 @@
     -->
     <script>
       document.addEventListener("DOMContentLoaded", () => {
-        const event = new CustomEvent('UUVAssistantReadyToLoad', {detail: {translator: () => {return 'toto'}}});
+        // const event = new CustomEvent('UUVAssistantReadyToLoad', {detail: {translator: () => {return 'toto'}}});
+        const event = new Event('UUVAssistantReadyToLoad');
         document.dispatchEvent(event);
       });
     </script>
