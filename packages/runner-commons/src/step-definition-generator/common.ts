@@ -22,19 +22,23 @@ export abstract class GenerateFileProcessing {
     baseDir?: string;
     stepDefinitionFile?: string = "";
     generatedDir?: string = "";
+
     protected constructor(baseDir: string, runner: TEST_RUNNER_ENUM, stepDefinitionFileName: STEP_DEFINITION_FILE_NAME) {
         this.baseDir = baseDir;
         this.stepDefinitionFile = `${this.baseDir}/src/cucumber/step_definitions/${runner.toString()}/${stepDefinitionFileName.toString()}.ts`;
         this.generatedDir = `${this.baseDir}/src/cucumber/step_definitions/${runner.toString()}/generated`;
     }
-    abstract runGenerate();
+
+    abstract runGenerate(): void;
+
     abstract generateWordingFiles(generatedFile: string,
-                         lang: string);
+                                  lang: string);
+
     abstract computeWordingFile(data: string, wordingFile: string);
 }
 
 export enum TEST_RUNNER_ENUM {
-    CYPRESS= "cypress",
+    CYPRESS = "cypress",
     PLAYWRIGHT = "playwright"
 }
 
@@ -46,7 +50,7 @@ export enum STEP_DEFINITION_FILE_NAME {
 export class Common {
     static buildDirIfNotExists(directory: string): void {
         console.log(
-            `[CREATE] ${directory} CREATE successfully`
+          `[CREATE] ${directory} CREATE successfully`
         );
         if (!fs.existsSync(directory)) {
             fs.mkdirSync(directory, { recursive: true });
@@ -54,36 +58,36 @@ export class Common {
     }
 
     static cleanGeneratedFilesIfExists(
-        generatedFile: string,
+      generatedFile: string
     ): void {
         if (fs.existsSync(generatedFile)) {
             fs.rmSync(generatedFile);
             const url = generatedFile.split("/");
             console.log(
-                `[DEL] ${url[url.length - 1]} deleted successfully`
+              `[DEL] ${url[url.length - 1]} deleted successfully`
             );
         }
     }
 
     static cleanFolderIfExists(
-        folder: string,
+      folder: string
     ): void {
         if (fs.existsSync(folder)) {
             fs.rmSync(folder, { recursive: true, force: true });
             const url = folder.split("/");
             console.log(
-                `[DEL] ${url[url.length - 1]} deleted successfully`
+              `[DEL] ${url[url.length - 1]} deleted successfully`
             );
         }
     }
 
     static writeWordingFile(
-        generatedFile: string,
-        data: string
+      generatedFile: string,
+      data: string
     ): void {
         fs.writeFileSync(generatedFile, data);
         console.log(
-            `[WRITE] ${generatedFile} written successfully`
+          `[WRITE] ${generatedFile} written successfully`
         );
     }
 }
