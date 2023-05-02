@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import React from "react";
+import React, { useState } from "react";
 import "./UuvAssistantComponent.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Button, Navbar, OverlayTrigger, Toast, ToastContainer, Tooltip } from "react-bootstrap";
+import { Button, Form, Navbar, OverlayTrigger, Toast, ToastContainer, Tooltip } from "react-bootstrap";
 import { base, Clear, Copy, Select } from "grommet-icons";
 import deepmerge from "deepmerge";
 import { ThemeProvider } from "styled-components";
-import { TranslateHelper } from "./helper/TranslateHelper";
+import { CheckActionEnum, TranslateHelper } from "./helper/TranslateHelper";
 
 const Inspector = require("inspector-dom");
 
@@ -42,6 +42,7 @@ interface UuvAssistantState {
   generatedScript?: string;
   currentAction: "selection" | "none";
   resultCopied: boolean;
+  checkAction: string;
 }
 
 interface UuvAssistantProps {
@@ -57,7 +58,8 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
     super(props);
     this.state = {
       currentAction: "none",
-      resultCopied: false
+      resultCopied: false,
+      checkAction: CheckActionEnum.EXPECT
     };
     this.reset = this.reset.bind(this);
     this.startSelect = this.startSelect.bind(this);
@@ -70,7 +72,8 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
     this.inspector.cancel();
     this.setState({
       ...this.state,
-      currentAction: "none"
+      currentAction: "none",
+      checkAction: CheckActionEnum.EXPECT
     });
   }
 
@@ -119,7 +122,7 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
     console.debug("translator,", this.props.translator);
     return this.props.translator
       ? Promise.resolve(this.props.translator(el))
-      : TranslateHelper.translateEngine(el);
+      : TranslateHelper.translateEngine(el, this.state.checkAction);
   }
 
   componentDidMount() {
@@ -131,6 +134,13 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
   }
 
   render() {
+
+    const handleSelectCheckActionChange: React.ChangeEventHandler<HTMLSelectElement> = (event) => {
+      this.setState({ ...this.state,
+        checkAction: event.target.value });
+    };
+
+    const { checkAction } = this.state;
     return (
       <div className='App'>
         <ThemeProvider theme={theme}>
@@ -183,6 +193,17 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
               <div className={"flex-grow-1 d-flex flex-row align-items-center"}>
                 <span className='GeneratedScriptLabel'>Result :</span>
                 <span className='GeneratedScript ms-3'>{this.state.generatedScript}</span>
+              </div>
+              <div>
+                <div className='vr'></div>
+              </div>
+              <div>
+                <Form>
+                  <Form.Select className='mt-1' size='sm' aria-label='action' value={checkAction} onChange={handleSelectCheckActionChange}>
+                    <option value={CheckActionEnum.EXPECT.toString()}>{CheckActionEnum.EXPECT.toString()}</option>
+                    <option value={CheckActionEnum.WITHIN.toString()}>{CheckActionEnum.WITHIN.toString()}</option>
+                  </Form.Select>
+                </Form>
               </div>
               <div>
                 <div className='vr'></div>

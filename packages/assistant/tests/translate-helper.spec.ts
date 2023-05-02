@@ -1,15 +1,16 @@
-import { TranslateHelper } from "../src/helper/TranslateHelper";
-import { fs } from "@uuv/runner-commons";
-import { JSDOM } from "jsdom";
+import { CheckActionEnum, TranslateHelper } from "../src/helper/TranslateHelper";
 
-// describe("translateEngine", () => {
-//
-// const html = fs.readFileSync("../public/index.html");
-//   const dom = new JSDOM(html);
-//   const document = dom.window.document;
-//   test("translateEngine with role, name and content", () => {
-//     const element = document.querySelector("[id='lname']");
-//     expect(TranslateHelper.translateEngine(element as HTMLElement)).toEqual(
-//       "I should see an element with role \"textbox\" and name \"Last name\" and content \"Doe\"");
-//   });
-// });
+describe("translateEngine", () => {
+  // const rootElement = document.createElement("div");
+  // rootElement.id = "myDiv";
+  // const button = document.createElement("button");
+  // button.id = "myButton";
+  // button.textContent = "myTextButton";
+  // button.setAttribute("name", "myButton");
+  // rootElement.appendChild(button);
+  // document.body.appendChild(rootElement);
+  // test("translateEngine with role, name and content", () => {
+  //   expect(TranslateHelper.translateEngine(button, CheckActionEnum.EXPECT)).toEqual(
+  //     "I should see a button named \"myButton\" and containing \"myTextButton\"");
+  // });
+});

@@ -37,6 +37,11 @@ export type EnrichedSentence = {
   wording: string;
 }
 
+export enum CheckActionEnum {
+  WITHIN = "Within", EXPECT = "Expect"
+}
+
+
 export class TranslateHelper {
   private static getSelector(element: any) {
     const path: string[] = [];
@@ -69,7 +74,7 @@ export class TranslateHelper {
     return path.join(">");
   }
 
-  private static getData(file) {
+  private static getData(file: string) {
     return fetch(file, {
         headers: {
           "Content-Type": "application/json",
@@ -79,15 +84,21 @@ export class TranslateHelper {
     );
   }
 
-  public static async translateEngine(htmlElem: HTMLElement): Promise<string> {
+  public static async translateEngine(htmlElem: HTMLElement, checkAction: string): Promise<string> {
     let json: any;
     let sentence: "No sentence found";
     await this.getData("en.json")
       .then((response) => response.json())
       .then((data) => json = data
       );
+    let computedKey = "";
+    if (checkAction === CheckActionEnum.EXPECT) {
+      computedKey = "key.then.element.withSelector";
+    } else if (checkAction === CheckActionEnum.WITHIN) {
+      computedKey = "key.when.withinElement.selector";
+    }
     sentence = await json
-      .filter((el: BaseSentence) => el.key === "key.then.element.withSelector")
+      .filter((el: BaseSentence) => el.key === computedKey)
       .map((el: BaseSentence) =>
         el.wording.replace("{string}", `"${this.getSelector(htmlElem)}"`)
       )[0];
@@ -101,9 +112,12 @@ export class TranslateHelper {
         .then((data: EnrichedSentenceWrapper) => {
           jsonEnriched = data;
         });
-
-
-      sentence = jsonEnriched.enriched.filter(value => value.key === "key.then.element.withRoleAndName").map(enriched => {
+      if (checkAction === CheckActionEnum.EXPECT) {
+        computedKey = "key.then.element.withRoleAndName";
+      } else if (checkAction === CheckActionEnum.WITHIN) {
+        computedKey = "key.when.withinElement.roleAndName";
+      }
+      sentence = jsonEnriched.enriched.filter((value: EnrichedSentence) => value.key === computedKey).map((enriched: EnrichedSentence) => {
         const sentenceAvailable = enriched.wording;
         const role = jsonEnriched.role.filter((role: EnrichedSentenceRole) => role.id === accessibleRole)[0];
         return sentenceAvailable
@@ -112,7 +126,12 @@ export class TranslateHelper {
           .replace("{string}", `"${accessibleName}"`);
       })[0];
       if (content) {
-        sentence = jsonEnriched.enriched.filter(value => value.key === "key.then.element.withRoleAndNameAndContent").map(enriched => {
+        if (checkAction === CheckActionEnum.EXPECT) {
+          computedKey = "key.then.element.withRoleAndNameAndContent";
+        } else if (checkAction === CheckActionEnum.WITHIN) {
+          computedKey = "key.when.withinElement.roleAndName";
+        }
+        sentence = jsonEnriched.enriched.filter((value: EnrichedSentence) => value.key === computedKey).map((enriched: EnrichedSentence) => {
           const sentenceAvailable = enriched.wording;
           const role = jsonEnriched.role.filter((role: EnrichedSentenceRole) => role.id === accessibleRole)[0];
           return sentenceAvailable
