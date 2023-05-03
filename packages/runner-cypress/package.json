@@ -63,7 +63,8 @@
     "dist/index.d.ts",
     "dist/index.js",
     "postinstall.js",
-    "target-config/**/*"
+    "target-config/**/*",
+    "src/cucumber/step_definitions/cypress/generated/**/*"
   ],
   "exports": {
     ".": {
