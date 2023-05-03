@@ -9,28 +9,26 @@ import TabItem from '@theme/TabItem';
 <TabItem value="cypress" label="Cypress">
 
 :::tip
-Modifier l'url, changer le paramètre `e2e.baseUrl` dans le fichier `uuv/cypress.config.ts` afin de renseigner l'url
-cible.
+Pour modifier l'url, changer le paramètre `e2e.baseUrl` dans le fichier `uuv/cypress.config.ts` afin de renseigner l'url cible.
 :::
 
 </TabItem>
 <TabItem value="playwright" label="Playwright">
 
 :::tip
-[WIP] Modifier l'url, changer le paramètre `e2e.baseUrl` dans le fichier `uuv/cypress.config.ts` afin de renseigner l'url
-    cible.
+Pour modifier l'url, changer le paramètre `use.baseURL` dans le fichier `uuv/playwright.config.ts` afin de renseigner l'url cible.
 :::
 
 </TabItem>
 </Tabs>
 
-Depuis powershell ou un terminal cmd **en mode non-administrateur** :
+Depuis powershell ou un terminal cmd  :
 
 <Tabs>
 <TabItem value="Npm" label="Npm">
 
 ```shell
-npm run uuv open
+npx uuv open
 ```
 
 </TabItem>
@@ -45,20 +43,20 @@ yarn uuv open
 
 ## Exécution des tests E2E depuis la console
 
-Depuis powershell ou un terminal cmd **en mode non-administrateur** :
+Depuis powershell ou un terminal cmd :
 
 
 <Tabs>
 <TabItem value="Npm" label="Npm">
 
 ```shell
-npm run uuv e2e
+npx uuv e2e
 ```
 
 Avec des arguments
 
 ```shell
-npm run uuv e2e -- --browser=edge --env="{'TAGS':'@mobile'}" --generateHtmlReport
+npx run uuv e2e --browser=edge --env="{'TAGS':'@mobile'}" --generateHtmlReport
 ```
 
 </TabItem>
@@ -71,11 +69,13 @@ yarn uuv e2e
 Avec des arguments
 
 ```shell
-yarn uuv e2e -- --browser=edge --env="{'TAGS':'@mobile'}" --generateHtmlReport
+yarn uuv e2e --browser=edge --env="{'TAGS':'@mobile'}" --generateHtmlReport
 ```
 
 </TabItem>
 </Tabs>
+
+### Arguments
 
 <Tabs>
 <TabItem value="cypress" label="Cypress">
@@ -100,8 +100,6 @@ export CYPRESS_BASE_URL=http://localhost:4200
 </TabItem>
 </Tabs>
 :::
-
-#### Arguments
 
 | Nom     | Description                                                                                                   | Valeur                                                                                                                                                                                                                                                                               |
 |---------|---------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|

@@ -4,10 +4,44 @@ WIP
 
 ### Why is it better to use accessible attributes to look for elements in the DOM?
 
-### Why Cypress and not Playwright?
-- Debugger
-- Documentation
+### Cannot run the tests normally ?
 
-### Why not use Cypress ?
+<Tabs>
+<TabItem value="cypress" label="Cypress">
 
-### What does UUV bring concretely ?
+:::info
+This step is only necessary if you have chosen the `Cypress` runner and you cannot [run the tests normally](/docs/test/running-test).
+:::
+Edit the `package.json` file to add the following line in the script section :
+
+```json title='package.json'
+{
+...
+    "scripts": {
+        "...
+        "uuv": "node node_modules/@uuv/cypress/dist/lib/uuv-cli.js"
+    },
+  ...
+}
+```
+
+</TabItem>
+<TabItem value="playwright" label="Playwright">
+:::info
+This step is only necessary if you have chosen the `Playwright` runner and you cannot [run the tests normally](/docs/test/running-test).
+:::
+Edit the `package.json` file to add the following line in the script section :
+
+```json title='package.json'
+{
+...
+    "scripts": {
+        "...
+        "uuv": "node node_modules/@uuv/playwright/dist/lib/uuv-cli.js"
+    },
+  ...
+}
+```
+
+</TabItem>
+</Tabs>

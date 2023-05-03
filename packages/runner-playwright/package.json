@@ -10,6 +10,9 @@
     "url": "https://github.com/e2e-test-quest/uuv"
   },
   "homepage": "https://e2e-test-quest.github.io/uuv/",
+  "bin": {
+    "uuv": "bin/uuv"
+  },
   "keywords": [
     "uuv",
     "UUV",
@@ -29,17 +32,20 @@
     "package": "npm pack --pack-destination=\"../../dist/packages\"",
     "postinstall": "node postinstall.js",
     "serverTest:run": "ts-node playwright/run-test-app.ts 9002",
-    "test:run": "npx bddgen -o tests/.features-gen && ts-node playwright/translate-features.ts && npx playwright test",
+    "test:run": "ts-node test.ts --run",
+    "test:open": "ts-node test.ts --open",
     "test:alone:run": "npx playwright test",
     "test": "npm run test:run"
   },
   "dependencies": {
+    "@cucumber/cucumber": "9.1.0",
+    "@playwright/test": "1.33.0",
     "@uuv/runner-commons": "1.2.0-beta-20230424",
     "axe-core": "4.7.0",
+    "axe-playwright": "1.2.3",
     "chalk": "4.1.2",
     "cucumber-json-report-formatter": "0.1.4",
     "figlet": "1.6.0",
-    "is-admin": "2.1.1",
     "minimist": "1.2.8",
     "multiple-cucumber-html-reporter": "3.3.0",
     "ts-node": "10.9.1",
@@ -49,39 +55,25 @@
   "main": "./dist/index.js",
   "files": [
     "dist/**/*",
+    "bin/**/*",
     "postinstall.js",
-    "target-config/**/*"
+    "target-config/**/*",
+    "src/cucumber/step_definitions/playwright/generated/**/*"
   ],
   "exports": {
     ".": {
       "import": "./dist/index.js",
       "require": "./dist/index.js",
       "types": "./dist/index.d.ts"
-    },
-    "./cypress/playwright.config": {
-      "import": "./dist/playwright/playwright.config.js",
-      "require": "./dist/playwright/playwright.config.js",
-      "types": "./dist/playwright/playwright.config.d.ts"
-    },
-    "./cucumber/step_definitions": {
-      "import": "./dist/cucumber/step_definitions/**/*.js",
-      "require": "./dist/cucumber/step_definitions/**/*.js",
-      "types": "./dist/cucumber/step_definitions/**/*.d.ts"
     }
   },
   "devDependencies": {
-    "@cucumber/cucumber": "9.1.0",
-    "@playwright/test": "1.33.0",
     "@types/minimist": "1.2.2",
     "@types/node": "18.15.11",
-    "axe-playwright": "1.2.3",
     "cross-env": "7.0.3",
     "eslint-plugin-cucumber": "2.0.0",
     "eslint-plugin-jest": "27.2.1",
     "eslint-plugin-playwright": "0.12.0",
-    "playwright": "1.33.0",
-    "playwright-bdd": "2.1.0",
-    "serve-handler": "6.1.5",
     "ts-loader": "9.4.2",
     "tsconfig-paths": "4.2.0",
     "webpack": "5.81.0"

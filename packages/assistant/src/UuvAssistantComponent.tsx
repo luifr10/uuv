@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import React, { useState } from "react";
+import React from "react";
 import "./UuvAssistantComponent.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Form, Navbar, OverlayTrigger, Toast, ToastContainer, Tooltip } from "react-bootstrap";

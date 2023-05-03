@@ -35,7 +35,7 @@ throw err;
 
 function copyFileIfMissing(fileToCopy, originFolder, destFolder) {
     if (!fs.existsSync(`${destFolder}/${fileToCopy}`)) {
-        copyFile(originFolder, fileToCopy, destFolder);
+        copyFile(fileToCopy, originFolder, destFolder);
     }
 }
 

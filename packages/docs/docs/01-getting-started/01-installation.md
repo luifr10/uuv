@@ -5,15 +5,14 @@ import TabItem from '@theme/TabItem';
 
 :::info
 First of all you have to choose your runners among the following :
-
 - [Cypress](#cypress)
 - [Playwright](#playwright)
 
 When your tests are written you can change the runner by replacing the npm dependency without having to modify them.
 :::
 
-<Tabs>
-<TabItem value="cypress" label="Cypress">
+## Cypress
+
 :::caution
 
 Npm/Yarn will need access to the internet when installing the Cypress library.
@@ -39,8 +38,8 @@ yarn add -D @uuv/cypress
 </TabItem>
 </Tabs>
 
-</TabItem>
-<TabItem value="playwright" label="Playwright">
+## Playwright
+
 :::caution
 
 Npm/Yarn will need access to the internet when installing the Playwright library.
@@ -63,7 +62,5 @@ npm install --save-dev @uuv/playwright
 yarn add -D @uuv/playwright
 ```
 
-</TabItem>
-</Tabs>
 </TabItem>
 </Tabs>

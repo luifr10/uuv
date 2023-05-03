@@ -22,7 +22,7 @@ import {
     notFoundWithRoleAndName,
     withinRoleAndName
 } from "./core-engine";
-import { World } from "playwright-bdd";
+import { World } from "../../preprocessor/run/world";
 
 When(`${key.when.withinElement.roleAndName}`, async function (this: World, name: string) {
     return await withinRoleAndName(this, "$roleId", name);

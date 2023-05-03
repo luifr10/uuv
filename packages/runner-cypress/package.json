@@ -11,7 +11,7 @@
     "url": "https://github.com/e2e-test-quest/uuv"
   },
   "bin": {
-    "uuv": "./dist/lib/uuv-cli.js"
+    "uuv": "bin/uuv"
   },
   "keywords": [
     "uuv",
@@ -62,8 +62,10 @@
     "dist/lib/**/*",
     "dist/index.d.ts",
     "dist/index.js",
+    "bin/**/*",
     "postinstall.js",
-    "target-config/**/*"
+    "target-config/**/*",
+    "src/cucumber/step_definitions/cypress/generated/**/*"
   ],
   "exports": {
     ".": {

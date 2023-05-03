@@ -35,16 +35,14 @@ throw err;
 
 function copyFileIfMissing(fileToCopy, originFolder, destFolder) {
     if (!fs.existsSync(`${destFolder}/${fileToCopy}`)) {
-        copyFile(originFolder, fileToCopy, destFolder);
+        copyFile(fileToCopy, originFolder, destFolder);
     }
 }
 
 function main () {
     if (fs.existsSync(`${PROJECT_DIR}/package.json`) && !fs.existsSync(`${PROJECT_DIR}/.no-postinstall`)) {
-        copyFile("uuv-cli.js", `${CLI_DIR}`, `${PROJECT_DIR}`);
-        copyFileIfMissing("cypress.config.ts", `${TARGET_CONFIG_DIR}`, `${PROJECT_DIR}/uuv`);
-        copyFileIfMissing("command.ts", `${TARGET_CONFIG_DIR}`, `${PROJECT_DIR}/uuv/cypress/support`);
-        copyFileIfMissing(".cypress-cucumber-preprocessorrc.json", `${TARGET_CONFIG_DIR}`, `${PROJECT_DIR}`);
+        copyFileIfMissing("playwright.config.ts", `${TARGET_CONFIG_DIR}`, `${PROJECT_DIR}/uuv`);
+        copyFileIfMissing("cucumber.cjs", `${TARGET_CONFIG_DIR}`, `${PROJECT_DIR}`);
     } else {
         console.log("postinstall - Nothing to copy");
     }

@@ -19,9 +19,7 @@
 
 import report from "multiple-cucumber-html-reporter";
 
-main();
-
-async function main() {
+export async function main() {
   const chalk = require("chalk");
   const JSON_REPORT_DIR = "./uuv/reports/e2e/json";
   const HTML_REPORT_DIR = "./uuv/reports/e2e/html";
