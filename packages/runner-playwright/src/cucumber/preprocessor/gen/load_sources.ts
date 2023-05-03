@@ -2,6 +2,7 @@
  * Copied from original load_sources, but returns full Pickles.
  * See: https://github.com/cucumber/cucumber-js/blob/main/src/api/load_sources.ts
  */
+// eslint-disable-next-line @typescript-eslint/triple-slash-reference
 /// <reference path="./gherkin.d.ts" />
 
 import { IRunEnvironment, ISourcesCoordinates } from "@cucumber/cucumber/lib/api/types";

@@ -11,7 +11,7 @@
   },
   "homepage": "https://e2e-test-quest.github.io/uuv/",
   "bin": {
-    "uuv": "./dist/lib/uuv-cli.js"
+    "uuv": "bin/uuv"
   },
   "keywords": [
     "uuv",
@@ -55,6 +55,7 @@
   "main": "./dist/index.js",
   "files": [
     "dist/**/*",
+    "bin/**/*",
     "postinstall.js",
     "target-config/**/*",
     "src/cucumber/step_definitions/playwright/generated/**/*"

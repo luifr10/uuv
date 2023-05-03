@@ -25,9 +25,7 @@ import { Formatter } from "cucumber-json-report-formatter";
 import minimist from "minimist";
 import { run } from "./runner-playwright";
 
-main();
-
-async function main() {
+export async function main() {
   const JSON_REPORT_DIR = "./uuv/reports/e2e/json";
   const HTML_REPORT_DIR = "./uuv/reports/e2e/html";
   const CUCUMBER_MESSAGES_FILE = "./uuv/cucumber-messages.ndjson";

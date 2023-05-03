@@ -1,5 +1,5 @@
 import { FullConfig, FullResult, Reporter, Suite, TestCase, TestResult } from "@playwright/test/reporter";
-import {TestStep} from "@playwright/test/types/testReporter";
+import { TestStep } from "@playwright/test/types/testReporter";
 
 class MyReporter implements Reporter {
     onBegin(config: FullConfig, suite: Suite) {
