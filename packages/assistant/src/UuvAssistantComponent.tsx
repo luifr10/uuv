@@ -43,6 +43,7 @@ interface UuvAssistantState {
   currentAction: "selection" | "none";
   resultCopied: boolean;
   checkAction: string;
+  isDisabled: boolean;
 }
 
 interface UuvAssistantProps {
@@ -59,7 +60,8 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
     this.state = {
       currentAction: "none",
       resultCopied: false,
-      checkAction: CheckActionEnum.EXPECT
+      checkAction: CheckActionEnum.EXPECT,
+      isDisabled: false
     };
     this.reset = this.reset.bind(this);
     this.startSelect = this.startSelect.bind(this);
@@ -73,7 +75,8 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
     this.setState({
       ...this.state,
       currentAction: "none",
-      checkAction: CheckActionEnum.EXPECT
+      checkAction: CheckActionEnum.EXPECT,
+      isDisabled: false
     });
   }
 
@@ -101,6 +104,10 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
   }
 
   buildSelector() {
+    const disabledElement = "";
+    const removeDisableHandler = this.clickOnDIsabledElementFeature(disabledElement);
+
+    document.addEventListener("mouseover", removeDisableHandler);
     this.inspector = new Inspector({
       root: "body",
       excluded: ["#uvv-assistant-root"],
@@ -118,11 +125,36 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
     });
   }
 
+  private clickOnDIsabledElementFeature(disabledElement: string) {
+    const removeDisableHandler = (e: MouseEvent): void => {
+      e.preventDefault();
+      const element = document.elementFromPoint(e.clientX, e.clientY);
+      if (element && element.hasAttribute("disabled")) {
+        disabledElement = TranslateHelper.getSelector(element);
+        element.removeAttribute("disabled");
+        element.setAttribute("readonly", "true");
+        this.setState({
+          ...this.state,
+          isDisabled: true
+        });
+      } else {
+        if (disabledElement) {
+          document.querySelector(disabledElement)?.setAttribute("disabled", "true");
+          this.setState({
+            ...this.state,
+            isDisabled: false
+          });
+        }
+      }
+    };
+    return removeDisableHandler;
+  }
+
   private async translate(el: HTMLElement) {
     console.debug("translator,", this.props.translator);
     return this.props.translator
       ? Promise.resolve(this.props.translator(el))
-      : TranslateHelper.translateEngine(el, this.state.checkAction);
+      : TranslateHelper.translateEngine(el, this.state.checkAction, this.state.isDisabled);
   }
 
   componentDidMount() {

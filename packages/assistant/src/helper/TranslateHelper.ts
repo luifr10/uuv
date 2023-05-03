@@ -43,7 +43,7 @@ export enum CheckActionEnum {
 
 
 export class TranslateHelper {
-  private static getSelector(element: any) {
+  public static getSelector(element: any) {
     const path: string[] = [];
     while (element.nodeType === Node.ELEMENT_NODE) {
       let selector: string = element.nodeName.toLowerCase();
@@ -84,7 +84,7 @@ export class TranslateHelper {
     );
   }
 
-  public static async translateEngine(htmlElem: HTMLElement, checkAction: string): Promise<string> {
+  public static async translateEngine(htmlElem: HTMLElement, checkAction: string, isDisabled: boolean): Promise<string> {
     let json: any;
     let sentence: "No sentence found";
     await this.getData("en.json")
@@ -127,7 +127,11 @@ export class TranslateHelper {
       })[0];
       if (content) {
         if (checkAction === CheckActionEnum.EXPECT) {
-          computedKey = "key.then.element.withRoleAndNameAndContent";
+          if (isDisabled) {
+            computedKey = "key.then.element.withRoleAndNameAndContentDisabled";
+          } else {
+            computedKey = "key.then.element.withRoleAndNameAndContent";
+          }
         } else if (checkAction === CheckActionEnum.WITHIN) {
           computedKey = "key.when.withinElement.roleAndName";
         }
