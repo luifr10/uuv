@@ -8,7 +8,7 @@ on:
 
 
 env:
-  NODE_VERSION: 18.14.0
+  NODE_VERSION: 18.16.0
   NPM_PACKAGE_SCOPE: uuv
 
 jobs:
