@@ -52,6 +52,7 @@ jobs:
             packages/runner-cypress/dist
             packages/runner-cypress/src/cucumber/step_definitions/cypress/generated
             packages/runner-playwright/src/cucumber/step_definitions/playwright/generated
+            packages/runner-playwright/dist
             packages/docs/docs/03-wordings/01-generated-wording-description
             packages/assistant/dist
             packages/assistant/build
