@@ -11,8 +11,7 @@ Tout d'abord vous devez choisir votre runners parmi les suivants :
 Lorsque vos tests sont écrits vous pouvez changer de runner sans avoir à les modifier.
 :::
 
-<Tabs>
-<TabItem value="cypress" label="Cypress">
+## Cypress
 
 :::caution
 
@@ -38,8 +37,8 @@ yarn add -D @uuv/cypress
 
 </TabItem>
 </Tabs>
-</TabItem>
-<TabItem value="playwright" label="Playwright">
+
+## Playwright
 
 :::caution
 
@@ -62,8 +61,6 @@ npm install --save-dev @uuv/playwright
 ```shell
 yarn add -D @uuv/playwright
 ```
-</TabItem>
-</Tabs>
 
 </TabItem>
 </Tabs>

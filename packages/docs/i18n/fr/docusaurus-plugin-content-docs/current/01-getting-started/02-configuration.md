@@ -3,69 +3,16 @@ import TabItem from '@theme/TabItem';
 
 # Configuration
 
-## Ajout du script npm
-Modifier le fichier `package.json` pour rajouter les lignes suivantes dans la section script :
-
-```json title='package.json'
-{
-...
-    "scripts": {
-        "...
-        "uuv": "uuv"
-    },
-  ...
-}
-```
-
-<Tabs>
-<TabItem value="cypress" label="Cypress">
-
-:::caution
-Cette étape n'est nécessaire que si vous avez choisi le runner `Cypress` et que vous n'arrivez pas à [exécuter normalement les tests](/docs/test/running-test).
-:::
-Modifier le fichier `package.json` pour rajouter les lignes suivantes dans la section script :
-
-```json title='package.json'
-{
-...
-    "scripts": {
-        "...
-        "uuv": "node node_modules/@uuv/cypress/dist/lib/uuv-cli.js"
-    },
-  ...
-}
-```
-
-</TabItem>
-<TabItem value="playwright" label="Playwright">
-
-:::caution
-Cette étape n'est nécessaire que si vous avez choisi le runner `Playwright` et que vous n'arrivez pas à [exécuter normalement les tests](/docs/test/running-test).
-:::
-Modifier le fichier `package.json` pour rajouter les lignes suivantes dans la section script :
-
-```json title='package.json'
-{
-...
-    "scripts": {
-        "...
-        "uuv": "node node_modules/@uuv/playwright/dist/lib/uuv-cli.js"
-    },
-  ...
-}
-```
-
-</TabItem>
-</Tabs>
-
 ## Mise à jour du .gitignore
 
 Modifier le fichier `.gitignore` pour rajouter les lignes suivantes :
 
 ```gitignore title='.gitignore'
-#@nobelisation/uuv
+#@uuv
 /uuv/reports
+/uuv/.uuv-features-gen
 ```
+
 
 ## (Optionnel) Ajout des types Typescripts
 

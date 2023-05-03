@@ -9,28 +9,26 @@ import TabItem from '@theme/TabItem';
 <TabItem value="cypress" label="Cypress">
 
 :::tip
-Modify the url, change the `e2e.baseUrl` parameter in the `uuv/cypress.config.ts` file in order to fill the
-target url.
+To modify the url, change the `e2e.baseUrl` parameter in the `uuv/cypress.config.ts` file in order to fill the target url.
 :::
 
 </TabItem>
 <TabItem value="playwright" label="Playwright">
 
 :::tip
-[WIP] Modify the url, change the `e2e.baseUrl` parameter in the `uuv/cypress.config.ts` file in order to fill the
-    target url.
+To modify the url, change the `use.baseURL` parameter in the `uuv/playwright.config.ts` file in order to fill the target url.
 :::
 
 </TabItem>
 </Tabs>
 
-From powershell or cmd terminal **in non-administrator mode** :
+From powershell or cmd terminal :
 
 <Tabs>
 <TabItem value="Npm" label="Npm">
 
 ```shell
-npm run uuv open
+npx uuv open
 ```
 
 </TabItem>
@@ -45,20 +43,20 @@ yarn uuv open
 
 ## Exécution des tests E2E depuis la console
 
-From powershell or cmd terminal **in non-administrator mode** :
+From powershell or cmd terminal :
 
 
 <Tabs>
 <TabItem value="Npm" label="Npm">
 
 ```shell
-npm run uuv e2e
+npx uuv e2e
 ```
 
 With arguments
 
 ```shell
-npm run uuv e2e -- --browser=edge --env="{'TAGS':'@mobile'}" --generateHtmlReport
+npx uuv e2e --browser=edge --env="{'TAGS':'@mobile'}" --generateHtmlReport
 ```
 
 </TabItem>
@@ -71,14 +69,16 @@ yarn uuv e2e
 With arguments
 
 ```shell
-yarn uuv e2e -- --browser=edge --env="{'TAGS':'@mobile'}" --generateHtmlReport
+yarn uuv e2e --browser=edge --env="{'TAGS':'@mobile'}" --generateHtmlReport
 ```
 
 </TabItem>
 </Tabs>
 
+### Arguments
+
 <Tabs>
-<TabItem value="cypress" label="Cypress">
+<TabItem value="Windows" label="Cypress">
 
 :::tip
 To modify the BASE_URL in E2E mode, simply set the environment variable :
@@ -100,8 +100,6 @@ export CYPRESS_BASE_URL=http://localhost:4200
 </TabItem>
 </Tabs>
 :::
-
-#### Arguments
 
 | Nom     | Description                                                                                                   | Valeur                                                                                                                                                                                                                                                                                 |
 |---------|---------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
