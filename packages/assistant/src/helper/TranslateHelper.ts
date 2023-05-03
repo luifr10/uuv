@@ -43,6 +43,7 @@ export enum CheckActionEnum {
 
 
 export class TranslateHelper {
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
   public static getSelector(element: any) {
     const path: string[] = [];
     while (element.nodeType === Node.ELEMENT_NODE) {
@@ -84,6 +85,7 @@ export class TranslateHelper {
     );
   }
 
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
   public static async translateEngine(htmlElem: HTMLElement, checkAction: string, isDisabled: boolean): Promise<string> {
     let json: any;
     let sentence: "No sentence found";
