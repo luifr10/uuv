@@ -60,11 +60,13 @@ We can use the cypress engine to run test or playwright with [@uuv/playwright](h
 
 ## Installing
 
+<a href="https://e2e-test-quest.github.io/uuv/docs/getting-started/installation#cypress"><img src="https://img.shields.io/badge/Install%20Cypress%20doc-red?&style=for-the-badge&logo=github&logoColor=white" alt="documentation for install uuv cypress"/></a>
 
-[documentation for install uuv cypress](https://e2e-test-quest.github.io/uuv/docs/getting-started/installation#cypress)  
-[documentation for configure uuv cypress](https://e2e-test-quest.github.io/uuv/docs/getting-started/configuration#cypress)  
-[documentation for write test](https://e2e-test-quest.github.io/uuv/docs/test/first-test)  
-[documentation for run test](https://e2e-test-quest.github.io/uuv/docs/test/running-test)
+<a href="https://e2e-test-quest.github.io/uuv/docs/getting-started/configuration"><img src="https://img.shields.io/badge/Configure%20cypress%20doc-red?&style=for-the-badge&logo=github&logoColor=white" alt="documentation for configure uuv cypress"/></a>
+
+<a href="https://e2e-test-quest.github.io/uuv/docs/test/first-test"><img src="https://img.shields.io/badge/Write%20test%20doc-red?&style=for-the-badge&logo=github&logoColor=white" alt="documentation for write test"/></a>
+
+<a href="https://e2e-test-quest.github.io/uuv/docs/test/running-test"><img src="https://img.shields.io/badge/Run%20test%20doc-red?&style=for-the-badge&logo=github&logoColor=white" alt="documentation for run test"/></a>
 
 ## License
 

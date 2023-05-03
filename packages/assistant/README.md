@@ -1,7 +1,7 @@
 
 
 
-# @uuv/runner-cypress
+# @uuv/assistant
 <p align="center">  
 <a href="https://e2e-test-quest.github.io/uuv/">  
 <picture>  
@@ -42,11 +42,13 @@ Make test writing fast, understandable by any human understanding English or Fre
 With this wizard, we can generate cucumber sentences that will use an execution engine like cypress with [@uuv/cypress](https://www.npmjs.com/package/@uuv/cypress) or playwright with [@uuv/playwright](https://www.npmjs.com/package/@uuv/playwright).
 </p>  
 
+<img src="./public/screenshots.gif" alt="assistant screenshots"/>  
+
 ## Installing
 
+<a href="https://e2e-test-quest.github.io/uuv/docs/tools/uuv-assistant"><img src="https://img.shields.io/badge/run%20uuv%20wizard%20doc-red?&style=for-the-badge&logo=github&logoColor=white" alt="documentation for run uuv wizard"/></a>
 
-[documentation for run uuv wizard](https://e2e-test-quest.github.io/uuv/docs/tools/uuv-assistant)  
-[documentation containing sentences](https://e2e-test-quest.github.io/uuv/docs/wordings/generated-wording-description/en-generated-wording-description)
+<a href="https://e2e-test-quest.github.io/uuv/docs/wordings/generated-wording-description/en-generated-wording-description"><img src="https://img.shields.io/badge/sentences%20doc-red?&style=for-the-badge&logo=github&logoColor=white" alt="documentation containing sentences"/></a>
 
 ## License
 
