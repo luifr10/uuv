@@ -1,0 +1,102 @@
+/**
+ * Copyright UUV.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+"use strict";
+
+import chalk from "chalk";
+import { generateTestFiles } from "../cucumber/preprocessor/gen";
+import fs from "fs";
+import { execSync } from "child_process";
+
+async function bddGen(tempDir: string) {
+    try {
+        await generateTestFiles({
+            outputDir: tempDir,
+        });
+        console.log("bddgen executed");
+    } catch (err) {
+        console.error(chalk.red("Something went wrong..."));
+        console.dir(err);
+        process.exit(-1);
+    }
+}
+
+function translateFeatures(tempDir: string, configDir: string) {
+    const FEATURE_DIR = `${tempDir}/${configDir !== "." ? configDir + "/e2e" : "e2e"}`;
+    const filenames = fs.readdirSync(FEATURE_DIR,
+        { encoding: "utf8" });
+    filenames.forEach(file => {
+        const generatedFile = `${FEATURE_DIR}/${file}`;
+        let data = fs.readFileSync(
+            generatedFile,
+            { encoding: "utf8" });
+        data = data
+            .replaceAll("Soit", "Given")
+            .replaceAll("Sachant que", "Given")
+            .replaceAll("Sachant qu'", "Given")
+            .replaceAll("Sachant", "Given")
+            .replaceAll("Etant donné que", "Given")
+            .replaceAll("Étant donné que", "Given")
+            .replaceAll("Étant donné qu'", "Given")
+            .replaceAll("Etant donné qu'", "Given")
+            .replaceAll("Etant données", "Given")
+            .replaceAll("Étant données", "Given")
+            .replaceAll("Etant donnés", "Given")
+            .replaceAll("Étant donnés", "Given")
+            .replaceAll("Etant donnée", "Given")
+            .replaceAll("Étant donnée", "Given")
+            .replaceAll("Etant donné", "Given")
+            .replaceAll("Étant donné", "Given")
+            .replaceAll("Quand", "When")
+            .replaceAll("Lorsque", "When")
+            .replaceAll("Lorsqu'", "When")
+            .replaceAll("Alors", "Then")
+            .replaceAll("Donc", "Then")
+            .replaceAll("Et que", "And")
+            .replaceAll("Et qu'", "And")
+            .replaceAll("Et", "And")
+            .replaceAll("Mais que", "But")
+            .replaceAll("Mais qu'", "But")
+            .replaceAll("Mais", "But");
+        data = "/*******************************\n" +
+            "NE PAS MODIFIER, FICHIER GENERE\n" +
+            "*******************************/\n\n" +
+            data;
+        fs.writeFileSync(generatedFile, data);
+        console.log(
+            `[WRITE] ${generatedFile} written successfully`
+        );
+    });
+}
+
+function runPlaywright(mode: "open" | "e2e", configDir: string) {
+    const configFile = `${configDir}/playwright.config.ts`;
+    try {
+        console.log(`Running: npx playwright test -c ${configFile} ${mode === "open" ? "--ui" : ""}`);
+        execSync(`npx playwright test -c ${configFile} ${mode === "open" ? "--ui" : ""}`, { stdio: "inherit" });
+        console.log("playwright excuted");
+    } catch (err) {
+        console.error(chalk.red("Something went wrong..."));
+        console.dir(err);
+        process.exit(-1);
+    }
+}
+
+export async function run(mode: "open" | "e2e", tempDir = "uuv/.features-gen/e2e", configDir = "uuv") {
+    await bddGen(tempDir);
+    translateFeatures(tempDir, configDir);
+    runPlaywright(mode, configDir);
+}

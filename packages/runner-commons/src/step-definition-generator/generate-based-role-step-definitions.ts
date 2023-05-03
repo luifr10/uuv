@@ -62,7 +62,8 @@ export class BasedRoleStepDefinition extends GenerateFileProcessing {
                 .replace("../i18n/template.json", "../../../../i18n/template.json")
                 .replace("import { key } from \"@uuv/runner-commons\";", "")
                 .replace("import {key} from \"@uuv/runner-commons\";", "")
-                .replace("./core-engine", "../../../core-engine");
+                .replace("./core-engine", "../../../core-engine")
+                .replace("../../preprocessor/run/world", "../../../../../preprocessor/run/world");
             wordingsJson.enriched.forEach((conf) => {
                 // console.debug(">> conf", conf)
                 // console.debug("${" + conf.key + "}");

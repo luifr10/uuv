@@ -15,7 +15,7 @@
  */
 
 import { When } from "@cucumber/cucumber";
-import { World } from "playwright-bdd";
+import { World } from "../../../preprocessor/run/world";
 
 When("je suis une phrase custom qui vérifie l'existence d'un noeud par le sélecteur {string}", async function (this: World, selector: string) {
     await this.page.locator(selector);

@@ -18,7 +18,6 @@ import { DEFAULT_TIMEOUT, fs, key } from "@uuv/runner-commons";
 import { checkA11y, injectAxe } from "axe-playwright";
 import { Locator } from "playwright";
 import { devices, expect } from "@playwright/test";
-import { World } from "playwright-bdd";
 import { DataTable } from "@cucumber/cucumber";
 import {
     addCookieWhenValueIsList,
@@ -32,11 +31,12 @@ import {
     getCookie,
     getPageOrElement,
     MockType,
-    notFoundWithRoleAndName, showAttributesInLocator,
+    notFoundWithRoleAndName,
     withinRoleAndName
 } from "./core-engine";
 
 import { Given, When, Then } from "@cucumber/cucumber";
+import { World } from "../../preprocessor/run/world";
 
 Given(`${key.given.viewport.preset}`, async function(this: World, viewportPreset: string) {
     await this.page.setViewportSize(devices[viewportPreset].viewport);

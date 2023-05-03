@@ -1,15 +1,15 @@
 import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
-  testDir: "tests/.features-gen",
+  testDir: "../.uuv-features-gen",
   testMatch: ["**/*.spec.ts", "**/*.{ts,js}"],
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
-  reporter: [["html", { outputFolder: "report/playwright" }]],
+  reporter: [["html", { outputFolder: "reports/playwright" }]],
   use: {
-    baseURL: "http://127.0.0.1:3000",
+    baseURL: "http://localhost:4200",
     trace: "on-first-retry",
   },
 
