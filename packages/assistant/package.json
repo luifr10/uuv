@@ -39,7 +39,8 @@
   },
   "dependencies": {
     "@cucumber/cucumber": "9.1.0",
-    "playwright-chromium": "1.33.0"
+    "playwright-chromium": "1.33.0",
+    "react-bootstrap-icons": "1.10.3"
   },
   "browserslist": {
     "production": [

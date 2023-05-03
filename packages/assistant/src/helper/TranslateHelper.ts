@@ -38,7 +38,7 @@ export type EnrichedSentence = {
 }
 
 export enum CheckActionEnum {
-  WITHIN = "Within", EXPECT = "Expect"
+  WITHIN = "Within", EXPECT = "Expect", CLICK = "Click"
 }
 
 
@@ -85,28 +85,34 @@ export class TranslateHelper {
     );
   }
 
-  /* eslint-disable  @typescript-eslint/no-explicit-any */
-  public static async translateEngine(htmlElem: HTMLElement, checkAction: string, isDisabled: boolean): Promise<string> {
-    let json: any;
-    let sentence: "No sentence found";
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+  public static async translateEngine(htmlElem: HTMLElement, checkAction: string, isDisabled: boolean): Promise<string[]> {
+    let jsonBase: any;
+    let sentenceList: Promise<string[]> = Promise.resolve([]);
     await this.getData("en.json")
       .then((response) => response.json())
-      .then((data) => json = data
+      .then((data) => jsonBase = data
       );
     let computedKey = "";
     if (checkAction === CheckActionEnum.EXPECT) {
       computedKey = "key.then.element.withSelector";
-    } else if (checkAction === CheckActionEnum.WITHIN) {
+    } else if (checkAction === CheckActionEnum.WITHIN || checkAction === CheckActionEnum.CLICK ) {
       computedKey = "key.when.withinElement.selector";
     }
-    sentence = await json
+    const sentence = await jsonBase
       .filter((el: BaseSentence) => el.key === computedKey)
       .map((el: BaseSentence) =>
         el.wording.replace("{string}", `"${this.getSelector(htmlElem)}"`)
       )[0];
+    if (checkAction === CheckActionEnum.CLICK) {
+      const clickSentence: BaseSentence = jsonBase.filter((el: BaseSentence) => el.key === "key.when.click")[0];
+      sentenceList = Promise.resolve([sentence, clickSentence.wording]);
+    } else {
+      sentenceList = Promise.resolve([sentence]);
+    }
     const accessibleRole = getRole(htmlElem);
     const accessibleName = computeAccessibleName(htmlElem);
-    const content = htmlElem.getAttribute("value") ?? htmlElem.textContent;
+    const content = htmlElem.getAttribute("value") ?? htmlElem.firstChild?.textContent?.trim();
     if (accessibleRole && accessibleName) {
       let jsonEnriched: any;
       await this.getData("/en-enriched-wordings.json")
@@ -116,10 +122,10 @@ export class TranslateHelper {
         });
       if (checkAction === CheckActionEnum.EXPECT) {
         computedKey = "key.then.element.withRoleAndName";
-      } else if (checkAction === CheckActionEnum.WITHIN) {
+      } else if (checkAction === CheckActionEnum.WITHIN  || checkAction === CheckActionEnum.CLICK) {
         computedKey = "key.when.withinElement.roleAndName";
       }
-      sentence = jsonEnriched.enriched.filter((value: EnrichedSentence) => value.key === computedKey).map((enriched: EnrichedSentence) => {
+      const sentence = jsonEnriched.enriched.filter((value: EnrichedSentence) => value.key === computedKey).map((enriched: EnrichedSentence) => {
         const sentenceAvailable = enriched.wording;
         const role = jsonEnriched.role.filter((role: EnrichedSentenceRole) => role.id === accessibleRole)[0];
         return sentenceAvailable
@@ -127,6 +133,12 @@ export class TranslateHelper {
           .replace("$roleName", role?.name ?? accessibleRole)
           .replace("{string}", `"${accessibleName}"`);
       })[0];
+      if (checkAction === CheckActionEnum.CLICK) {
+        const clickSentence: BaseSentence = jsonBase.filter((el: BaseSentence) => el.key === "key.when.click")[0];
+        sentenceList = Promise.resolve([sentence, clickSentence.wording]);
+      } else {
+        sentenceList = Promise.resolve([sentence]);
+      }
       if (content) {
         if (checkAction === CheckActionEnum.EXPECT) {
           if (isDisabled) {
@@ -137,7 +149,7 @@ export class TranslateHelper {
         } else if (checkAction === CheckActionEnum.WITHIN) {
           computedKey = "key.when.withinElement.roleAndName";
         }
-        sentence = jsonEnriched.enriched.filter((value: EnrichedSentence) => value.key === computedKey).map((enriched: EnrichedSentence) => {
+        const sentence = jsonEnriched.enriched.filter((value: EnrichedSentence) => value.key === computedKey).map((enriched: EnrichedSentence) => {
           const sentenceAvailable = enriched.wording;
           const role = jsonEnriched.role.filter((role: EnrichedSentenceRole) => role.id === accessibleRole)[0];
           return sentenceAvailable
@@ -146,10 +158,16 @@ export class TranslateHelper {
             .replace("{string}", `"${accessibleName}"`)
             .replace("{string}", `"${content}"`);
         })[0];
+
+        if (checkAction === CheckActionEnum.CLICK) {
+          const clickSentence: BaseSentence = jsonBase.filter((el: BaseSentence) => el.key === "key.when.click")[0];
+          sentenceList = Promise.resolve([sentence, clickSentence.wording]);
+        } else {
+          sentenceList = Promise.resolve([sentence]);
+        }
       }
     }
-    console.log("sentence: ", sentence);
-    return sentence;
+    return sentenceList;
   }
 }
 

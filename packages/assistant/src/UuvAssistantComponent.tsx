@@ -17,11 +17,12 @@
 import React from "react";
 import "./UuvAssistantComponent.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Button, Form, Navbar, OverlayTrigger, Toast, ToastContainer, Tooltip } from "react-bootstrap";
+import { Button, Collapse, Container, Form, Navbar, OverlayTrigger, Toast, ToastContainer, Tooltip } from "react-bootstrap";
 import { base, Clear, Copy, Select } from "grommet-icons";
 import deepmerge from "deepmerge";
 import { ThemeProvider } from "styled-components";
 import { CheckActionEnum, TranslateHelper } from "./helper/TranslateHelper";
+import { ArrowDownCircleFill, ArrowUpCircleFill } from "react-bootstrap-icons";
 
 const Inspector = require("inspector-dom");
 
@@ -39,11 +40,13 @@ const theme = deepmerge(base, {
 });
 
 interface UuvAssistantState {
-  generatedScript?: string;
+  generatedScript: string[];
   currentAction: "selection" | "none";
   resultCopied: boolean;
   checkAction: string;
-  isDisabled: boolean;
+  isElementDisabled: boolean;
+  isExtended: boolean;
+  isHide: boolean;
 }
 
 interface UuvAssistantProps {
@@ -58,10 +61,13 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
   constructor(props: any) {
     super(props);
     this.state = {
+      generatedScript: [],
       currentAction: "none",
       resultCopied: false,
       checkAction: CheckActionEnum.EXPECT,
-      isDisabled: false
+      isElementDisabled: false,
+      isExtended: false,
+      isHide: false
     };
     this.reset = this.reset.bind(this);
     this.startSelect = this.startSelect.bind(this);
@@ -76,7 +82,8 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
       ...this.state,
       currentAction: "none",
       checkAction: CheckActionEnum.EXPECT,
-      isDisabled: false
+      isElementDisabled: false,
+      isExtended: false
     });
   }
 
@@ -88,8 +95,8 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
   }
 
   copyResult() {
-    if (this.state?.generatedScript) {
-      navigator.clipboard.writeText(this.state.generatedScript);
+    if (this.state?.generatedScript?.length > 0) {
+      navigator.clipboard.writeText(this.state.generatedScript?.join("\n"));
       this.setShowResultCopiedToast(true);
     }
   }
@@ -99,25 +106,28 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
     this.inspector.enable();
     this.setState({
       ...this.state,
-      currentAction: "selection"
+      currentAction: "selection",
+      isExtended: false,
+      isHide: true,
     });
   }
 
   buildSelector() {
     const disabledElement = "";
-    const removeDisableHandler = this.clickOnDIsabledElementFeature(disabledElement);
-
+    const removeDisableHandler = this.clickOnDisabledElementFeature(disabledElement);
     document.addEventListener("mouseover", removeDisableHandler);
     this.inspector = new Inspector({
       root: "body",
       excluded: ["#uvv-assistant-root"],
       outlineStyle: "2px solid red",
       onClick: (el: HTMLElement) => {
-        this.translate(el).then(value => {
+        this.translate(el).then((value: string[]) => {
+          console.log("value:", value);
           this.setState({
             ...this.state,
             generatedScript: value,
-            currentAction: "none"
+            currentAction: "none",
+            isHide: false,
           });
         });
         this.inspector.cancel();
@@ -125,24 +135,24 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
     });
   }
 
-  private clickOnDIsabledElementFeature(disabledElement: string) {
+  private clickOnDisabledElementFeature(disabledElement: string) {
     const removeDisableHandler = (e: MouseEvent): void => {
       e.preventDefault();
       const element = document.elementFromPoint(e.clientX, e.clientY);
-      if (element && element.hasAttribute("disabled")) {
+      if (this.state.currentAction === "selection" && element && element.hasAttribute("disabled")) {
         disabledElement = TranslateHelper.getSelector(element);
         element.removeAttribute("disabled");
         element.setAttribute("readonly", "true");
         this.setState({
           ...this.state,
-          isDisabled: true
+          isElementDisabled: true
         });
       } else {
         if (disabledElement) {
           document.querySelector(disabledElement)?.setAttribute("disabled", "true");
           this.setState({
             ...this.state,
-            isDisabled: false
+            isElementDisabled: false
           });
         }
       }
@@ -150,11 +160,11 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
     return removeDisableHandler;
   }
 
-  private async translate(el: HTMLElement) {
+  private async translate(el: HTMLElement): Promise<string[]> {
     console.debug("translator,", this.props.translator);
     return this.props.translator
-      ? Promise.resolve(this.props.translator(el))
-      : TranslateHelper.translateEngine(el, this.state.checkAction, this.state.isDisabled);
+      ? Promise.resolve([this.props.translator(el)])
+      : TranslateHelper.translateEngine(el, this.state.checkAction, this.state.isElementDisabled);
   }
 
   componentDidMount() {
@@ -166,10 +176,18 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
   }
 
   render() {
-
     const handleSelectCheckActionChange: React.ChangeEventHandler<HTMLSelectElement> = (event) => {
-      this.setState({ ...this.state,
-        checkAction: event.target.value });
+      this.setState({
+        ...this.state,
+        checkAction: event.target.value
+      });
+    };
+
+    const handleExpandInspector = () => {
+      this.setState({
+        ...this.state,
+        isExtended: !this.state.isExtended
+      });
     };
 
     const { checkAction } = this.state;
@@ -189,73 +207,98 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
               <Toast.Body className='text-white'>Result copied to the clipboard</Toast.Body>
             </Toast>
           </ToastContainer>
-          <Navbar className='UuvAssistant pb-3' fixed='bottom' bg='dark' variant='dark'>
-            <div className='w-100 d-flex flex-row align-items-stretch gap-3 ps-4 pe-4'>
-              <div>
-                <OverlayTrigger
-                  placement={"top"}
-                  overlay={
-                    <Tooltip>
-                      Cancel
-                    </Tooltip>
-                  }
-                >
-                  <Button variant='secondary' className='IconBtn m-1v pt-0 pb-1 ' onClick={this.reset}
-                          disabled={this.state.currentAction === "none"}>
-                    <Clear color='brand' size='medium' />
-                  </Button>
-                </OverlayTrigger>
-                <OverlayTrigger
-                  placement={"top"}
-                  overlay={
-                    <Tooltip>
-                      Select an element
-                    </Tooltip>
-                  }
-                >
-                  <Button variant='primary' className='IconBtn m-1 pt-0 pb-1 ' onClick={this.startSelect}
-                          disabled={this.state.currentAction === "selection"}>
-                    <Select color='brand' size='medium' />
-                  </Button>
-                </OverlayTrigger>
+          <Navbar className={["uuvAssistant", "pb-0", this.state.isExtended ? "expandHeight" : ""].join(" ")}
+                  fixed='bottom' bg='dark' variant='dark' aria-expanded={this.state.isHide}
+                  expand={this.state.isHide ? "lg" : false}
+          >
+            {this.state.isExtended ?
+              <ArrowDownCircleFill color='#E5E2E3' size={30} title={"Inspector expander"} className='arrowExpander' onClick={handleExpandInspector} />
+              :
+              <ArrowUpCircleFill color='#E5E2E3' size={30} title={"Inspector expander"} className='arrowExpander' aria-controls='inspector-content'
+                                 onClick={handleExpandInspector} />
+            }
+            <Collapse in={!this.state.isHide} dimension='height' appear={!this.state.isHide} >
+              <div id='inspector-content' className="w-100">
+                <div className='d-flex'>
+                  <div className='w-100 d-flex flex-row align-items-stretch gap-3 ps-4 pe-4'>
+                    <div className='col-2 d-flex flex-row align-items-stretch'>
+                      <Navbar.Brand href='https://e2e-test-quest.github.io/uuv/'>
+                        <img
+                          src='/uuv/uuv_light.png'
+                          width='50'
+                          height='50'
+                          className='d-inline-block align-top m-1 ml-2'
+                          alt='UUV logo'
+                        />
+                      </Navbar.Brand>
+                      <Container className='pt-2'>
+                        <OverlayTrigger
+                          placement={"top"}
+                          overlay={
+                            <Tooltip>
+                              Cancel
+                            </Tooltip>
+                          }
+                        >
+                          <Button variant='secondary' className='iconBtn m-1v pt-0 pb-1 ' onClick={this.reset}
+                                  disabled={this.state.currentAction === "none"}>
+                            <Clear color='brand' size='medium' />
+                          </Button>
+                        </OverlayTrigger>
+                        <OverlayTrigger
+                          placement={"top"}
+                          overlay={
+                            <Tooltip>
+                              Select an element
+                            </Tooltip>
+                          }
+                        >
+                          <Button variant='primary' className='iconBtn m-1 pt-0 pb-1' onClick={this.startSelect}
+                                  disabled={this.state.currentAction === "selection"}>
+                            <Select color='brand' size='medium' />
+                          </Button>
+                        </OverlayTrigger>
+                      </Container>
+                    </div>
+                    <div>
+                      <div className='vr'></div>
+                    </div>
+                    <div className="flex-grow-1 d-flex align-items-start flex-column mb-3 mt-1">
+                      <span className='colorWhite col-1'><u>Result</u></span>
+                      {this.state.generatedScript.map((value) => <span key={value} className='generatedScript col-11'>{value}</span>)}
+                    </div>
+                    <div>
+                      <div className='vr'></div>
+                    </div>
+                    <div className="col-1 mt-2">
+                        <Form.Select size='sm' aria-label='generated action' value={checkAction} onChange={handleSelectCheckActionChange}>
+                          <option value={CheckActionEnum.EXPECT.toString()}>{CheckActionEnum.EXPECT.toString()}</option>
+                          <option value={CheckActionEnum.WITHIN.toString()}>{CheckActionEnum.WITHIN.toString()}</option>
+                          <option value={CheckActionEnum.CLICK.toString()}>{CheckActionEnum.CLICK.toString()}</option>
+                        </Form.Select>
+                    </div>
+                    <div>
+                      <div className='vr'></div>
+                    </div>
+                    <div>
+                      <OverlayTrigger
+                        placement={"top"}
+                        overlay={
+                          <Tooltip>
+                            Copy
+                          </Tooltip>
+                        }
+                      >
+                        <Button variant='warning' className='iconBtn pt-0 pb-1 mt-2' onClick={this.copyResult}
+                                disabled={!this.state.generatedScript}>
+                          <Copy color='black' size='medium' />
+                        </Button>
+                      </OverlayTrigger>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div>
-                <div className='vr'></div>
-              </div>
-              <div className={"flex-grow-1 d-flex flex-row align-items-center"}>
-                <span className='GeneratedScriptLabel'>Result :</span>
-                <span className='GeneratedScript ms-3'>{this.state.generatedScript}</span>
-              </div>
-              <div>
-                <div className='vr'></div>
-              </div>
-              <div>
-                <Form>
-                  <Form.Select className='mt-1' size='sm' aria-label='action' value={checkAction} onChange={handleSelectCheckActionChange}>
-                    <option value={CheckActionEnum.EXPECT.toString()}>{CheckActionEnum.EXPECT.toString()}</option>
-                    <option value={CheckActionEnum.WITHIN.toString()}>{CheckActionEnum.WITHIN.toString()}</option>
-                  </Form.Select>
-                </Form>
-              </div>
-              <div>
-                <div className='vr'></div>
-              </div>
-              <div>
-                <OverlayTrigger
-                  placement={"top"}
-                  overlay={
-                    <Tooltip>
-                      Copy
-                    </Tooltip>
-                  }
-                >
-                  <Button variant='warning' className='IconBtn m-1 pt-0 pb-1 ' onClick={this.copyResult}
-                          disabled={!this.state.generatedScript}>
-                    <Copy color='black' size='medium' />
-                  </Button>
-                </OverlayTrigger>
-              </div>
-            </div>
+            </Collapse>
           </Navbar>
         </ThemeProvider>
       </div>
