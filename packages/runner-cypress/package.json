@@ -48,7 +48,7 @@
     "cypress": "12.11.0",
     "cypress-axe": "1.4.0",
     "figlet": "1.6.0",
-    "is-admin": "2.1.1",
+    "is-admin": "4.0.0",
     "minimist": "1.2.8",
     "multiple-cucumber-html-reporter": "3.3.0",
     "ts-node": "10.9.1",
