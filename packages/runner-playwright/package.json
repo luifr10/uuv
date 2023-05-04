@@ -43,7 +43,7 @@
     "@uuv/runner-commons": "1.2.0-beta-20230424",
     "axe-core": "4.7.0",
     "axe-playwright": "1.2.3",
-    "chalk": "4.1.2",
+    "chalk": "5.2.0",
     "cucumber-json-report-formatter": "0.1.4",
     "figlet": "1.6.0",
     "minimist": "1.2.8",
