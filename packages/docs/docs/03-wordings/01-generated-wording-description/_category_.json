@@ -1,8 +1,8 @@
 {
-  "label": "Description des phrases",
+  "label": "Description of sentences",
   "position": 2,
   "link": {
     "type": "generated-index",
-    "description": "Les phrases sont pour l'instant disponibles en français et en anglais."
+    "description": "The sentences are currently available in French and English."
   }
 }
