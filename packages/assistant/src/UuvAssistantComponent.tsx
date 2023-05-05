@@ -16,28 +16,13 @@
 
 import React from "react";
 import "./UuvAssistantComponent.css";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { Button, Collapse, Container, Form, Navbar, OverlayTrigger, Toast, ToastContainer, Tooltip } from "react-bootstrap";
-import { base, Copy, Select } from "grommet-icons";
-import deepmerge from "deepmerge";
-import { ThemeProvider } from "styled-components";
+
 import { CheckActionEnum, TranslateHelper } from "./helper/TranslateHelper";
-import { ArrowDownCircleFill, ArrowUpCircleFill } from "react-bootstrap-icons";
+import { Avatar, Button, Col, ConfigProvider, Divider, Drawer, Layout, notification, Row, Select, theme, Tooltip, Typography } from "antd";
+import { CopyOutlined, SelectOutlined, DoubleLeftOutlined } from "@ant-design/icons";
+import { CssHelper } from "./helper/CssHelper";
 
 const Inspector = require("inspector-dom");
-
-const theme = deepmerge(base, {
-  global: {
-    colors: {
-      brand: "white"
-    }
-  },
-  icon: {
-    size: {
-      medium: "16px"
-    }
-  }
-});
 
 interface UuvAssistantState {
   generatedScript: string[];
@@ -47,6 +32,7 @@ interface UuvAssistantState {
   isElementDisabled: boolean;
   isExtended: boolean;
   isHide: boolean;
+  isDark: boolean;
 }
 
 interface UuvAssistantProps {
@@ -67,6 +53,7 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
       checkAction: CheckActionEnum.EXPECT,
       isElementDisabled: false,
       isExtended: false,
+      isDark: true,
       isHide: false
     };
     this.reset = this.reset.bind(this);
@@ -83,7 +70,8 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
       currentAction: "none",
       checkAction: CheckActionEnum.EXPECT,
       isElementDisabled: false,
-      isExtended: false
+      isExtended: false,
+      isDark: true
     });
   }
 
@@ -98,6 +86,11 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
     if (this.state?.generatedScript?.length > 0) {
       navigator.clipboard.writeText(this.state.generatedScript?.join("\n"));
       this.setShowResultCopiedToast(true);
+      notification.open({
+        message: "Message",
+        description:
+          "Result copied to the clipboard"
+      });
     }
   }
 
@@ -121,14 +114,15 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
       excluded: ["#uvv-assistant-root"],
       outlineStyle: "2px solid red",
       onClick: (el: HTMLElement) => {
-        this.translate(el).then((value: string[]) => {
-          console.log("value:", value);
+        this.translate(el).then((sentences: string[]) => {
+          console.log("sentences:", sentences);
           this.setState({
             ...this.state,
-            generatedScript: value,
+            generatedScript: sentences,
             currentAction: "none",
             isHide: false
           });
+          console.log(sentences, this.state);
         });
         this.inspector.cancel();
       }
@@ -176,10 +170,17 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
   }
 
   render() {
-    const handleSelectCheckActionChange: React.ChangeEventHandler<HTMLSelectElement> = (event) => {
+    const handleSelectCheckActionChange = (value: string) => {
       this.setState({
         ...this.state,
-        checkAction: event.target.value
+        checkAction: value
+      });
+    };
+
+    const handleChangeLightMode = () => {
+      this.setState({
+        ...this.state,
+        isDark: !this.state.isDark
       });
     };
 
@@ -190,124 +191,139 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
       });
     };
 
-    const { checkAction } = this.state;
+    const { Content, Sider } = Layout;
+    const { Text } = Typography;
+    const lightSunUrl = this.state.isDark ? "/uuv/sun.svg" : "/uuv/moon.svg";
+    const expander = CssHelper.expanderConfig(this.state.isDark, this.state.isExtended);
+    const buttonConfig = CssHelper.buttonConfig(this.state.isDark);
     return (
-      <div className='App'>
-        <ThemeProvider theme={theme}>
-          <ToastContainer
-            className='p-3'
-            position='top-end'
-            style={{ zIndex: 1 }}
-          >
-            <Toast onClose={() => this.setShowResultCopiedToast(false)} show={this.state.resultCopied}
-                   delay={3000} autohide bg='success'>
-              <Toast.Header>
-                <strong className='me-auto'>Message</strong>
-              </Toast.Header>
-              <Toast.Body className='text-white'>Result copied to the clipboard</Toast.Body>
-            </Toast>
-          </ToastContainer>
-          <Navbar className={["uuvAssistant", "pb-0", this.state.isExtended ? "expandHeight" : ""].join(" ")}
-                  fixed='bottom' bg='dark' variant='dark' aria-expanded={this.state.isHide}
-                  expand={this.state.isHide ? "lg" : false}
-          >
-            {this.state.isExtended ?
-              <ArrowDownCircleFill color='#E5E2E3' size={30} title={"Expand the inspector"} className='arrowExpander'
-                                   onClick={handleExpandInspector} />
-              :
-              <ArrowUpCircleFill color='#E5E2E3' size={30} title={"Expand the inspector"} className='arrowExpander' aria-controls='inspector-content'
-                                 onClick={handleExpandInspector} />
-            }
-            <Collapse in={!this.state.isHide} dimension='height' appear={!this.state.isHide}>
-              <div id='inspector-content' className='w-100'>
-                <div className='d-flex'>
-                  <div className='w-100 d-flex flex-row align-items-stretch gap-3 ps-4 pe-4'>
-                    <div className='col-2 d-flex flex-row align-items-stretch'>
-                      <Navbar.Brand href='https://e2e-test-quest.github.io/uuv/docs/category/step-definition'>
-                        <OverlayTrigger
-                          placement={"top"}
-                          overlay={
-                            <Tooltip>
-                              Go to steps definition
-                            </Tooltip>
-                          }
-                        >
-                          <img
-                            src='/uuv/uuv_light.png'
-                            width='50'
-                            height='50'
-                            className='d-inline-block align-top m-1 ml-2'
-                            alt='UUV logo'
-                          />
-                        </OverlayTrigger>
-                      </Navbar.Brand>
-                      <Container className='pt-2'>
-                        <OverlayTrigger
-                          placement={"top"}
-                          overlay={
-                            <Tooltip>
-                              Select an element
-                            </Tooltip>
-                          }
-                        >
-                          <Button variant='primary' className='iconBtn m-1 pt-0 pb-1' onClick={this.startSelect}
-                                  disabled={this.state.currentAction === "selection"}>
-                            <Select color='brand' size='medium' />
-                          </Button>
-                        </OverlayTrigger>
-                      </Container>
-                    </div>
-                    <div>
-                      <div className='vr'></div>
-                    </div>
-                    <div className='flex-grow-1 d-flex align-items-start flex-column mb-3 mt-1'>
-                      <span className='colorWhite col-1'><u>Result</u></span>
-                      {this.state.generatedScript.map((value) => <span key={value} className='generatedScript col-11'>{value}</span>)}
-                    </div>
-                    <div>
-                      <div className='vr'></div>
-                    </div>
-                    <div className='col-1 mt-2'>
-                      <OverlayTrigger
-                        placement={"top"}
-                        overlay={
-                          <Tooltip>
-                            Choose the generated action
-                          </Tooltip>
-                        }
-                      >
-                        <Form.Select size='sm' aria-label='generated action' value={checkAction} onChange={handleSelectCheckActionChange}>
-                          <option value={CheckActionEnum.EXPECT.toString()}>{CheckActionEnum.EXPECT.toString()}</option>
-                          <option value={CheckActionEnum.WITHIN.toString()}>{CheckActionEnum.WITHIN.toString()}</option>
-                          <option value={CheckActionEnum.CLICK.toString()}>{CheckActionEnum.CLICK.toString()}</option>
-                        </Form.Select>
-                      </OverlayTrigger>
-                    </div>
-                    <div>
-                      <div className='vr'></div>
-                    </div>
-                    <div>
-                      <OverlayTrigger
-                        placement={"top"}
-                        overlay={
-                          <Tooltip>
-                            Copy
-                          </Tooltip>
-                        }
-                      >
-                        <Button variant='warning' className='iconBtn pt-0 pb-1 mt-2' onClick={this.copyResult}
-                                disabled={!this.state.generatedScript}>
-                          <Copy color='black' size='medium' />
-                        </Button>
-                      </OverlayTrigger>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </Collapse>
-          </Navbar>
-        </ThemeProvider>
-      </div>
+      <ConfigProvider
+        theme={{
+          algorithm: this.state.isDark ? theme.darkAlgorithm : theme.defaultAlgorithm,
+          token: {
+            fontSize: 18,
+            zIndexBase: 50000,
+            zIndexPopupBase: 51000
+          }
+        }}
+      >
+        <Drawer
+          placement="bottom"
+          open={!this.state.isHide}
+          closable={false}
+          className={["uuvAssistant"].join(" ")}
+          height={this.state.isExtended ? 300 : 250}
+          bodyStyle={{ padding: "0px", overflowY: "hidden" }}
+          mask={false}
+          zIndex={50000}
+        >
+          <Button
+            onClick={handleExpandInspector}
+            className="arrowExpander"
+            icon={<DoubleLeftOutlined rotate={ expander.rotate } spin={true} style={{ color: expander.color }}/>}
+            style={{
+            boxShadow: expander.shadow,
+            backgroundColor: expander.background,
+          }}>
+          </Button>
+          <Layout>
+          <Sider width={250} collapsible={true} collapsedWidth={0} theme={this.state.isDark ? "dark" : "light"}>
+            <Row align="middle" style={{ marginTop: 10, marginBottom: 20, marginLeft: 10 }}>
+              <Col span={6}>
+                <Avatar style={{ backgroundColor: this.state.isDark ? "#073a69" : "#C0C0C0", height: "50px", width: "50px" }} size="large">
+                  <Tooltip placement="top" title="Go to steps definition">
+                    <a href="https://e2e-test-quest.github.io/uuv/docs/category/description-of-sentences">
+                      <img
+                        src="/uuv/uuv_light.png"
+                        width="40"
+                        height="40"
+                        alt="UUV logo"
+                      />
+                    </a>
+                  </Tooltip>
+                </Avatar>
+              </Col>
+              <Col span={18}>
+                <Text strong>UUV Assistant</Text>
+              </Col>
+            </Row>
+            <Divider />
+            <Col>
+              <Tooltip placement="left" title="Select an element">
+                <Button shape="round" className="m-1 pt-0 pb-1 actionAside" onClick={this.startSelect}
+                        style={{ background: buttonConfig.background, color: buttonConfig.color }}
+                        disabled={this.state.currentAction === "selection"} icon={<SelectOutlined />}>
+                  Select
+                </Button>
+              </Tooltip>
+              <Tooltip placement="left" title="Copy in clipboard">
+                <Button shape="round" className="actionAside"
+                        style={{ background: buttonConfig.background, color: buttonConfig.color }}
+                        onClick={this.copyResult}
+                        disabled={!this.state.generatedScript} icon={<CopyOutlined />}>
+                  Copy
+                </Button>
+              </Tooltip>
+              <Tooltip placement="left" title="Choose the generated action">
+                <Select
+                  defaultValue={this.state.checkAction}
+                  size="large"
+                  onChange={handleSelectCheckActionChange}
+                  className="actionAside"
+                  options={[
+                    {
+                      value: CheckActionEnum.EXPECT.toString(),
+                      label: CheckActionEnum.EXPECT.toString()
+                    },
+                    {
+                      value: CheckActionEnum.WITHIN.toString(),
+                      label: CheckActionEnum.WITHIN.toString()
+                    },
+                    {
+                      value: CheckActionEnum.CLICK.toString(),
+                      label: CheckActionEnum.CLICK.toString()
+                    }
+                  ]}
+                />
+              </Tooltip>
+            </Col>
+          </Sider>
+          <Layout style={{ padding: "20px 24px 24px", marginLeft: 25 }}>
+            <Row>
+              <Col span={23}>
+                <Text strong underline type={this.state.isDark ? "warning" : "secondary"}>Result</Text>
+              </Col>
+              <Col span={1}>
+                <Avatar onClick={handleChangeLightMode} src={<img src={lightSunUrl} alt="Light mode" />} style={{ cursor: "pointer" }}/>
+              </Col>
+            </Row>
+            <Content
+              style={{
+                padding: 24,
+                margin: 0,
+                minHeight: 280
+              }}
+            >
+              {this.state.generatedScript.map((value, index) =>
+                [<Col key={value.concat(index.toString())}> <Row align="middle"><span
+                  style={{ color: this.state.isDark ? "white" : "black" }}>{value}</span> {value.includes("selector") ?
+                  <Tooltip placement="right" title="Accessibility role and name must be defined"><Avatar key={index} style={{
+                    marginLeft: "20px",
+                    marginTop: 15
+                  }}
+                 src={<img src={"/uuv/warning.svg"}
+                           alt="a accessibility defect is occured"
+                           style={{
+                             height: "20px",
+                             width: "20px"
+                           }} />} />
+                  </Tooltip> : ""} </Row></Col>]
+              )}
+            </Content>
+          </Layout>
+        </Layout>
+        </Drawer>
+      </ConfigProvider>
     );
   }
 }

@@ -80,9 +80,9 @@ export async function addCookieWhenValueIsList(world: World, cookieName: COOKIE_
         const cookieValue: any[] = JSON.parse(cookie.value);
         cookieValue.push(value);
         // console.debug("cookieValueJSON", JSON.stringify(cookieValue));
-        await world.context.addCookies([{ name: cookieNameStr, value: JSON.stringify(cookieValue), path: "/", domain: ".gitlab.com" }]);
+        await world.context.addCookies([{ name: cookieNameStr, value: JSON.stringify(cookieValue), path: "/", domain: ".github.com" }]);
     } else {
-        await world.context.addCookies([{ name: cookieNameStr, value: `[${JSON.stringify(value)}]`, path: "/", domain: ".gitlab.com" }]);
+        await world.context.addCookies([{ name: cookieNameStr, value: `[${JSON.stringify(value)}]`, path: "/", domain: ".github.com" }]);
     }
 }
 export async function getCookie(world: World, cookieName: COOKIE_NAME) {
@@ -90,7 +90,7 @@ export async function getCookie(world: World, cookieName: COOKIE_NAME) {
     let cookie = {
         "name": cookieNameStr,
         "value": COOKIE_VALUE.NOT_EXIST.toString(),
-        "domain": ".gitlab.com",
+        "domain": ".github.com",
         "path": "/",
     } as Cookie;
 
