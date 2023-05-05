@@ -5,7 +5,7 @@ We try to make it easy, and all contributions, even the smaller ones, are more t
 This includes bug reports, fixes, documentation, examples...
 But first, read this page (including the small print at the end).
 
-Contributions are available on https://gitlab.com/e2e-testing/uuv
+Contributions are available on https://github.com/e2e-test-quest/uuv
 
 ## Legal
 
@@ -61,7 +61,7 @@ To contribute:
 
 1. Create an issue describing the bug or enhancement you want to propose (select the right issue template).
 2. Make sure the issue has been reviewed and agreed.
-3. Create a Merge Request, from your **own** fork (see [forking workflow](https://docs.gitlab.com/ee/user/project/repository/forking_workflow.html) documentation).
+3. Create a Merge Request, from your **own** fork (see [forking workflow](https://docs.github.com/en/get-started/quickstart/fork-a-repo) documentation).
    Don't hesitate to mark your MR as `Draft` as long as you think it's not ready to be reviewed.
 
 ### Git Commit Conventions

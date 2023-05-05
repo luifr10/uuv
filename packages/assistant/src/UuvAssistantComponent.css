@@ -1,51 +1,22 @@
 .uuvAssistant {
-  margin: 0 auto !important;
-  width: 1200px;
-  border-radius: 10px 10px 0 0;
-  border: white solid 1px;
-  border-bottom: none;
-  box-shadow: 0px 0px 0px 3px rgba(251,251,254,.5);
-  opacity: 95%;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+    opacity: 90%;
 }
 
 .arrowExpander {
-  position: absolute;
-  left: 50%;
-  top: -1em;
-  stroke: #464B51;
-  stroke-width: 1px;
-  border-radius: 50%;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
-  cursor: pointer;
-
+    position: absolute;
+    left: 50%;
+    top: -1em;
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+    border-color: grey;
 }
 
-.expandHeight {
-  height: 50%;
-  flex: auto;
-  align-content: start;
-  align-items: start;
-  justify-content: start;
-}
-
-.iconBtn {
-  padding: 3px 8px !important;
-}
-
-.vr {
-  margin: 0 10px;
-  background-color: white !important;
-  height: 100%;
-}
-
-.generatedScript{
-  color: white;
-}
-
-.colorWhite {
-  color: #fac863;
-}
-
-.highlight {
-  background-color: yellow;
+.actionAside {
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10px;
+    margin-top: 10px;
+    border-color: grey;
 }
