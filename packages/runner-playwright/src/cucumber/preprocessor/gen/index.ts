@@ -20,12 +20,14 @@ const defaults: Required<Pick<GenOptions, "outputDir" | "cwd">> = {
   cwd: process.cwd(),
 };
 
-export async function generateTestFiles(inputOptions?: GenOptions) {
+export async function generateTestFiles(inputOptions?: GenOptions): Promise<Map<string, GherkinDocument>> {
   const { outputDir, cwd, cucumberConfig } = Object.assign({}, defaults, inputOptions);
   const features = await loadFeatures({ file: cucumberConfig }, { cwd });
   const files = buildFiles(features);
   const paths = saveFiles(files, path.join(cwd, outputDir));
-  return paths;
+  const mapOfFile = new Map<string, GherkinDocument>();
+  paths.forEach((path, index) => mapOfFile.set(path, Array.from(features.keys())[index]));
+  return mapOfFile;
 }
 
 async function loadFeatures(options?: ILoadConfigurationOptions, environment?: IRunEnvironment) {

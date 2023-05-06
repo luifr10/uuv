@@ -17,9 +17,9 @@
  * limitations under the License.
  */
 
-import report from "multiple-cucumber-html-reporter";
 import chalk from "chalk";
 import figlet from "figlet";
+import report from "multiple-cucumber-html-reporter";
 import { Formatter } from "cucumber-json-report-formatter";
 
 import minimist from "minimist";
