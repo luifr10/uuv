@@ -89,7 +89,7 @@
   "enriched": [
     {
       "key": "key.when.withinElement.roleAndName",
-      "wording": "Within $roleName named {string}"
+      "wording": "Within a(n) $roleName named {string}"
     },
     {
       "key": "key.then.element.withRoleAndName",

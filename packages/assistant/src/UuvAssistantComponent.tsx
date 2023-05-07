@@ -249,7 +249,8 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
           </Tooltip>
           {!this.state.isExtended ?
             <Row>
-                <Button shape='round' className='m-1 pt-0 pb-1 uuvFloatingButton' onClick={this.startSelect}
+                <Button shape='round' className='m-1 pt-0 pb-1 uuvFloatingButton'
+                        onClick={this.startSelect}
                         style={{ left: "calc(50% - 400px)", background: buttonConfig.background, color: buttonConfig.color }}
                         disabled={this.state.currentAction === "selection"} icon={<SelectOutlined />}>
                   Select

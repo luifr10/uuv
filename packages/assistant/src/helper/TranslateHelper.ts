@@ -54,8 +54,8 @@ export class TranslateHelper {
         selector += "#" + element.id;
         path.unshift(selector);
         break;
-      } else if (element.getAttribute("data-testId")) {
-        selector += `[data-testId=${element.getAttribute("data-testId")}]`;
+      } else if (element.getAttribute("data-testid")) {
+        selector += `[data-testid=${element.getAttribute("data-testid")}]`;
         path.unshift(selector);
         break;
       } else {
@@ -75,16 +75,6 @@ export class TranslateHelper {
       element = element.parentNode;
     }
     return path.join(">");
-  }
-
-  private static getData(file: string) {
-    return fetch(file, {
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
-        }
-      }
-    );
   }
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
