@@ -16,6 +16,8 @@
 
 
 import { computeAccessibleName, getRole } from "dom-accessibility-api";
+import enBaseJson from "../assets/en.json";
+import enRoleBasedJson from "../assets/en-enriched-wordings.json";
 
 export type BaseSentence = {
   key: string;
@@ -86,40 +88,32 @@ export class TranslateHelper {
   }
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
-  public static async translateEngine(htmlElem: HTMLElement, checkAction: string, isDisabled: boolean): Promise<string[]> {
-    let jsonBase: any;
-    let sentenceList: Promise<string[]> = Promise.resolve([]);
-    await this.getData("en.json")
-      .then((response) => response.json())
-      .then((data) => jsonBase = data
-      );
+  public static translateEngine(htmlElem: HTMLElement, checkAction: string, isDisabled: boolean): string[] {
+    const jsonBase: BaseSentence[] = enBaseJson;
+    console.log(jsonBase[0].wording, isDisabled);
+    let sentenceList: string[] = [];
     let computedKey = "";
     if (checkAction === CheckActionEnum.EXPECT) {
       computedKey = "key.then.element.withSelector";
     } else if (checkAction === CheckActionEnum.WITHIN || checkAction === CheckActionEnum.CLICK ) {
       computedKey = "key.when.withinElement.selector";
     }
-    const sentence = await jsonBase
+    const sentence = jsonBase
       .filter((el: BaseSentence) => el.key === computedKey)
       .map((el: BaseSentence) =>
         el.wording.replace("{string}", `"${this.getSelector(htmlElem)}"`)
       )[0];
     if (checkAction === CheckActionEnum.CLICK) {
       const clickSentence: BaseSentence = jsonBase.filter((el: BaseSentence) => el.key === "key.when.click")[0];
-      sentenceList = Promise.resolve([sentence, clickSentence.wording]);
+      sentenceList = [sentence, clickSentence.wording];
     } else {
-      sentenceList = Promise.resolve([sentence]);
+      sentenceList = [sentence];
     }
     const accessibleRole = getRole(htmlElem);
     const accessibleName = computeAccessibleName(htmlElem);
     const content = htmlElem.getAttribute("value") ?? htmlElem.firstChild?.textContent?.trim();
     if (accessibleRole && accessibleName) {
-      let jsonEnriched: any;
-      await this.getData("/en-enriched-wordings.json")
-        .then((response) => response.json())
-        .then((data: EnrichedSentenceWrapper) => {
-          jsonEnriched = data;
-        });
+      const jsonEnriched: EnrichedSentenceWrapper = enRoleBasedJson;
       if (checkAction === CheckActionEnum.EXPECT) {
         computedKey = "key.then.element.withRoleAndName";
       } else if (checkAction === CheckActionEnum.WITHIN  || checkAction === CheckActionEnum.CLICK) {
@@ -135,9 +129,9 @@ export class TranslateHelper {
       })[0];
       if (checkAction === CheckActionEnum.CLICK) {
         const clickSentence: BaseSentence = jsonBase.filter((el: BaseSentence) => el.key === "key.when.click")[0];
-        sentenceList = Promise.resolve([sentence, clickSentence.wording]);
+        sentenceList = [sentence, clickSentence.wording];
       } else {
-        sentenceList = Promise.resolve([sentence]);
+        sentenceList = [sentence];
       }
       if (content) {
         if (checkAction === CheckActionEnum.EXPECT) {
@@ -161,9 +155,9 @@ export class TranslateHelper {
 
         if (checkAction === CheckActionEnum.CLICK) {
           const clickSentence: BaseSentence = jsonBase.filter((el: BaseSentence) => el.key === "key.when.click")[0];
-          sentenceList = Promise.resolve([sentence, clickSentence.wording]);
+          sentenceList = [sentence, clickSentence.wording];
         } else {
-          sentenceList = Promise.resolve([sentence]);
+          sentenceList = [sentence];
         }
       }
     }
