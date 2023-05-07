@@ -35,7 +35,8 @@
     "launch": "ts-node launcher/uuv-assistant-launcher.ts",
     "launch:custom": "ts-node tests/uuv-assistant-custom-launcher.ts",
     "conf:build": "node compute-conf.js",
-    "package": "npm pack --pack-destination=\"../../dist/packages\""
+    "package": "npm pack --pack-destination=\"../../dist/packages\"",
+    "copy:sentences": "ts-node copy-sentences.ts"
   },
   "dependencies": {
     "@cucumber/cucumber": "9.1.0",
