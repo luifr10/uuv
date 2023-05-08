@@ -43,6 +43,10 @@ export enum CheckActionEnum {
   WITHIN = "Within", EXPECT = "Expect", CLICK = "Click"
 }
 
+export enum StepCaseEnum {
+  WHEN = "When ", THEN = "Then ", GIVEN = "Given "
+}
+
 
 export class TranslateHelper {
   /* eslint-disable  @typescript-eslint/no-explicit-any */
@@ -83,10 +87,13 @@ export class TranslateHelper {
     console.log(jsonBase[0].wording, isDisabled);
     let sentenceList: string[] = [];
     let computedKey = "";
+    let stepCase = "";
     if (checkAction === CheckActionEnum.EXPECT) {
       computedKey = "key.then.element.withSelector";
+      stepCase = StepCaseEnum.THEN;
     } else if (checkAction === CheckActionEnum.WITHIN || checkAction === CheckActionEnum.CLICK ) {
       computedKey = "key.when.withinElement.selector";
+      stepCase = StepCaseEnum.WHEN;
     }
     const sentence = jsonBase
       .filter((el: BaseSentence) => el.key === computedKey)
@@ -95,9 +102,9 @@ export class TranslateHelper {
       )[0];
     if (checkAction === CheckActionEnum.CLICK) {
       const clickSentence: BaseSentence = jsonBase.filter((el: BaseSentence) => el.key === "key.when.click")[0];
-      sentenceList = [sentence, clickSentence.wording];
+      sentenceList = [stepCase + sentence, StepCaseEnum.THEN + clickSentence.wording];
     } else {
-      sentenceList = [sentence];
+      sentenceList = [stepCase + sentence];
     }
     const accessibleRole = getRole(htmlElem);
     const accessibleName = computeAccessibleName(htmlElem);
@@ -106,8 +113,10 @@ export class TranslateHelper {
       const jsonEnriched: EnrichedSentenceWrapper = enRoleBasedJson;
       if (checkAction === CheckActionEnum.EXPECT) {
         computedKey = "key.then.element.withRoleAndName";
+        stepCase = StepCaseEnum.THEN;
       } else if (checkAction === CheckActionEnum.WITHIN  || checkAction === CheckActionEnum.CLICK) {
         computedKey = "key.when.withinElement.roleAndName";
+        stepCase = StepCaseEnum.WHEN;
       }
       const sentence = jsonEnriched.enriched.filter((value: EnrichedSentence) => value.key === computedKey).map((enriched: EnrichedSentence) => {
         const sentenceAvailable = enriched.wording;
@@ -119,19 +128,22 @@ export class TranslateHelper {
       })[0];
       if (checkAction === CheckActionEnum.CLICK) {
         const clickSentence: BaseSentence = jsonBase.filter((el: BaseSentence) => el.key === "key.when.click")[0];
-        sentenceList = [sentence, clickSentence.wording];
+        sentenceList = [stepCase + sentence, StepCaseEnum.THEN + clickSentence.wording];
       } else {
-        sentenceList = [sentence];
+        sentenceList = [stepCase + sentence];
       }
       if (content) {
         if (checkAction === CheckActionEnum.EXPECT) {
           if (isDisabled) {
             computedKey = "key.then.element.withRoleAndNameAndContentDisabled";
+            stepCase = StepCaseEnum.THEN;
           } else {
             computedKey = "key.then.element.withRoleAndNameAndContent";
+            stepCase = StepCaseEnum.THEN;
           }
         } else if (checkAction === CheckActionEnum.WITHIN) {
           computedKey = "key.when.withinElement.roleAndName";
+          stepCase = StepCaseEnum.WHEN;
         }
         const sentence = jsonEnriched.enriched.filter((value: EnrichedSentence) => value.key === computedKey).map((enriched: EnrichedSentence) => {
           const sentenceAvailable = enriched.wording;
@@ -145,9 +157,9 @@ export class TranslateHelper {
 
         if (checkAction === CheckActionEnum.CLICK) {
           const clickSentence: BaseSentence = jsonBase.filter((el: BaseSentence) => el.key === "key.when.click")[0];
-          sentenceList = [sentence, clickSentence.wording];
+          sentenceList = [stepCase + sentence, StepCaseEnum.THEN + clickSentence.wording];
         } else {
-          sentenceList = [sentence];
+          sentenceList = [stepCase + sentence];
         }
       }
     }

@@ -5,6 +5,7 @@
       "dom.iterable",
       "esnext"
     ],
+    "allowJs": true,
     "module": "commonjs",
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
@@ -13,7 +14,8 @@
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "jsx": "react-jsx"
   },
   "include": [
     "tests"

@@ -1,35 +1,34 @@
 .uuvAssistant {
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset !important;
-    opacity: 95% !important;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+    opacity: 95%;
 }
 
 .uuvArrowExpander {
-    position: absolute !important;
-    left: 50% !important;
-    top: -1em !important;
-    cursor: pointer !important;
-    height: 30px !important;
-    width: 30px !important;
-    border-color: grey !important;
+    left: 50%;
+    top: -1em;
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+    border-color: grey;
+    position: absolute;
 }
 
 .uuvFloatingButton {
-    position: absolute !important;
-    top: -1em !important;
-    cursor: pointer !important;
-    height: 30px !important;
-    width: 120px !important;
-    border-color: grey !important;
+    top: -1em;
+    height: 30px;
+    width: 120px;
+    border-color: grey;
     z-index:9999999779;
+    position: absolute;
 }
 
 .uuvActionAside :disabled {
-    width: 200px !important;
+    width: 200px;
 }
 
 .uuvActionAside {
-    width: 80% !important;
-    margin-left: 10% !important;
-    margin-right: 10px !important;
-    border-color: grey !important;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10px;
+    border-color: grey;
 }

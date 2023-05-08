@@ -29,46 +29,46 @@ describe("translateEngine - Expected", () => {
   const { buttonWithRoleName, buttonWithRoleNameAndContent, selectorWithDataTestId, selectorWithNth } = dom();
   test("translateEngine - with role, name and content", () => {
     expect(TranslateHelper.translateEngine(buttonWithRoleNameAndContent, CheckActionEnum.EXPECT, false)).toEqual(
-      ["I should see a button named \"myButton\" and containing \"myTextButton\""]);
+      ["Then I should see a button named \"myButton\" and containing \"myTextButton\""]);
   });
   test("translateEngine - with role, name", () => {
     expect(TranslateHelper.translateEngine(buttonWithRoleName, CheckActionEnum.EXPECT, false)).toEqual(
-      ["I should see a button named \"myButton\""]);
+      ["Then I should see a button named \"myButton\""]);
   });
   test("translateEngine - with role, name and content disabled", () => {
     expect(TranslateHelper.translateEngine(buttonWithRoleNameAndContent, CheckActionEnum.EXPECT, true)).toEqual(
-      ["I should see a button named \"myButton\" and containing \"myTextButton\" disabled"]);
+      ["Then I should see a button named \"myButton\" and containing \"myTextButton\" disabled"]);
   });
   test("translateEngine - with selector- with Id", () => {
     expect(TranslateHelper.translateEngine(selectorWithDataTestId, CheckActionEnum.EXPECT, false)).toEqual(
-      ["I should see an element with selector \"span[data-testid=spanTestId]\""]);
+      ["Then I should see an element with selector \"span[data-testid=spanTestId]\""]);
   });
   test("translateEngine - with selector- with nth", () => {
     expect(TranslateHelper.translateEngine(selectorWithNth, CheckActionEnum.EXPECT, false)).toEqual(
-      ["I should see an element with selector \"div#myDiv>span:nth-of-type(3)\""]);
+      ["Then I should see an element with selector \"div#myDiv>span:nth-of-type(3)\""]);
   });
 });
 describe("translateEngine - Within", () => {
   const { buttonWithRoleName, buttonWithRoleNameAndContent, selectorWithDataTestId, selectorWithNth } = dom();
   test("translateEngine - with role, name and content", () => {
     expect(TranslateHelper.translateEngine(buttonWithRoleNameAndContent, CheckActionEnum.WITHIN, false)).toEqual(
-      ["Within a button named \"myButton\""]);
+      ["When Within a button named \"myButton\""]);
   });
   test("translateEngine - with role, name", () => {
     expect(TranslateHelper.translateEngine(buttonWithRoleName, CheckActionEnum.WITHIN, false)).toEqual(
-      ["Within a button named \"myButton\""]);
+      ["When Within a button named \"myButton\""]);
   });
   test("translateEngine - with role, name and content disabled", () => {
     expect(TranslateHelper.translateEngine(buttonWithRoleNameAndContent, CheckActionEnum.WITHIN, true)).toEqual(
-      ["Within a button named \"myButton\""]);
+      ["When Within a button named \"myButton\""]);
   });
   test("translateEngine - with selector- with Id", () => {
     expect(TranslateHelper.translateEngine(selectorWithDataTestId, CheckActionEnum.WITHIN, false)).toEqual(
-      ["Within the element with selector \"span[data-testid=spanTestId]\""]);
+      ["When Within the element with selector \"span[data-testid=spanTestId]\""]);
   });
   test("translateEngine - with selector- with nth", () => {
     expect(TranslateHelper.translateEngine(selectorWithNth, CheckActionEnum.WITHIN, false)).toEqual(
-      ["Within the element with selector \"div#myDiv>span:nth-of-type(3)\""]);
+      ["When Within the element with selector \"div#myDiv>span:nth-of-type(3)\""]);
   });
 });
 
@@ -76,22 +76,22 @@ describe("translateEngine - Click", () => {
   const { buttonWithRoleName, buttonWithRoleNameAndContent, selectorWithDataTestId, selectorWithNth } = dom();
   test("translateEngine - with role, name and content", () => {
     expect(TranslateHelper.translateEngine(buttonWithRoleNameAndContent, CheckActionEnum.CLICK, false)).toEqual(
-      ["Within a button named \"myButton\"", "I click"]);
+      ["When Within a button named \"myButton\"", "Then I click"]);
   });
   test("translateEngine - with role, name", () => {
     expect(TranslateHelper.translateEngine(buttonWithRoleName, CheckActionEnum.CLICK, false)).toEqual(
-      ["Within a button named \"myButton\"", "I click"]);
+      ["When Within a button named \"myButton\"", "Then I click"]);
   });
   test("translateEngine - with role, name and content disabled", () => {
     expect(TranslateHelper.translateEngine(buttonWithRoleNameAndContent, CheckActionEnum.CLICK, true)).toEqual(
-      ["Within a button named \"myButton\"", "I click"]);
+      ["When Within a button named \"myButton\"", "Then I click"]);
   });
   test("translateEngine - with selector- with Id", () => {
     expect(TranslateHelper.translateEngine(selectorWithDataTestId, CheckActionEnum.CLICK, false)).toEqual(
-      ["Within the element with selector \"span[data-testid=spanTestId]\"", "I click"]);
+      ["When Within the element with selector \"span[data-testid=spanTestId]\"", "Then I click"]);
   });
   test("translateEngine - with selector- with nth", () => {
     expect(TranslateHelper.translateEngine(selectorWithNth, CheckActionEnum.CLICK, false)).toEqual(
-      ["Within the element with selector \"div#myDiv>span:nth-of-type(3)\"", "I click"]);
+      ["When Within the element with selector \"div#myDiv>span:nth-of-type(3)\"", "Then I click"]);
   });
 });

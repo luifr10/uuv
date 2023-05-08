@@ -24,11 +24,6 @@ export interface HtmlElementProps {
   rotate?: number;
 }
 
-interface HtmlBase64FileProps {
-  mime: string;
-  data: string;
-}
-
 export enum MimeTypeEnum {
 IMAGE_BMP = "image/bmp",
 TEXT_CSS = "text/css",
