@@ -19,7 +19,11 @@ jobs:
       - name: Cache node modules
         uses: actions/cache@v3
         with:
-          key: cache-node-modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
           path: |
             node_modules
             packages/assistant/node_modules
