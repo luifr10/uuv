@@ -1,7 +1,7 @@
 import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
-  testDir: "q.uuv-features-gen",
+  testDir: ".uuv-features-gen",
   testMatch: ["**/*.spec.ts", "**/*.{ts,js}"],
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
