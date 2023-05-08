@@ -20,12 +20,31 @@ import chalk from "chalk";
 import { generateTestFiles } from "../cucumber/preprocessor/gen";
 import fs from "fs";
 import { execSync } from "child_process";
+import { GherkinDocument } from "@cucumber/messages/dist/esm/src";
+import { GeneratedReportType } from "../reporter/uuv-playwright-reporter-helper";
+
+export interface UUVPlaywrightCucumberMapItem {
+    originalFile: string;
+    generatedFile: string;
+}
+
+export const UUVPlaywrightCucumberMapFile = ".uuv-playwright-cucumber-map.json";
 
 async function bddGen(tempDir: string) {
     try {
-        await generateTestFiles({
+        const mapOfFile = await generateTestFiles({
             outputDir: tempDir,
         });
+        const content: UUVPlaywrightCucumberMapItem[] = [];
+        mapOfFile.forEach((value: GherkinDocument, key: string) => {
+            if (value.uri) {
+                content.push({
+                    originalFile: value.uri,
+                    generatedFile: key
+                });
+            }
+        });
+        fs.writeFileSync(`${tempDir}/${UUVPlaywrightCucumberMapFile}`, JSON.stringify(content, null, 4), { encoding: "utf8" });
         console.log("bddgen executed");
     } catch (err) {
         console.error(chalk.red("Something went wrong..."));
@@ -82,21 +101,23 @@ function translateFeatures(tempDir: string, configDir: string) {
     });
 }
 
-function runPlaywright(mode: "open" | "e2e", configDir: string) {
+function runPlaywright(mode: "open" | "e2e", configDir: string, generateHtmlReport = false) {
     const configFile = `${configDir}/playwright.config.ts`;
+    const reportType = generateHtmlReport ? GeneratedReportType.HTML : GeneratedReportType.CONSOLE;
     try {
-        console.log(`Running: npx playwright test -c ${configFile} ${mode === "open" ? "--ui" : ""}`);
-        execSync(`npx playwright test -c ${configFile} ${mode === "open" ? "--ui" : ""}`, { stdio: "inherit" });
-        console.log("playwright excuted");
+        // @ts-ignore
+        process.env.REPORT_TYPE = reportType;
+        // @ts-ignore
+        process.env.CONFIG_DIR = configDir;
+        console.log(`Running: npx playwright test --project=chromium -c ${configFile} ${mode === "open" ? "--ui" : ""}`);
+        execSync(`npx playwright test --project=chromium -c ${configFile} ${mode === "open" ? "--ui" : ""}`, { stdio: "inherit" });
     } catch (err) {
-        console.error(chalk.red("Something went wrong..."));
-        console.dir(err);
         process.exit(-1);
     }
 }
 
-export async function run(mode: "open" | "e2e", tempDir = "uuv/.features-gen/e2e", configDir = "uuv") {
+export async function run(mode: "open" | "e2e", tempDir = "uuv/.features-gen/e2e", configDir = "uuv", generateHtmlReport = false) {
     await bddGen(tempDir);
     translateFeatures(tempDir, configDir);
-    runPlaywright(mode, configDir);
+    runPlaywright(mode, configDir, generateHtmlReport);
 }

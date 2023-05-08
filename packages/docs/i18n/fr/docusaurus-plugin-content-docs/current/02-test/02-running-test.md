@@ -101,16 +101,26 @@ export CYPRESS_BASE_URL=http://localhost:4200
 </Tabs>
 :::
 
-| Nom     | Description                                                                                                   | Valeur                                                                                                                                                                                                                                                                               |
-|---------|---------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `browser` | Navigateur cible                                                                                              | `chrome` / `edge` / `firefox` / `electron`                                                                                                                                                                                                                                           |
-| `env` | Variable d'environnement                                                                                      | Objet json contenant les propriétés: <br/> - `TAGS` : Pour cibler des [tags cucumber](https://cucumber.io/docs/cucumber/api/?lang=javascript#tags) <br/> - `...` : L'ensemble des [propriétés possible pour cypress](https://docs.cypress.io/guides/references/configuration#Global) |
+| Nom                  | Description                                                                                                   | Valeur                                                                                                                                                                                                                                                                               |
+|----------------------|---------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `browser`            | Navigateur cible                                                                                              | `chrome` / `edge` / `firefox` / `electron`                                                                                                                                                                                                                                           |
+| `env`                | Variable d'environnement                                                                                      | Objet json contenant les propriétés: <br/> - `TAGS` : Pour cibler des [tags cucumber](https://cucumber.io/docs/cucumber/api/?lang=javascript#tags) <br/> - `...` : L'ensemble des [propriétés possible pour cypress](https://docs.cypress.io/guides/references/configuration#Global) |
 | `generateHtmlReport` | Lorsque cette option est présente, un rapport html des tests éxécutés sera généré içi : `./reports/e2e/html/` | N/A                                                                                                                                                                                                                                                                                  |
 
 </TabItem>
 <TabItem value="playwright" label="Playwright">
 
+:::tip
+Pour modifier la BASE_URL en mode E2E, il suffit de positionner la variable d'environnement :
+
 WIP
+:::
+
+| Nom                  | Description                                                                                                   | Valeur                                                                                                                                                                                                                                                                               |
+|----------------------|---------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `browser` WIP        | Navigateur cible                                                                                              | `chrome` / `edge` / `firefox` / `electron`                                                                                                                                                                                                                                           |
+| `generateHtmlReport` | Lorsque cette option est présente, un rapport html des tests éxécutés sera généré içi : `./reports/e2e/html/` | N/A                                                                                                                                                                                                                                                                                  |
+
 
 </TabItem>
 </Tabs>

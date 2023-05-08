@@ -17,38 +17,20 @@
  * limitations under the License.
  */
 
-import report from "multiple-cucumber-html-reporter";
 import chalk from "chalk";
 import figlet from "figlet";
-import { Formatter } from "cucumber-json-report-formatter";
-
 import minimist from "minimist";
 import { run } from "./runner-playwright";
+import fs from "fs";
 
 export async function main() {
-  const JSON_REPORT_DIR = "./uuv/reports/e2e/json";
-  const HTML_REPORT_DIR = "./uuv/reports/e2e/html";
-  const CUCUMBER_MESSAGES_FILE = "./uuv/cucumber-messages.ndjson";
-  const FEATURE_GEN_DIR = ".uuv-features-gen";
   const PROJECT_DIR = "uuv";
-  figlet.text("UUV", {
-    font: "Big",
-    horizontalLayout: "default",
-    verticalLayout: "default",
-    width: 80,
-    whitespaceBreak: true
-  }, function(err, data) {
-    if (err) {
-      console.error(chalk.red("Something went wrong..."));
-      console.dir(err);
-      process.exit(-1);
-    }
-    console.log(chalk.blue(data));
-  });
+  const FEATURE_GEN_DIR = `${PROJECT_DIR}/.uuv-features-gen`;
+  printBanner(getCurrentVersion);
 
   const argv = minimist(process.argv.slice(2));
   const command = findTargetCommand(argv);
-  console.info(chalk.blue(`Executing UUV command ${command}...`));
+  console.info(chalk.blueBright(`Executing UUV command ${command}...`));
   switch (command) {
     case "open":
       await openPlaywright(argv);
@@ -88,52 +70,14 @@ export async function main() {
     // }
 
     // Running Tests
-    return run( "e2e", FEATURE_GEN_DIR, PROJECT_DIR)
+    return run( "e2e", FEATURE_GEN_DIR, PROJECT_DIR, argv.generateHtmlReport)
         .then(async (result) => {
-          // TODO Manage HTML Report
-          // if (argv.generateHtmlReport) {
-          //   console.info(chalk.blue("Generating Test Report..."));
-          //   await generateHtmlReport(browser, argv);
-          // }
-          // if (fs.existsSync(CUCUMBER_MESSAGES_FILE)) {
-          //   fs.rmSync(CUCUMBER_MESSAGES_FILE);
-          // }
           console.log(`Status ${chalk.green("success")}`);
       })
       .catch((err: any) => {
         console.error(chalk.red(err));
         process.exit(-1);
       });
-  }
-
-  async function formatCucumberMessageFile() {
-    const formatter = new Formatter();
-    const outputFile = `${JSON_REPORT_DIR}/cucumber-report.json`;
-    await formatter.parseCucumberJson(CUCUMBER_MESSAGES_FILE, outputFile);
-  }
-
-  function generateHtmlReportFromJson(browser: string, argv: any) {
-    const UNKOWN_VALUE = "unknown";
-    report.generate({
-      jsonDir: JSON_REPORT_DIR,
-      reportPath: HTML_REPORT_DIR,
-      metadata: {
-        browser: {
-          name: browser,
-          version: argv.browserVersion ? argv.browserVersion : "",
-        },
-        device: argv.device ? argv.device : UNKOWN_VALUE,
-        platform: {
-          name: argv.platformName ? argv.platformName : UNKOWN_VALUE,
-          version: argv.platformVersion ? argv.platformVersion : "",
-        },
-      },
-    });
-  }
-
-  async function generateHtmlReport(browser: string, argv: any) {
-    await formatCucumberMessageFile();
-    generateHtmlReportFromJson(browser, argv);
   }
 
   function findTargetCommand(argv: any) {
@@ -143,5 +87,27 @@ export async function main() {
     }
     const command = argv._[0];
     return command;
+  }
+
+  function printBanner(getCurrentVersion: () => string) {
+    console.log(
+        chalk.blueBright(
+            figlet.textSync("UUV", {
+              font: "Big",
+              horizontalLayout: "default",
+              verticalLayout: "default",
+              width: 80,
+              whitespaceBreak: true
+            })
+        )
+    );
+    console.info(chalk.blueBright(`Version: ${getCurrentVersion()}\n\n`));
+  }
+
+  function getCurrentVersion(): string {
+    const pJsonStr = fs.readFileSync(`${__dirname}/../../package.json`, {
+      encoding: "utf8", flag: "r"
+    });
+    return JSON.parse(pJsonStr).version;
   }
 }

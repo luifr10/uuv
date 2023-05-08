@@ -65,7 +65,8 @@
     "bin/**/*",
     "postinstall.js",
     "target-config/**/*",
-    "src/cucumber/step_definitions/cypress/generated/**/*"
+    "src/cucumber/step_definitions/cypress/generated/**/*",
+    "*.md"
   ],
   "exports": {
     ".": {
