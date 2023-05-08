@@ -27,7 +27,7 @@ import "./UuvAssistantComponent.css";
 import { CheckActionEnum, TranslateHelper } from "./helper/TranslateHelper";
 import { Avatar, Button, Col, ConfigProvider, Divider, Drawer, Layout, notification, Row, Select, theme, Tooltip, Typography } from "antd";
 import { CopyOutlined, SelectOutlined, DoubleLeftOutlined } from "@ant-design/icons";
-import { CssHelper } from "./helper/CssHelper";
+import { CssHelper, HtmlBase64FileProps } from "./helper/CssHelper";
 
 const Inspector = require("inspector-dom");
 
@@ -213,9 +213,11 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
     const { Text } = Typography;
     const expander = CssHelper.expanderConfig(this.state.isDark, this.state.isExtended);
     const buttonConfig = CssHelper.buttonConfig(this.state.isDark);
-    const lightMode = this.state.isDark ? CssHelper.getBase64File(sunJson) : CssHelper.getBase64File(moonJson);
-    const warningIcon = CssHelper.getBase64File(warningIconJson);
-    const uuvLogo = CssHelper.getBase64File(uuvLogoJson);
+    const lightMode = this.state.isDark ?
+        CssHelper.getBase64File(sunJson as HtmlBase64FileProps) :
+        CssHelper.getBase64File(moonJson as HtmlBase64FileProps);
+    const warningIcon = CssHelper.getBase64File(warningIconJson as HtmlBase64FileProps);
+    const uuvLogo = CssHelper.getBase64File(uuvLogoJson as HtmlBase64FileProps);
     return (
       <ConfigProvider
         theme={{
@@ -318,7 +320,11 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
                 </Tooltip>
                 <Tooltip placement='left' title='Copy in clipboard'>
                   <Button shape='round' className='uuvActionAside'
-                          style={{ marginTop: "10px", background: this.state.generatedScript.length > 0 ? buttonConfig.background : "grey", color: buttonConfig.color }}
+                          style={{
+                            marginTop: "10px",
+                            background: this.state.generatedScript.length > 0 ? buttonConfig.background : "grey",
+                            color: buttonConfig.color
+                          }}
                           onClick={this.copyResult}
                           disabled={this.state.generatedScript.length === 0} icon={<CopyOutlined />}>
                     Copy

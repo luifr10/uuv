@@ -24,8 +24,8 @@ export interface HtmlElementProps {
   rotate?: number;
 }
 
-interface HtmlBase64FileProps {
-  mime: string;
+export interface HtmlBase64FileProps {
+  mime: MimeTypeEnum;
   data: string;
 }
 
@@ -79,7 +79,7 @@ export class CssHelper {
     } as HtmlElementProps;
   };
 
-  static getBase64File(file: any): string {
+  static getBase64File(file: HtmlBase64FileProps): string {
       if ( !Object.values(MimeTypeEnum).includes(file.mime)) {
         notification.error({
           message: "Error",
