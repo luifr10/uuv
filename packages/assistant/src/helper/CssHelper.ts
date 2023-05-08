@@ -74,6 +74,7 @@ export class CssHelper {
     } as HtmlElementProps;
   };
 
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
   static getBase64File(file: any): string {
       if ( !Object.values(MimeTypeEnum).includes(file.mime)) {
         notification.error({
