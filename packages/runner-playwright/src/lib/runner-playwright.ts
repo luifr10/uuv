@@ -21,6 +21,7 @@ import { generateTestFiles } from "../cucumber/preprocessor/gen";
 import fs from "fs";
 import { execSync } from "child_process";
 import { GherkinDocument } from "@cucumber/messages/dist/esm/src";
+import { GeneratedReportType } from "../reporter/uuv-playwright-reporter-helper";
 
 export interface UUVPlaywrightCucumberMapItem {
     originalFile: string;
@@ -100,18 +101,23 @@ function translateFeatures(tempDir: string, configDir: string) {
     });
 }
 
-function runPlaywright(mode: "open" | "e2e", configDir: string) {
+function runPlaywright(mode: "open" | "e2e", configDir: string, generateHtmlReport = false) {
     const configFile = `${configDir}/playwright.config.ts`;
+    const reportType = generateHtmlReport ? GeneratedReportType.HTML : GeneratedReportType.CONSOLE;
     try {
-        console.log(`Running: npx playwright test -c ${configFile} ${mode === "open" ? "--ui" : ""}`);
-        execSync(`npx playwright test -c ${configFile} ${mode === "open" ? "--ui" : ""}`, { stdio: "inherit" });
+        // @ts-ignore
+        process.env.REPORT_TYPE = reportType;
+        // @ts-ignore
+        process.env.CONFIG_DIR = configDir;
+        console.log(`Running: npx playwright test --project=chromium -c ${configFile} ${mode === "open" ? "--ui" : ""}`);
+        execSync(`npx playwright test --project=chromium -c ${configFile} ${mode === "open" ? "--ui" : ""}`, { stdio: "inherit" });
     } catch (err) {
         process.exit(-1);
     }
 }
 
-export async function run(mode: "open" | "e2e", tempDir = "uuv/.features-gen/e2e", configDir = "uuv") {
+export async function run(mode: "open" | "e2e", tempDir = "uuv/.features-gen/e2e", configDir = "uuv", generateHtmlReport = false) {
     await bddGen(tempDir);
     translateFeatures(tempDir, configDir);
-    runPlaywright(mode, configDir);
+    runPlaywright(mode, configDir, generateHtmlReport);
 }

@@ -19,15 +19,17 @@
 import { run } from "./src/lib/runner-playwright";
 import chalk from "chalk";
 import figlet from "figlet";
+import minimist from "minimist";
 
 let mode = "run";
+const argv = minimist(process.argv.slice(2));
 
-if (process.argv.length === 2) {
-    console.error(chalk.red("Expected at least one argument! (--run or --open)"));
+if (argv._.length !== 1) {
+    console.error(chalk.red("Expected at least one argument! (run or open)"));
     process.exit(1);
 } else {
-    if (process.argv[2] && (process.argv[2] === "--run" || process.argv[2] === "--open")) {
-        mode = process.argv[2];
+    if (argv._[0] && (argv._[0] === "run" || argv._[0] === "open")) {
+        mode = argv._[0];
     }
 }
 
@@ -44,7 +46,8 @@ async function testUUV() {
         )
     );
 
-    await run(mode === "--open" ? "open" : "e2e", "tests/.features-gen", ".");
+    // @ts-ignore
+    await run(mode === "open" ? "open" : "e2e", "tests/.features-gen", ".", argv.generateHtmlReport);
 }
 
 testUUV();

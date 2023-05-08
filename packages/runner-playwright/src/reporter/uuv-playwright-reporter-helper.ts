@@ -1,18 +1,46 @@
-import { FullConfig, FullResult, Suite, TestCase, TestResult, Location } from "@playwright/test/reporter";
+import { FullConfig, FullResult, Suite, TestCase, TestResult, Location, TestStatus } from "@playwright/test/reporter";
 import { generateMessages } from "@cucumber/gherkin";
 import { Query } from "@cucumber/gherkin-utils";
 import { Envelope, IdGenerator, parseEnvelope, SourceMediaType } from "@cucumber/messages";
 import fs from "fs";
-import { UUVPlaywrightCucumberMapFile, UUVPlaywrightCucumberMapItem } from "./src/lib/runner-playwright";
+import { UUVPlaywrightCucumberMapFile, UUVPlaywrightCucumberMapItem } from "../lib/runner-playwright";
 import report from "multiple-cucumber-html-reporter";
 import { Formatter } from "cucumber-json-report-formatter";
 import { v4 as uuidv4 } from "uuid";
 import { TestStep } from "@playwright/test/types/testReporter";
+import chalk from "chalk";
+import chalkTable from "chalk-table";
 
 
 const NANOS_IN_SECOND = 1000000000;
 const NANOS_IN_MILLISSECOND = 1000000;
-class UUVPlaywrightReporterHelper {
+export enum GeneratedReportType {
+    CONSOLE = "console",
+    HTML = "html"
+}
+
+class ReportOfFeature {
+    passed = 0;
+    skipped = 0;
+    failed = 0;
+
+    increment(status: TestStatus) {
+        if (status === "passed") {
+            this.passed++;
+        } else if (status === "skipped") {
+            this.skipped++;
+        } else if (status === "failed") {
+            this.failed++;
+        }
+    }
+}
+
+interface TestError {
+    scenario: string;
+    error: string | Buffer;
+}
+
+class UuvPlaywrightReporterHelper {
     private UUVPlaywrightCucumberMap: UUVPlaywrightCucumberMapItem[] = [];
     testDir!: string;
     private queries: Map<string, Query> = new Map<string, Query>();
@@ -21,6 +49,8 @@ class UUVPlaywrightReporterHelper {
     private testCasesAndPickleIdMap: Map<string, string> = new Map<string, string>();
     private testCasesTestStepStartedIdMap: Map<string, number> = new Map<string, number>();
     private testStepLocationAndTestStepIdMap: Map<string, string> = new Map<string, string>();
+    private consoleReportMap: Map<string, ReportOfFeature> = new Map<string, ReportOfFeature>();
+    private errors: TestError[] = [];
 
     public createTestRunStartedEnvelope(config: FullConfig, suite: Suite, startTimestamp: { seconds: number; nanos: number }) {
         this.testDir = config.projects[0].testDir;
@@ -67,6 +97,7 @@ class UUVPlaywrightReporterHelper {
             this.envelopes.push(newTestCaseStartedEnvelope);
             this.queries.set(featureFile, newCurrentQuery);
             this.testCasesAndTestCasesStartedIdMap.set(test.id, testCaseStartedId);
+            this.initConsoleReportIfNotExists(featureFile);
         }
     }
 
@@ -98,15 +129,15 @@ class UUVPlaywrightReporterHelper {
     private createTestStepSkippedEnvelope(test: TestCase, featureFile: string, timestamp: { seconds: number; nanos: number }) {
         const currentQuery = this.queries.get(featureFile);
         if (currentQuery) {
-            let newIndexStep = this.testCasesTestStepStartedIdMap.get(test.id);
-            newIndexStep = newIndexStep ? newIndexStep + 1 : 1;
+            const newIndexStepTemp = this.testCasesTestStepStartedIdMap.get(test.id);
+            const newIndexStep = newIndexStepTemp !== undefined ? newIndexStepTemp + 1 : 1;
 
             if (newIndexStep !== undefined) {
                 const pickleId = this.testCasesAndPickleIdMap.get(test.id);
                 currentQuery.getPickles()
                     .find(pickle => pickle.id === pickleId)
                     ?.steps
-                    .filter((value, index) => index >= (newIndexStep-1))
+                    .filter((value, index) => index >= (newIndexStep - 1))
                     .forEach((pickleStep, index) => {
                         const newTestStepStartedEnvelope = this.createEnvelope({
                             testStepStarted: {
@@ -132,6 +163,7 @@ class UUVPlaywrightReporterHelper {
                             }
                         });
                         this.envelopes.push(newTestStepSkippedEnvelope);
+                        this.consoleReportMap.get(featureFile)?.increment("skipped");
                     });
             }
         }
@@ -180,7 +212,18 @@ class UUVPlaywrightReporterHelper {
             });
             currentQuery.update(newTestCaseFinishedEnvelope);
             this.envelopes.push(newTestCaseFinishedEnvelope);
+            this.updateConsoleReport(featureFile, result);
         }
+    }
+
+    private initConsoleReportIfNotExists(featureFile: string) {
+        if (!this.consoleReportMap.get(featureFile)) {
+            this.consoleReportMap.set(featureFile, new ReportOfFeature());
+        }
+    }
+
+    private updateConsoleReport(featureFile: string, result: TestResult) {
+        this.consoleReportMap.get(featureFile)?.increment(result.status);
     }
 
     public createTestRunFinishedEnvelope (result: FullResult) {
@@ -201,9 +244,11 @@ class UUVPlaywrightReporterHelper {
         );
     }
 
-    public async generateReport() {
-        this.createCucumberNdJsonFile("./reports/cucumber-messages.ndjson");
-        await this.generateHtmlReport("", null);
+    public async generateReport(reportType: GeneratedReportType) {
+        this.displayConsoleReport();
+        if (reportType === GeneratedReportType.HTML) {
+            await this.generateHtmlReport();
+        }
     }
 
     public getTimestamp(inpuDate?: Date) {
@@ -218,6 +263,15 @@ class UUVPlaywrightReporterHelper {
 
     public getOriginalFeatureFile(generateFile: string): string | undefined {
         return this.UUVPlaywrightCucumberMap.find(item => item.generatedFile === generateFile)?.originalFile;
+    }
+
+    public getCurrentRunningScenario(test: TestCase, featureFile: string) {
+        const counter = `[${test.parent.allTests().filter(test => test.results.length > 0).length}/${test.parent.allTests().length}]`;
+        return `File ${featureFile} > Scenario ${counter} - ${test.title}`;
+    }
+
+    public addError(newError: TestError) {
+        this.errors.push(newError);
     }
 
     private getStatus(step: TestStep) {
@@ -335,23 +389,74 @@ class UUVPlaywrightReporterHelper {
 
     private async formatCucumberMessageFile() {
         const formatter = new Formatter();
-        const input = "./reports/cucumber-messages.ndjson";
-        const outputFile = "reports/json/cucumber-report.json";
+        // @ts-ignore
+        const input = `${process.env.CONFIG_DIR}/reports/cucumber-messages.ndjson`;
+        // @ts-ignore
+        const outputFile = `${process.env.CONFIG_DIR}/reports/json/cucumber-report.json`;
         await formatter.parseCucumberJson(input, outputFile);
     }
 
-    private generateHtmlReportFromJson(browser: string, argv: any) {
+    private generateHtmlReportFromJson() {
         const UNKOWN_VALUE = "unknown";
         report.generate({
-            jsonDir: "reports/json",
-            reportPath: "reports/html"
+            // @ts-ignore
+            jsonDir: `${process.env.CONFIG_DIR}/reports/json`,
+            // @ts-ignore
+            reportPath: `${process.env.CONFIG_DIR}/reports/html`
         });
     }
 
-    private async generateHtmlReport(browser: string, argv: any) {
+    private async generateHtmlReport() {
+        // @ts-ignore
+        this.createCucumberNdJsonFile(`${process.env.CONFIG_DIR}/reports/cucumber-messages.ndjson`);
         await this.formatCucumberMessageFile();
-        this.generateHtmlReportFromJson(browser, argv);
+        this.generateHtmlReportFromJson();
+    }
+
+    private displayConsoleReport() {
+        const consoleReport : any[] = [];
+        const chalkTableOptions = {
+            leftPad: 2,
+            columns: [
+                { field: "id",     name: "Id" },
+                { field: "file",     name: "File" },
+                { field: "passed",  name: chalk.green("Passed") },
+                { field: "skipped", name: chalk.yellow("Skipped") },
+                { field: "failed",  name: chalk.red("Failed") }
+            ]
+        };
+        let index = 1;
+        this.consoleReportMap.forEach((value, key) => {
+            consoleReport.push({
+                id: index,
+                file: key,
+                passed: chalk.green(value.passed),
+                skipped: chalk.yellow(value.skipped),
+                failed: chalk.red(value.failed)
+            });
+            index++;
+        });
+
+        if (this.errors.length > 0) {
+            console.log("\n\n");
+            console.log(chalk.underline(chalk.bgRed(`${this.errors.length} Error(s) :`)));
+            this.errors.forEach(error => {
+                console.log(error.scenario);
+                console.log(chalk.red(error.error.toString()));
+                console.log("");
+            });
+            console.log("");
+        }
+
+        console.log(chalk.underline(chalk.bgBlue("Test Execution Report :")));
+        console.log(
+            chalkTable(
+                chalkTableOptions,
+                consoleReport
+            )
+        );
+        console.log("\n\n");
     }
 }
 
-export default UUVPlaywrightReporterHelper;
+export default UuvPlaywrightReporterHelper;

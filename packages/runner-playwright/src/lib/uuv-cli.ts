@@ -19,18 +19,13 @@
 
 import chalk from "chalk";
 import figlet from "figlet";
-import report from "multiple-cucumber-html-reporter";
-import { Formatter } from "cucumber-json-report-formatter";
 
 import minimist from "minimist";
 import { run } from "./runner-playwright";
 
 export async function main() {
-  const JSON_REPORT_DIR = "./uuv/reports/e2e/json";
-  const HTML_REPORT_DIR = "./uuv/reports/e2e/html";
-  const CUCUMBER_MESSAGES_FILE = "./uuv/cucumber-messages.ndjson";
-  const FEATURE_GEN_DIR = ".uuv-features-gen";
   const PROJECT_DIR = "uuv";
+  const FEATURE_GEN_DIR = `${PROJECT_DIR}/.uuv-features-gen`;
   figlet.text("UUV", {
     font: "Big",
     horizontalLayout: "default",
@@ -88,7 +83,7 @@ export async function main() {
     // }
 
     // Running Tests
-    return run( "e2e", FEATURE_GEN_DIR, PROJECT_DIR)
+    return run( "e2e", FEATURE_GEN_DIR, PROJECT_DIR, argv.generateHtmlReport)
         .then(async (result) => {
           // TODO Manage HTML Report
           // if (argv.generateHtmlReport) {
@@ -104,36 +99,6 @@ export async function main() {
         console.error(chalk.red(err));
         process.exit(-1);
       });
-  }
-
-  async function formatCucumberMessageFile() {
-    const formatter = new Formatter();
-    const outputFile = `${JSON_REPORT_DIR}/cucumber-report.json`;
-    await formatter.parseCucumberJson(CUCUMBER_MESSAGES_FILE, outputFile);
-  }
-
-  function generateHtmlReportFromJson(browser: string, argv: any) {
-    const UNKOWN_VALUE = "unknown";
-    report.generate({
-      jsonDir: JSON_REPORT_DIR,
-      reportPath: HTML_REPORT_DIR,
-      metadata: {
-        browser: {
-          name: browser,
-          version: argv.browserVersion ? argv.browserVersion : "",
-        },
-        device: argv.device ? argv.device : UNKOWN_VALUE,
-        platform: {
-          name: argv.platformName ? argv.platformName : UNKOWN_VALUE,
-          version: argv.platformVersion ? argv.platformVersion : "",
-        },
-      },
-    });
-  }
-
-  async function generateHtmlReport(browser: string, argv: any) {
-    await formatCucumberMessageFile();
-    generateHtmlReportFromJson(browser, argv);
   }
 
   function findTargetCommand(argv: any) {
