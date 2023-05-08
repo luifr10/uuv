@@ -86,6 +86,7 @@ class UuvPlawrightReporter implements Reporter {
             chalk.yellow("End of the tests execution")
         );
         await this.helper.generateReport(
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             process.env.REPORT_TYPE as GeneratedReportType
         );

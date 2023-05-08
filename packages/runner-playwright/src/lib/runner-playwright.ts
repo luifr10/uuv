@@ -105,8 +105,10 @@ function runPlaywright(mode: "open" | "e2e", configDir: string, generateHtmlRepo
     const configFile = `${configDir}/playwright.config.ts`;
     const reportType = generateHtmlReport ? GeneratedReportType.HTML : GeneratedReportType.CONSOLE;
     try {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         process.env.REPORT_TYPE = reportType;
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         process.env.CONFIG_DIR = configDir;
         console.log(`Running: npx playwright test --project=chromium -c ${configFile} ${mode === "open" ? "--ui" : ""}`);

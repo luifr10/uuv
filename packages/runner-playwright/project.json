@@ -33,7 +33,8 @@
       "options": {
         "lintFilePatterns": ["packages/runner-playwright/**/*.{ts,js,feature}"],
         "fix": true,
-        "eslintConfig": "packages/runner-playwright/.eslintrc.json"
+        "eslintConfig": "packages/runner-playwright/.eslintrc.json",
+        "ignorePath": "packages/runner-playwright/.eslintignore"
       }
     }
   },

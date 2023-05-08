@@ -400,6 +400,7 @@ class UuvPlaywrightReporterHelper {
     }
 
     private async generateHtmlReport() {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         const reportDir = `${process.env.CONFIG_DIR}/reports`;
         const outputMessageFile = `${reportDir}/cucumber-messages.ndjson`;
