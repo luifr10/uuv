@@ -57,12 +57,16 @@
   "types": "./dist/index.d.ts",
   "main": "./dist/index.js",
   "files": [
-    "dist/**/*",
+    "dist/cucumber/**/*",
+    "dist/reporter/**/*",
+    "dist/lib/**/*",
+    "dist/index.d.ts",
+    "dist/index.js",
     "bin/**/*",
     "postinstall.js",
     "target-config/**/*",
     "src/cucumber/step_definitions/playwright/generated/**/*",
-    "**/*.md"
+    "*.md"
   ],
   "exports": {
     ".": {

@@ -28,7 +28,8 @@
     "dist/index.js",
     "dist/step-definition-generator/**/*",
     "dist/assets/**/*",
-    "dist/runner/**/*"
+    "dist/runner/**/*",
+    "*.md"
   ],
   "exports": {
     ".": {

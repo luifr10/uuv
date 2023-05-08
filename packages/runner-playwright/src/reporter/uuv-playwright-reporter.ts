@@ -46,7 +46,7 @@ class UuvPlawrightReporter implements Reporter {
         const featureFile = this.helper.getOriginalFeatureFile(test.location.file);
         if (featureFile) {
             this.reporterStaticConsoleLogger(
-                chalk.blue(`Running > ${this.helper.getCurrentRunningScenario(test, featureFile)}`)
+                chalk.blueBright(`Running > ${this.helper.getCurrentRunningScenario(test, featureFile)}`)
             );
             this.helper.createTestCaseStartedEnvelope(test, result, featureFile, startTimestamp);
         }

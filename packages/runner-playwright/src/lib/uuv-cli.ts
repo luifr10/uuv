@@ -19,31 +19,18 @@
 
 import chalk from "chalk";
 import figlet from "figlet";
-
 import minimist from "minimist";
 import { run } from "./runner-playwright";
+import fs from "fs";
 
 export async function main() {
   const PROJECT_DIR = "uuv";
   const FEATURE_GEN_DIR = `${PROJECT_DIR}/.uuv-features-gen`;
-  figlet.text("UUV", {
-    font: "Big",
-    horizontalLayout: "default",
-    verticalLayout: "default",
-    width: 80,
-    whitespaceBreak: true
-  }, function(err, data) {
-    if (err) {
-      console.error(chalk.red("Something went wrong..."));
-      console.dir(err);
-      process.exit(-1);
-    }
-    console.log(chalk.blue(data));
-  });
+  printBanner(getCurrentVersion);
 
   const argv = minimist(process.argv.slice(2));
   const command = findTargetCommand(argv);
-  console.info(chalk.blue(`Executing UUV command ${command}...`));
+  console.info(chalk.blueBright(`Executing UUV command ${command}...`));
   switch (command) {
     case "open":
       await openPlaywright(argv);
@@ -85,14 +72,6 @@ export async function main() {
     // Running Tests
     return run( "e2e", FEATURE_GEN_DIR, PROJECT_DIR, argv.generateHtmlReport)
         .then(async (result) => {
-          // TODO Manage HTML Report
-          // if (argv.generateHtmlReport) {
-          //   console.info(chalk.blue("Generating Test Report..."));
-          //   await generateHtmlReport(browser, argv);
-          // }
-          // if (fs.existsSync(CUCUMBER_MESSAGES_FILE)) {
-          //   fs.rmSync(CUCUMBER_MESSAGES_FILE);
-          // }
           console.log(`Status ${chalk.green("success")}`);
       })
       .catch((err: any) => {
@@ -108,5 +87,27 @@ export async function main() {
     }
     const command = argv._[0];
     return command;
+  }
+
+  function printBanner(getCurrentVersion: () => string) {
+    console.log(
+        chalk.blueBright(
+            figlet.textSync("UUV", {
+              font: "Big",
+              horizontalLayout: "default",
+              verticalLayout: "default",
+              width: 80,
+              whitespaceBreak: true
+            })
+        )
+    );
+    console.info(chalk.blueBright(`Version: ${getCurrentVersion()}\n\n`));
+  }
+
+  function getCurrentVersion(): string {
+    const pJsonStr = fs.readFileSync(`${__dirname}/../../package.json`, {
+      encoding: "utf8", flag: "r"
+    });
+    return JSON.parse(pJsonStr).version;
   }
 }

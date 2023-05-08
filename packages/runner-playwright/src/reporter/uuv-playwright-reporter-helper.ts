@@ -387,30 +387,38 @@ class UuvPlaywrightReporterHelper {
         return [...new Set(suite.allTests().map(testCase => testCase.location?.file))];
     }
 
-    private async formatCucumberMessageFile() {
+    private async formatCucumberMessageFile(inputMessageFile: string, outputFormattedFileJson:string) {
         const formatter = new Formatter();
-        // @ts-ignore
-        const input = `${process.env.CONFIG_DIR}/reports/cucumber-messages.ndjson`;
-        // @ts-ignore
-        const outputFile = `${process.env.CONFIG_DIR}/reports/json/cucumber-report.json`;
-        await formatter.parseCucumberJson(input, outputFile);
+        await formatter.parseCucumberJson(inputMessageFile, outputFormattedFileJson);
     }
 
-    private generateHtmlReportFromJson() {
-        const UNKOWN_VALUE = "unknown";
+    private generateHtmlReportFromJson(reportDirHtml: string, reportDirJson: string) {
         report.generate({
-            // @ts-ignore
-            jsonDir: `${process.env.CONFIG_DIR}/reports/json`,
-            // @ts-ignore
-            reportPath: `${process.env.CONFIG_DIR}/reports/html`
+            jsonDir: reportDirJson,
+            reportPath: reportDirHtml
         });
     }
 
     private async generateHtmlReport() {
         // @ts-ignore
-        this.createCucumberNdJsonFile(`${process.env.CONFIG_DIR}/reports/cucumber-messages.ndjson`);
-        await this.formatCucumberMessageFile();
-        this.generateHtmlReportFromJson();
+        const reportDir = `${process.env.CONFIG_DIR}/reports`;
+        const outputMessageFile = `${reportDir}/cucumber-messages.ndjson`;
+        const reportDirHtml = `${reportDir}/html`;
+        const reportDirJson = `${reportDir}/json`;
+        const outputFormattedFileJson = `${reportDirJson}/cucumber-report.json`;
+        this.createdDirIfNeeded(reportDir);
+        this.createdDirIfNeeded(reportDirHtml);
+        this.createdDirIfNeeded(reportDirJson);
+        this.createCucumberNdJsonFile(outputMessageFile);
+        await this.formatCucumberMessageFile(outputMessageFile, outputFormattedFileJson);
+        this.generateHtmlReportFromJson(reportDirHtml, reportDirJson);
+    }
+
+    private createdDirIfNeeded(reportDir: string) {
+        // Creating needed dirs
+        if (!fs.existsSync(reportDir)) {
+            fs.mkdirSync(reportDir, { recursive: true });
+        }
     }
 
     private displayConsoleReport() {
