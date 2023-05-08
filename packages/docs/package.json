@@ -1,6 +1,6 @@
 {
   "name": "uuv-docs",
-  "version": "1.2.0-beta-20230424",
+  "version": "1.3.0",
   "author": "Louis Fredice NJAKO MOLOM (https://github.com/luifr10) & Stanley SERVICAL (https://github.com/stanlee974)",
   "description": "UUV documentation containing the installation and execution steps and the user manual.",
   "license": "Apache-2.0",
