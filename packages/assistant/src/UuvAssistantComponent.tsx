@@ -20,18 +20,15 @@ import uuvLogoJson from "./assets/uuvLogo.json";
 import warningIconJson from "./assets/warningIcon.json";
 import moonJson from "./assets/moon.json";
 import sunJson from "./assets/sun.json";
-import "./UuvAssistantComponent.css";
-import "./UuvAssistantComponent.css";
-import "./UuvAssistantComponent.css";
 
 import { CheckActionEnum, TranslateHelper } from "./helper/TranslateHelper";
 import { Avatar, Button, Col, ConfigProvider, Divider, Drawer, Layout, notification, Row, Select, theme, Tooltip, Typography } from "antd";
 import { CopyOutlined, SelectOutlined, DoubleLeftOutlined } from "@ant-design/icons";
-import { CssHelper, HtmlBase64FileProps } from "./helper/CssHelper";
+import { CssHelper } from "./helper/CssHelper";
 
 const Inspector = require("inspector-dom");
 
-interface UuvAssistantState {
+export interface UuvAssistantState {
   generatedScript: string[];
   currentAction: "selection" | "none";
   resultCopied: boolean;
@@ -40,17 +37,8 @@ interface UuvAssistantState {
   isExtended: boolean;
   isHide: boolean;
   isDark: boolean;
-  resources: UuvResourcesProps[];
 }
 
-interface UuvResourcesProps {
-  name: Base64Resource,
-  data: string
-}
-
-enum Base64Resource {
-  LIGHT_MODE, UUV_ICON, WARNING_LOGO
-}
 
 interface UuvAssistantProps {
   translator?: (el: HTMLElement) => string;
@@ -72,7 +60,6 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
       isExtended: true,
       isDark: true,
       isHide: false,
-      resources: []
     };
     this.reset = this.reset.bind(this);
     this.startSelect = this.startSelect.bind(this);
@@ -145,7 +132,6 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
       e.preventDefault();
       const element = document.elementFromPoint(e.clientX, e.clientY);
       let disabledElement = this.state.disabledElement;
-      console.log("test", disabledElement, element);
       if (this.state.currentAction === "selection" && element && element.hasAttribute("disabled")) {
         disabledElement = TranslateHelper.getSelector(element);
         element.removeAttribute("disabled");
@@ -158,7 +144,6 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
         console.log("ce n'est plus deleted");
         if (disabledElement) {
           const querySelector = document.querySelector(disabledElement);
-          console.log("querySelector", querySelector);
           querySelector?.setAttribute("disabled", "true");
           querySelector?.removeAttribute("readonly");
           this.setState({
@@ -179,15 +164,15 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
       : TranslateHelper.translateEngine(el, this.state.checkAction, this.state.disabledElement !== "");
   }
 
-  componentDidMount() {
+ override componentDidMount() {
     this.buildSelector();
   }
 
-  componentWillUnmount() {
+  override componentWillUnmount() {
     this.reset();
   }
 
-  render() {
+  override render() {
     const handleSelectCheckActionChange = (value: string) => {
       this.setState({
         ...this.state,
@@ -213,11 +198,9 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
     const { Text } = Typography;
     const expander = CssHelper.expanderConfig(this.state.isDark, this.state.isExtended);
     const buttonConfig = CssHelper.buttonConfig(this.state.isDark);
-    const lightMode = this.state.isDark ?
-        CssHelper.getBase64File(sunJson as HtmlBase64FileProps) :
-        CssHelper.getBase64File(moonJson as HtmlBase64FileProps);
-    const warningIcon = CssHelper.getBase64File(warningIconJson as HtmlBase64FileProps);
-    const uuvLogo = CssHelper.getBase64File(uuvLogoJson as HtmlBase64FileProps);
+    const lightMode = this.state.isDark ? CssHelper.getBase64File(sunJson) : CssHelper.getBase64File(moonJson);
+    const warningIcon = CssHelper.getBase64File(warningIconJson);
+    const uuvLogo = CssHelper.getBase64File(uuvLogoJson);
     return (
       <ConfigProvider
         theme={{
@@ -240,9 +223,12 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
         >
           <Tooltip placement='top' title='Resize the Uuv assistant' zIndex = {9999999780}>
           <Button
+            data-testid={"expanderButton"}
             onClick={handleExpandInspector}
             className='uuvArrowExpander'
-            icon={<DoubleLeftOutlined rotate={expander.rotate} spin={true} style={{ color: expander.color }} />}
+            icon={<DoubleLeftOutlined aria-label={expander.rotate === 90 ?
+              "uvv Assistant not expanded" : "uvv Assistant expanded"}
+            rotate={expander.rotate} spin={true} style={{ color: expander.color }} />}
             style={{
               boxShadow: expander.shadow,
               backgroundColor: expander.background
@@ -251,23 +237,31 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
           </Tooltip>
           {!this.state.isExtended ?
             <Row>
-                <Button shape='round' className='m-1 pt-0 pb-1 uuvFloatingButton' onClick={this.startSelect}
-                        style={{ left: "calc(50% - 400px)", background: buttonConfig.background, color: buttonConfig.color }}
+                <Button
+                  aria-label="floating select button"
+                  className='m-1 pt-0 pb-1 uuvFloatingButton'
+                        onClick={this.startSelect}
+                        style={{ left: "calc(50% - 400px)",
+                          background: buttonConfig.background, color: buttonConfig.color }}
                         disabled={this.state.currentAction === "selection"} icon={<SelectOutlined />}>
                   Select
                 </Button>
-                <Button shape='round' className='uuvFloatingButton'
+                <Button
+                  aria-label="floating copy button"
+                  className='uuvFloatingButton'
                         style={{
                           left: "calc(50% - 270px)",
-                          width: "100%",
                           background: this.state.generatedScript.length > 0 ? buttonConfig.background : "grey",
-                          color: buttonConfig.color
+                          color: buttonConfig.color,
+                          cursor: this.state.generatedScript.length > 0 ? "pointer" : "not-allowed"
                         }}
                         onClick={this.copyResult}
                         disabled={this.state.generatedScript.length === 0} icon={<CopyOutlined />}>
                   Copy
                 </Button>
                 <Select
+                  aria-label={"floating select list"}
+                  data-testid={"floatingSelectList"}
                   defaultValue={this.state.checkAction}
                   size='middle'
                   onChange={handleSelectCheckActionChange}
@@ -289,10 +283,12 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
                   ]}
                 /></Row> : ""}
           <Layout>
-            <Sider width={250} collapsible={true} collapsedWidth={0} theme={this.state.isDark ? "dark" : "light"}>
+            <Sider width={250} collapsible={true} collapsedWidth={0}
+                   theme={this.state.isDark ? "dark" : "light"}>
               <Row align='middle' style={{ marginTop: 10, marginBottom: 20, marginLeft: 10 }}>
                 <Col span={6}>
-                  <Avatar style={{ backgroundColor: this.state.isDark ? "#073a69" : "#C0C0C0", height: "50px", width: "50px" }} size='large'>
+                  <Avatar style={{ backgroundColor: this.state.isDark ?
+                      "#073a69" : "#C0C0C0", height: "50px", width: "50px" }} size='large'>
                     <Tooltip placement='top' title='Go to steps definition'>
                       <a href='https://e2e-test-quest.github.io/uuv/docs/category/description-of-sentences'>
                         <img
@@ -312,19 +308,19 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
               <Divider />
               <Col>
                 <Tooltip placement='left' title='Select an element'>
-                  <Button shape='round' className='m-1 pt-0 pb-1 uuvActionAside' onClick={this.startSelect}
+                  <Button aria-label="select button"
+                          className='m-1 pt-0 pb-1 uuvActionAside' onClick={this.startSelect}
                           style={{ background: buttonConfig.background, color: buttonConfig.color }}
                           disabled={this.state.currentAction === "selection"} icon={<SelectOutlined />}>
                     Select
                   </Button>
                 </Tooltip>
                 <Tooltip placement='left' title='Copy in clipboard'>
-                  <Button shape='round' className='uuvActionAside'
-                          style={{
-                            marginTop: "10px",
-                            background: this.state.generatedScript.length > 0 ? buttonConfig.background : "grey",
-                            color: buttonConfig.color
-                          }}
+                  <Button
+                    aria-label="copy button" className='uuvActionAside'
+                          style={{ marginTop: "10px",
+                            background: this.state.generatedScript.length > 0 ?
+                              buttonConfig.background : "grey", color: buttonConfig.color }}
                           onClick={this.copyResult}
                           disabled={this.state.generatedScript.length === 0} icon={<CopyOutlined />}>
                     Copy
@@ -332,6 +328,8 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
                 </Tooltip>
                 <Tooltip placement='left' title='Choose the generated action'>
                   <Select
+                    aria-label="select list expanded"
+                    data-testid="selectListExpanded"
                     defaultValue={this.state.checkAction}
                     size='large'
                     onChange={handleSelectCheckActionChange}
@@ -361,10 +359,13 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
                   <Text strong underline type={this.state.isDark ? "warning" : "secondary"}>Result</Text>
                 </Col>
                 <Col span={1}>
-                  <Avatar onClick={handleChangeLightMode} src={<img src={lightMode} alt='Light mode' />} style={{ cursor: "pointer" }} />
+                  <Avatar onClick={handleChangeLightMode}
+                          src={<img src={lightMode} alt='Light mode' />}
+                          style={{ cursor: "pointer" }} />
                 </Col>
               </Row>
               <Content
+                aria-label={"sentences"}
                 style={{
                   padding: 24,
                   margin: 0,
@@ -372,18 +373,19 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
                 }}
               >
                 {this.state.generatedScript.map((value, index) =>
-                  [<Col key={value.concat(index.toString())}> <Row align='middle'><span
+                  [<Col
+                    key={value.concat(index.toString())}> <Row align='middle'><span
                     style={{ color: this.state.isDark ? "white" : "black" }}>{value}</span> {value.includes("selector") ?
                     <Tooltip placement='right' title='Accessibility role and name must be defined'><Avatar key={index} style={{
                       marginLeft: "20px",
                       marginTop: 15
                     }}
-                                                                                                           src={<img src={warningIcon}
-                                                                                                                     alt='logo warning'
-                                                                                                                     style={{
-                                                                                                                       height: "20px",
-                                                                                                                       width: "20px"
-                                                                                                                     }} />} />
+                   src={<img src={warningIcon}
+                             alt='logo warning'
+                             style={{
+                               height: "20px",
+                               width: "20px"
+                             }} />} />
                     </Tooltip> : ""} </Row></Col>]
                 )}
               </Content>

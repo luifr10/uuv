@@ -34,6 +34,7 @@ class Common {
 
 export function runGenerateDoc(destDir: string) {
     const GENERATED_DIR_DOC = `${destDir}/docs/03-wordings/01-generated-wording-description`;
+    const GENERATED_DIR_DOC_FR = `${destDir}/i18n/fr/docusaurus-plugin-content-docs/current/03-wordings/01-generated-wording-description`;
 
     Object.values(LANG).forEach((lang: string, index: number) => {
         const indexOfFile = (index + 1).toLocaleString("fr-FR", {
@@ -45,6 +46,7 @@ export function runGenerateDoc(destDir: string) {
         const wordingEnrichedFile = `${__dirname}/../assets/i18n/${lang}-enriched-wordings.json`;
         Common.cleanGeneratedFilesIfExists(generatedFile, lang, indexOfFile);
         generateWordingFiles(wordingBaseFile, wordingEnrichedFile, generatedFile, lang, indexOfFile);
+        fs.copyFileSync(generatedFile, `${GENERATED_DIR_DOC_FR}/${indexOfFile}-${lang}-generated-wording-description.md`);
     });
 
 
@@ -163,14 +165,9 @@ export function runGenerateDoc(destDir: string) {
     }
 
     function writeWordingFile(generatedFile, data, lang, indexOfFile) {
-        fs.writeFile(generatedFile, data, (err) => {
-            if (err) {
-console.error(err);
-} else {
-                console.log(
-                    `[WRITE] ${indexOfFile}-${lang}-generated-wording-description.md written successfully`
-                );
-            }
-        });
-    }
+        fs.writeFileSync(generatedFile, data);
+            console.log(
+                `[WRITE] ${indexOfFile}-${lang}-generated-wording-description.md written successfully`
+            );
+        }
 }

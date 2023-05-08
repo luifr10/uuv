@@ -8,16 +8,20 @@
     "description": "The label for category Premiers pas in sidebar tutorialSidebar"
   },
   "sidebar.tutorialSidebar.category.Writing Tests": {
-    "message": "Ecrire des tests",
-    "description": "The label for category Ecrire des tests in sidebar tutorialSidebar"
+    "message": "Ecrire des tests"
   },
   "sidebar.tutorialSidebar.category.Writing Tests.link.generated-index.description": {
-    "message": "Pour l'autocompletion depuis IntelliJ, télécharger le plugin cucumber.js : https://plugins.jetbrains.com/plugin/7418-cucumber-js",
-    "description": "The generated-index page description for category Ecrire des tests in sidebar tutorialSidebar"
+    "message": "Pour l'autocompletion depuis IntelliJ, télécharger le plugin cucumber.js : https://plugins.jetbrains.com/plugin/7418-cucumber-js"
   },
   "sidebar.tutorialSidebar.category.Step Definition": {
     "message": "Phrases (Step Definition)",
     "description": "The label for category Phrases (Step Definition) in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Description of sentences": {
+    "message": "Description des phrases"
+  },
+  "sidebar.tutorialSidebar.category.Description of sentences.link.generated-index.description": {
+    "message": "Les phrases sont pour l'instant disponibles en français et en anglais."
   },
   "sidebar.tutorialSidebar.category.Step Definition.link.generated-index.description": {
     "message": "Découvrez les phrases mises à disposition par UUV.",
