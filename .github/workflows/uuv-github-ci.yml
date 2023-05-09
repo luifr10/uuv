@@ -132,7 +132,7 @@ jobs:
         uses: ./.github/actions/nx-run-many
         with:
           node-version: ${{env.NODE_VERSION}}
-          target: "test"
+          target: "semantic-release"
           parallel: "false"
 
   publish-docs:
