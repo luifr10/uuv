@@ -45,6 +45,6 @@ To answer the above issues and many others, our solution is to set up a coherent
 ## The benefits
 - If well-used, integrates accessibility into the development process
 - Common language for developers and non-developers with a [rich dictionary](category/step-definition) of ready-to-use phrases
-- [Wizard](tools/uuv-assistant) to write scripts quickly
+- [Wizard(assistant)](tools/uuv-assistant) to write scripts quickly
 - Supports multiple runners (Cypress, Playwright)
 - User friendly and standardized execution report
