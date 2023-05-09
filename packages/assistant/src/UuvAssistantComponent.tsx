@@ -57,9 +57,9 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
       resultCopied: false,
       checkAction: CheckActionEnum.EXPECT,
       disabledElement: "",
-      isExtended: true,
+      isExtended: false,
       isDark: true,
-      isHide: false,
+      isHide: false
     };
     this.reset = this.reset.bind(this);
     this.startSelect = this.startSelect.bind(this);
@@ -164,7 +164,7 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
       : TranslateHelper.translateEngine(el, this.state.checkAction, this.state.disabledElement !== "");
   }
 
- override componentDidMount() {
+  override componentDidMount() {
     this.buildSelector();
   }
 
@@ -217,78 +217,114 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
           open={!this.state.isHide}
           closable={false}
           className={["uuvAssistant"].join(" ")}
-          height={this.state.isExtended ? 300 : 20}
+          height={this.state.isExtended ? 250 : 50}
           bodyStyle={{ padding: "0px", overflowY: "hidden" }}
           mask={false}
         >
-          <Tooltip placement='top' title='Resize the Uuv assistant' zIndex = {9999999780}>
-          <Button
-            data-testid={"expanderButton"}
-            onClick={handleExpandInspector}
-            className='uuvArrowExpander'
-            icon={<DoubleLeftOutlined aria-label={expander.rotate === 90 ?
-              "uvv Assistant not expanded" : "uvv Assistant expanded"}
-            rotate={expander.rotate} spin={true} style={{ color: expander.color }} />}
-            style={{
-              boxShadow: expander.shadow,
-              backgroundColor: expander.background
-            }}>
-          </Button>
+          <Tooltip placement='top' title='Resize the Uuv assistant' zIndex={9999999780}>
+            <Button
+              data-testid={"expanderButton"}
+              onClick={handleExpandInspector}
+              className='uuvArrowExpander'
+              icon={<DoubleLeftOutlined aria-label={expander.rotate === 90 ?
+                "uvv Assistant not expanded" : "uvv Assistant expanded"}
+                                        rotate={expander.rotate} spin={true} style={{ color: expander.color }} />}
+              style={{
+                boxShadow: expander.shadow,
+                backgroundColor: expander.background
+              }}>
+            </Button>
           </Tooltip>
           {!this.state.isExtended ?
-            <Row>
+            <Row style={{ marginTop: "5px", marginBottom: "5px" }}>
+              <Tooltip placement='top' title='Select an element' zIndex={9999999780}>
                 <Button
-                  aria-label="floating select button"
-                  className='m-1 pt-0 pb-1 uuvFloatingButton'
-                        onClick={this.startSelect}
-                        style={{ left: "calc(50% - 400px)",
-                          background: buttonConfig.background, color: buttonConfig.color }}
-                        disabled={this.state.currentAction === "selection"} icon={<SelectOutlined />}>
+                  aria-label='floating select button'
+                  className='pt-0 pb-1'
+                  onClick={this.startSelect}
+                  style={{
+                    background: buttonConfig.background, color: buttonConfig.color,
+                    marginRight: "20px", marginLeft: "20px"
+                  }}
+                  disabled={this.state.currentAction === "selection"} icon={<SelectOutlined />}>
                   Select
                 </Button>
+              </Tooltip>
+              <Tooltip placement='top' title='Copy in clipboard' zIndex={9999999780}>
                 <Button
-                  aria-label="floating copy button"
-                  className='uuvFloatingButton'
-                        style={{
-                          left: "calc(50% - 270px)",
-                          background: this.state.generatedScript.length > 0 ? buttonConfig.background : "grey",
-                          color: buttonConfig.color,
-                          cursor: this.state.generatedScript.length > 0 ? "pointer" : "not-allowed"
-                        }}
-                        onClick={this.copyResult}
-                        disabled={this.state.generatedScript.length === 0} icon={<CopyOutlined />}>
+                  aria-label='floating copy button'
+                  style={{
+                    background: this.state.generatedScript.length > 0 ? buttonConfig.background : "grey",
+                    color: buttonConfig.color,
+                    cursor: this.state.generatedScript.length > 0 ? "pointer" : "not-allowed",
+                    marginRight: "20px"
+                  }}
+                  onClick={this.copyResult}
+                  disabled={this.state.generatedScript.length === 0} icon={<CopyOutlined />}>
                   Copy
                 </Button>
-                <Select
-                  aria-label={"floating select list"}
-                  data-testid={"floatingSelectList"}
-                  defaultValue={this.state.checkAction}
-                  size='middle'
-                  onChange={handleSelectCheckActionChange}
-                  className='uuvFloatingButton'
-                  style={{ left: "calc(50% - 140px)" }}
-                  options={[
-                    {
-                      value: CheckActionEnum.EXPECT.toString(),
-                      label: CheckActionEnum.EXPECT.toString()
-                    },
-                    {
-                      value: CheckActionEnum.WITHIN.toString(),
-                      label: CheckActionEnum.WITHIN.toString()
-                    },
-                    {
-                      value: CheckActionEnum.CLICK.toString(),
-                      label: CheckActionEnum.CLICK.toString()
-                    }
-                  ]}
-                /></Row> : ""}
+              </Tooltip>
+              <Select
+                aria-label={"floating select list"}
+                data-testid={"floatingSelectList"}
+                defaultValue={this.state.checkAction}
+                size='middle'
+                onChange={handleSelectCheckActionChange}
+                style={{
+                  width: "120px",
+                  marginRight: "20px"
+                }}
+                options={[
+                  {
+                    value: CheckActionEnum.EXPECT.toString(),
+                    label: CheckActionEnum.EXPECT.toString()
+                  },
+                  {
+                    value: CheckActionEnum.WITHIN.toString(),
+                    label: CheckActionEnum.WITHIN.toString()
+                  },
+                  {
+                    value: CheckActionEnum.CLICK.toString(),
+                    label: CheckActionEnum.CLICK.toString()
+                  }
+                ]}
+              />
+              <Text strong type={this.state.isDark ? "warning" : "secondary"} style={{ top: "0", marginTop: "5px", marginRight: "10px" }}
+              >Result:</Text>
+              <Row align={"middle"}>
+                <Content
+                  aria-label={"sentences"}
+                  style={{
+                    marginLeft: "10px",
+                  }}
+                >
+                  {this.state.generatedScript.map((value, index) =>
+                    <Row key={value.concat(index.toString())}><span
+                      style={{ color: this.state.isDark ? "white" : "black" }}>{value}</span> {value.includes("selector") ?
+                      <Tooltip placement='right' title='Accessibility role and name must be defined'><Avatar key={index} style={{
+                        marginTop: "8px",
+                        marginLeft: "20px"
+                      }}
+                     src={<img src={warningIcon}
+                               alt='logo warning'
+                               style={{
+                                 height: "20px",
+                                 width: "20px"
+                               }} />} />
+                      </Tooltip> : ""} </Row>
+                  )}
+                </Content>
+              </Row>
+            </Row> : ""}
           <Layout>
             <Sider width={250} collapsible={true} collapsedWidth={0}
                    theme={this.state.isDark ? "dark" : "light"}>
               <Row align='middle' style={{ marginTop: 10, marginBottom: 20, marginLeft: 10 }}>
                 <Col span={6}>
-                  <Avatar style={{ backgroundColor: this.state.isDark ?
-                      "#073a69" : "#C0C0C0", height: "50px", width: "50px" }} size='large'>
+                  <Avatar style={{
+                    backgroundColor: this.state.isDark ?
+                      "#073a69" : "#C0C0C0", height: "50px", width: "50px"
+                  }} size='large'>
                     <Tooltip placement='top' title='Go to steps definition'>
                       <a href='https://e2e-test-quest.github.io/uuv/docs/category/description-of-sentences'>
                         <img
@@ -308,7 +344,7 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
               <Divider />
               <Col>
                 <Tooltip placement='left' title='Select an element'>
-                  <Button aria-label="select button"
+                  <Button aria-label='select button'
                           className='m-1 pt-0 pb-1 uuvActionAside' onClick={this.startSelect}
                           style={{ background: buttonConfig.background, color: buttonConfig.color }}
                           disabled={this.state.currentAction === "selection"} icon={<SelectOutlined />}>
@@ -317,19 +353,21 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
                 </Tooltip>
                 <Tooltip placement='left' title='Copy in clipboard'>
                   <Button
-                    aria-label="copy button" className='uuvActionAside'
-                          style={{ marginTop: "10px",
-                            background: this.state.generatedScript.length > 0 ?
-                              buttonConfig.background : "grey", color: buttonConfig.color }}
-                          onClick={this.copyResult}
-                          disabled={this.state.generatedScript.length === 0} icon={<CopyOutlined />}>
+                    aria-label='copy button' className='uuvActionAside'
+                    style={{
+                      marginTop: "10px",
+                      background: this.state.generatedScript.length > 0 ?
+                        buttonConfig.background : "grey", color: buttonConfig.color
+                    }}
+                    onClick={this.copyResult}
+                    disabled={this.state.generatedScript.length === 0} icon={<CopyOutlined />}>
                     Copy
                   </Button>
                 </Tooltip>
                 <Tooltip placement='left' title='Choose the generated action'>
                   <Select
-                    aria-label="select list expanded"
-                    data-testid="selectListExpanded"
+                    aria-label='select list expanded'
+                    data-testid='selectListExpanded'
                     defaultValue={this.state.checkAction}
                     size='large'
                     onChange={handleSelectCheckActionChange}
@@ -380,12 +418,12 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
                       marginLeft: "20px",
                       marginTop: 15
                     }}
-                   src={<img src={warningIcon}
-                             alt='logo warning'
-                             style={{
-                               height: "20px",
-                               width: "20px"
-                             }} />} />
+                                                                                                           src={<img src={warningIcon}
+                                                                                                                     alt='logo warning'
+                                                                                                                     style={{
+                                                                                                                       height: "20px",
+                                                                                                                       width: "20px"
+                                                                                                                     }} />} />
                     </Tooltip> : ""} </Row></Col>]
                 )}
               </Content>
