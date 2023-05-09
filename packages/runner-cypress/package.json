@@ -3,7 +3,7 @@
   "version": "1.3.0",
   "type": "commonjs",
   "author": "Louis Fredice NJAKO MOLOM (https://github.com/luifr10) & Stanley SERVICAL (https://github.com/stanlee974)",
-  "description": "A transpiler from cucumber step definitions to cypress.",
+  "description": "A solution to run E2E tests written in cucumber(BDD) with cypress.",
   "license": "Apache-2.0",
   "homepage": "https://e2e-test-quest.github.io/uuv/",
   "repository": {
@@ -67,7 +67,8 @@
     "postinstall.js",
     "target-config/**/*",
     "src/cucumber/step_definitions/cypress/generated/**/*",
-    "*.md"
+    "*.md",
+    "docs/**/*"
   ],
   "exports": {
     ".": {
