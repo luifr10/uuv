@@ -3,7 +3,7 @@
   "version": "1.3.0",
   "type": "commonjs",
   "author": "Louis Fredice NJAKO MOLOM (https://github.com/luifr10) & Stanley SERVICAL (https://github.com/stanlee974)",
-  "description": "A transpiler from cucumber step definitions to cypress.",
+  "description": "A transpiler from cucumber step definitions to playwright.",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
@@ -20,7 +20,7 @@
     "test",
     "testing",
     "accessibility",
-    "accessibilité",
+    "accessibilite",
     "a11y",
     "playwright",
     "testing-library",
