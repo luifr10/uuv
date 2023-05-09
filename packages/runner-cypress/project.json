@@ -39,6 +39,9 @@
         "fix": true,
         "eslintConfig": "packages/runner-cypress/.eslintrc.json"
       }
+    },
+    "semantic-release": {
+      "executor": "@theunderscorer/nx-semantic-release:semantic-release"
     }
   },
   "tags": []
