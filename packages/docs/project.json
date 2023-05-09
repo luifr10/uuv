@@ -8,7 +8,11 @@
   ],
   "targets": {
     "semantic-release": {
-      "executor": "@theunderscorer/nx-semantic-release:semantic-release"
+      "executor": "@theunderscorer/nx-semantic-release:semantic-release",
+      "options": {
+        "npm": false,
+        "github": false
+      }
     }
   }
 }
