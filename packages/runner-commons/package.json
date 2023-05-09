@@ -10,7 +10,7 @@
     "url": "https://github.com/e2e-test-quest/uuv"
   },
   "homepage": "https://e2e-test-quest.github.io/uuv/",
-  "keywords": ["uuv", "UUV", "accessibilité", "accessibility", "a11y"],
+  "keywords": ["uuv", "UUV", "accessibilite", "accessibility", "a11y"],
   "scripts": {
     "package": "npm pack --pack-destination=\"../../dist/packages\"",
     "lint": "npx eslint . --ext .js,.ts,.feature --fix",
