@@ -2,7 +2,7 @@
 <p align="center">  
 <a href="https://e2e-test-quest.github.io/uuv/">  
 <picture>  
-<img alt="UUV Logo" src="../docs/static/img/uuv.png">  
+<img alt="UUV Logo" src="https://e2e-test-quest.github.io/uuv/img/uuv.png">  
 </picture>  
 </a>  
 </p>  
@@ -31,7 +31,7 @@ Make test writing fast, understandable by any human understanding English or Fre
 <br />  
 </p>  
 
-## What is UUV commons?
+## What is @uuv/commons ?
 
 <p align="center">  
 
