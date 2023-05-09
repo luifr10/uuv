@@ -11,6 +11,10 @@ inputs:
     required: true
     default: ""
     description: Projects to exclude
+  parallel:
+    required: true
+    default: "true"
+    description: Parallelize execution
 runs:
   using: "composite"
   steps:
@@ -29,5 +33,5 @@ runs:
       uses: actions/setup-node@v3
       with:
         node-version: ${{ inputs.node-version }}
-    - run: npm run nx run-many -- --all --target=${{ inputs.target }} --exclude=${{ inputs.exclude }}
+    - run: npm run nx run-many -- --all --target=${{ inputs.target }} --parallel=${{ inputs.parallel }} --verbose --exclude=${{ inputs.exclude }}
       shell: bash
