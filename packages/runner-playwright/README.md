@@ -45,9 +45,9 @@ We can use the playwright engine to run test or cypress with [uuv/cypress](https
 
 ## Installing
 
-<a href="https://e2e-test-quest.github.io/uuv/docs/getting-started/installation#playwright"><img src="https://img.shields.io/badge/Install%20Cypress%20doc-red?&style=for-the-badge&logo=github&logoColor=white" alt="documentation for install uuv playwright"/></a>
+<a href="https://e2e-test-quest.github.io/uuv/docs/getting-started/installation#playwright"><img src="https://img.shields.io/badge/Install%20Playwright%20doc-red?&style=for-the-badge&logo=github&logoColor=white" alt="documentation for install uuv playwright"/></a>
 
-<a href="https://e2e-test-quest.github.io/uuv/docs/getting-started/configuration"><img src="https://img.shields.io/badge/Configure%20cypress%20doc-red?&style=for-the-badge&logo=github&logoColor=white" alt="documentation for configure uuv playwright"/></a>
+<a href="https://e2e-test-quest.github.io/uuv/docs/getting-started/configuration"><img src="https://img.shields.io/badge/Configure%20Playwright%20doc-red?&style=for-the-badge&logo=github&logoColor=white" alt="documentation for configure uuv playwright"/></a>
 
 <a href="https://e2e-test-quest.github.io/uuv/docs/test/first-test"><img src="https://img.shields.io/badge/Write%20test%20doc-red?&style=for-the-badge&logo=github&logoColor=white" alt="documentation for write test"/></a>
 
