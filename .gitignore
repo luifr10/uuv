@@ -49,3 +49,4 @@ packages/docs/docs/03-wordings/01-generated-wording-description/
 packages/runner-playwright/src/cucumber/step_definitions/playwright/generated/
 packages/runner-playwright/reports/
 packages/runner-playwright/tests/.features-gen
+packages/docs/i18n/fr/docusaurus-plugin-content-docs/current/03-wordings/01-generated-wording-description/
