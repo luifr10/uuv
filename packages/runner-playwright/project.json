@@ -36,6 +36,9 @@
         "eslintConfig": "packages/runner-playwright/.eslintrc.json",
         "ignorePath": "packages/runner-playwright/.eslintignore"
       }
+    },
+    "semantic-release": {
+      "executor": "@theunderscorer/nx-semantic-release:semantic-release"
     }
   },
   "tags": []

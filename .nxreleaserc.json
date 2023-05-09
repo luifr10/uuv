@@ -1,0 +1,9 @@
+{
+  "changelog": true,
+  "npm": true,
+  "github": true,
+  "repositoryUrl": "https://github.com/e2e-test-quest/uuv",
+  "branches": [
+    "main"
+  ]
+}
