@@ -94,6 +94,6 @@
     "build/static/js/main.*.js",
     "postinstall.js",
     "target-config/**/*",
-    "public/en*.json"
+    "public/screenshots.gif"
   ]
 }

@@ -5,7 +5,7 @@
 <p align="center">  
 <a href="https://e2e-test-quest.github.io/uuv/">  
 <picture>  
-<img alt="UUV Logo" src="../docs/static/img/uuv.png">  
+<img alt="UUV Logo" src="https://e2e-test-quest.github.io/uuv/img/uuv.png">  
 </picture>  
 </a>  
 </p>  
@@ -33,7 +33,7 @@ Make test writing fast, understandable by any human understanding English or Fre
 </a><br />  
 </p>  
 
-## What is UUV wizard?
+## What is @uuv/assistant (Wizard) ?
 
 <p align="center">  
 
@@ -46,7 +46,7 @@ With this wizard, we can generate cucumber sentences that will use an execution 
 
 ## Installing
 
-<a href="https://e2e-test-quest.github.io/uuv/docs/tools/uuv-assistant"><img src="https://img.shields.io/badge/run%20uuv%20wizard%20doc-red?&style=for-the-badge&logo=github&logoColor=white" alt="documentation for run uuv wizard"/></a>
+<a href="https://e2e-test-quest.github.io/uuv/docs/tools/uuv-assistant"><img src="https://img.shields.io/badge/run%20uuv%20assistant%20doc-red?&style=for-the-badge&logo=github&logoColor=white" alt="documentation for run uuv assistant"/></a>
 
 <a href="https://e2e-test-quest.github.io/uuv/docs/wordings/generated-wording-description/en-generated-wording-description"><img src="https://img.shields.io/badge/sentences%20doc-red?&style=for-the-badge&logo=github&logoColor=white" alt="documentation containing sentences"/></a>
 
