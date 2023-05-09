@@ -37,7 +37,46 @@
       }
     },
     "semantic-release": {
-      "executor": "@theunderscorer/nx-semantic-release:semantic-release"
+      "executor": "@theunderscorer/nx-semantic-release:semantic-release",
+      "options": {
+        "plugins": [
+          [
+            "@google/semantic-release-replace-plugin",
+            {
+              "replacements": [
+                {
+                  "files": ["packages/runner-cypress/package.json"],
+                  "from": "\"@uuv/runner-commons\": \".*\"",
+                  "to": "\"@uuv/runner-commons\": \"${nextRelease.version}\"",
+                  "results": [
+                    {
+                      "file": "packages/runner-cypress/package.json",
+                      "hasChanged": true,
+                      "numMatches": 1,
+                      "numReplacements": 1
+                    }
+                  ],
+                  "countMatches": true
+                },
+                {
+                  "files": ["packages/runner-playwright/package.json"],
+                  "from": "\"@uuv/runner-commons\": \".*\"",
+                  "to": "\"@uuv/runner-commons\": \"${nextRelease.version}\"",
+                  "results": [
+                    {
+                      "file": "packages/runner-playwright/package.json",
+                      "hasChanged": true,
+                      "numMatches": 1,
+                      "numReplacements": 1
+                    }
+                  ],
+                  "countMatches": true
+                }
+              ]
+            }
+          ]
+        ]
+      }
     }
   },
   "tags": []

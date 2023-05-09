@@ -34,15 +34,6 @@
         "copy:sentences"
       ]
     },
-    "copy:sentences": {
-      "executor": "nx:run-script",
-      "outputs": [
-        "packages/assistant/src/assets"
-      ],
-      "options": {
-        "script": "copy:sentences"
-      }
-    },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
