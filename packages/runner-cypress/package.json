@@ -35,7 +35,8 @@
     "postinstall": "node postinstall.js",
     "test:run": "node test.js --run",
     "test:open": "node test.js --open",
-    "test": "npm run test:run"
+    "test": "npm run test:run",
+    "lint": "eslint -c .eslintrc.json"
   },
   "dependencies": {
     "@badeball/cypress-cucumber-preprocessor": "16.0.3",
@@ -67,8 +68,7 @@
     "postinstall.js",
     "target-config/**/*",
     "src/cucumber/step_definitions/cypress/generated/**/*",
-    "*.md",
-    "docs/**/*"
+    "*.md"
   ],
   "exports": {
     ".": {
