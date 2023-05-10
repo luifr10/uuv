@@ -76,7 +76,7 @@ jobs:
         with:
           node-version: ${{env.NODE_VERSION}}
           target: "test"
-          exclude: "runner-cypress,runner-playwright,assistant"
+          exclude: "runner-cypress,runner-playwright"
 
   test-cypress:
     runs-on: ubuntu-latest
