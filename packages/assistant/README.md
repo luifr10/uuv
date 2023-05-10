@@ -42,7 +42,7 @@ Make test writing fast, understandable by any human understanding English or Fre
 With this wizard, we can generate cucumber sentences that will use an execution engine like cypress with [@uuv/cypress](https://www.npmjs.com/package/@uuv/cypress) or playwright with [@uuv/playwright](https://www.npmjs.com/package/@uuv/playwright).
 </p>  
 
-<img src="./public/screenshots.gif" alt="assistant screenshots"/>  
+<img src="https://e2e-test-quest.github.io/uuv/img/assistant/screenshots.gif" alt="assistant screenshots"/>  
 
 ## Installing
 
