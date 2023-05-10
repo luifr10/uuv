@@ -1,5 +1,3 @@
-
-
 # @uuv/runner-cypress
 <p align="center">  
 <a href="https://e2e-test-quest.github.io/uuv/">  
@@ -40,13 +38,13 @@ Make test writing fast, understandable by any human understanding English or Fre
 Demo in english 
 </h4>
 <a href="https://player.vimeo.com/video/822253247?texttrack=en&h=617306172d&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" rel="nofollow">
-    <img alt="runner-cypress in english" src="docs/assets/thumb.PNG" style="max-width: 100%;" width="75%" height="75%">
+    <img alt="runner-cypress in english" src="https://e2e-test-quest.github.io/uuv/img/cypress/screenshot.png" style="max-width: 100%;" width="75%" height="75%">
   </a>
 <h4>  
 Demo in french 
 </h4>
 <a href="https://player.vimeo.com/video/822253247?texttrack=fr&h=617306172d&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" rel="nofollow">
-    <img alt="runner-cypress in french" src="docs/assets/thumb.PNG" style="max-width: 100%;" width="75%" height="75%">
+    <img alt="runner-cypress in french" src="https://e2e-test-quest.github.io/uuv/img/cypress/screenshot.png" style="max-width: 100%;" width="75%" height="75%">
   </a>
 </div> 
 
