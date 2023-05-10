@@ -37,7 +37,9 @@
     "conf:build": "node compute-conf.js",
     "package": "npm pack --pack-destination=\"../../dist/packages\"",
     "copy:sentences": "ts-node copy-sentences.ts",
-    "uuv": "node node_modules/@uuv/playwright/bin/uuv"
+    "uuv": "node node_modules/@uuv/playwright/bin/uuv",
+    "lint": "eslint -c .eslintrc.json",
+    "test": "jest"
   },
   "dependencies": {
     "@cucumber/cucumber": "9.1.0",
@@ -93,7 +95,6 @@
     "build/static/css/**/*.css",
     "build/static/js/main.*.js",
     "postinstall.js",
-    "target-config/**/*",
-    "public/screenshots.gif"
+    "target-config/**/*"
   ]
 }
