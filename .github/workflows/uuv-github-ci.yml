@@ -113,35 +113,44 @@ jobs:
           node-version: ${{env.NODE_VERSION}}
           target: "lint"
 
-#  release:
-#    if: github.ref == 'refs/heads/main'
-#    needs: [ lint, build, test ]
-#    permissions:
-#      contents: write
-#      packages: write
-#      issues: write
-#    runs-on: ubuntu-latest
-#    environment: release
-#    steps:
-#      - uses: actions/checkout@v3
-#      - name: Download build artifact
-#        uses: actions/download-artifact@v3
-#        with:
-#          name: build-artifacts
-#          path: packages
-#      - name: Release public packages
-#        uses: ./.github/actions/nx-run-many
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-#        with:
-#          node-version: ${{env.NODE_VERSION}}
-#          target: "semantic-release"
-#          parallel: "false"
+  release:
+    if: github.ref == 'refs/heads/main'
+    needs: [ lint, build, test, test-cypress, test-playwright ]
+    permissions:
+      contents: write
+      packages: write
+      issues: write
+    runs-on: ubuntu-latest
+    environment: release
+    steps:
+      - uses: actions/checkout@v3
+      - name: Download build artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: build-artifacts
+          path: packages
+      - name: Release public packages
+        uses: ./.github/actions/nx-run-many
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        with:
+          node-version: ${{env.NODE_VERSION}}
+          target: "semantic-release"
+          parallel: "false"
+      - run: npm install
+        name: Update package-lock.json
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        name: Push the brand-new package-lock.json
+        with:
+         commit_message: "chore(release): update package-lock.json [skip ci]"
+         commit_user_name: UUV Bot
+         commit_user_email: uuv-bot@kemitech.io
+         commit_author: UUV Bot <uuv-bot@kemitech.io>
   
   publish-npm-assistant:
     if: github.ref == 'refs/heads/main'
-    needs: [ lint, build, test, test-cypress, test-playwright ]
+    needs: [ release ]
     runs-on: ubuntu-latest
     environment: release
     steps:
@@ -156,7 +165,7 @@ jobs:
 
   publish-npm-runner-commons:
     if: github.ref == 'refs/heads/main'
-    needs: [ lint, build, test, test-cypress, test-playwright ]
+    needs: [ release ]
     runs-on: ubuntu-latest
     environment: release
     steps:
@@ -172,7 +181,7 @@ jobs:
 
   publish-npm-runner-cypress:
     if: github.ref == 'refs/heads/main'
-    needs: [ lint, build, test, test-cypress, test-playwright ]
+    needs: [ release ]
     runs-on: ubuntu-latest
     environment: release
     steps:
@@ -187,7 +196,7 @@ jobs:
 
   publish-npm-runner-playwright:
     if: github.ref == 'refs/heads/main'
-    needs: [ lint, build, test, test-cypress, test-playwright ]
+    needs: [ release ]
     runs-on: ubuntu-latest
     environment: release
     steps:
@@ -202,7 +211,7 @@ jobs:
 
   publish-docs:
     if: github.ref == 'refs/heads/main'
-    needs: [ lint, build, test, test-cypress, test-playwright ]
+    needs: [ release ]
     permissions:
       pages: write
       id-token: write
