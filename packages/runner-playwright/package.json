@@ -36,7 +36,8 @@
     "test:open": "ts-node test.ts open",
     "test:alone:run": "npx playwright test",
     "test:format": "ts-node format-cucumber-report.ts",
-    "test": "npm run test:run"
+    "test": "npm run test:run",
+    "lint": "eslint -c .eslintrc.json"
   },
   "dependencies": {
     "@cucumber/cucumber": "9.1.0",
@@ -66,7 +67,8 @@
     "postinstall.js",
     "target-config/**/*",
     "src/cucumber/step_definitions/playwright/generated/**/*",
-    "*.md"
+    "*.md",
+    ".npmignore"
   ],
   "exports": {
     ".": {
