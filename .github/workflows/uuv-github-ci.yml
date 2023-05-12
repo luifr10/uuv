@@ -1,10 +1,10 @@
-name: 'UUV CI/CD'
+name: 'UUV CI'
 
 on:
   push:
-    branches: [ "dev", "main" ]
+    branches: [ "main"]
   pull_request:
-    branches: [ "dev" ]
+    branches: [ "main" ]
 
 
 env:
@@ -102,124 +102,52 @@ jobs:
           node-version: ${{env.NODE_VERSION}}
           runner-name: "playwright"
 
-#  lint:
-#    runs-on: ubuntu-latest
-#    needs: install
-#    steps:
-#      - uses: actions/checkout@v3
-#      - name: Lint for all projects
-#        uses: ./.github/actions/nx-run-many
-#        with:
-#          node-version: ${{env.NODE_VERSION}}
-#          target: "lint"
+  #  lint:
+  #    runs-on: ubuntu-latest
+  #    needs: install
+  #    steps:
+  #      - uses: actions/checkout@v3
+  #      - name: Lint for all projects
+  #        uses: ./.github/actions/nx-run-many
+  #        with:
+  #          node-version: ${{env.NODE_VERSION}}
+  #          target: "lint"
 
-#  release:
-#    if: github.ref == 'refs/heads/main'
-#    needs: [ build, test, test-cypress, test-playwright ]
-#    permissions:
-#      contents: write
-#      packages: write
-#      issues: write
-#    runs-on: ubuntu-latest
-#    environment: release
-#    steps:
-#      - uses: actions/checkout@v3
-#      - name: Download build artifact
-#        uses: actions/download-artifact@v3
-#        with:
-#          name: build-artifacts
-#          path: packages
-#      - name: Release public packages
-#        uses: ./.github/actions/nx-run-many
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-#        with:
-#          node-version: ${{env.NODE_VERSION}}
-#          target: "semantic-release"
-#          parallel: "false"
-#      - run: npm install
-#        name: Update package-lock.json
-#      - uses: stefanzweifel/git-auto-commit-action@v4
-#        name: Push the brand-new package-lock.json
-#        with:
-#         commit_message: "chore(release): update package-lock.json [skip ci]"
-#         commit_user_name: UUV Bot
-#         commit_user_email: uuv-bot@kemitech.io
-#         commit_author: UUV Bot <uuv-bot@kemitech.io>
-  
-  publish-npm-assistant:
-    if: github.ref == 'refs/heads/main'
-    needs: [ build, test, test-cypress, test-playwright ]
-    runs-on: ubuntu-latest
-    environment: release
-    steps:
-      - uses: actions/checkout@v3
-      - name: Publish @uuv/assistant
-        uses: ./.github/actions/npm-publish
-        with:
-          node-version: ${{env.NODE_VERSION}}
-          app-name: "assistant"
-          npm-package-scope: ${{env.NPM_PACKAGE_SCOPE}}
-          npm-token: ${{secrets.NPM_TOKEN}}
-
-  publish-npm-runner-commons:
-    if: github.ref == 'refs/heads/main'
-    needs: [ build, test, test-cypress, test-playwright ]
-    runs-on: ubuntu-latest
-    environment: release
-    steps:
-      - uses: actions/checkout@v3
-      - name: Publish @uuv/runner-commons
-        uses: ./.github/actions/npm-publish
-        with:
-          node-version: ${{env.NODE_VERSION}}
-          app-name: "runner-commons"
-          npm-package-scope: ${{env.NPM_PACKAGE_SCOPE}}
-          npm-token: ${{secrets.NPM_TOKEN}}
-
-
-  publish-npm-runner-cypress:
-    if: github.ref == 'refs/heads/main'
-    needs: [ build, test, test-cypress, test-playwright ]
-    runs-on: ubuntu-latest
-    environment: release
-    steps:
-      - uses: actions/checkout@v3
-      - name: Publish @uuv/cypress
-        uses: ./.github/actions/npm-publish
-        with:
-          node-version: ${{env.NODE_VERSION}}
-          app-name: "runner-cypress"
-          npm-package-scope: ${{env.NPM_PACKAGE_SCOPE}}
-          npm-token: ${{secrets.NPM_TOKEN}}
-
-  publish-npm-runner-playwright:
-    if: github.ref == 'refs/heads/main'
-    needs: [ build, test, test-cypress, test-playwright ]
-    runs-on: ubuntu-latest
-    environment: release
-    steps:
-      - uses: actions/checkout@v3
-      - name: Publish @uuv/playwright
-        uses: ./.github/actions/npm-publish
-        with:
-          node-version: ${{env.NODE_VERSION}}
-          app-name: "runner-playwright"
-          npm-package-scope: ${{env.NPM_PACKAGE_SCOPE}}
-          npm-token: ${{secrets.NPM_TOKEN}}
-
-  publish-docs:
+  release:
     if: github.ref == 'refs/heads/main'
     needs: [ build, test, test-cypress, test-playwright ]
     permissions:
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      contents: write
+      packages: write
+      issues: write
     runs-on: ubuntu-latest
+    environment: release
     steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v2
+      - uses: actions/checkout@v3
+      - name: Download build artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: build-artifacts
+          path: packages
+      - name: Release public packages
+        uses: Wandalen/wretry.action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        with:
+          uses: ./.github/actions/nx-run-many
+          with: |
+            node-version: ${{env.NODE_VERSION}}
+            target: "semantic-release"
+            parallel: "false"
+          attempt_limit: 3
+          attempt_delay: 30000
+      - run: npm install
+        name: Update package-lock.json
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        name: Push the brand-new package-lock.json
+        with:
+         commit_message: "chore(release): update package-lock.json [skip ci]"
+         commit_user_name: UUV Bot
+         commit_user_email: uuv-bot@kemitech.io
+         commit_author: UUV Bot <uuv-bot@kemitech.io>
