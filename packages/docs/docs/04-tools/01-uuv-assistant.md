@@ -7,7 +7,7 @@ import TabItem from '@theme/TabItem';
 
 ![Assistant screenshots](@site/static/img/docs/assistant.gif)
 
-## Installation
+## Install
 :::caution
 
 Npm/Yarn will need access to the internet when installing the Wizard library.
@@ -35,4 +35,15 @@ yarn add -D @uuv/assistant
 
 ## Usage
 
-WIP
+```shell
+npx uuv-assistant --targetUrl=<targetUrl>
+
+```
+
+| Name        | Description                                                                                                   | Example                               |
+|-------------|---------------------------------------------------------------------------------------------------------------|---------------------------------------|
+| `targetUrl` | Target website url                                                                                            | https://e2e-test-quest.github.io/uuv/ |
+
+
+    
+
