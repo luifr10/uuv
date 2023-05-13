@@ -41,6 +41,22 @@
       "options": {
         "plugins": [
           [
+            "@semantic-release/npm",
+            {
+              "npmPublish": false,
+              "tarballDir": "dist/packages",
+              "pkgRoot": "packages/runner-commons"
+            }
+          ],
+          [
+            "@semantic-release/github", {
+            "successComment": false,
+            "failComment": false,
+            "assets": [
+              {"path": "dist/packages/uuv-runner-commons-*.tgz", "label": "Npm Package"}
+            ]
+          }],
+          [
             "@google/semantic-release-replace-plugin",
             {
               "replacements": [
