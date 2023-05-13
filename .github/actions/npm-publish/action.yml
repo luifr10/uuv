@@ -4,29 +4,24 @@ inputs:
   node-version:
     required: true
     description: Nodejs version
-  app-name:
-    required: true
-    description: Package Name
   npm-package-scope:
     required: true
     description: NPM package scope
   npm-token:
     required: true
     description: NPM Registry token
+  archive-to-upload:
+    required: true
+    description: NPM Archive to upload
 runs:
   using: "composite"
   steps:
-    - name: Download build artifact
-      uses: actions/download-artifact@v3
-      with:
-        name: build-artifacts
-        path: packages
     - name: Use Node.js ${{inputs.node-version}}
       uses: actions/setup-node@v3
       with:
         node-version:  ${{inputs.node-version}}
         registry-url: 'https://registry.npmjs.org'
-    - run: cd ./packages/${{inputs.app-name}} && npm publish --scope ${{inputs.npm-package-scope}} --access public
+    - run: npm publish ${{inputs.archive-to-upload}} --scope ${{inputs.npm-package-scope}} --access public
       shell: bash
       env:
         NODE_AUTH_TOKEN: ${{inputs.npm-token}}
