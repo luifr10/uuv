@@ -2,87 +2,29 @@ name: 'UUV NPM Publish'
 
 on:
   push:
-    branches: [ "main"]
-  pull_request:
-    branches: [ "main" ]
+    tags: [ "*-v*.*.*"]
 
 env:
   NODE_VERSION: 18.14.0
   NPM_PACKAGE_SCOPE: uuv
 
 jobs:
-  publish-npm-assistant:
-    if: github.ref == 'refs/heads/main'
-    needs: [ build, test, test-cypress, test-playwright ]
+  publish:
     runs-on: ubuntu-latest
     environment: release
     steps:
       - uses: actions/checkout@v3
+      - name: Download release npm package
+        id: "downloadReleasePackage"
+        uses: robinraju/release-downloader@v1.8
+        with:
+          repository: "e2e-test-quest/uuv"
+          tag: "${{github.ref_name}}"
+          fileName: "*.tgz"
       - name: Publish @uuv/assistant
         uses: ./.github/actions/npm-publish
         with:
           node-version: ${{env.NODE_VERSION}}
-          app-name: "assistant"
           npm-package-scope: ${{env.NPM_PACKAGE_SCOPE}}
           npm-token: ${{secrets.NPM_TOKEN}}
-
-  publish-npm-runner-commons:
-    if: github.ref == 'refs/heads/main'
-    needs: [ build, test, test-cypress, test-playwright ]
-    runs-on: ubuntu-latest
-    environment: release
-    steps:
-      - uses: actions/checkout@v3
-      - name: Publish @uuv/runner-commons
-        uses: ./.github/actions/npm-publish
-        with:
-          node-version: ${{env.NODE_VERSION}}
-          app-name: "runner-commons"
-          npm-package-scope: ${{env.NPM_PACKAGE_SCOPE}}
-          npm-token: ${{secrets.NPM_TOKEN}}
-
-
-  publish-npm-runner-cypress:
-    if: github.ref == 'refs/heads/main'
-    needs: [ build, test, test-cypress, test-playwright ]
-    runs-on: ubuntu-latest
-    environment: release
-    steps:
-      - uses: actions/checkout@v3
-      - name: Publish @uuv/cypress
-        uses: ./.github/actions/npm-publish
-        with:
-          node-version: ${{env.NODE_VERSION}}
-          app-name: "runner-cypress"
-          npm-package-scope: ${{env.NPM_PACKAGE_SCOPE}}
-          npm-token: ${{secrets.NPM_TOKEN}}
-
-  publish-npm-runner-playwright:
-    if: github.ref == 'refs/heads/main'
-    needs: [ build, test, test-cypress, test-playwright ]
-    runs-on: ubuntu-latest
-    environment: release
-    steps:
-      - uses: actions/checkout@v3
-      - name: Publish @uuv/playwright
-        uses: ./.github/actions/npm-publish
-        with:
-          node-version: ${{env.NODE_VERSION}}
-          app-name: "runner-playwright"
-          npm-package-scope: ${{env.NPM_PACKAGE_SCOPE}}
-          npm-token: ${{secrets.NPM_TOKEN}}
-
-  publish-docs:
-    if: github.ref == 'refs/heads/main'
-    needs: [ build, test, test-cypress, test-playwright ]
-    permissions:
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v2
+          archive-to-upload: ${{fromJson(steps.downloadReleasePackage.outputs.downloaded_files)[0]}}
