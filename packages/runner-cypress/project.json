@@ -41,7 +41,32 @@
       }
     },
     "semantic-release": {
-      "executor": "@theunderscorer/nx-semantic-release:semantic-release"
+      "executor": "@theunderscorer/nx-semantic-release:semantic-release",
+      "options": {
+        "plugins": [
+          [
+            "@semantic-release/npm",
+            {
+              "npmPublish": false,
+              "tarballDir": "dist/packages",
+              "pkgRoot": "packages/runner-cypress"
+            }
+          ],
+          [
+            "@semantic-release/github",
+            {
+              "successComment": false,
+              "failComment": false,
+              "assets": [
+                {
+                  "path": "dist/packages/uuv-cypress-*.tgz",
+                  "label": "Npm Package"
+                }
+              ]
+            }
+          ]
+        ]
+      }
     }
   },
   "tags": []

@@ -38,7 +38,32 @@
       }
     },
     "semantic-release": {
-      "executor": "@theunderscorer/nx-semantic-release:semantic-release"
+      "executor": "@theunderscorer/nx-semantic-release:semantic-release",
+      "options": {
+        "plugins": [
+          [
+            "@semantic-release/npm",
+            {
+              "npmPublish": false,
+              "tarballDir": "dist/packages",
+              "pkgRoot": "packages/runner-playwright"
+            }
+          ],
+          [
+            "@semantic-release/github",
+            {
+              "successComment": false,
+              "failComment": false,
+              "assets": [
+                {
+                  "path": "dist/packages/uuv-playwright-*.tgz",
+                  "label": "Npm Package"
+                }
+              ]
+            }
+          ]
+        ]
+      }
     }
   },
   "tags": []
