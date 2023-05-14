@@ -31,7 +31,9 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["packages/runner-playwright/**/*.{ts,js,feature}"],
+        "lintFilePatterns": [
+          "packages/runner-playwright/src/**/*.{ts,js,feature}"
+        ],
         "fix": true,
         "eslintConfig": "packages/runner-playwright/.eslintrc.json",
         "ignorePath": "packages/runner-playwright/.eslintignore"
