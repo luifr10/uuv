@@ -6,7 +6,7 @@ import fs from "fs";
 import { UUVPlaywrightCucumberMapFile, UUVPlaywrightCucumberMapItem } from "../lib/runner-playwright";
 import report from "multiple-cucumber-html-reporter";
 import { Formatter } from "cucumber-json-report-formatter";
-import { v4 as uuidv4 } from "uuid";
+import { nanoid } from "nanoid";
 import { TestStep } from "@playwright/test/types/testReporter";
 import chalk from "chalk";
 import chalkTable from "chalk-table";
@@ -84,7 +84,7 @@ class UuvPlaywrightReporterHelper {
             let newCurrentQuery = currentQuery.update(newTestCaseEnvelope);
             this.envelopes.push(newTestCaseEnvelope);
 
-            const testCaseStartedId = uuidv4();
+            const testCaseStartedId = nanoid();
             const newTestCaseStartedEnvelope = this.createEnvelope({
                 testCaseStarted: {
                     id: testCaseStartedId,
@@ -362,7 +362,7 @@ class UuvPlaywrightReporterHelper {
     }
 
     private createStepDefinitionEnvelope(): string {
-        const stepDefinitionId = uuidv4();
+        const stepDefinitionId = nanoid();
         this.envelopes.push(
             this.createEnvelope({
                 stepDefinition: {
