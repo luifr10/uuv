@@ -1,3 +1,4 @@
+
 # @uuv/runner-commons
 <p align="center">  
 <a href="https://e2e-test-quest.github.io/uuv/">  
@@ -6,9 +7,6 @@
 </picture>  
 </a>  
 </p>  
-<p align="center">  
-<a href="https://e2e-test-quest.github.io/uuv/"><img src="https://img.shields.io/badge/documentation-black?&style=for-the-badge&logo=github&logoColor=white" alt="documentation"/></a>  
-</p>   
 
 <h3 align="center">  
 Test as final user  
@@ -24,7 +22,7 @@ Make test writing fast, understandable by any human understanding English or Fre
 </a>  
 <a href="https://www.npmjs.com/package/@uuv/commons">  
 <img src="https://img.shields.io/badge/accessibility-yes-green" alt="accessibility"/>  
-</a> 
+</a>  
 <a href="https://jestjs.io/fr/">  
 <img src="https://img.shields.io/badge/tested%20with-jest-yellow?logo=jest" alt="jest"/>  
 </a>  
@@ -39,14 +37,22 @@ It's commons sentence of `@uuv` library (User centric Usecases Validator) that i
 We can use the cypress engine with [@uuv/cypress](https://www.npmjs.com/package/@uuv/cypress) to run test or playwright with [@uuv/playwright](https://www.npmjs.com/package/@uuv/playwright)
 </p>  
 
-## Installing
+## Documentation
+<a href="https://e2e-test-quest.github.io/uuv/"><img src="https://img.shields.io/badge/documentation-black?&style=for-the-badge&logo=github&logoColor=white" alt="documentation"/></a>
 
-<a href="https://e2e-test-quest.github.io/uuv/">Documentation</a>
+## Usage
+This library may not be downloaded directly. Please pass by [@uuv/cypress](https://www.npmjs.com/package/@uuv/cypress) or [@uuv/playwright](https://www.npmjs.com/package/@uuv/playwright)
+or [@uuv/assistant](https://www.npmjs.com/package/@uuv/assistant).
 
 ## License
 
-[<a href="https://www.npmjs.com/package/@uuv/cypress">  
-<img src="https://img.shields.io/badge/license-Apache%202.0-blue" alt="npm"/>  
+[<a href="https://github.com/e2e-test-quest/uuv/blob/main/LICENSE">  
+<img src="https://img.shields.io/badge/license-Apache%202.0-blue" alt="apache license"/>  
 </a>](https://www.apache.org/licenses/LICENSE-2.0)
 
-This project is licensed under the terms of the [Apache 2.0 license](https://www.apache.org/licenses/LICENSE-2.0).
+This project is licensed under the terms of the [Apache 2.0 license](https://github.com/e2e-test-quest/uuv/blob/main/LICENSE).
+
+## Authors
+
+- [@luifr10](https://github.com/luifr10)
+- [@stanlee974](https://github.com/stanlee974)
