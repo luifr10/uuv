@@ -31,6 +31,36 @@ Make test writing fast, understandable by any human understanding English or Fre
 </a><br />  
 </p>  
 
+## Benefits
+- If used correctly, integrates accessibility from the development stage
+- A living documentation is possible because we propose an unified language for developers and non-developers with a rich dictionary of ready-to-use sentences
+- A wizard that facilitates the writing of tests by suggesting the most accessible sentences
+- Integrates several runtime engines: Cypress / Playwright
+- User-friendly and standardized execution report
+  ### <u>Comparison</u>
+| Criteria | Cypress | Playwright | Testing library | UUV |  
+|:-: |:-: |:-: |:-: |:-: |  
+| User centrism | :x: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |  
+| Native accessibility | :x: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |  
+| Easy setup configuration for BDD test | :warning: | :warning: | :heavy_minus_sign: | :heavy_check_mark: |  
+| Understandable by everyone <br> (included non dev) | :x: | :x: | :x: | :heavy_check_mark: |  
+
+### <u>Syntax example</u>
+With this dom example :
+  ```html
+  <body>
+  <h1>Result<h1>
+  </body>
+```
+we see that the sentence proposed by **UUV is the most understandable** of all
+| Library | Syntax |
+|:--|:--|
+| Cypress  | cy.get('result').should('exist') |
+| Playwright| await expect(page.getByTitle('Result')).toHaveCount(1) |
+| Testing library  | expect(screen.getByTitle(/Result/i)).toBeNull() |
+| UUV | Then I should see a title named "Result"|
+
+
 ## Documentation
 <a href="https://e2e-test-quest.github.io/uuv/"><img src="https://img.shields.io/badge/documentation-black?&style=for-the-badge&logo=github&logoColor=white" alt="documentation"/></a>
 
