@@ -6,11 +6,13 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined,
+  outputDir: "reports/playwright",
+  workers: 1,
   reporter: "@uuv/playwright/uuv-playwright-reporter",
   use: {
     baseURL: "http://localhost:4200",
     trace: "on-first-retry",
+    screenshot: "only-on-failure"
   },
 
   projects: [

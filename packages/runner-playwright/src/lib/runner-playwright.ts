@@ -45,7 +45,6 @@ async function bddGen(tempDir: string) {
             }
         });
         fs.writeFileSync(`${tempDir}/${UUVPlaywrightCucumberMapFile}`, JSON.stringify(content, null, 4), { encoding: "utf8" });
-        console.log("bddgen executed");
     } catch (err) {
         console.error(chalk.red("Something went wrong..."));
         console.dir(err);
@@ -96,7 +95,7 @@ function translateFeatures(tempDir: string, configDir: string) {
             data;
         fs.writeFileSync(generatedFile, data);
         console.log(
-            `[WRITE] ${generatedFile} written successfully`
+            chalk.gray(`[WRITE] ${generatedFile} written successfully`)
         );
     });
 }
@@ -111,15 +110,22 @@ function runPlaywright(mode: "open" | "e2e", configDir: string, generateHtmlRepo
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         process.env.CONFIG_DIR = configDir;
-        console.log(`Running: npx playwright test --project=chromium -c ${configFile} ${mode === "open" ? "--ui" : ""}`);
-        execSync(`npx playwright test --project=chromium -c ${configFile} ${mode === "open" ? "--ui" : ""}`, { stdio: "inherit" });
+        const command = `npx playwright test --project=chromium -c ${configFile} ${mode === "open" ? "--ui" : ""}`;
+        console.log(chalk.gray(`Running ${command}`));
+        execSync(command, { stdio: "inherit" });
     } catch (err) {
         process.exit(-1);
     }
 }
 
-export async function run(mode: "open" | "e2e", tempDir = "uuv/.features-gen/e2e", configDir = "uuv", generateHtmlReport = false) {
+async function executePreprocessor(tempDir: string, configDir: string) {
+    console.log("running preprocessor...");
     await bddGen(tempDir);
     translateFeatures(tempDir, configDir);
+    console.log("preprocessor executed");
+}
+
+export async function run(mode: "open" | "e2e", tempDir = "uuv/.features-gen/e2e", configDir = "uuv", generateHtmlReport = false) {
+    await executePreprocessor(tempDir, configDir);
     runPlaywright(mode, configDir, generateHtmlReport);
 }

@@ -47,7 +47,6 @@
     "chalk": "4.1.2",
     "chalk-table": "^1.0.2",
     "cucumber-json-report-formatter": "0.1.4",
-    "draftlog": "1.0.13",
     "figlet": "1.6.0",
     "minimist": "1.2.8",
     "multiple-cucumber-html-reporter": "3.3.0",

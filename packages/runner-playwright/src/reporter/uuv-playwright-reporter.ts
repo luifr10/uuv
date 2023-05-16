@@ -2,22 +2,16 @@ import { FullConfig, FullResult, Reporter, Suite, TestCase, TestResult } from "@
 import { TestError, TestStep } from "@playwright/test/types/testReporter";
 import UuvPlaywrightReporterHelper, { GeneratedReportType } from "./uuv-playwright-reporter-helper";
 import chalk from "chalk";
-import DraftLog from "draftlog";
 
 class UuvPlawrightReporter implements Reporter {
     private helper: UuvPlaywrightReporterHelper = new UuvPlaywrightReporterHelper();
-    private reporterStaticConsoleLogger: any;
 
     onBegin(config: FullConfig, suite: Suite) {
         const startTimestamp = this.helper.getTimestamp();
         // console.log(`Starting the run with ${suite.allTests().length} tests`);
         this.helper.createTestRunStartedEnvelope(config, suite, startTimestamp);
-        DraftLog(console).addLineListener(process.stdin);
-        console.log(
+        console.info(
             chalk.yellow(`Starting the run with ${suite.allTests().length} tests`)
-        );
-        this.reporterStaticConsoleLogger = console.draft(
-            chalk.yellow("!!! Fasten seat belt !!!")
         );
     }
 
@@ -25,29 +19,12 @@ class UuvPlawrightReporter implements Reporter {
         console.dir(chalk.red(error));
     }
 
-    onStdErr?(chunk: string|Buffer, test: void|TestCase, result: void|TestResult): void {
-        let scenario = "unknown";
-        if ((test as TestCase)?.id !== undefined) {
-            const featureFile = this.helper.getOriginalFeatureFile((test as TestCase).location.file);
-            if (featureFile) {
-                scenario = this.helper.getCurrentRunningScenario((test as TestCase), featureFile);
-            }
-        }
-        this.helper.addError({
-            scenario: scenario,
-            error: chunk
-        });
-    }
-
-
     onTestBegin(test: TestCase, result: TestResult) {
         const startTimestamp = this.helper.getTimestamp(result.startTime);
         // console.log(`Starting test ${test.title} - ${test.parent.location?.file}`);
         const featureFile = this.helper.getOriginalFeatureFile(test.location.file);
         if (featureFile) {
-            this.reporterStaticConsoleLogger(
-                chalk.blueBright(`Running > ${this.helper.getCurrentRunningScenario(test, featureFile)}`)
-            );
+            this.helper.logTestBegin(test, featureFile);
             this.helper.createTestCaseStartedEnvelope(test, result, featureFile, startTimestamp);
         }
     }
@@ -76,6 +53,7 @@ class UuvPlawrightReporter implements Reporter {
         const featureFile = this.helper.getOriginalFeatureFile(test.location.file);
         if (featureFile) {
             this.helper.createTestCaseFinishedEnvelope(test, result, featureFile, endTimestamp);
+            this.helper.logTestEnd(test, result);
         }
     }
 
@@ -83,7 +61,7 @@ class UuvPlawrightReporter implements Reporter {
         // console.debug(`Finished the run: ${result.status}`);
         this.helper.createTestRunFinishedEnvelope(result);
         console.log(
-            chalk.yellow("End of the tests execution")
+            chalk.yellow("End of the tests execution\n")
         );
         await this.helper.generateReport(
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment

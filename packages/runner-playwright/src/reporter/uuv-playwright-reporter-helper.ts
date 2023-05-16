@@ -1,7 +1,7 @@
 import { FullConfig, FullResult, Suite, TestCase, TestResult, Location, TestStatus } from "@playwright/test/reporter";
 import { generateMessages } from "@cucumber/gherkin";
 import { Query } from "@cucumber/gherkin-utils";
-import { Envelope, IdGenerator, parseEnvelope, SourceMediaType } from "@cucumber/messages";
+import { Envelope, IdGenerator, parseEnvelope, SourceMediaType, AttachmentContentEncoding } from "@cucumber/messages";
 import fs from "fs";
 import { UUVPlaywrightCucumberMapFile, UUVPlaywrightCucumberMapItem } from "../lib/runner-playwright";
 import report from "multiple-cucumber-html-reporter";
@@ -51,6 +51,7 @@ class UuvPlaywrightReporterHelper {
     private testStepLocationAndTestStepIdMap: Map<string, string> = new Map<string, string>();
     private consoleReportMap: Map<string, ReportOfFeature> = new Map<string, ReportOfFeature>();
     private errors: TestError[] = [];
+    private currentFeatureFile!: string;
 
     public createTestRunStartedEnvelope(config: FullConfig, suite: Suite, startTimestamp: { seconds: number; nanos: number }) {
         this.testDir = config.projects[0].testDir;
@@ -138,7 +139,7 @@ class UuvPlaywrightReporterHelper {
                     .find(pickle => pickle.id === pickleId)
                     ?.steps
                     .filter((value, index) => index >= (newIndexStep - 1))
-                    .forEach((pickleStep, index) => {
+                    .forEach((pickleStep) => {
                         const newTestStepStartedEnvelope = this.createEnvelope({
                             testStepStarted: {
                                 testStepId: pickleStep.id,
@@ -169,7 +170,13 @@ class UuvPlaywrightReporterHelper {
         }
     }
 
-    public createTestStepFinishedEnvelope(test: TestCase, step: TestStep, result: TestResult, featureFile: string, startTimestamp: { seconds: number; nanos: number }) {
+    public createTestStepFinishedEnvelope(
+        test: TestCase,
+        step: TestStep,
+        result: TestResult,
+        featureFile: string,
+        startTimestamp: { seconds: number; nanos: number }
+    ) {
         const currentQuery = this.queries.get(featureFile);
         if (currentQuery && step.location) {
             const testStepId = this.testStepLocationAndTestStepIdMap.get(this.getTestStepKey(step.location));
@@ -183,12 +190,14 @@ class UuvPlaywrightReporterHelper {
                             duration: {
                                 seconds: result.duration / 1000,
                                 nanos: result.duration * NANOS_IN_MILLISSECOND
-                            }
+                            },
+                            // eslint-disable-next-line no-control-regex
+                            message: step.error?.message?.replace(/[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g, "")
                         },
                         timestamp: startTimestamp
                     }
-                });
-                this.envelopes.push(newTestStepEnvelope);
+               });
+               this.envelopes.push(newTestStepEnvelope);
             }
         }
     }
@@ -203,17 +212,52 @@ class UuvPlaywrightReporterHelper {
             if (result.status === "skipped" || result.status === "failed") {
                 this.createTestStepSkippedEnvelope(test, featureFile, endTimestamp);
             }
+            const testCaseStartedId = this.testCasesAndTestCasesStartedIdMap.get(test.id);
             const newTestCaseFinishedEnvelope = this.createEnvelope({
                 testCaseFinished: {
-                    testCaseStartedId: this.testCasesAndTestCasesStartedIdMap.get(test.id),
+                    testCaseStartedId: testCaseStartedId,
                     attempt: result.retry,
                     timestamp: endTimestamp
                 }
             });
             currentQuery.update(newTestCaseFinishedEnvelope);
             this.envelopes.push(newTestCaseFinishedEnvelope);
+
             this.updateConsoleReport(featureFile, result);
+            this.addResultErrors(result, test, featureFile);
+            this.createTestCaseErrorAttachmentsEnvelope(testCaseStartedId, result);
         }
+    }
+
+    private addResultErrors(result: TestResult, test: TestCase, featureFile: string) {
+        result.errors.forEach(error => {
+            const scenario = this.getCurrentRunningScenario((test as TestCase), featureFile);
+            this.addError({
+                scenario: scenario,
+                error: error.message as string
+            });
+        });
+    }
+
+    private createTestCaseErrorAttachmentsEnvelope(testCaseStartedId: string | undefined, result: TestResult) {
+        result.attachments.forEach(attachment => {
+            if (attachment.path && attachment.path.endsWith("test-failed-1.png")) {
+                const attachmentBody = fs.readFileSync(attachment.path, { encoding: "base64" });
+                const failedStep = result.steps.find(step => step.error);
+                if (failedStep?.location) {
+                    const testCaseAttachmentEnvelope = this.createEnvelope({
+                        attachment: {
+                            testCaseStartedId: testCaseStartedId,
+                            testStepId: this.testStepLocationAndTestStepIdMap.get(this.getTestStepKey(failedStep.location)),
+                            body: attachmentBody,
+                            contentEncoding: AttachmentContentEncoding.BASE64,
+                            mediaType: attachment.contentType
+                        }
+                    });
+                    this.envelopes.push(testCaseAttachmentEnvelope);
+                }
+            }
+        });
     }
 
     private initConsoleReportIfNotExists(featureFile: string) {
@@ -270,7 +314,7 @@ class UuvPlaywrightReporterHelper {
         return `File ${featureFile} > Scenario ${counter} - ${test.title}`;
     }
 
-    public addError(newError: TestError) {
+    private addError(newError: TestError) {
         this.errors.push(newError);
     }
 
@@ -402,7 +446,7 @@ class UuvPlaywrightReporterHelper {
     private async generateHtmlReport() {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        const reportDir = `${process.env.CONFIG_DIR}/reports`;
+        const reportDir = `${process.env.CONFIG_DIR}/reports/e2e`;
         const outputMessageFile = `${reportDir}/cucumber-messages.ndjson`;
         const reportDirHtml = `${reportDir}/html`;
         const reportDirJson = `${reportDir}/json`;
@@ -431,7 +475,7 @@ class UuvPlaywrightReporterHelper {
                 { field: "file",     name: "File" },
                 { field: "passed",  name: chalk.green("Passed") },
                 { field: "skipped", name: chalk.yellow("Skipped") },
-                { field: "failed",  name: chalk.red("Failed") }
+                { field: "failed",  name: chalk.redBright("Failed") }
             ]
         };
         let index = 1;
@@ -441,7 +485,7 @@ class UuvPlaywrightReporterHelper {
                 file: key,
                 passed: chalk.green(value.passed),
                 skipped: chalk.yellow(value.skipped),
-                failed: chalk.red(value.failed)
+                failed: value.failed ? chalk.redBright(value.failed) : chalk.red(value.failed)
             });
             index++;
         });
@@ -465,6 +509,26 @@ class UuvPlaywrightReporterHelper {
             )
         );
         console.log("\n\n");
+    }
+
+    public logTestBegin(testCase: TestCase, featureFile: string) {
+        if (this.currentFeatureFile !== featureFile) {
+            console.info(chalk.blueBright(`  Feature: ${featureFile}`));
+            this.currentFeatureFile = featureFile;
+        }
+    }
+
+    public logTestEnd(testCase: TestCase, result: TestResult) {
+        console.info(`    ${this.getResultIcon(testCase)} ${this.getTestCaseTitle(testCase, result)}`);
+    }
+
+    private getResultIcon(testCase: TestCase): string {
+        return !testCase.ok() ? chalk.redBright("\u166D") : chalk.green("\u2713");
+    }
+
+    private getTestCaseTitle(testCase: TestCase, result: TestResult): string {
+        const message = `${testCase.title}  (${result.duration}ms)`;
+        return !testCase.ok() ? chalk.redBright(message) : chalk.gray(message);
     }
 }
 
