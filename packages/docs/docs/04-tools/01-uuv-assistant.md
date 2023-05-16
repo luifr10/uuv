@@ -5,7 +5,7 @@ import TabItem from '@theme/TabItem';
 
 ## Screenshots
 
-![Assistant screenshots](@site/static/img/docs/assistant.gif)
+![Assistant screenshots](@site/static/img/assistant/screenshots.gif)
 
 ## Install
 :::caution
