@@ -46,8 +46,8 @@
     "test": "jest"
   },
   "dependencies": {
-    "@cucumber/cucumber": "9.1.0",
-    "antd": "^5.4.6",
+    "antd": "5.4.6",
+    "figlet": "1.6.0",
     "playwright-chromium": "1.33.0"
   },
   "browserslist": {

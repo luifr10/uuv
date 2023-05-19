@@ -120,7 +120,8 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
           ...this.state,
           generatedScript: sentences,
           currentAction: "none",
-          isHide: false
+          isHide: false,
+          isExtended: true
         });
         this.inspector.cancel();
       }
