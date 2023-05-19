@@ -11,18 +11,22 @@
   "homepage": "https://e2e-test-quest.github.io/uuv/",
   "keywords": [
     "uuv",
-    "UUV",
-    "E2E",
+    "e2e",
+    "end2end",
+    "end 2 end",
     "test",
     "testing",
-    "cypress",
-    "testing-library",
     "accessibility",
     "accessibilite",
     "a11y",
-    "cucumber",
+    "cypress",
     "playwright",
-    "gherkin"
+    "testing-library",
+    "cucumber",
+    "gherkin",
+    "bdd",
+    "tdd",
+    "acceptance"
   ],
   "bin": {
     "uuv-assistant": "./dist/launcher/uuv-assistant-launcher.js"

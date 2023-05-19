@@ -10,14 +10,22 @@
   },
   "keywords": [
     "uuv",
-    "UUV",
-    "E2E",
+    "e2e",
+    "end2end",
+    "end 2 end",
     "test",
     "testing",
+    "accessibility",
+    "accessibilite",
+    "a11y",
     "cypress",
+    "playwright",
     "testing-library",
     "cucumber",
-    "gherkin"
+    "gherkin",
+    "bdd",
+    "tdd",
+    "acceptance"
   ],
   "private": true,
   "scripts": {

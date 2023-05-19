@@ -12,10 +12,22 @@
   "homepage": "https://e2e-test-quest.github.io/uuv/",
   "keywords": [
     "uuv",
-    "UUV",
-    "accessibilite",
+    "e2e",
+    "end2end",
+    "end 2 end",
+    "test",
+    "testing",
     "accessibility",
-    "a11y"
+    "accessibilite",
+    "a11y",
+    "cypress",
+    "playwright",
+    "testing-library",
+    "cucumber",
+    "gherkin",
+    "bdd",
+    "tdd",
+    "acceptance"
   ],
   "scripts": {
     "package": "npm pack --pack-destination=\"../../dist/packages\"",
