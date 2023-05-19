@@ -88,6 +88,10 @@ yarn add -D @uuv/playwright
 <a href="https://e2e-test-quest.github.io/uuv/docs/getting-started/configuration"><img src="https://img.shields.io/badge/Configure%20Playwright%20doc-red?&style=for-the-badge&logo=github&logoColor=white" alt="documentation for configure uuv playwright"/></a>
 
 ## Usage
+
+### Scenarios example
+You can find test examples here : [google.feature](https://github.com/e2e-test-quest/uuv/example/google.fr.feature)
+
 ### Write test
 To write your first test, create the file `uuv/e2e/first-test.feature` in the project root with the following content :
   ```gherkin

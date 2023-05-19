@@ -84,9 +84,7 @@ We can use the cypress engine to run test or playwright with [@uuv/playwright](h
 <img alt="runner-cypress in french" src="https://e2e-test-quest.github.io/uuv/img/cypress/screenshot.png" style="max-width: 100%;" width="75%" height="75%">  
 </a>   
 
-
 ## Installation
-
 
 ```bash  
 npm install --save-dev @uuv/cypress
@@ -99,6 +97,9 @@ yarn add -D @uuv/cypress
 <a href="https://e2e-test-quest.github.io/uuv/docs/getting-started/configuration"><img src="https://img.shields.io/badge/Configure%20cypress%20doc-red?&style=for-the-badge&logo=github&logoColor=white" alt="documentation for configure uuv cypress"/></a>
 
 ## Usage
+### Scenarios example
+You can find test examples here : [google.feature](https://github.com/e2e-test-quest/uuv/example/google.fr.feature)
+
 ### Write test
 To write your first test, create the file `uuv/e2e/first-test.feature` in the project root with the following content :
   ```gherkin

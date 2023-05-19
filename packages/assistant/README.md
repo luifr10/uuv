@@ -87,6 +87,10 @@ yarn add -D @uuv/assistant
 
 ## Usage
 
+### Scenarios example
+You can find test examples here : [google.feature](https://github.com/e2e-test-quest/uuv/example/google.fr.feature)
+
+### Launch
 To launch uuv assistant :
 ```bash
 npx uuv-assistant --targetUrl=<targetUrl>
