@@ -76,6 +76,12 @@ With this wizard, we can generate cucumber sentences that will use an execution 
 ## Screenshots
 <img src="https://e2e-test-quest.github.io/uuv/img/assistant/screenshots.gif" alt="assistant screenshots"/>  
 
+## Online demo
+
+<a href="https://uuv-assistant.vercel.app/">
+    <img src="https://e2e-test-quest.github.io/uuv/img/assistant/online-demo.png" alt="assistant online demo"/>  
+</a>
+
 ## Installation
 ```bash
 npm install --save-dev @uuv/assistant

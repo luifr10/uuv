@@ -7,6 +7,12 @@ import TabItem from '@theme/TabItem';
 
 ![Assistant screenshots](@site/static/img/assistant/screenshots.gif)
 
+## Online demo
+
+<a href="https://uuv-assistant.vercel.app/">
+    The online demo is available here.
+</a>
+
 ## Install
 :::caution
 

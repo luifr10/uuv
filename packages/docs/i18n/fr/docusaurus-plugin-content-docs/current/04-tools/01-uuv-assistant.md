@@ -3,6 +3,16 @@ import TabItem from '@theme/TabItem';
 
 # UUV Assistant
 
+## Screenshots
+
+![Assistant screenshots](@site/static/img/assistant/screenshots.gif)
+
+## Démo en ligne
+
+<a href="https://uuv-assistant.vercel.app/">
+    La démo en ligne est disponible ici.
+</a>
+
 ## Installation
 
 Lancer la commande suivante :
