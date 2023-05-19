@@ -1,5 +1,5 @@
 
-# @uuv/runner-playwright
+# @uuv/playwright
 <p align="center">  
 <a href="https://e2e-test-quest.github.io/uuv/">  
 <picture>  

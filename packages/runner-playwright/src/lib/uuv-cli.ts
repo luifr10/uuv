@@ -92,7 +92,7 @@ export async function main() {
   function printBanner(getCurrentVersion: () => string) {
     console.log(
         chalk.blueBright(
-            figlet.textSync("UUV", {
+            figlet.textSync("UUV - Playwright", {
               font: "Big",
               horizontalLayout: "default",
               verticalLayout: "default",
