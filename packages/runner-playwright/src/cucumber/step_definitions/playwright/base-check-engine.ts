@@ -18,6 +18,7 @@ import { DEFAULT_TIMEOUT, fs, key } from "@uuv/runner-commons";
 import { checkA11y, injectAxe } from "axe-playwright";
 import { Locator } from "playwright";
 import { devices, expect } from "@playwright/test";
+import { Page } from "playwright";
 import { DataTable } from "@cucumber/cucumber";
 import {
     addCookieWhenValueIsList,
@@ -179,8 +180,8 @@ Then(`${key.then.element.not.withTestId}`, async function(this: World, testId: s
 Then(
     `${key.then.a11y.check}`,
     async function (this: World) {
-        await injectAxe(this.page);
-        await checkA11y(this.page);
+        await injectAxe(this.page as Page);
+        await checkA11y(this.page as Page);
     });
 
 Then(

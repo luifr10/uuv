@@ -15,7 +15,7 @@
  */
 
 import { World } from "../../preprocessor/run/world";
-import { expect } from "@playwright/test";
+import { expect, Locator as LocatorTest } from "@playwright/test";
 import { Cookie, Locator, Page } from "playwright";
 
 export enum COOKIE_NAME {
@@ -38,7 +38,7 @@ export type MockType = {name; string, url: any}
 export type FilterType = {name: FILTER_TYPE, value: any}
 
 export async function getPageOrElement(world: World): Promise<any> {
-    let pointer: Locator | Page = world.page;
+   let pointer: Locator | Page = world.page as Page;
    await getCookie(world, COOKIE_NAME.SELECTED_ELEMENT).then(async cookie => {
         // console.debug("cookieGetPageOrElement", cookie)
         if (cookie.value !== COOKIE_VALUE.NOT_EXIST.toString()) {
@@ -65,7 +65,7 @@ export async function getPageOrElement(world: World): Promise<any> {
                         break;
                 }
                 // console.debug("locatorGetPageOrElement", pointer, filter)
-                await expect(pointer as Locator).toHaveCount(1);
+                await expect(pointer as LocatorTest).toHaveCount(1);
             }
         }
     });
@@ -192,7 +192,7 @@ export async function showAttributesInLocator(element) {
 export async function checkTextContentLocator(locator: Locator, expectedTextContent: string): Promise<void> {
    // await showAttributesInLocator(locator);
     try {
-        await expect(locator).toHaveValue(expectedTextContent);
+        await expect(locator as LocatorTest).toHaveValue(expectedTextContent);
     } catch (err) {
         console.error("No value found for locator: ", locator);
         try {
@@ -201,14 +201,14 @@ export async function checkTextContentLocator(locator: Locator, expectedTextCont
             console.error("No attribute value found for locator: ", locator);
             try {
                 if (expectedTextContent === "true") {
-                    await expect(locator).toBeChecked();
+                    await expect(locator as LocatorTest).toBeChecked();
                 } else {
-                    await expect(locator).not.toBeChecked();
+                    await expect(locator as LocatorTest).not.toBeChecked();
                 }
             } catch (err) {
                 console.error("Can't verify check for locator: ", locator);
                 try {
-                    await expect(locator).toHaveText(expectedTextContent);
+                    await expect(locator as LocatorTest).toHaveText(expectedTextContent);
                 } catch (err) {
                     console.error("No text found for locator: ", locator);
                     throw new Error(`Content '${expectedTextContent}' isn't present in locator '${locator}'`);
