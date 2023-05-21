@@ -82,7 +82,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: cypress/browsers:node18.12.0-chrome107
-    needs: [test, build]
+    needs: [lint, test, build]
     steps:
       - uses: actions/checkout@v3
       - name: Running cypress tests
@@ -93,7 +93,7 @@ jobs:
 
   test-playwright:
     runs-on: ubuntu-latest
-    needs: [test, build]
+    needs: [lint, test, build]
     steps:
       - uses: actions/checkout@v3
       - name: Running playwright tests
@@ -112,7 +112,6 @@ jobs:
         with:
           node-version: ${{env.NODE_VERSION}}
           target: "lint"
-          exclude: "runner-playwright"
 
   release:
     if: github.ref == 'refs/heads/main'
@@ -158,7 +157,6 @@ jobs:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     needs: [ release ]
-    environment: release
     steps:
       - uses: actions/checkout@v3
       - name: Download Release artifact
@@ -181,7 +179,7 @@ jobs:
 
   publish-docs:
     if: github.ref == 'refs/heads/main'
-    needs: [ publish ]
+    needs: [ test-cypress, test-playwright ]
     permissions:
       pages: write
       id-token: write
