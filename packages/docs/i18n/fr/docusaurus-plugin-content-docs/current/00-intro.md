@@ -55,3 +55,27 @@ Pour répondre aux problématiques ci-dessus et bien d'autres, notre solution es
 - [Assistant](tools/uuv-assistant) pour écrire scénarios rapidement
 - Gère plusieurs runner (Cypress, Playwright)
 - Rapport d’exécution user friendly et uniformisé
+
+### Comparaison
+|                      Criteria                       | Cypress | Playwright | Testing library | UUV |  
+|:---------------------------------------------------:|:-: |:-: |:-: |:-: |  
+|                    User centrism                    | :x: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |  
+|                Native accessibility                 | :x: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |  
+|        Easy setup configuration for BDD test        | :warning: | :warning: | :heavy_minus_sign: | :heavy_check_mark: |  
+| Understandable by everyone <br/> (included non dev) | :x: | :x: | :x: | :heavy_check_mark: |  
+
+### Exemple de syntaxe
+Avec cet exemple de dom :
+```html
+  <body>
+  <h1>Result<h1>
+  </body>
+```
+on peut constater que la phrase proposée par **UUV est la plus compréhensible**<br/>
+
+| Library         | Syntax                                                 |
+|:----------------|:-------------------------------------------------------|
+| Cypress         | cy.get('result').should('exist')                       |
+| Playwright      | await expect(page.getByTitle('Result')).toHaveCount(1) |
+| Testing library | expect(screen.getByTitle(/Result/i)).toBeTruthy()      |
+| UUV             | Alors Je dois voir un titre nommé "Result"             |

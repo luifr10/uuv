@@ -48,3 +48,27 @@ To answer the above issues and many others, our solution is to set up a coherent
 - [Wizard(assistant)](tools/uuv-assistant) to write scripts quickly
 - Supports multiple runners (Cypress, Playwright)
 - User friendly and standardized execution report
+
+### Comparison
+|                      Criteria                       | Cypress | Playwright | Testing library | UUV |  
+|:---------------------------------------------------:|:-: |:-: |:-: |:-: |  
+|                    User centrism                    | :x: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |  
+|                Native accessibility                 | :x: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |  
+|        Easy setup configuration for BDD test        | :warning: | :warning: | :heavy_minus_sign: | :heavy_check_mark: |  
+| Understandable by everyone <br/> (included non dev) | :x: | :x: | :x: | :heavy_check_mark: |  
+
+### Syntax example
+With this dom example :
+```html
+  <body>
+  <h1>Result<h1>
+  </body>
+```
+we see that the sentence proposed by **UUV is the most understandable** of all<br/>
+
+| Library         | Syntax                                                 |
+|:----------------|:-------------------------------------------------------|
+| Cypress         | cy.get('result').should('exist')                       |
+| Playwright      | await expect(page.getByTitle('Result')).toHaveCount(1) |
+| Testing library | expect(screen.getByTitle(/Result/i)).toBeTruthy()      |
+| UUV             | Then I should see a title named "Result"               |
