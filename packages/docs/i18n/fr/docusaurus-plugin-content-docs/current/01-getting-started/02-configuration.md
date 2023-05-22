@@ -13,40 +13,19 @@ Modifier le fichier `.gitignore` pour rajouter les lignes suivantes :
 /uuv/.uuv-features-gen
 ```
 
-
-## (Optionnel) Ajout des types Typescripts
-
-<Tabs>
-<TabItem value="cypress" label="Cypress">
-
-:::info
-Cette étape n'est nécessaire que si vous prévoyez de rajouter vos propres [step_definitions](/docs/wordings/add-custom-step-definition).
-:::
-Ajouter un nouveau fichier `tsconfig.e2e.json` pour inclure les types nécessaires :
-
-```json title='tsconfig.e2e.json'
-{
-  "extends": "./tsconfig.json",
-  "compilerOptions": {
-    "outDir": "./out-tsc/app",
-    "types": [
-      "cypress",
-      "@testing-library/cypress",
-      "@nobelisation/uuv"
-    ]
-  },
-  "files": [
-    "uuv/cypress.config.ts"
-  ],
-  "include": [
-    "src/**/*.cy.ts"
-  ]
-}
-```
-
-</TabItem>
-<TabItem value="playwright" label="Playwright">
-WIP
-</TabItem>
-</Tabs>
-
+## Autocomplétion
+**Pour l'autocompletion** lors de l'écriture de vos test :
+- Pour **IntelliJ** télécharger le plugin [cucumber.js](https://plugins.jetbrains.com/plugin/7418-cucumber-js).
+- Pour **VS Code** télécharger le plugin [Cucumber (Gherkin) Full Support](https://marketplace.visualstudio.com/items?itemName=alexkrechik.cucumberautocomplete).<br/>
+  Puis, créer ou modifier le fichier `.vscode/settings.json` afin d'ajouter les lignes suivantes :
+  ```json title='.vscode/settings.json'
+  {
+      "cucumberautocomplete.steps": [
+         "uuv/cucumber/step_definitions/**/*.{js,ts}",
+         "node_modules/@uuv/*/src/cucumber/step_definitions/*/unsafe/**/*.ts",
+         "node_modules/@uuv/*/src/cucumber/step_definitions/*/generated/**/*.ts",
+         "node_modules/@uuv/*/src/cucumber/step_definitions/*/generated/enriched/*/*.ts"
+      ],
+      "cucumberautocomplete.strictGherkinCompletion": true
+  }
+  ```
