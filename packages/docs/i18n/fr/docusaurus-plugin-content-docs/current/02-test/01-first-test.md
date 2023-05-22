@@ -1,7 +1,7 @@
 # Mon premier test
 
 :::caution
-**Pour l'autocompletion** lors de l'écriture de vos test, lire cette [section](/docs/getting-started/configuration#autocompl%C3%A9tion)
+**Pour l'autocompletion** lors de l'écriture de vos tests, lire cette [section](/docs/getting-started/configuration#autocompl%C3%A9tion)
 :::
 
 ## Ecriture du test
