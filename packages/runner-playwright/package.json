@@ -71,6 +71,7 @@
     "postinstall.js",
     "target-config/**/*",
     "src/cucumber/step_definitions/playwright/generated/**/*",
+    "src/cucumber/step_definitions/playwright/unsafe/**/*",
     "*.md",
     ".npmignore"
   ],
