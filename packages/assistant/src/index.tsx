@@ -17,19 +17,24 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
+import SearchUrlComponent from "./UuvSearchUrl";
 import UuvAssistantComponent from "./UuvAssistantComponent";
-import reportWebVitals from "./reportWebVitals";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 document.addEventListener("UUVAssistantReadyToLoad", (e: any) => {
     console.log("event listened: UUVAssistantReadyToLoad");
     ReactDOM.render(
-        <UuvAssistantComponent translator={e?.detail?.translator}/>,
+      <>
+        <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<UuvAssistantComponent translator={e?.detail?.translator}/>} />
+          <Route path="/search" element={<SearchUrlComponent />}>
+          </Route>
+        </Routes>
+      </BrowserRouter>
+      </>,
         document.getElementById("uvv-assistant-root") as HTMLElement
     );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-    reportWebVitals();
 });
+

@@ -1,3 +1,19 @@
+/**
+ * Copyright UUV.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import { chromium } from "playwright-chromium";
 import fs from "fs";
 
@@ -43,15 +59,16 @@ export class UuvAssistant {
             "var translator = null;";
 
         const cssContentDeclaration = `\n var uuvCssContent = "${fs.readFileSync(__dirname + conf.cssFile).toString()}"`;
-
+        await console.log(cssContentDeclaration);
         await browserContext.addInitScript({
             content: `${translatorDeclaration}${cssContentDeclaration}`
         });
+        await console.log(this.initReactDomRootElementFn());
         await browserContext.addInitScript(this.initReactDomRootElementFn());
         await browserContext.addInitScript({
             path: `${__dirname}${conf.reactScript}`
         });
-
+        await console.log(fs.readFileSync(`${__dirname}${conf.reactScript}`));
         await page.goto(argv.targetUrl);
     }
 }

@@ -25,6 +25,7 @@ import { CheckActionEnum, TranslateHelper } from "./helper/TranslateHelper";
 import { Avatar, Button, Col, ConfigProvider, Divider, Drawer, Layout, notification, Row, Select, theme, Tooltip, Typography } from "antd";
 import { CopyOutlined, SelectOutlined, DoubleLeftOutlined } from "@ant-design/icons";
 import { CssHelper } from "./helper/CssHelper";
+import { AssistantTour } from "./model/assistant-tour";
 
 const Inspector = require("inspector-dom");
 
@@ -42,6 +43,7 @@ export interface UuvAssistantState {
 
 interface UuvAssistantProps {
   translator?: (el: HTMLElement) => string;
+  tour?: AssistantTour;
 }
 
 class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssistantState> {
@@ -142,7 +144,6 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
           disabledElement: disabledElement
         });
       } else {
-        console.log("ce n'est plus deleted");
         if (disabledElement) {
           const querySelector = document.querySelector(disabledElement);
           querySelector?.setAttribute("disabled", "true");
@@ -202,6 +203,7 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
     const lightMode = this.state.isDark ? CssHelper.getBase64File(sunJson) : CssHelper.getBase64File(moonJson);
     const warningIcon = CssHelper.getBase64File(warningIconJson);
     const uuvLogo = CssHelper.getBase64File(uuvLogoJson);
+
     return (
       <ConfigProvider
         theme={{
@@ -213,7 +215,7 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
           }
         }}
       >
-        <Drawer
+       <Drawer
           placement='bottom'
           open={!this.state.isHide}
           closable={false}
@@ -224,6 +226,7 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
         >
           <Tooltip placement='top' title='Resize the Uuv assistant' zIndex={9999999780}>
             <Button
+              ref={this.props.tour?.refResize}
               data-testid={"expanderButton"}
               onClick={handleExpandInspector}
               className='uuvArrowExpander'
@@ -237,9 +240,10 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
             </Button>
           </Tooltip>
           {!this.state.isExtended ?
-            <Row style={{ marginTop: "5px", marginBottom: "5px" }}>
+            <Row style={{ marginTop: "5px", marginBottom: "5px" }} >
               <Tooltip placement='top' title='Select an element' zIndex={9999999780}>
                 <Button
+                  ref={ this.props.tour?.refSelect }
                   aria-label='floating select button'
                   className='pt-0 pb-1'
                   onClick={this.startSelect}
@@ -253,6 +257,7 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
               </Tooltip>
               <Tooltip placement='top' title='Copy in clipboard' zIndex={9999999780}>
                 <Button
+                  ref={this.props.tour?.refCopy}
                   aria-label='floating copy button'
                   style={{
                     background: this.state.generatedScript.length > 0 ? buttonConfig.background : "grey",
@@ -265,6 +270,7 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
                   Copy
                 </Button>
               </Tooltip>
+              <span style={{ display: "inline block", marginRight: "20px" }} ref={this.props.tour?.refAction}>
               <Select
                 aria-label={"floating select list"}
                 data-testid={"floatingSelectList"}
@@ -273,7 +279,6 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
                 onChange={handleSelectCheckActionChange}
                 style={{
                   width: "120px",
-                  marginRight: "20px"
                 }}
                 options={[
                   {
@@ -290,13 +295,14 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
                   }
                 ]}
               />
-              <Text strong type={this.state.isDark ? "warning" : "secondary"} style={{ top: "0", marginTop: "5px", marginRight: "10px" }}
+              </span>
+              <Text ref={this.props.tour?.refSentence} strong type={this.state.isDark ? "warning" : "secondary"} style={{ top: "0", marginTop: "5px", marginRight: "10px" }}
               >Result:</Text>
               <Row align={"middle"}>
                 <Content
                   aria-label={"sentences"}
                   style={{
-                    marginLeft: "10px",
+                    marginLeft: "10px"
                   }}
                 >
                   {this.state.generatedScript.map((value, index) =>
@@ -306,12 +312,12 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
                         marginTop: "8px",
                         marginLeft: "20px"
                       }}
-                     src={<img src={warningIcon}
-                               alt='logo warning'
-                               style={{
-                                 height: "20px",
-                                 width: "20px"
-                               }} />} />
+                       src={<img src={warningIcon}
+                                 alt='logo warning'
+                                 style={{
+                                   height: "20px",
+                                   width: "20px"
+                                 }} />} />
                       </Tooltip> : ""} </Row>
                   )}
                 </Content>
@@ -345,7 +351,9 @@ class UuvAssistantComponent extends React.Component<UuvAssistantProps, UuvAssist
               <Divider />
               <Col>
                 <Tooltip placement='left' title='Select an element'>
-                  <Button aria-label='select button'
+                  <Button
+                    ref={this.state.isExtended ? this.props.tour?.refSelect : null}
+                          aria-label='select button'
                           className='m-1 pt-0 pb-1 uuvActionAside' onClick={this.startSelect}
                           style={{ background: buttonConfig.background, color: buttonConfig.color }}
                           disabled={this.state.currentAction === "selection"} icon={<SelectOutlined />}>
