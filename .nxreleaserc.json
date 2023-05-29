@@ -6,5 +6,11 @@
   "repositoryUrl": "https://github.com/e2e-test-quest/uuv",
   "branches": [
     "main"
+  ],
+  "preset": "conventionalcommits",
+  "releaseRules": [
+    {"type": "docs", "release": "patch"},
+    {"type": "refactor", "release": "patch"},
+    {"scope": "no-release", "release": false}
   ]
 }

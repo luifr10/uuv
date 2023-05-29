@@ -90,7 +90,7 @@ yarn add -D @uuv/playwright
 ## Usage
 
 ### Scenarios example
-You can find test examples here : [google.feature](https://github.com/e2e-test-quest/uuv/blob/main/example/google.fr.feature)
+You can find test examples here : [weather-app.feature](https://github.com/e2e-test-quest/uuv/blob/main/example/weather-app.feature)
 
 ### Write test
 To write your first test, create the file `uuv/e2e/first-test.feature` in the project root with the following content :

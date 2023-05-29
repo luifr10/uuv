@@ -94,7 +94,7 @@ yarn add -D @uuv/assistant
 ## Usage
 
 ### Scenarios example
-You can find test examples here : [google.feature](https://github.com/e2e-test-quest/uuv/blob/main/example/google.fr.feature)
+You can find test examples here : [weather-app.feature](https://github.com/e2e-test-quest/uuv/blob/main/example/weather-app.feature)
 
 ### Launch
 To launch uuv assistant :
