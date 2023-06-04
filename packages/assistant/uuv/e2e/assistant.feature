@@ -1,16 +1,16 @@
 Feature: Assistant vital features
 
   Scenario: All elements are displayed by default
-    When I visit path "/uuv"
-    Then I should see a picture named "UUV logo"
-    Then I should see a picture named "Light mode"
+    When I visit path "/test"
+    Then I should not see a picture named "UUV logo"
+    Then I should not see a picture named "Light mode"
     Then I should see a button named "Select"
     Then I should see a button named "Copy" and containing "Copy" disabled
     Then I should see a button named "uvv Assistant expanded"
     Then I should see an element with testId "selectListExpanded"
 
   Scenario: Select with expected action
-    When I visit path "/uuv"
+    When I visit path "/test"
     Then Within a button named "select button"
     Then I click
     Then I reset context
@@ -21,7 +21,7 @@ Feature: Assistant vital features
     Then I should see a button named "Copy" and containing "Copy"
 
   Scenario: Select with selector warning
-    When I visit path "/uuv"
+    When I visit path "/test"
     Then Within a button named "select button"
     Then I click
     Then I reset context
@@ -31,8 +31,8 @@ Feature: Assistant vital features
     Then I should see an element with content "Then I should see an element with selector \"p[data-testid=sentence]\""
     Then I should see a picture named "logo warning"
 
-  Scenario: Expander down
-    When I visit path "/uuv"
+  Scenario: Expander up
+    When I visit path "/test"
     Then Within the element with testId "expanderButton"
     Then I click
     Then I reset context

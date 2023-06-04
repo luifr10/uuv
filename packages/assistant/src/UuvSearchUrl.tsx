@@ -23,7 +23,7 @@ import uuvLogoJson from "./assets/uuvLogo.json";
 import UuvAssistantComponent from "./UuvAssistantComponent";
 import { AssistantTour } from "./model/assistant-tour";
 
-const SearchUrlComponent: React.FC = () => {
+const UuvSearchUrlComponent: React.FC = () => {
   const uuvLogo = CssHelper.getBase64File(uuvLogoJson);
   const documentationLink = "https://e2e-test-quest.github.io/uuv/";
   const githubLink = "https://github.com/e2e-test-quest/uuv";
@@ -148,4 +148,4 @@ const SearchUrlComponent: React.FC = () => {
   );
 };
 
-export default SearchUrlComponent;
+export default UuvSearchUrlComponent;

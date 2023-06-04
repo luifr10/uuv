@@ -17,9 +17,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import SearchUrlComponent from "./UuvSearchUrl";
+import UuvSearchUrlComponent from "./UuvSearchUrl";
 import UuvAssistantComponent from "./UuvAssistantComponent";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import UuvTestApp from "./UuvTestApp";
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 document.addEventListener("UUVAssistantReadyToLoad", (e: any) => {
@@ -29,8 +30,8 @@ document.addEventListener("UUVAssistantReadyToLoad", (e: any) => {
         <BrowserRouter>
         <Routes>
           <Route path="/" element={<UuvAssistantComponent translator={e?.detail?.translator}/>} />
-          <Route path="/search" element={<SearchUrlComponent />}>
-          </Route>
+          <Route path="/search" element={<UuvSearchUrlComponent />} />
+          <Route path="/test" element={<UuvTestApp />} />
         </Routes>
       </BrowserRouter>
       </>,
