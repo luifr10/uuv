@@ -33,14 +33,14 @@ $ git commit -s -m 'This is the commit message'
 
 ## Reporting an issue
 
-This project uses GitLab issues to manage the issues.
+This project uses Github issues to manage the issues.
 
 Before creating an issue:
 
 1. upgrade your project to the latest released template version, and check whether your bug is still present,
 2. have a look in the opened issues if your problem is already known/tracked, and possibly contribute to the thread with your own information.
 
-If none of the above was met, open an issue directly in GitLab, select the appropriate issue template and fill-in each section when applicable.
+If none of the above was met, open an issue directly in Github, select the appropriate issue template and fill-in each section when applicable.
 
 ## Submitting a code change
 

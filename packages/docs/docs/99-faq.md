@@ -27,6 +27,7 @@ Edit the `package.json` file to add the following line in the script section :
 
 </TabItem>
 <TabItem value="playwright" label="Playwright">
+
 :::info
 This step is only necessary if you have chosen the `Playwright` runner and you cannot [run the tests normally](/docs/test/running-test).
 :::
