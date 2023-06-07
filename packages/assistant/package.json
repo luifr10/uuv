@@ -32,7 +32,6 @@
   "bin": {
     "uuv-assistant": "./dist/launcher/uuv-assistant-launcher.js"
   },
-  "main": "launcher/launch.js",
   "scripts": {
     "react:start": "react-scripts start",
     "react:build": "react-scripts build",
@@ -46,7 +45,7 @@
     "uuv": "node node_modules/@uuv/playwright/bin/uuv",
     "lint": "eslint -c .eslintrc.json",
     "test": "jest",
-    "electron-dev": "electron . --enable-logging"
+    "electron-dev": "electron ./electron/launch.js --enable-logging"
   },
   "browser": {
     "fs": false,
@@ -58,6 +57,7 @@
     "@cucumber/cucumber": "9.1.0",
     "antd": "^5.4.6",
     "electron": "^24.3.0",
+    "electron-is-dev": "^2.0.0",
     "figlet": "1.6.0",
     "playwright-chromium": "1.33.0"
   },

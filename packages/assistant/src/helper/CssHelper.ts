@@ -85,4 +85,14 @@ export class CssHelper {
       }
     return `data:${file.mime};base64,${file.data}`;
   }
+
+  public static iconConfig = (isDark: boolean) => {
+    return isDark ? {
+      background: "rgb(31, 31, 31)",
+      color: "#FFF"
+    } as HtmlElementProps : {
+      color: "#000",
+      background: "#FFF",
+    } as HtmlElementProps;
+  };
 }

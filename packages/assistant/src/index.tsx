@@ -17,25 +17,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import UuvSearchUrlComponent from "./UuvSearchUrl";
-import UuvAssistantComponent from "./UuvAssistantComponent";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import UuvTestApp from "./UuvTestApp";
+import UuvAssistant from "./UuvAssistant";
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 document.addEventListener("UUVAssistantReadyToLoad", (e: any) => {
     console.log("event listened: UUVAssistantReadyToLoad");
     ReactDOM.render(
-      <>
-        <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<UuvAssistantComponent translator={e?.detail?.translator}/>} />
-          <Route path="/search" element={<UuvSearchUrlComponent />} />
-          <Route path="/test" element={<UuvTestApp />} />
-        </Routes>
-      </BrowserRouter>
-      </>,
+        <UuvAssistant translator={e?.detail?.translator}/>,
         document.getElementById("uvv-assistant-root") as HTMLElement
     );
 });
+
 

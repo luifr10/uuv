@@ -59,16 +59,13 @@ export class UuvAssistant {
             "var translator = null;";
 
         const cssContentDeclaration = `\n var uuvCssContent = "${fs.readFileSync(__dirname + conf.cssFile).toString()}"`;
-        await console.log(cssContentDeclaration);
         await browserContext.addInitScript({
             content: `${translatorDeclaration}${cssContentDeclaration}`
         });
-        await console.log(this.initReactDomRootElementFn());
         await browserContext.addInitScript(this.initReactDomRootElementFn());
         await browserContext.addInitScript({
             path: `${__dirname}${conf.reactScript}`
         });
-        await console.log(fs.readFileSync(`${__dirname}${conf.reactScript}`));
         await page.goto(argv.targetUrl);
     }
 }

@@ -11,7 +11,7 @@
     ],
     "overrides": [
         {
-            "files": ["**/UuvAssistantComponent.tsx"],
+            "files": ["**/UuvAssistant.tsx"],
             "rules": {
                 "@typescript-eslint/no-var-requires": "off"
             }

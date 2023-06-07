@@ -1,1 +1,1 @@
-export * from './uuv-assistant';
+export * from "./uuv-assistant";
