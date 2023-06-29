@@ -4,8 +4,11 @@
   "sourceRoot": "packages/assistant/src",
   "projectType": "library",
   "targets": {
-    "tsc:build": {
+    "build:tsc": {
       "executor": "@nrwl/js:tsc",
+      "inputs": [
+        "{projectRoot}/launcher"
+      ],
       "outputs": [
         "packages/assistant/dist"
       ],
@@ -21,18 +24,65 @@
     },
     "build": {
       "executor": "nx:run-script",
+      "inputs": [
+        "{projectRoot}/bundle-script.js",
+        "{projectRoot}/dist/launcher/conf.json"
+      ],
       "outputs": [
-        "packages/assistant/dist",
-        "packages/assistant/build"
+        "{projectRoot}/dist/uuv-assistant-resources.bundle.js"
       ],
       "options": {
-        "script": "conf:build"
+        "script": "build:bundle"
       },
       "dependsOn": [
-        "react:build",
-        "tsc:build",
-        "copy:sentences"
+        "build:conf"
       ]
+    },
+    "build:conf": {
+      "executor": "nx:run-script",
+      "inputs": [
+        "{projectRoot}/compute-conf.js",
+        "{projectRoot}/build/asset-manifest.json"
+      ],
+      "outputs": [
+        "{projectRoot}/dist/launcher/conf.json",
+        "{projectRoot}/launcher/conf.json"
+      ],
+      "options": {
+        "script": "build:conf"
+      },
+      "dependsOn": [
+        "build:react",
+        "build:tsc",
+        "build:copy-sentences"
+      ]
+    },
+    "build:react": {
+      "executor": "nx:run-script",
+      "inputs": [
+        "{projectRoot}/src"
+      ],
+      "outputs": [
+        "{projectRoot}/build"
+      ],
+      "options": {
+        "script": "build:react"
+      }
+    },
+    "build:copy-sentences": {
+      "executor": "nx:run-script",
+      "inputs": [
+        "{projectRoot}/copy-sentences.ts",
+        "{projectRoot}/../runner-commons/src/assets/i18n/en.json",
+        "{projectRoot}/../runner-commons/src/assets/i18n/en-enriched-wordings.json"
+      ],
+      "outputs": [
+        "{projectRoot}/src/assets/en.json",
+        "{projectRoot}/src/assets/en-enriched-wordings.json"
+      ],
+      "options": {
+        "script": "build:copy-sentences"
+      }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",

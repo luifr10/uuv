@@ -4,7 +4,9 @@
   "projectType": "application",
   "implicitDependencies": [
     "runner-cypress",
-    "runner-playwright"
+    "runner-playwright",
+    "assistant",
+    "assistant-electron"
   ],
   "targets": {
     "semantic-release": {

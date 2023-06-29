@@ -13,14 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import fs from "fs";
+const fs = require("fs");
 
-
-function copySentences() {
-  console.log("Copying sentences");
-  fs.copyFileSync("../runner-commons/src/assets/i18n/en.json", "src/assets/en.json");
-  fs.copyFileSync("../runner-commons/src/assets/i18n/en-enriched-wordings.json", "src/assets/en-enriched-wordings.json");
-  console.log("Sentences copied");
+function copyFiles() {
+  console.log("Copying files");
+  fs.copyFileSync("index.html", "../docs/static/assistant/index.html");
+  fs.copyFileSync("style.css", "../docs/static/assistant/style.css");
+  console.log("Files copied");
 }
 
-copySentences();
+copyFiles();

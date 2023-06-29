@@ -1,4 +1,5 @@
 {
-  "reactScript": "../build/static/js/main.6b6041bc.js",
-  "cssFile": "/../build/static/css/main.8c76db0a.css"
+  "reactScript": "/build/static/js/main.522a99df.js",
+  "cssFile": "/build/static/css/main.8c76db0a.css",
+  "unifiedFile": "/../dist/uuv-assistant-resources.bundle.js"
 }

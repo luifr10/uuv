@@ -42,6 +42,8 @@ jobs:
     needs: install
     steps:
       - uses: actions/checkout@v3
+      - name: Installing Wine
+        run: sudo apt install wine64
       - name: Build artifacts
         uses: ./.github/actions/nx-run-many
         with:
@@ -58,8 +60,10 @@ jobs:
             packages/runner-playwright/src/cucumber/step_definitions/playwright/generated
             packages/runner-playwright/dist
             packages/docs/docs/03-wordings/01-generated-wording-description
+            packages/docs/static/assistant
             packages/assistant/dist
             packages/assistant/build
+            packages/assistant-electron/dist/uuv-assistant-win32-x64.zip
       - name: Upload docs artifact
         uses: actions/upload-pages-artifact@main
         with:
@@ -82,7 +86,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: cypress/browsers:node18.12.0-chrome107
-    needs: [lint, test, build]
+    needs: [ lint, test, build]
     steps:
       - uses: actions/checkout@v3
       - name: Running cypress tests
@@ -93,7 +97,7 @@ jobs:
 
   test-playwright:
     runs-on: ubuntu-latest
-    needs: [lint, test, build]
+    needs: [ lint, test, build ]
     steps:
       - uses: actions/checkout@v3
       - name: Running playwright tests

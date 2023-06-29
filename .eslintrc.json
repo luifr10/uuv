@@ -9,7 +9,12 @@
           "error",
           {
             "enforceBuildableLibDependency": true,
-            "allow": [],
+            "allow": [
+              "nanoid",
+              "@cucumber/cucumber",
+              "@cucumber/messages",
+              "@cucumber/gherkin"
+            ],
             "depConstraints": [
               {
                 "sourceTag": "*",

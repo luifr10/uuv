@@ -46,11 +46,12 @@ type UuvAssistantProps = {
   translator?: (el: HTMLElement) => string;
 }
 
+/* eslint-disable  @typescript-eslint/no-explicit-any */
 function UuvAssistant(props: UuvAssistantProps) {
   const [open, setOpen] = useState<boolean>(false);
   const [generatedScript, setGeneratedScript] = useState<string[]>([]);
   const [currentAction, setCurrentAction] = useState("none");
-  const [resultCopied, setResultCopied] = useState(false);
+  const [, setResultCopied] = useState(false);
   const [checkAction, setCheckAction] = useState(CheckActionEnum.EXPECT);
   const [disabledElement, setDisabledElement] = useState("");
   const [isExtended, setIsExtended] = useState(false);
@@ -76,7 +77,7 @@ function UuvAssistant(props: UuvAssistantProps) {
     return () => {
       reset();
     };
-  }, []);
+  });
 
   const refResize: React.MutableRefObject<any> = useRef(null);
   const refSelectMinimized: React.MutableRefObject<any> = useRef(null);

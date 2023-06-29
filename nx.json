@@ -3,7 +3,17 @@
     "default": {
       "runner": "nx/tasks-runners/default",
       "options": {
-        "cacheableOperations": ["generate", "build", "lint", "test", "e2e"]
+        "cacheableOperations": [
+          "generate",
+          "build:tsc",
+          "build:react",
+          "build:copy-sentences",
+          "build:conf",
+          "build",
+          "lint",
+          "test",
+          "e2e"
+        ]
       }
     }
   },
