@@ -73,11 +73,12 @@ function UuvAssistant(props: UuvAssistantProps) {
     }
   });
 
+  /* eslint-disable */
   useEffect(() => {
     return () => {
       reset();
     };
-  });
+  }, []);
 
   const refResize: React.MutableRefObject<any> = useRef(null);
   const refSelectMinimized: React.MutableRefObject<any> = useRef(null);
@@ -192,8 +193,8 @@ function UuvAssistant(props: UuvAssistantProps) {
       : TranslateHelper.translateEngine(el, checkAction, disabledElement !== "");
   }
 
-  const handleSelectCheckActionChange = (value: CheckActionEnum) => {
-    setCheckAction((value) => value);
+  const handleSelectCheckActionChange = (newValue: CheckActionEnum) => {
+    setCheckAction(() => newValue);
   };
 
   const handleChangeLightMode = () => {
@@ -247,7 +248,7 @@ function UuvAssistant(props: UuvAssistantProps) {
               className='uuvArrowExpander'
               icon={<DoubleLeftOutlined aria-label={expander.rotate === 90 ?
                 "uvv Assistant not expanded" : "uvv Assistant expanded"}
-                                        rotate={expander.rotate} spin={true} style={{ color: expander.color }} />}
+                                        rotate={expander.rotate} spin={false} style={{ color: expander.color }} />}
               style={{
                 boxShadow: expander.shadow,
                 backgroundColor: expander.background
