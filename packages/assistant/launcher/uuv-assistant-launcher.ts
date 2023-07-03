@@ -20,6 +20,7 @@ import { UuvAssistant } from "./index";
 import chalk from "chalk";
 import figlet from "figlet";
 import fs from "fs";
+import conf from "./conf.json";
 
 function printBanner(getCurrentVersion: () => string) {
     console.log(
@@ -37,7 +38,7 @@ function printBanner(getCurrentVersion: () => string) {
 }
 
 function getCurrentVersion(): string {
-    const pJsonStr = fs.readFileSync(`${__dirname}/../package.json`, {
+    const pJsonStr = fs.readFileSync(`${__dirname}${conf.packageJson}`, {
         encoding: "utf8", flag: "r"
     });
     return JSON.parse(pJsonStr).version;

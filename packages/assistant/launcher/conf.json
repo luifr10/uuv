@@ -1,4 +1,5 @@
 {
+  "packageJson": "/../package.json",
   "reactScript": "/build/static/js/main.d482abe3.js",
   "cssFile": "/build/static/css/main.8c76db0a.css",
   "unifiedFile": "/../dist/uuv-assistant-resources.bundle.js"

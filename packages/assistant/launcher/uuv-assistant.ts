@@ -15,16 +15,22 @@
  */
 
 import { chromium } from "playwright-chromium";
+import conf from "./conf.json";
+import chalk from "chalk";
+import minimist from "minimist";
+
 export class UuvAssistant {
 
     public async start(translatorFn?: (el: HTMLElement) => string) {
-        const { chromium } = require("playwright-chromium");
-        const argv = require("minimist")(process.argv.slice(2));
-        const conf = require("./conf.json");
-
+        const argv = minimist(process.argv.slice(2));
         const browser = await chromium.launch({ headless: false });
         const browserContext = await browser.newContext({ viewport: null });
         const page = await browserContext.newPage();
+
+        if (!argv["targetUrl"]) {
+            console.error(chalk.redBright("Parameter --targetUrl is required"));
+            process.exit(-1);
+        }
 
         const translatorDeclaration = translatorFn ?
             `var translator = ${translatorFn.toString()}; console.log('translator'); console.log(translator);` :
@@ -36,6 +42,6 @@ export class UuvAssistant {
         await browserContext.addInitScript({
             path: `${__dirname}${conf.unifiedFile}`
         });
-        await page.goto(argv.targetUrl);
+        await page.goto(argv["targetUrl"]);
     }
 }

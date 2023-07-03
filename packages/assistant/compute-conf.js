@@ -9,7 +9,8 @@ fs.copyFileSync(srcConfFile, destConfFile);
 
 replaceJSONProperty.replace(destConfFile, "reactScript", `/build${buildAssetManifest.files["main.js"]}`);
 replaceJSONProperty.replace(destConfFile, "cssFile", `/build${buildAssetManifest.files["main.css"]}`);
-replaceJSONProperty.replace(destConfFile, "unifiedFile", "../unified-uuv-assistant.js");
+replaceJSONProperty.replace(destConfFile, "unifiedFile", "/../uuv-assistant-resources.bundle.js");
+replaceJSONProperty.replace(destConfFile, "packageJson", "/../../package.json");
 
 replaceJSONProperty.replace(srcConfFile, "reactScript", `/build${buildAssetManifest.files["main.js"]}`);
 replaceJSONProperty.replace(srcConfFile, "cssFile", `/build${buildAssetManifest.files["main.css"]}`);

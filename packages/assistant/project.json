@@ -7,7 +7,7 @@
     "build:tsc": {
       "executor": "@nrwl/js:tsc",
       "inputs": [
-        "{projectRoot}/launcher"
+        "{projectRoot}/launcher/*"
       ],
       "outputs": [
         "packages/assistant/dist"
@@ -60,7 +60,7 @@
     "build:react": {
       "executor": "nx:run-script",
       "inputs": [
-        "{projectRoot}/src"
+        "{projectRoot}/src/*"
       ],
       "outputs": [
         "{projectRoot}/build"
