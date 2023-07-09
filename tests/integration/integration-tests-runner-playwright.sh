@@ -28,7 +28,7 @@ mkdir -p ./uuv/playwright/fixtures
 cp -R "${RUNNER_DIR}/playwright/fixtures/" ./uuv/playwright
 
 log "I" "Running http server"
-http-server ../../../packages/runner-playwright/ -p 4200 -s &
+npm run http-server ../../../packages/runner-playwright/ -p 4200 -s &
 
 log "I" "Running e2e test"
 if ! npx uuv e2e; then

@@ -113,20 +113,53 @@ jobs:
     needs: [ unit-tests-cypress ]
     steps:
       - uses: actions/checkout@v3
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          path: |
+            node_modules
+            packages/assistant/node_modules
+            packages/docs/node_modules
+            packages/runner-commons/node_modules
+            packages/runner-cypress/node_modules
+            packages/runner-playwright/node_modules
+      - name: Download build artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: build-artifacts
+          path: packages
       - name: Package runner-cypress
-        run: nx package runner-cypress
+        run: mkdir -p ./dist/packages && npm run nx reset && npm run nx package runner-commons && npm run nx package runner-cypress
       - name: Running cypress integration tests
-        run: cd ./tests/integration && ./integration-tests-runner-cypress.sh
+        run: cd ./tests/integration && chmod 755 ./integration-tests-runner-cypress.sh && ./integration-tests-runner-cypress.sh
 
   integration-tests-playwright:
     runs-on: ubuntu-latest
     needs: [ unit-tests-playwright ]
     steps:
       - uses: actions/checkout@v3
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          path: |
+            node_modules
+            packages/assistant/node_modules
+            packages/docs/node_modules
+            packages/runner-commons/node_modules
+            packages/runner-cypress/node_modules
+            packages/runner-playwright/node_modules
+      - name: Download build artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: build-artifacts
+          path:
+            packages
       - name: Package runner-playwright
-        run: nx package runner-playwright
+        run: mkdir -p ./dist/packages && npm run nx package runner-commons && npm run nx package runner-playwright
       - name: Running playwright integration tests
-        run: cd ./tests/integration && ./integration-tests-runner-playwright.sh
+        run: cd ./tests/integration && chmod 755 ./integration-tests-runner-playwright.sh && ./integration-tests-runner-playwright.sh
 
   lint:
     runs-on: ubuntu-latest

@@ -28,7 +28,7 @@ mkdir -p ./uuv/cypress/fixtures
 cp -R "${RUNNER_DIR}/cypress/fixtures/" ./uuv/cypress
 
 log "I" "Running http server"
-http-server ../../../packages/runner-cypress/ -p 4200 -s &
+npm run http-server ../../../packages/runner-cypress/ -p 4200 -s &
 
 log "I" "Running e2e test"
 if ! npx uuv e2e; then
