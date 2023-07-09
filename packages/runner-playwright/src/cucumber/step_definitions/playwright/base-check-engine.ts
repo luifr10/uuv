@@ -61,9 +61,9 @@ When(`${key.when.click}`, async function (this: World) {
 
 // TODO : permet de gérer les label accessibles donc pas que les aria : https://playwright.dev/docs/api/class-locator#locator-get-by-label
 When(`${key.when.withinElement.ariaLabel}`, async function (this: World, expectedAriaLabel: string) {
-    expectedAriaLabel = encodeURIComponent(expectedAriaLabel);
-    await getPageOrElement(this).then((element) => expect(element.getByLabel(expectedAriaLabel)).toHaveCount(1));
-    await addCookieWhenValueIsList(this, COOKIE_NAME.SELECTED_ELEMENT, { name: FILTER_TYPE.ARIA_LABEL, value: expectedAriaLabel });
+    const sanitizedExpectedAriaLabel = encodeURIComponent(expectedAriaLabel).replaceAll("%20", " ");
+    await getPageOrElement(this).then((element) => expect(element.getByLabel(sanitizedExpectedAriaLabel)).toHaveCount(1));
+    await addCookieWhenValueIsList(this, COOKIE_NAME.SELECTED_ELEMENT, { name: FILTER_TYPE.ARIA_LABEL, value: sanitizedExpectedAriaLabel });
 });
 When(`${key.when.resetContext}`, async function (this: World) {
     await this.context.clearCookies();
