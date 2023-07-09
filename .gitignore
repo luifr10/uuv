@@ -53,3 +53,5 @@ packages/docs/i18n/fr/docusaurus-plugin-content-docs/current/03-wordings/01-gene
 packages/docs/static/assistant/uuv-assistant-resources.bundle.js
 packages/docs/static/assistant/index.html
 packages/docs/static/assistant/style.css
+tests/integration/runner-cypress/
+tests/integration/runner-playwright/

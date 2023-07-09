@@ -1,4 +1,5 @@
-Feature: Google search example
+@Playwright
+Feature: Weather App example
 
   Background:
     Given I visit path "https://e2e-test-quest.github.io/weather-app/"

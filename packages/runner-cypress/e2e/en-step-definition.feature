@@ -56,7 +56,7 @@ Feature: English Test Step Definition
     And Within the element with role "button" and name "Submit"
     When I click
      And I reset context
-    Then I should see an element with role "heading" and name "Index of runner-cypress/"
+    Then I should see an element with role "link" and name "e2e/"
 
   Scenario: key.then.element.key.when.type
     And Within the element with testId "fieldset"

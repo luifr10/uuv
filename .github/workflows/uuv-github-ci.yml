@@ -70,7 +70,7 @@ jobs:
           name: github-pages
           path: packages/docs/build
 
-  test:
+  unit-tests:
     runs-on: ubuntu-latest
     needs: install
     steps:
@@ -82,29 +82,51 @@ jobs:
           target: "test"
           exclude: "runner-cypress,runner-playwright"
 
-  test-cypress:
+  unit-tests-cypress:
     runs-on: ubuntu-latest
     container:
       image: cypress/browsers:node18.12.0-chrome107
-    needs: [ lint, test, build]
+    needs: [ lint, unit-tests, build]
     steps:
       - uses: actions/checkout@v3
-      - name: Running cypress tests
+      - name: Running cypress unit tests
         uses: ./.github/actions/nx-test-runner
         with:
           node-version: ${{env.NODE_VERSION}}
           runner-name: "cypress"
 
-  test-playwright:
+  unit-tests-playwright:
     runs-on: ubuntu-latest
-    needs: [ lint, test, build ]
+    needs: [ lint, unit-tests, build ]
     steps:
       - uses: actions/checkout@v3
-      - name: Running playwright tests
+      - name: Running playwright unit tests
         uses: ./.github/actions/nx-test-runner
         with:
           node-version: ${{env.NODE_VERSION}}
           runner-name: "playwright"
+
+  integration-tests-cypress:
+    runs-on: ubuntu-latest
+    container:
+      image: cypress/browsers:node18.12.0-chrome107
+    needs: [ unit-tests-cypress ]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Package runner-cypress
+        run: nx package runner-cypress
+      - name: Running cypress integration tests
+        run: cd ./tests/integration && ./integration-tests-runner-cypress.sh
+
+  integration-tests-playwright:
+    runs-on: ubuntu-latest
+    needs: [ unit-tests-playwright ]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Package runner-playwright
+        run: nx package runner-playwright
+      - name: Running playwright integration tests
+        run: cd ./tests/integration && ./integration-tests-runner-playwright.sh
 
   lint:
     runs-on: ubuntu-latest
@@ -119,7 +141,7 @@ jobs:
 
   release:
     if: github.ref == 'refs/heads/main'
-    needs: [ test-cypress, test-playwright ]
+    needs: [ integration-tests-cypress, integration-tests-playwright ]
     runs-on: ubuntu-latest
     environment: release
     steps:
@@ -183,7 +205,7 @@ jobs:
 
   publish-docs:
     if: github.ref == 'refs/heads/main'
-    needs: [ test-cypress, test-playwright ]
+    needs: [ integration-tests-cypress, integration-tests-playwright ]
     permissions:
       pages: write
       id-token: write

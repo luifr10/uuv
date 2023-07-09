@@ -57,7 +57,7 @@ Fonctionnalité: Dictionnaire français de phrases de base utilisant cypress
     Et je vais à l'intérieur de l'élément ayant pour rôle "button" et pour nom "Submit"
     Quand je clique
     Et je reinitialise le contexte
-    Alors je dois voir un élément avec le rôle "heading" et le nom "Index of runner-cypress/"
+    Alors je dois voir un élément avec le rôle "link" et le nom "e2e/"
 
   Scénario: key.then.element.key.when.type
     Et je vais à l'intérieur de l'élément ayant pour testId "fieldset"
