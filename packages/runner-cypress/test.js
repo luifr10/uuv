@@ -69,38 +69,29 @@ async function testUUV() {
         process.exit(-1);
     }
 
-    const server = http.createServer((request, response) => {
-        return handler(request, response);
-    });
+    if (mode === "--open") {
+        command = () => {
+            return cypress
+                .open({
+                    project: ".",
+                    browser: "chrome"
+                });
+        };
+    }
 
-    server.listen({ port }, () => {
-        console.log(`Running at http://localhost:${port}`);
-        if (mode === "--open") {
-            command = () => {
-                return cypress
-                    .open({
-                        project: ".",
-                        browser: "chrome"
-                    });
-            };
-        }
-        command()
-            .then(async (result) => {
-                server.close();
-                if (result) {
-                    console.log(`Tests suite have been executed in ${chalk.blue(result.totalDuration)} ms`);
-                    console.log(`Status ${result.totalFailed ? chalk.red("failed") : chalk.green("success")}`);
-                    process.exit(result.totalFailed);
-                } else {
-                    console.error(chalk.red("An error occured"));
-                    server.close();
-                    process.exit(-1);
-                }
-            })
-            .catch((err) => {
-                console.error(chalk.red(err));
-                server.close();
+    command()
+        .then(async (result) => {
+            if (result) {
+                console.log(`Tests suite have been executed in ${chalk.blue(result.totalDuration)} ms`);
+                console.log(`Status ${result.totalFailed ? chalk.red("failed") : chalk.green("success")}`);
+                process.exit(result.totalFailed);
+            } else {
+                console.error(chalk.red("An error occured"));
                 process.exit(-1);
-            });
-    });
+            }
+        })
+        .catch((err) => {
+            console.error(chalk.red(err));
+            process.exit(-1);
+        });
 }

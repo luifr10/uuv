@@ -2,7 +2,7 @@
 Fonctionnalité: Dictionnaire français de phrases de base utilisant cypress
 
   Contexte:
-    Etant donné que je visite l'Url "/tests/test-app"
+    Etant donné que je visite l'Url "https://e2e-test-quest.github.io/simple-webapp/"
 
   Scénario: key.then.element.withAriaLabel
     Alors je dois voir un élément ayant pour aria-label "flegend"
@@ -57,7 +57,7 @@ Fonctionnalité: Dictionnaire français de phrases de base utilisant cypress
     Et je vais à l'intérieur de l'élément ayant pour rôle "button" et pour nom "Submit"
     Quand je clique
     Et je reinitialise le contexte
-    Alors je dois voir un élément avec le rôle "link" et le nom "e2e/"
+    Alors je dois voir un titre nommé "404"
 
   Scénario: key.then.element.key.when.type
     Et je vais à l'intérieur de l'élément ayant pour testId "fieldset"

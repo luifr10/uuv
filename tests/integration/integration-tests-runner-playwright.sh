@@ -20,22 +20,19 @@ log "I" "Creating new npm project"
 npm init -y
 
 log "I" "Installing npm dependencies"
-npm install -D http-server "../$NPM_PACKAGE_COMMONS" "../$NPM_PACKAGE_PLAYWRIGHT"
+npm install -D "../$NPM_PACKAGE_COMMONS" "../$NPM_PACKAGE_PLAYWRIGHT"
 
 log "I" "Copying test files and dependencies"
 cp -R "${RUNNER_DIR}/e2e/" ./uuv
 mkdir -p ./uuv/playwright/fixtures
 cp -R "${RUNNER_DIR}/playwright/fixtures/" ./uuv/playwright
 
-log "I" "Running http server"
-npm run http-server ../../../packages/runner-playwright/ -p 4200 -s &
+log "I" "Replace baseUurl"
+sed -i 's/http:\/\/localhost:4200/https:\/\/e2e-test-quest.github.io\/simple-webapp\//g' uuv/playwright.config.ts
 
 log "I" "Running e2e test"
 if ! npx uuv e2e; then
     log "E" "An error occured during e2e testing"
 fi
-
-log "I" "Closing http server"
- pkill -f http-server
 
 log "I" "Ended"

@@ -3,7 +3,7 @@
 Fonctionnalité: phrases enrichies
 
   Contexte:
-    Etant donné que je visite l'Url "/tests/test-app"
+    Etant donné que je visite l'Url "https://e2e-test-quest.github.io/simple-webapp/"
 
   Scénario: key.then.element.withRoleAndName
     Alors je dois voir un titre nommé "Grouping Form Data with Fieldset"

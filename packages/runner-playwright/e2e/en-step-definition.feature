@@ -1,7 +1,7 @@
 @Playwright
 Feature: English Test Step Definition
   Background:
-    When I visit path "/tests/test-app"
+    When I visit path "https://e2e-test-quest.github.io/simple-webapp/"
 
   Scenario: key.then.element.withAriaLabel
     Then I should see an element with aria-label "flegend"
@@ -56,7 +56,7 @@ Feature: English Test Step Definition
     And Within the element with role "button" and name "Submit"
     When I click
      And I reset context
-    Then I should see an element with role "link" and name "e2e/"
+    Then I should see a title named "404"
 
   Scenario: key.then.element.key.when.type
     And Within the element with testId "fieldset"

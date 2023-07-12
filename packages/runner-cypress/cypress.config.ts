@@ -5,7 +5,7 @@ export default defineConfig({
     port: 9000,
     video: true,
     e2e: {
-        baseUrl: "http://localhost:9001",
+        baseUrl: "https://e2e-test-quest.github.io/simple-webapp",
         specPattern: "e2e/**/*.{cy.ts,feature}",
         supportFile: false,
         setupNodeEvents,

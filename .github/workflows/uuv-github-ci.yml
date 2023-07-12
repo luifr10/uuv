@@ -110,7 +110,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: cypress/browsers:node18.12.0-chrome107
-    needs: [ unit-tests-cypress ]
+    needs: [ lint, unit-tests, build ]
     steps:
       - uses: actions/checkout@v3
       - name: Cache node modules
@@ -129,14 +129,20 @@ jobs:
         with:
           name: build-artifacts
           path: packages
+      - name: Use Node.js ${{ inputs.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version:
+            ${{env.NODE_VERSION}}
+      - run: npm ci
       - name: Package runner-cypress
-        run: mkdir -p ./dist/packages && npm run nx reset && npm run nx package runner-commons && npm run nx package runner-cypress
+        run: mkdir -p ./dist/packages && npm run nx package runner-commons && npm run nx package runner-cypress
       - name: Running cypress integration tests
         run: cd ./tests/integration && chmod 755 ./integration-tests-runner-cypress.sh && ./integration-tests-runner-cypress.sh
 
   integration-tests-playwright:
     runs-on: ubuntu-latest
-    needs: [ unit-tests-playwright ]
+    needs: [ lint, unit-tests, build ]
     steps:
       - uses: actions/checkout@v3
       - name: Cache node modules
@@ -174,7 +180,7 @@ jobs:
 
   release:
     if: github.ref == 'refs/heads/main'
-    needs: [ integration-tests-cypress, integration-tests-playwright ]
+    needs: [ integration-tests-cypress, integration-tests-playwright, unit-tests-playwright, unit-tests-cypress ]
     runs-on: ubuntu-latest
     environment: release
     steps:
@@ -238,7 +244,7 @@ jobs:
 
   publish-docs:
     if: github.ref == 'refs/heads/main'
-    needs: [ integration-tests-cypress, integration-tests-playwright ]
+    needs: [ integration-tests-cypress, integration-tests-playwright, unit-tests-playwright, unit-tests-cypress ]
     permissions:
       pages: write
       id-token: write
