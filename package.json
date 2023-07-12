@@ -38,7 +38,7 @@
     "@commitlint/cli": "^17.0.0",
     "@commitlint/config-conventional": "^17.0.0",
     "@commitlint/config-nx-scopes": "^17.6.4",
-    "@google/semantic-release-replace-plugin": "^1.2.0",
+    "semantic-release-replace-plugin": "^1.2.0",
     "@nrwl/eslint-plugin-nx": "16.0.1",
     "@nrwl/jest": "16.0.1",
     "@nrwl/js": "16.0.1",
