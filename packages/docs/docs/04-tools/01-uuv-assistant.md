@@ -16,7 +16,8 @@ import TabItem from '@theme/TabItem';
 ## Install
 :::caution
 
-Npm/Yarn will need access to the internet when installing the Wizard library.
+### NPM Package
+Npm/Yarn will need access to the internet when installing the @uuv/assistant library.
 
 :::
 
@@ -39,17 +40,21 @@ yarn add -D @uuv/assistant
 </TabItem>
 </Tabs>
 
-## Usage
+### Desktop executable
+1. Download executable using the following button :
 
+   <a href="https://github.com/e2e-test-quest/uuv/releases/latest/download/uuv-assistant-win32-x64.zip"><img src="https://img.shields.io/badge/download_uuv--assistant_desktop-black?&style=for-the-badge&logo=github&logoColor=white" alt="documentation"/></a>
+2. Unzip the downloaded zip file
+
+## Usage
+### NPM Package
 ```shell
 npx uuv-assistant --targetUrl=<targetUrl>
-
 ```
 
 | Name        | Description                                                                                                   | Example                               |
 |-------------|---------------------------------------------------------------------------------------------------------------|---------------------------------------|
 | `targetUrl` | Target website url                                                                                            | https://e2e-test-quest.github.io/uuv/ |
 
-
-    
-
+### Desktop executable
+Execute `uuv-assistant.exe` from the unzipped folder

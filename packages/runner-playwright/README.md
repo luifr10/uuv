@@ -34,7 +34,7 @@ Make test writing fast, understandable by any human understanding English or Fre
 ## Benefits
 - If used correctly, integrates accessibility from the development stage
 - A living documentation is possible because we propose an unified language for developers and non-developers with a rich dictionary of ready-to-use sentences
-- A wizard that facilitates the writing of tests by suggesting the most accessible sentences
+- [@uuv/assistant](https://www.npmjs.com/package/@uuv/assistant) that facilitates the writing of tests by suggesting the most accessible sentences
 - Integrates several runtime engines: Cypress / Playwright
 - User-friendly and standardized execution report
   ### <u>Comparison</u>
@@ -103,6 +103,7 @@ To write your first test, create the file `uuv/e2e/first-test.feature` in the pr
   ```
 
 For more details, please go to the documentation:
+
 <a href="https://e2e-test-quest.github.io/uuv/docs/test/first-test"><img src="https://img.shields.io/badge/Write%20test%20doc-red?&style=for-the-badge&logo=github&logoColor=white" alt="documentation for write test"/></a>
 
 ### Run test
@@ -135,6 +136,7 @@ yarn uuv e2e --browser=edge --env="{'TAGS':'@mobile'}" --generateHtmlReport
 ```
 
 For more details, please go to the documentation:
+
 <a href="https://e2e-test-quest.github.io/uuv/docs/test/running-test"><img src="https://img.shields.io/badge/Run%20test%20doc-red?&style=for-the-badge&logo=github&logoColor=white" alt="documentation for run test"/></a>
 
 ## License

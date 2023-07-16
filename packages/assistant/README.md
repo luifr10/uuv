@@ -34,7 +34,7 @@ Make test writing fast, understandable by any human understanding English or Fre
 ## Benefits
 - If used correctly, integrates accessibility from the development stage
 - A living documentation is possible because we propose an unified language for developers and non-developers with a rich dictionary of ready-to-use sentences
-- A wizard that facilitates the writing of tests by suggesting the most accessible sentences
+- @uuv/assistant that facilitates the writing of tests by suggesting the most accessible sentences
 - Integrates several runtime engines: Cypress / Playwright
 - User-friendly and standardized execution report
   ### <u>Comparison</u>
@@ -43,7 +43,7 @@ Make test writing fast, understandable by any human understanding English or Fre
 | User centrism | :x: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |  
 | Native accessibility | :x: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |  
 | Easy setup configuration for BDD test | :warning: | :warning: | :heavy_minus_sign: | :heavy_check_mark: |  
-| Understandable by everyone <br> (included non dev) | :x: | :x: | :x: | :heavy_check_mark: |  
+| Understandable by everyone </br> (included non dev) | :x: | :x: | :x: | :heavy_check_mark: |  
 
 ### <u>Syntax example</u>
 With this dom example :
@@ -64,13 +64,13 @@ we see that the sentence proposed by **UUV is the most understandable** of all
 ## Documentation
 <a href="https://e2e-test-quest.github.io/uuv/"><img src="https://img.shields.io/badge/documentation-black?&style=for-the-badge&logo=github&logoColor=white" alt="documentation"/></a>
 
-## What is @uuv/assistant (Wizard) ?
+## What is @uuv/assistant ?
 
 <p align="center">  
 
 `@uuv` library (User centric Usecases Validator) is an ecosystem that simplifies the writing of End to End tests in a BDD approach and a user-centric way.
 
-With this wizard, we can generate cucumber sentences that will use an execution engine like cypress with [@uuv/cypress](https://www.npmjs.com/package/@uuv/cypress) or playwright with [@uuv/playwright](https://www.npmjs.com/package/@uuv/playwright).
+With this tool, we can generate cucumber sentences that will use an execution engine like cypress with [@uuv/cypress](https://www.npmjs.com/package/@uuv/cypress) or playwright with [@uuv/playwright](https://www.npmjs.com/package/@uuv/playwright).
 </p>  
 
 ## Screenshots
@@ -83,6 +83,7 @@ With this wizard, we can generate cucumber sentences that will use an execution 
 </a>
 
 ## Installation
+### NPM Package
 ```bash
 npm install --save-dev @uuv/assistant
 ```
@@ -90,13 +91,14 @@ or
 ```bash
 yarn add -D @uuv/assistant
 ```
+### Desktop executable
+1. Download executable using the following button </br>
+<a href="https://github.com/e2e-test-quest/uuv/releases/latest/download/uuv-assistant-win32-x64.zip"><img src="https://img.shields.io/badge/download_uuv--assistant_desktop-black?&style=for-the-badge&logo=github&logoColor=white" alt="documentation"/></a>
+2. Unzip the downloaded zip file
+
 
 ## Usage
-
-### Scenarios example
-You can find test examples here : [weather-app.feature](https://github.com/e2e-test-quest/uuv/blob/main/example/weather-app.feature)
-
-### Launch
+### NPM Package
 To launch uuv assistant :
 ```bash
 npx uuv-assistant --targetUrl=<targetUrl>
@@ -104,6 +106,12 @@ npx uuv-assistant --targetUrl=<targetUrl>
 | Name        | Description                                                                                                   | Example                               |
 |-------------|---------------------------------------------------------------------------------------------------------------|---------------------------------------|
 | `targetUrl` | Target website url                                                                                            | https://e2e-test-quest.github.io/uuv/ |
+
+### Desktop executable
+Execute `uuv-assistant.exe` from the unzipped folder
+
+## Scenario examples
+You can find test examples here : [weather-app.feature](https://github.com/e2e-test-quest/uuv/blob/main/example/weather-app.feature)
 
 The dictionary is available in french and english. It can be accessed with this link:
 

@@ -40,13 +40,13 @@ To answer the above issues and many others, our solution is to set up a coherent
 
 - ### Runners : You can choose between 
   - *[Cypress](https://www.cypress.io/)*
-  - *[Playwright](https://playwright.dev/)* : **WIP**
+  - *[Playwright](https://playwright.dev/)*
 
 ## The benefits
-- If well-used, integrates accessibility into the development process
-- Common language for developers and non-developers with a [rich dictionary](category/step-definition) of ready-to-use phrases
-- [Wizard(assistant)](tools/uuv-assistant) to write scripts quickly
-- Supports multiple runners (Cypress, Playwright)
+- If used correctly, integrates accessibility from the development stage
+- A living documentation is possible because we propose an unified language for developers and non-developers with a [rich dictionary](category/step-definition) of ready-to-use sentences
+- [@uuv/assistant)](tools/uuv-assistant) that facilitates the writing of tests by suggesting the most accessible sentences
+- Integrates several runtime engines: Cypress / Playwright
 - User friendly and standardized execution report
 
 ### Comparison

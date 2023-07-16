@@ -46,14 +46,14 @@ Pour répondre aux problématiques ci-dessus et bien d'autres, notre solution es
 
 - ### Runners : Vous pouvez choisir entre
   - *[Cypress](https://www.cypress.io/)*
-  - *[Playwright](https://playwright.dev/)* : **WIP**
+  - *[Playwright](https://playwright.dev/)*
 
 
 ## Les avantages
 - Si bien utilisé, intègre l’accessibilité dès le développement
-- Langage unifié pour développeurs et non développeurs avec un [dictionnaire riche](category/step-definition) de phrases prêtes à l’emploi
-- [Assistant](tools/uuv-assistant) pour écrire scénarios rapidement
-- Gère plusieurs runner (Cypress, Playwright)
+- Une documentation vivante est possible car nous proposons un langage unifié pour les développeurs et les non-développeurs avec un [dictionnaire riche](category/step-definition) de phrases prêtes à l'emploi
+- [@uuv/assistant](tools/uuv-assistant) pour écrire scénarios rapidement
+- Intègre plusieurs moteurs d'exécution : Cypress / Playwright
 - Rapport d’exécution user friendly et uniformisé
 
 ### Comparaison

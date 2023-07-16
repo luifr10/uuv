@@ -23,7 +23,7 @@ Make test writing fast, understandable by any human understanding English or Fre
 ## Benefits
 - If used correctly, integrates accessibility from the development stage
 - A living documentation is possible because we propose an unified language for developers and non-developers with a rich dictionary of ready-to-use sentences
-- A wizard that facilitates the writing of tests by suggesting the most accessible sentences
+- @uuv/assistant that facilitates the writing of tests by suggesting the most accessible sentences
 - Integrates several runtime engines: Cypress / Playwright
 - User-friendly and standardized execution report
   ### <u>Comparison</u>

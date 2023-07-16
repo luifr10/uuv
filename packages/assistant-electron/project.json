@@ -27,7 +27,10 @@
       ],
       "options": {
         "script": "build:copy-files"
-      }
+      },
+      "dependsOn": [
+        "^build"
+      ]
     },
     "semantic-release": {
       "executor": "@theunderscorer/nx-semantic-release:semantic-release",
