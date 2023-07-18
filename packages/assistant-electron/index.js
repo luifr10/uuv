@@ -30,6 +30,11 @@ async function downloadAssistantScript() {
       });
 }
 
+function closeAllWindows() {
+  if (process.platform !== "darwin") {
+    app.quit();
+  }
+}
 
 function createWindow () {
   const parent = new BrowserWindow({
@@ -38,7 +43,11 @@ function createWindow () {
     webPreferences: {
       nodeIntegration: true,
       preload: path.join(__dirname, "preload.js"),
-    }
+    },
+    resizable: false,
+    movable: false,
+    thickFrame: true,
+    frame: false
   });
 
   ipcMain.on("set-url", (event, url) => {
@@ -70,8 +79,13 @@ function createWindow () {
     child.loadURL(url);
     child.maximize();
   });
+
   ipcMain.on("goto-link", (event, url) => {
     shell.openExternal(url);
+  });
+
+  ipcMain.on("close-main-window", (event, url) => {
+    closeAllWindows();
   });
 
   if (IS_DEV) {
@@ -86,9 +100,7 @@ function createWindow () {
 app.whenReady().then(createWindow);
 
 app.on("window-all-closed", () => {
-  if (process.platform !== "darwin") {
-    app.quit();
-  }
+  closeAllWindows();
 });
 
 app.on("activate", () => {
