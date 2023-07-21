@@ -4,7 +4,9 @@
     "config:base",
     ":rebaseStalePrs"
   ],
-  "baseBranches": ["dev"],
+  "timezone": "Europe/Paris",
+  "schedule": [ "every weekend" ],
+  "baseBranches": ["main"],
   "assignees": ["stanlee974", "luifr10"],
   "packageRules": [
     {
