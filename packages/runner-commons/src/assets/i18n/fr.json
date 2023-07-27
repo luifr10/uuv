@@ -165,8 +165,43 @@
     "wording": "j'attends {int} ms"
   },
   {
-    "key": "key.then.a11y.check",
-    "description": "Vérifie que sur la page courante il n'y a aucune [erreur d'accessibilité](https://github.com/dequelabs/axe-core/blob/develop/doc/rule-descriptions.md)",
+    "key": "key.then.a11y.check.default",
+    "description": "Vérifie sur la page courante qu'il n'y a aucune [erreur d'accessibilité](https://github.com/dequelabs/axe-core/blob/develop/doc/rule-descriptions.md)",
     "wording": "je ne dois pas avoir de problèmes d'accessibilité"
+  },
+  {
+    "key": "key.then.a11y.check.withFixtureOption",
+    "description": "Vérifie sur la page courante qu'il n'y a aucune erreur d'accessibilité [avec l'option](https://github.com/dequelabs/axe-core/blob/HEAD/doc/API.md#options-parameter)",
+    "wording": "je ne dois pas avoir de problèmes d'accessibilité avec le fichier json suivant d'option {}"
+  },
+  {
+    "key": "key.then.a11y.check.withFixtureContextAndFixtureOption",
+    "description": "Vérifie sur la page courante qu'il n'y a aucune erreur d'accessibilité [avec l'option](https://github.com/dequelabs/axe-core/blob/HEAD/doc/API.md#options-parameter) sur le [contexte donné](https://github.com/dequelabs/axe-core/blob/HEAD/doc/API.md#context-parameter)",
+    "wording": "je ne dois pas avoir de problèmes d'accessibilité sur le fichier json suivant de contexte {} et avec le fichier json suivant d'option {}"
+  },
+  {
+    "key": "key.then.a11y.check.withAllowFailureAndFixtureContextAndFixtureOption",
+    "description": "Vérifie sur la page courante qu'il n'y a aucune erreur d'accessibilité sans que ce soit bloquant [avec l'option](https://github.com/dequelabs/axe-core/blob/HEAD/doc/API.md#options-parameter) sur le [contexte donné](https://github.com/dequelabs/axe-core/blob/HEAD/doc/API.md#context-parameter)",
+    "wording": "je peux avoir des problèmes d'accessibilité sur le fichier json suivant de contexte {} et avec le fichier json suivant d'option {}"
+  },
+  {
+    "key": "key.then.a11y.check.withAllowFailure",
+    "description": "Vérifie sur la page courante la présence d'erreur d'accessibilité sans que ce soit bloquant",
+    "wording": "je peux avoir des problèmes d'accessibilité"
+  },
+  {
+    "key": "key.then.a11y.check.onlyCritical",
+    "description": "Vérifie sur la page courante qu'il n'y a aucune erreur d'accessibilité de niveau critique",
+    "wording": "je ne dois pas avoir de problèmes d'accessibilité de niveau critique"
+  },
+  {
+    "key": "key.then.a11y.check.withImpacts",
+    "description": "Vérifie sur la page courante qu'il n'y a aucune erreur d'accessibilité avec un ou plusieurs impacts parmi : 'minor','moderate','serious','critical'",
+    "wording": "je ne dois pas avoir de problèmes d'accessibilité avec l(es) impact(s) {}"
+  },
+  {
+    "key": "key.then.a11y.check.withTags",
+    "description": "Vérifie sur la page courante qu'il n'y a aucune erreur d'accessibilité [avec le ou les standards d'accessibilité](https://github.com/dequelabs/axe-core/blob/HEAD/doc/API.md#axe-core-tags)",
+    "wording": "je ne dois pas avoir de problèmes d'accessibilité avec le(s) standard(s) {}"
   }
 ]
