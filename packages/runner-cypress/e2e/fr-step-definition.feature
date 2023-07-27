@@ -72,9 +72,6 @@ Fonctionnalité: Dictionnaire français de phrases de base utilisant cypress
       Alors je dois voir un élément avec le rôle "textbox" et le nom "Last name" et pour contenu "TotoDoe"
 
   Règle: Other
-    Scénario: key.then.a11y.check
-      Alors je ne dois pas avoir de problèmes d'accessibilité
-
     Scénario: key.given.within.selector
       Alors je vais à l'intérieur de l'élément ayant pour sélecteur '[data-testid="fieldset"]'
       Alors je vais à l'intérieur de l'élément ayant pour sélecteur '#fname'

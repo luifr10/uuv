@@ -1,7 +1,7 @@
 Feature: Weather App example
 
   Background:
-    Given I visit path "https://e2e-test-quest.github.io/weather-app/"
+    When I visit path "https://e2e-test-quest.github.io/weather-app/"
 
   Scenario: Homepage
     # Verify elements on landing page
@@ -55,7 +55,7 @@ Feature: Weather App example
     And Within a button named "Filter"
     And I click
     And I reset context
-#    # Checks the list of available towns.
+    # Checks the list of available towns.
     Then I should see elements of the list with name "Available Towns"
       | Tunis   |
       | Limoges |
