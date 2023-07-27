@@ -58,7 +58,16 @@
       "withValues": ""
     },
     "a11y" : {
-      "check": ""
+      "check": {
+        "default": "",
+        "withFixtureOption": "",
+        "withFixtureContextAndFixtureOption": "",
+        "withAllowFailureAndFixtureContextAndFixtureOption": "",
+        "withAllowFailure": "",
+        "onlyCritical": "",
+        "withImpacts": "",
+        "withTags": ""
+      }
     }
   }
 }

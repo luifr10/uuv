@@ -165,8 +165,43 @@
     "wording": "I wait {int} ms"
   },
   {
-    "key": "key.then.a11y.check",
+    "key": "key.then.a11y.check.default",
     "description": "Check that the current page have no [accessibility issue](https://github.com/dequelabs/axe-core/blob/develop/doc/rule-descriptions.md)",
     "wording": "I should not have any accessibility issue"
+  },
+  {
+    "key": "key.then.a11y.check.withFixtureContextAndFixtureOption",
+    "description": "Check that the current page have no accessibility issue [with an option](https://github.com/dequelabs/axe-core/blob/HEAD/doc/API.md#options-parameter) on the specific [context](https://github.com/dequelabs/axe-core/blob/HEAD/doc/API.md#context-parameter)",
+    "wording": "I should not have any accessibility issue with context json fixture {} and option json fixture {}"
+  },
+  {
+    "key": "key.then.a11y.check.withAllowFailureAndFixtureContextAndFixtureOption",
+    "description": "Check if the current page have accessibility issue or not, [with an option](https://github.com/dequelabs/axe-core/blob/HEAD/doc/API.md#options-parameter) on the specific [context](https://github.com/dequelabs/axe-core/blob/HEAD/doc/API.md#context-parameter)",
+    "wording": "I could have accessibility issue with context json fixture {} and option json fixture {}"
+  },
+  {
+    "key": "key.then.a11y.check.withFixtureOption",
+    "description": "Check that the current page have no accessibility issue [with an option](https://github.com/dequelabs/axe-core/blob/HEAD/doc/API.md#options-parameter)",
+    "wording": "I should not have any accessibility issue with option json fixture {}"
+  },
+  {
+    "key": "key.then.a11y.check.withAllowFailure",
+    "description": "Check if the current page have accessibility issue or not",
+    "wording": "I could have accessibility issue"
+  },
+  {
+    "key": "key.then.a11y.check.onlyCritical",
+    "description": "Check that the current page have not critical accessibility issue",
+    "wording": "I should not have any critical accessibility issue"
+  },
+  {
+    "key": "key.then.a11y.check.withImpacts",
+    "description": "Check that the current page have not accessibility issue with one or more impacts in: 'minor','moderate','serious','critical'",
+    "wording": "I should not have any accessibility issue with impact(s) {}"
+  },
+  {
+    "key": "key.then.a11y.check.withTags",
+    "description": "Check that the current page have not accessibility issue [with one or more Accessibility Standards] (https://github.com/dequelabs/axe-core/blob/HEAD/doc/API.md#axe-core-tags)",
+    "wording": "I should not have any accessibility issue with accessibility standard(s) {}"
   }
 ]
