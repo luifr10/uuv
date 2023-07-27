@@ -150,10 +150,10 @@ For more details, please go to the documentation:
 ## License
 
 [<a href="https://github.com/e2e-test-quest/uuv/blob/main/LICENSE">  
-<img src="https://img.shields.io/badge/license-Apache%202.0-blue" alt="apache license"/>  
-</a>](https://www.apache.org/licenses/LICENSE-2.0)
+<img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT license"/>  
+</a>](https://spdx.org/licenses/MIT.html)
 
-This project is licensed under the terms of the [Apache 2.0 license](https://github.com/e2e-test-quest/uuv/blob/main/LICENSE).
+This project is licensed under the terms of the [MIT license](https://github.com/e2e-test-quest/uuv/blob/main/LICENSE).
 
 ## Authors
 

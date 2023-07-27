@@ -10,8 +10,7 @@ Contributions are available on https://github.com/e2e-test-quest/uuv
 ## Legal
 
 All original contributions to _UUV_ are licensed under the
-[Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0),
-version 2.0 or later.
+[MIT License, Version 2.0](https://spdx.org/licenses/MIT.html)
 
 All contributions are subject to the [Developer Certificate of Origin](https://developercertificate.org/) (DCO).
 The DCO is a lightweight way for contributors to certify that they wrote or otherwise have the right to submit the code they are contributing to the project.

@@ -3,7 +3,7 @@
   "version": "1.4.3",
   "author": "Louis Fredice NJAKO MOLOM (https://github.com/luifr10) & Stanley SERVICAL (https://github.com/stanlee974)",
   "description": "UUV Helper Desktop App used to improve the life of testers and developers by generating cucumber phrases from the GUI.",
-  "license": "Apache-2.0",
+  "license": "MIT",
   "type": "commonjs",
   "repository": {
     "type": "git",

@@ -3,7 +3,7 @@
   "version": "1.4.0",
   "author": "Louis Fredice NJAKO MOLOM (https://github.com/luifr10) & Stanley SERVICAL (https://github.com/stanlee974)",
   "description": "UUV documentation containing the installation and execution steps and the user manual.",
-  "license": "Apache-2.0",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/e2e-test-quest/uuv"

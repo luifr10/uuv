@@ -4,7 +4,7 @@
   "type": "commonjs",
   "author": "Louis Fredice NJAKO MOLOM (https://github.com/luifr10) & Stanley SERVICAL (https://github.com/stanlee974)",
   "description": "A solution to run E2E tests written in cucumber(BDD) with cypress.",
-  "license": "Apache-2.0",
+  "license": "MIT",
   "homepage": "https://e2e-test-quest.github.io/uuv/",
   "repository": {
     "type": "git",
