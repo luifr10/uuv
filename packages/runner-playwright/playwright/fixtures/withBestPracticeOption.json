@@ -1,0 +1,6 @@
+{
+  "runOnly": {
+    "type": "tag",
+    "values": ["best-practice"]
+  }
+}

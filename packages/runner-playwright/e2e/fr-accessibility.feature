@@ -1,4 +1,5 @@
 #language: fr
+@Playwright
 Fonctionnalité: Accessibility Step Definition
 
   Scénario: key.then.a11y.check.default
