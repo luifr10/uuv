@@ -201,7 +201,7 @@
   },
   {
     "key": "key.then.a11y.check.withTags",
-    "description": "Check that the current page have not accessibility issue [with one or more Accessibility Standards] (https://github.com/dequelabs/axe-core/blob/HEAD/doc/API.md#axe-core-tags)",
+    "description": "Check that the current page have not accessibility issue [with one or more Accessibility Standards](https://github.com/dequelabs/axe-core/blob/HEAD/doc/API.md#axe-core-tags)",
     "wording": "I should not have any accessibility issue with accessibility standard(s) {}"
   }
 ]
