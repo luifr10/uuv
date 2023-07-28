@@ -75,7 +75,7 @@
     "@testing-library/jest-dom": "5.16.5",
     "@testing-library/react": "12.1.5",
     "@testing-library/user-event": "14.4.3",
-    "@types/jest": "29.5.1",
+    "@types/jest": "29.5.3",
     "@types/jquery": "3.5.16",
     "@types/node": "16.18.39",
     "@types/react": "17.0.62",
