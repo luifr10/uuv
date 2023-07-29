@@ -24,7 +24,7 @@ export const uuvGetContext = (): Chainable<Context> => {
 export function uuvCheckContextFocusedElement(): Cypress.Chainable<Context> {
   return cy.get<Context>("@context")
         .then(context => {
-          console.log("focusedElement: ", context);
+          // console.log("focusedElement: ", context);
           if (!context.focusedElement) {
             throw new Error("No element currently selected");
           }
@@ -54,13 +54,12 @@ function addContextOptions(context: Context, roleOptions: any): any {
 /* eslint-disable  @typescript-eslint/ban-types */
 function abstractFindBy(callBackFunction: Function, inputToSearch: any, inputOptions: any) : Cypress.Chainable<JQuery<HTMLElement>> {
   return cy.uuvGetContext().then(context => {
-    console.log("context");
-    console.log(context);
+    // console.log("context", context);
     const parentElement = context.focusedElement;
     const options = addContextOptions(context, inputOptions);
 
     if (parentElement) {
-      console.log("parentElement: ", parentElement);
+     // console.log("parentElement: ", parentElement);
       return parentElement.should("exist").within(() => {
         callBackFunction(inputToSearch, options).as("foundedChildElement");
       });

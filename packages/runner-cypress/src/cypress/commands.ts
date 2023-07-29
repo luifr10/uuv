@@ -29,7 +29,7 @@ import {
   uuvPatchContext
 } from "../cucumber/step_definitions/cypress/_.common";
 import { Context } from "../cucumber/step_definitions/cypress/_context";
-
+import "cypress-real-events";
 declare global {
   namespace Cypress {
     interface Chainable {
@@ -55,3 +55,4 @@ Cypress.Commands.add("uuvFindByRole", uuvFindByRole);
 Cypress.Commands.add("uuvFindByLabelText", uuvFindByLabelText);
 Cypress.Commands.add("uuvFindAllByRole", uuvFindAllByRole);
 Cypress.Commands.add("uuvFoundedElement", { prevSubject: true }, uuvFoundedElement);
+

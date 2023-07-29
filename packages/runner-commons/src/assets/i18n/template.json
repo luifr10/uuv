@@ -3,6 +3,10 @@
     "visit": "",
     "click": "",
     "type": "",
+    "keyboard": {
+      "multiplePress": "",
+      "press": ""
+    },
     "timeout": "",
     "withinElement": {
       "roleAndName": "",

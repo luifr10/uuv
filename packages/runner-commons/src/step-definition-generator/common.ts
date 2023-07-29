@@ -46,6 +46,15 @@ export enum STEP_DEFINITION_FILE_NAME {
     BY_ROLE = "based-role-check-engine"
 }
 
+export enum KEY_PRESS {
+    TAB = "{tab}",
+    REVERSE_TAB = "{reverseTab}",
+    UP = "{up}",
+    DOWN = "{down}",
+    LEFT = "{left}",
+    RIGHT = "{right}",
+}
+
 export class Common {
     static buildDirIfNotExists(directory: string): void {
         console.log(

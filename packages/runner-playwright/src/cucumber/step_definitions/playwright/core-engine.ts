@@ -30,7 +30,8 @@ export enum FILTER_TYPE {
     ROLE="byRole",
     TEXT="byText",
     ARIA_LABEL="byAriaLabel",
-    TEST_ID="byTestId"
+    TEST_ID="byTestId",
+    SELECTOR_PARENT="bySelectorParent"
 }
 
 export type MockType = {name; string, url: any}
@@ -59,6 +60,9 @@ export async function getPageOrElement(world: World): Promise<any> {
                         break;
                     case FILTER_TYPE.TEXT:
                         pointer = pointer.getByText(filter.value);
+                        break;
+                    case FILTER_TYPE.SELECTOR_PARENT:
+                        pointer = pointer.locator(filter.value);
                         break;
                     default:
                         break;
