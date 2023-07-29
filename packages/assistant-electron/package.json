@@ -44,6 +44,6 @@
     "electron": "24.6.5",
     "electron-installer-zip": "0.1.2",
     "electron-packager": "17.1.1",
-    "eslint": "8.39.0"
+    "eslint": "8.46.0"
   }
 }
