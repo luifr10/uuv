@@ -62,7 +62,7 @@ Feature: English Test Step Definition
     And Within the element with role "textbox" and name "Last name"
     When I type the sentence "Toto"
      And I reset context
-    Then I should see an element with role "textbox" and name "Last name" and content "Toto"
+    Then I should see an element with role "textbox" and name "Last name" and content "TotoDoe"
 
   Scenario: key.given.within.selector
     Then Within the element with selector '[data-testid="fieldset"]'

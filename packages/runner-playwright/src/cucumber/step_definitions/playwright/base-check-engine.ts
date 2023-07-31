@@ -13,7 +13,7 @@
  * understanding English or French.
  */
 
-import { DEFAULT_TIMEOUT, fs, key } from "@uuv/runner-commons";
+import { DEFAULT_TIMEOUT, fs, key, KEY_PRESS } from "@uuv/runner-commons";
 import { checkA11y, configureAxe, injectAxe } from "axe-playwright";
 import { Locator } from "playwright";
 import { devices, expect } from "@playwright/test";
@@ -37,7 +37,6 @@ import {
 
 import { Given, When, Then } from "@cucumber/cucumber";
 import { World } from "../../preprocessor/run/world";
-import { AxeOptions } from "axe-playwright/dist/types";
 import { ContextObject, RunOptions } from "axe-core";
 
 Given(`${key.given.viewport.preset}`, async function(this: World, viewportPreset: string) {
@@ -78,11 +77,27 @@ When(`${key.when.withinElement.selector}`, async function(this: World, selector:
 When(`${key.when.type}`, async function(this: World, textToType: string) {
   await getPageOrElement(this).then(async (element: Locator) => {
     await element.focus({ timeout: 10000 });
-    await element.fill(textToType);
+    await element.type(textToType);
     // console.debug(await showAttributesInLocator(element));
   });
 });
 
+
+When(`${key.when.keyboard.multiplePress}`, async function(this: World, nbTimes: number, key: string) {
+  for (let i = 1; i <= nbTimes; i++) {
+    await getPageOrElement(this).then(async (element: Locator) => {
+      await element.focus({ timeout: 10000 });
+      await pressKey(this, element, key);
+    });
+  }
+});
+
+When(`${key.when.keyboard.press}`, async function(this: World, key: string) {
+  await getPageOrElement(this).then(async (element: Locator) => {
+    await element.focus({ timeout: 10000 });
+    await pressKey(this, element, key);
+  });
+});
 When(`${key.when.timeout}`, async function(this: World, newTimeout: number) {
   await this.testInfo.setTimeout(newTimeout);
 });
@@ -207,24 +222,7 @@ Then(
      axeOptions: optionJson as RunOptions
    });
  });
-Then(
- `${key.then.a11y.check.withAllowFailureAndFixtureContextAndFixtureOption}`,
- async function(this: World, context: any, option: any) {
-   await injectAxe(this.page as Page);
-   const contextFile = await fs.readFileSync(`playwright/fixtures/${context}`);
-   const optionFile = await fs.readFileSync(`playwright/fixtures/${option}`);
-   const optionJson = JSON.parse(optionFile.toString());
-   await checkA11y(this.page as Page, JSON.parse(contextFile.toString()) as ContextObject, {
-     axeOptions: optionJson as RunOptions
-   }, true);
- });
 
-Then(
- `${key.then.a11y.check.withAllowFailure}`,
- async function(this: World) {
-   await injectAxe(this.page as Page);
-   await checkA11y(this.page as Page, undefined, undefined, true);
- });
 Then(
  `${key.then.a11y.check.onlyCritical}`,
  async function(this: World) {
@@ -350,5 +348,33 @@ Then(
    });
  }
 );
+
+async function pressKey(world: World, element: Locator, key: string) {
+  switch (key) {
+    case KEY_PRESS.TAB:
+      await element.press("Tab");
+      break;
+    case KEY_PRESS.REVERSE_TAB:
+      await element.press("ShiftLeft+Tab");
+      break;
+    case KEY_PRESS.UP:
+      await element.press("ArrowUp");
+      break;
+    case KEY_PRESS.DOWN:
+      await element.press("ArrowDown");
+      break;
+    case KEY_PRESS.LEFT:
+      await element.press("ArrowLeft");
+      break;
+    case KEY_PRESS.RIGHT:
+      await element.press("ArrowRight");
+      break;
+    default:
+      console.error("the command" + key + " is unrecognized.");
+      break;
+  }
+  await deleteCookieByName(world, COOKIE_NAME.SELECTED_ELEMENT);
+  await addCookieWhenValueIsList(world, COOKIE_NAME.SELECTED_ELEMENT, { name: FILTER_TYPE.SELECTOR_PARENT, value: "*:focus" });
+}
 
 

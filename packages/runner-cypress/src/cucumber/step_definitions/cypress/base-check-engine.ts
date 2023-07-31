@@ -17,7 +17,7 @@ import { DataTable, Given, Then, When } from "@badeball/cypress-cucumber-preproc
 import { Context } from "./_context";
 import "../../../cypress/commands";
 import { Method } from "cypress/types/net-stubbing";
-import { key } from "@uuv/runner-commons";
+import { key, KEY_PRESS } from "@uuv/runner-commons";
 import {
   assertTextContent,
   findWithRoleAndName,
@@ -43,6 +43,22 @@ When(`${key.when.type}`, function(textToType: string) {
   cy.uuvCheckContextFocusedElement().then((context) => {
     context.focusedElement!.focus();
     context.focusedElement!.type(textToType);
+  });
+});
+
+When(`${key.when.keyboard.multiplePress}`, function(nbTimes: number, key: string) {
+  for (let i = 1; i <= nbTimes; i++) {
+    cy.uuvCheckContextFocusedElement().then((context) => {
+      context.focusedElement!.focus();
+      pressKey(context.focusedElement!, key);
+    });
+  }
+});
+
+When(`${key.when.keyboard.press}`, function(key: string) {
+  cy.uuvCheckContextFocusedElement().then((context) => {
+    context.focusedElement!.focus();
+    pressKey(context.focusedElement!, key);
   });
 });
 
@@ -318,13 +334,6 @@ Then(
  });
 
 Then(
- `${key.then.a11y.check.withAllowFailure}`,
- async function() {
-   cy.injectAxe();
-   cy.checkA11y(undefined, undefined, undefined, true);
- });
-
-Then(
  `${key.then.a11y.check.onlyCritical}`,
  async function() {
    cy.injectAxe();
@@ -366,17 +375,6 @@ Then(
  });
 
 Then(
- `${key.then.a11y.check.withAllowFailureAndFixtureContextAndFixtureOption}`,
- async function(context: any, option: any) {
-   cy.injectAxe();
-   cy.fixture(context).then(context => {
-     cy.fixture(option).then(option => {
-       cy.checkA11y(context, option, undefined, true);
-     });
-   });
- });
-
-Then(
  `${key.then.a11y.check.withFixtureOption}`,
  async function(option: any) {
    cy.injectAxe();
@@ -384,3 +382,32 @@ Then(
      cy.checkA11y(undefined, data);
    });
  });
+
+function pressKey(context: Cypress.Chainable<JQuery<HTMLElement>>, key: string) {
+  switch (key) {
+    case KEY_PRESS.TAB:
+      context.realPress("Tab");
+      break;
+    case KEY_PRESS.REVERSE_TAB:
+      context.realPress(["ShiftLeft", "Tab"]);
+      break;
+    case KEY_PRESS.UP:
+      context.realPress("ArrowUp");
+      break;
+    case KEY_PRESS.DOWN:
+      context.realPress("ArrowDown");
+      break;
+    case KEY_PRESS.LEFT:
+      context.realPress("ArrowLeft");
+      break;
+    case KEY_PRESS.RIGHT:
+      context.realPress("ArrowRight");
+      break;
+    default:
+      console.error("the command" + key + " is unrecognized.");
+      break;
+  }
+  cy.uuvPatchContext({
+    focusedElement: cy.focused()
+  });
+}

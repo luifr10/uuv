@@ -30,6 +30,16 @@
     "wording": "je saisie le(s) mot(s) {string}"
   },
   {
+    "key": "key.when.keyboard.press",
+    "description": "Simule un appui sur la touche spécifiée : <table><thead><tr><th>Touche</th><th>Description</th></tr></thead><tbody><tr><td>{tab}</td><td>Tabulation</td></tr><tr><td>{reverseTab}</td><td>Tabulation arrière</td></tr><tr><td>{down}</td><td>Flèche du bas</td></tr><tr><td>{right}</td><td>Flèche de droite</td></tr><tr><td>{left}</td><td>Flèche de gauche</td></tr><tr><td>{up}</td><td>Flèche du haut</td></tr></tbody></table>",
+    "wording": "j'appuie sur {string}"
+  },
+  {
+    "key": "key.when.keyboard.multiplePress",
+    "description": "Répète la touche le nombre de fois spécifié en utilisant | comme ceci : num|{key}",
+    "wording": "j'appuie {int} fois sur {string}"
+  },
+  {
     "key": "key.when.visit",
     "description": "Navigue vers l'Uri passé en paramètre (url complète étant constituée de la BASE_URL + Uri) ou navigue vers l'Url si ça commence par http:// ou https://",
     "wording": "je visite l'Url {string}"
@@ -175,9 +185,9 @@
     "wording": "je ne dois pas avoir de problèmes d'accessibilité avec le fichier json suivant d'option {}"
   },
   {
-    "key": "key.then.a11y.check.withAllowFailureAndFixtureContextAndFixtureOption",
-    "description": "Vérifie sur la page courante qu'il n'y a aucune erreur d'accessibilité sans que ce soit bloquant [avec l'option](https://github.com/dequelabs/axe-core/blob/HEAD/doc/API.md#options-parameter) sur le [contexte donné](https://github.com/dequelabs/axe-core/blob/HEAD/doc/API.md#context-parameter)",
-    "wording": "je peux avoir des problèmes d'accessibilité sur le fichier json suivant de contexte {} et avec le fichier json suivant d'option {}"
+    "key": "key.then.a11y.check.withFixtureContextAndFixtureOption",
+    "description": "Vérifie sur la page courante qu'il n'y a aucune erreur d'accessibilité [avec l'option](https://github.com/dequelabs/axe-core/blob/HEAD/doc/API.md#options-parameter) sur le [contexte donné](https://github.com/dequelabs/axe-core/blob/HEAD/doc/API.md#context-parameter)",
+    "wording": "je ne dois pas avoir de problèmes d'accessibilité sur le fichier json suivant de contexte {} et avec le fichier json suivant d'option {}"
   },
   {
     "key": "key.then.a11y.check.onlyCritical",

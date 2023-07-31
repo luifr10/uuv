@@ -30,6 +30,16 @@
     "wording": "I type the sentence {string}"
   },
   {
+    "key": "key.when.keyboard.press",
+    "description": "Press specified key: <table><thead><tr><th>Key</th><th>Description</th></tr></thead><tbody><tr><td>{tab}</td><td>Tabulation</td></tr><tr><td>{reverseTab}</td><td>Reverse tabulation</td></tr><tr><td>{down}</td><td>Arrow Down</td></tr><tr><td>{right}</td><td>Arrow Right</td></tr><tr><td>{left}</td><td>Arrow Left</td></tr><tr><td>{up}</td><td>Arrow Up</td></tr></tbody></table>",
+    "wording": "I press {string}"
+  },
+  {
+    "key": "key.when.keyboard.multiplePress",
+    "description": "Press specified key multiple times using | as: num|{key}",
+    "wording": "I press {int} times on {string}"
+  },
+  {
     "key": "key.when.visit",
     "description": "Navigate to the Uri passed as a argument (full url consisting of the BASE_URL + Uri) or navigate to Url if begin with http:// or https://",
     "wording": "I visit path {string}"
@@ -175,19 +185,9 @@
     "wording": "I should not have any accessibility issue with context json fixture {} and option json fixture {}"
   },
   {
-    "key": "key.then.a11y.check.withAllowFailureAndFixtureContextAndFixtureOption",
-    "description": "Check if the current page have accessibility issue or not, [with an option](https://github.com/dequelabs/axe-core/blob/HEAD/doc/API.md#options-parameter) on the specific [context](https://github.com/dequelabs/axe-core/blob/HEAD/doc/API.md#context-parameter)",
-    "wording": "I could have accessibility issue with context json fixture {} and option json fixture {}"
-  },
-  {
     "key": "key.then.a11y.check.withFixtureOption",
     "description": "Check that the current page have no accessibility issue [with an option](https://github.com/dequelabs/axe-core/blob/HEAD/doc/API.md#options-parameter)",
     "wording": "I should not have any accessibility issue with option json fixture {}"
-  },
-  {
-    "key": "key.then.a11y.check.withAllowFailure",
-    "description": "Check if the current page have accessibility issue or not",
-    "wording": "I could have accessibility issue"
   },
   {
     "key": "key.then.a11y.check.onlyCritical",
