@@ -1,4 +1,3 @@
-@Playwright
 Feature: Weather App example
 
   Background:

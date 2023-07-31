@@ -175,19 +175,9 @@
     "wording": "je ne dois pas avoir de problèmes d'accessibilité avec le fichier json suivant d'option {}"
   },
   {
-    "key": "key.then.a11y.check.withFixtureContextAndFixtureOption",
-    "description": "Vérifie sur la page courante qu'il n'y a aucune erreur d'accessibilité [avec l'option](https://github.com/dequelabs/axe-core/blob/HEAD/doc/API.md#options-parameter) sur le [contexte donné](https://github.com/dequelabs/axe-core/blob/HEAD/doc/API.md#context-parameter)",
-    "wording": "je ne dois pas avoir de problèmes d'accessibilité sur le fichier json suivant de contexte {} et avec le fichier json suivant d'option {}"
-  },
-  {
     "key": "key.then.a11y.check.withAllowFailureAndFixtureContextAndFixtureOption",
     "description": "Vérifie sur la page courante qu'il n'y a aucune erreur d'accessibilité sans que ce soit bloquant [avec l'option](https://github.com/dequelabs/axe-core/blob/HEAD/doc/API.md#options-parameter) sur le [contexte donné](https://github.com/dequelabs/axe-core/blob/HEAD/doc/API.md#context-parameter)",
     "wording": "je peux avoir des problèmes d'accessibilité sur le fichier json suivant de contexte {} et avec le fichier json suivant d'option {}"
-  },
-  {
-    "key": "key.then.a11y.check.withAllowFailure",
-    "description": "Vérifie sur la page courante la présence d'erreur d'accessibilité sans que ce soit bloquant",
-    "wording": "je peux avoir des problèmes d'accessibilité"
   },
   {
     "key": "key.then.a11y.check.onlyCritical",

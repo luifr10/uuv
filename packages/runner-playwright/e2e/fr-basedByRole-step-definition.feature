@@ -1,5 +1,4 @@
 #language: fr
-@Playwright
 Fonctionnalité: phrases enrichies
 
   Contexte:

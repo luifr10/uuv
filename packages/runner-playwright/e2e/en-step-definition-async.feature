@@ -1,4 +1,3 @@
-@Playwright
 Feature: English Test Step Definition async
   Background:
     When I mock a request GET on url "https://e2e-test-quest.github.io/simple-webapp/uuvFixture.png" named "uuvFixture" with fixture mockUuv.jpg

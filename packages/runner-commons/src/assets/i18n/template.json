@@ -62,8 +62,6 @@
         "default": "",
         "withFixtureOption": "",
         "withFixtureContextAndFixtureOption": "",
-        "withAllowFailureAndFixtureContextAndFixtureOption": "",
-        "withAllowFailure": "",
         "onlyCritical": "",
         "withImpacts": "",
         "withTags": ""

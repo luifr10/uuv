@@ -1,5 +1,4 @@
 #language: fr
-@Playwright
 Fonctionnalité: Dictionnaire français de phrases de base utilisant playwright
 
   Contexte:

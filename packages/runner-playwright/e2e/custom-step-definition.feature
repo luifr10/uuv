@@ -1,5 +1,4 @@
 #language: fr
-@Playwright
 Fonctionnalité: phrases custom
   Contexte:
     Etant donné que je visite l'Url "https://e2e-test-quest.github.io/simple-webapp/"

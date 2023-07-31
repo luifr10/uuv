@@ -1,4 +1,3 @@
-@Playwright
 Feature: English Test Step Definition
   Background:
     When I visit path "https://e2e-test-quest.github.io/simple-webapp/"

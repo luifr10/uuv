@@ -1,5 +1,4 @@
 #language: fr
-@Playwright
 Fonctionnalité: French Test Step Definition
 
   Contexte:
