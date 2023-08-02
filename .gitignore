@@ -55,3 +55,4 @@ packages/docs/static/assistant/index.html
 packages/docs/static/assistant/style.css
 tests/integration/runner-cypress/
 tests/integration/runner-playwright/
+packages/intellij-plugin/.idea/
