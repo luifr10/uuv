@@ -24,7 +24,7 @@ import fs from "fs";
 
 import cypress from "cypress";
 
-import { Formatter } from "cucumber-json-report-formatter";
+import { UuvCustomFormatter } from "@uuv/runner-commons";
 
 export async function main() {
   const JSON_REPORT_DIR = "./uuv/reports/e2e/json";
@@ -103,13 +103,13 @@ export async function main() {
       fs.mkdirSync(JSON_REPORT_DIR, { recursive: true });
     }
 
-    const formatter = new Formatter();
+    const formatter = new UuvCustomFormatter();
     const outputFile = `${JSON_REPORT_DIR}/cucumber-report.json`;
     await formatter.parseCucumberJson(CUCUMBER_MESSAGES_FILE, outputFile);
   }
 
   function generateHtmlReportFromJson(browser: string, argv: any) {
-    const UNKOWN_VALUE = "unknown";
+    const UNKNOWN_VALUE = "unknown";
     report.generate({
       jsonDir: JSON_REPORT_DIR,
       reportPath: HTML_REPORT_DIR,
@@ -118,9 +118,9 @@ export async function main() {
           name: browser,
           version: argv.browserVersion ? argv.browserVersion : "",
         },
-        device: argv.device ? argv.device : UNKOWN_VALUE,
+        device: argv.device ? argv.device : UNKNOWN_VALUE,
         platform: {
-          name: argv.platformName ? argv.platformName : UNKOWN_VALUE,
+          name: argv.platformName ? argv.platformName : UNKNOWN_VALUE,
           version: argv.platformVersion ? argv.platformVersion : "",
         },
       },

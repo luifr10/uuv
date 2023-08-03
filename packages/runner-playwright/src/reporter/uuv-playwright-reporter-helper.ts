@@ -5,11 +5,11 @@ import { Envelope, IdGenerator, parseEnvelope, SourceMediaType, AttachmentConten
 import fs from "fs";
 import { UUVPlaywrightCucumberMapFile, UUVPlaywrightCucumberMapItem } from "../lib/runner-playwright";
 import report from "multiple-cucumber-html-reporter";
-import { Formatter } from "cucumber-json-report-formatter";
 import { nanoid } from "nanoid";
 import { TestStep } from "@playwright/test/types/testReporter";
 import chalk from "chalk";
 import chalkTable from "chalk-table";
+import { UuvCustomFormatter } from "./uuv-custom-formatter";
 
 
 const NANOS_IN_SECOND = 1000000000;
@@ -432,7 +432,7 @@ class UuvPlaywrightReporterHelper {
     }
 
     private async formatCucumberMessageFile(inputMessageFile: string, outputFormattedFileJson:string) {
-        const formatter = new Formatter();
+        const formatter = new UuvCustomFormatter();
         await formatter.parseCucumberJson(inputMessageFile, outputFormattedFileJson);
     }
 
