@@ -1,6 +1,5 @@
 Feature: Accessibility Step Definition
 
-  Rule: a11y
     Scenario: key.then.a11y.check.default
       When I visit path "https://e2e-test-quest.github.io/simple-webapp/"
       Then I should not have any accessibility issue
