@@ -43,12 +43,16 @@ testem.log
 Thumbs.db
 *.iml
 packages/runner-cypress/cypress/screenshots/
+packages/runner-cypress/generated
+packages/runner-cypress/e2e/generated
 packages/docs/docs/03-wordings/01-generated-wording-description/
 
 
 packages/runner-playwright/src/cucumber/step_definitions/playwright/generated/
 packages/runner-playwright/reports/
 packages/runner-playwright/tests/.features-gen
+packages/runner-playwright/generated
+packages/runner-playwright/e2e/generated
 packages/docs/i18n/fr/docusaurus-plugin-content-docs/current/03-wordings/01-generated-wording-description/
 packages/docs/static/assistant/uuv-assistant-resources.bundle.js
 packages/docs/static/assistant/index.html

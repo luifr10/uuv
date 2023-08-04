@@ -14,6 +14,7 @@
 */
 
 import fs from "fs";
+import glob from "glob";
 
 export { fs };
 
@@ -43,7 +44,14 @@ export enum TEST_RUNNER_ENUM {
 
 export enum STEP_DEFINITION_FILE_NAME {
     BASE = "base-check-engine",
-    BY_ROLE = "based-role-check-engine"
+    BY_ROLE = "based-role-check-engine",
+    BY_SCENARIO_TEMPLATE = "_playbook-engine",
+}
+
+export enum UUV_ENVELOPE {
+    PLAYBOOK = "playbook.feature",
+    PLAYBOOKED = "playbooked.feature",
+    PLAYBOOKED_GEN = "playbooked.generated.feature",
 }
 
 export enum KEY_PRESS {
@@ -97,5 +105,22 @@ export class Common {
         console.log(
           `[WRITE] ${generatedFile} written successfully`
         );
+    }
+
+   static getFileList(dirName) {
+        let files : string[] = [];
+        const items = fs.readdirSync(dirName, { withFileTypes: true });
+        for (const item of items) {
+            if (item.isDirectory()) {
+                files = [
+                    ...files,
+                    ...(Common.getFileList(`${dirName}/${item.name}`)),
+                ];
+            } else {
+                files.push(`${dirName}/${item.name}`);
+            }
+        }
+
+        return files;
     }
 }
