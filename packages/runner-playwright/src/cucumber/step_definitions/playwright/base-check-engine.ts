@@ -62,7 +62,7 @@ When(`${key.when.click}`, async function(this: World) {
 // TODO : permet de gérer les label accessibles donc pas que les aria : https://playwright.dev/docs/api/class-locator#locator-get-by-label
 When(`${key.when.withinElement.ariaLabel}`, async function(this: World, expectedAriaLabel: string) {
   const sanitizedExpectedAriaLabel = encodeURIComponent(expectedAriaLabel).replaceAll("%20", " ");
-  await getPageOrElement(this).then((element) => expect(element.getByLabel(sanitizedExpectedAriaLabel)).toHaveCount(1));
+  await getPageOrElement(this).then((element) => expect(element.getByLabel(sanitizedExpectedAriaLabel, { exact: true })).toHaveCount(1));
   await addCookieWhenValueIsList(this, COOKIE_NAME.SELECTED_ELEMENT, { name: FILTER_TYPE.ARIA_LABEL, value: sanitizedExpectedAriaLabel });
 });
 When(`${key.when.resetContext}`, async function(this: World) {
@@ -139,7 +139,7 @@ When(
  `${key.when.mock.withFixture}`,
  async function(this: World, verb: string, url: string, name: string, fixture: any) {
    await addCookieWhenValueIsList(this, COOKIE_NAME.MOCK_URL, { name: name, url: url });
-   const data = await fs.readFileSync(`playwright/fixtures/${fixture}`);
+   const data = await fs.readFileSync(`uuv/playwright/fixtures/${fixture}`);
    await this.page.route(url, async route => {
      await route.fulfill({ body: data });
    });
@@ -283,18 +283,18 @@ Then(
 
 Then(`${key.then.element.withAriaLabel}`, async function(this: World, expectedAriaLabel: string) {
   expectedAriaLabel = encodeURIComponent(expectedAriaLabel);
-  await getPageOrElement(this).then((element) => expect(element.getByLabel(expectedAriaLabel)).toHaveCount(1));
+  await getPageOrElement(this).then((element) => expect(element.getByLabel(expectedAriaLabel, { exact: true })).toHaveCount(1));
 });
 
 Then(`${key.then.element.not.withAriaLabel}`, async function(this: World, expectedAriaLabel: string) {
   expectedAriaLabel = encodeURIComponent(expectedAriaLabel);
-  await getPageOrElement(this).then((element) => expect(element.getByLabel(expectedAriaLabel)).toHaveCount(0));
+  await getPageOrElement(this).then((element) => expect(element.getByLabel(expectedAriaLabel, { exact: true })).toHaveCount(0));
 });
 
 Then(`${key.then.element.withAriaLabelAndContent}`, async function(this: World, expectedAriaLabel: string, expectedTextContent: string) {
   expectedAriaLabel = encodeURIComponent(expectedAriaLabel);
   await getPageOrElement(this).then(async (element) => {
-    const byLabel = await element.getByLabel(expectedAriaLabel);
+    const byLabel = await element.getByLabel(expectedAriaLabel, { exact: true });
     await expect(byLabel).toHaveCount(1);
     await expect(byLabel.filter({ hasText: expectedTextContent })).toHaveCount(1);
   });
@@ -335,7 +335,7 @@ Then(
  async function(this: World, expectedListName: string, expectedElementsOfList: DataTable) {
    await withinRoleAndName(this, "list", expectedListName);
    await getPageOrElement(this).then(async (element) => {
-     const listitem = await element.getByRole("listitem").all();
+     const listitem = await element.getByRole("listitem", { exact: true }).all();
      const foundedElement: any[] = [];
      for (const element of listitem) {
        const textContent = await element.textContent();

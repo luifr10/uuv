@@ -5,8 +5,11 @@ Fonctionnalité: Dictionnaire français de phrases de base utilisant cypress
     Etant donné que je visite l'Url "https://e2e-test-quest.github.io/simple-webapp/"
 
   Règle: Aria label
-    Scénario: key.then.element.withAriaLabel
+    Scénario: key.then.element.withAriaLabel - 1/2
       Alors je dois voir un élément ayant pour aria-label "flegend"
+
+    Scénario: key.then.element.withAriaLabel - 2/2
+      Alors je vais à l'intérieur de l'élément ayant pour aria-label "flegend"
 
     Scénario: key.then.element.not.withAriaLabel
       Alors je ne dois pas voir un élément ayant pour aria-label "[NOT] flegend"

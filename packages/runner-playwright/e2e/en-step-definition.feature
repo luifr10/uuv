@@ -2,8 +2,11 @@ Feature: English Test Step Definition
   Background:
     When I visit path "https://e2e-test-quest.github.io/simple-webapp/"
 
-  Scenario: key.then.element.withAriaLabel
+  Scenario: key.then.element.withAriaLabel - 1/2
     Then I should see an element with aria-label "flegend"
+
+  Scenario: key.then.element.withAriaLabel - 2/2
+    And Within the element with aria-label "flegend"
 
   Scenario: key.then.element.not.withAriaLabel
     Then I should not see an element with aria-label "NOT flegend"
