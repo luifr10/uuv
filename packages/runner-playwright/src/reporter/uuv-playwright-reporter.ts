@@ -10,6 +10,7 @@ class UuvPlawrightReporter implements Reporter {
         const startTimestamp = this.helper.getTimestamp();
         // console.log(`Starting the run with ${suite.allTests().length} tests`);
         this.helper.createTestRunStartedEnvelope(config, suite, startTimestamp);
+        this.helper.logTeamCity("##teamcity[progressStart 'Running UUV Tests']");
         console.info(
             chalk.yellow(`Starting the run with ${suite.allTests().length} tests`)
         );
@@ -52,8 +53,8 @@ class UuvPlawrightReporter implements Reporter {
         // console.log(`Finished test ${test.title}: ${result.status}`);
         const featureFile = this.helper.getOriginalFeatureFile(test.location.file);
         if (featureFile) {
-            this.helper.createTestCaseFinishedEnvelope(test, result, featureFile, endTimestamp);
             this.helper.logTestEnd(test, result);
+            this.helper.createTestCaseFinishedEnvelope(test, result, featureFile, endTimestamp);
         }
     }
 
@@ -73,6 +74,7 @@ class UuvPlawrightReporter implements Reporter {
         } else {
             console.error(chalk.red(`Tests executed with status: ${result.status}`));
         }
+        this.helper.logTeamCity("##teamcity[progressFinish 'Running UUV Tests']");
     }
 }
 

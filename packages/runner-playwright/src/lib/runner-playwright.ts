@@ -99,7 +99,7 @@ function translateFeatures(tempDir: string, configDir: string) {
     });
 }
 
-function runPlaywright(mode: "open" | "e2e", configDir: string, generateHtmlReport = false) {
+function runPlaywright(mode: "open" | "e2e", configDir: string, generateHtmlReport = false, env?: any) {
     const configFile = `${configDir}/playwright.config.ts`;
     const reportType = generateHtmlReport ? GeneratedReportType.HTML : GeneratedReportType.CONSOLE;
     try {
@@ -109,6 +109,9 @@ function runPlaywright(mode: "open" | "e2e", configDir: string, generateHtmlRepo
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         process.env.CONFIG_DIR = configDir;
+        if (env) {
+            Object.keys(env).forEach(key => process.env[key] = env[key]);
+        }
         const command = `npx playwright test --project=chromium -c ${configFile} ${mode === "open" ? "--ui" : ""}`;
         console.log(chalk.gray(`Running ${command}`));
         execSync(command, { stdio: "inherit" });
@@ -124,7 +127,7 @@ async function executePreprocessor(tempDir: string, configDir: string) {
     console.log("preprocessor executed");
 }
 
-export async function run(mode: "open" | "e2e", tempDir = "uuv/.features-gen/e2e", configDir = "uuv", generateHtmlReport = false) {
+export async function run(mode: "open" | "e2e", tempDir = "uuv/.features-gen/e2e", configDir = "uuv", generateHtmlReport = false, env?: any) {
     await executePreprocessor(tempDir, configDir);
-    runPlaywright(mode, configDir, generateHtmlReport);
+    runPlaywright(mode, configDir, generateHtmlReport, env);
 }

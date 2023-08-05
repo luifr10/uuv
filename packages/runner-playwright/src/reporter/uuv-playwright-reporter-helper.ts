@@ -45,6 +45,7 @@ class UuvPlaywrightReporterHelper {
     testDir!: string;
     private queries: Map<string, Query> = new Map<string, Query>();
     envelopes: Envelope[] = [];
+    private featureFileAndTestCaseStatusMap = new Map<string, string[]>();
     private testCasesAndTestCasesStartedIdMap: Map<string, string> = new Map<string, string>();
     private testCasesAndPickleIdMap: Map<string, string> = new Map<string, string>();
     private testCasesTestStepStartedIdMap: Map<string, number> = new Map<string, number>();
@@ -100,6 +101,7 @@ class UuvPlaywrightReporterHelper {
             this.testCasesAndTestCasesStartedIdMap.set(test.id, testCaseStartedId);
             this.initConsoleReportIfNotExists(featureFile);
         }
+        this.logTeamCity(`##teamcity[testStarted ${this.teamcityAddName(test.title)} ${this.teamcityFlowIdAndParentFlowId(test.title, featureFile)} ]`);
     }
 
     public createTestStepStartedEnvelope(test: TestCase, step: TestStep, featureFile: string, startTimestamp: { seconds: number; nanos: number }) {
@@ -207,6 +209,8 @@ class UuvPlaywrightReporterHelper {
     }
 
     public createTestCaseFinishedEnvelope(test: TestCase, result: TestResult, featureFile: string, endTimestamp) {
+        this.logTeamcityTestEnd(result, test, featureFile);
+        this.updateTestcaseStatus(featureFile, test.id, "done");
         const currentQuery = this.queries.get(featureFile);
         if (currentQuery) {
             if (result.status === "skipped" || result.status === "failed") {
@@ -226,6 +230,30 @@ class UuvPlaywrightReporterHelper {
             this.updateConsoleReport(featureFile, result);
             this.addResultErrors(result, test, featureFile);
             this.createTestCaseErrorAttachmentsEnvelope(testCaseStartedId, result);
+        }
+        this.logTeamcitySuiteFinishedIfNeeded(featureFile);
+    }
+
+    private logTeamcityTestEnd(result: TestResult, test: TestCase, featureFile: string) {
+        switch (result.status) {
+            case "passed":
+                this.logTeamCity(`##teamcity[testFinished ${this.teamcityAddName(test.title)} ${this.teamcityFlowIdAndParentFlowId(test.title, featureFile)} ${this.teamcityAddDuration(result)} ]`);
+                break;
+            case "failed":
+                this.logTeamCity(`##teamcity[testFailed ${this.teamcityAddName(test.title)} ${this.teamcityFlowIdAndParentFlowId(test.title, featureFile)} type='comparisonFailure' message='Test failed' ]`);
+                this.logTeamCity(`##teamcity[testFinished ${this.teamcityAddName(test.title)} ${this.teamcityFlowIdAndParentFlowId(test.title, featureFile)} ${this.teamcityAddDuration(result)} ]`);
+                break;
+            default:
+                this.logTeamCity(`##teamcity[testIgnored ${this.teamcityAddName(test.title)} ${this.teamcityFlowIdAndParentFlowId(test.title, featureFile)} ]`);
+        }
+    }
+
+    private logTeamcitySuiteFinishedIfNeeded(featureFile: string) {
+        const featureTestCaseStatus = this.featureFileAndTestCaseStatusMap.get(featureFile);
+        if (featureTestCaseStatus) {
+            if (Object.entries(featureTestCaseStatus).find(([, value]) => value === "todo") === undefined) {
+                this.logTeamCity(`##teamcity[testSuiteFinished ${this.teamcityAddName(featureFile)} ${this.teamcityFlowId(featureFile)} ]`);
+            }
         }
     }
 
@@ -262,6 +290,7 @@ class UuvPlaywrightReporterHelper {
 
     private initConsoleReportIfNotExists(featureFile: string) {
         if (!this.consoleReportMap.get(featureFile)) {
+            this.logTeamCity(`##teamcity[testSuiteStarted ${this.teamcityAddName(featureFile)} ${this.teamcityFlowId(featureFile)} ]`);
             this.consoleReportMap.set(featureFile, new ReportOfFeature());
         }
     }
@@ -377,18 +406,28 @@ class UuvPlaywrightReporterHelper {
                 currentEnvelopes.forEach(envelope => currentQuery.update(envelope));
                 this.queries.set(originalFile, currentQuery);
                 this.envelopes = this.envelopes.concat(currentEnvelopes);
-                this.populateTestCasesAndPickleIdMap(currentQuery, suite, featureFile);
+                this.featureFileAndTestCaseStatusMap.set(originalFile, []);
+                this.populateTestCasesAndPickleIdMap(currentQuery, suite, featureFile, originalFile);
             }
         });
     }
 
-    private populateTestCasesAndPickleIdMap(currentQuery: Query, suite: Suite, featureFile: string) {
+    private populateTestCasesAndPickleIdMap(currentQuery: Query, suite: Suite, featureFile: string, originalFile: string) {
         const pickles = currentQuery.getPickles();
         const featureFileTestSuite = suite.allTests()
             .filter(testCase => testCase.location.file === featureFile);
         featureFileTestSuite.forEach((testCase, index) => {
             this.testCasesAndPickleIdMap.set(testCase.id, pickles[index].id);
+            this.updateTestcaseStatus(originalFile, testCase.id, "todo");
         });
+    }
+
+    private updateTestcaseStatus(originalFile: string, testCaseId: string, newStatus: "todo" | "done") {
+        const featureTestCaseStatus = this.featureFileAndTestCaseStatusMap.get(originalFile);
+        if (featureTestCaseStatus) {
+            featureTestCaseStatus[`${testCaseId}`] = newStatus;
+            this.featureFileAndTestCaseStatusMap.set(originalFile, featureTestCaseStatus);
+        }
     }
 
     private generateTestStep(currentQuery: Query, test: TestCase): any {
@@ -529,6 +568,30 @@ class UuvPlaywrightReporterHelper {
     private getTestCaseTitle(testCase: TestCase, result: TestResult): string {
         const message = `${testCase.title}  (${result.duration}ms)`;
         return !testCase.ok() ? chalk.redBright(message) : chalk.gray(message);
+    }
+
+    public logTeamCity(line) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        if (process.env.enableTeamcityLogging) {
+            console.log(line);
+        }
+    }
+
+    private teamcityFlowId(name) {
+        return "flowId='" + name.replaceAll("'", "|'") + "'";
+    }
+
+    private teamcityFlowIdAndParentFlowId(name, parentName) {
+        return "flowId='" + name.replaceAll("'", "|'") + "' parent='" + parentName.replaceAll("'", "|'") + "'";
+    }
+
+    private teamcityAddName(name) {
+        return "name='" + name.replaceAll("'", "|'") + "'";
+    }
+
+    private teamcityAddDuration(result: TestResult) {
+        return "duration='" + result.duration + "'";
     }
 }
 

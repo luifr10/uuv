@@ -69,7 +69,7 @@ export async function main() {
     // }
 
     // Running Tests
-    return run( "e2e", FEATURE_GEN_DIR, PROJECT_DIR, argv.generateHtmlReport)
+    return run( "e2e", FEATURE_GEN_DIR, PROJECT_DIR, argv.generateHtmlReport, env)
         .then(async (result) => {
           console.log(`Status ${chalk.green("success")}`);
       })

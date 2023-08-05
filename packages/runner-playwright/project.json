@@ -15,6 +15,7 @@
         "assets": ["packages/runner-playwright/*.md"]
       },
       "dependsOn": [
+        "^build",
         "generate"
       ]
     },
