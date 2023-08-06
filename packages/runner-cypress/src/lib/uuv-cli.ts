@@ -23,8 +23,8 @@ import minimist from "minimist";
 import fs from "fs";
 
 import cypress from "cypress";
+import { UuvCustomFormatter } from "../cucumber/uuv-custom-formatter";
 
-import { UuvCustomFormatter } from "@uuv/runner-commons";
 
 export async function main() {
   const JSON_REPORT_DIR = "./uuv/reports/e2e/json";
