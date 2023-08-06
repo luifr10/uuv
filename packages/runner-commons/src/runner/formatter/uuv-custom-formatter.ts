@@ -5,11 +5,12 @@ export class UuvCustomFormatter extends Formatter {
   constructor() {
     super();
   }
+
   override async parseCucumberJson(sourceFile, outputFile) {
     console.info(`Start formatting file '${sourceFile}' into '${outputFile}'`);
     const report = await this.helper.readFileIntoJson(sourceFile);
     const gherkinDocumentJson = this.helper.getJsonFromArray(report, "gherkinDocument");
-    const cucumberReport = [];
+    const cucumberReport: Json[] = [];
     gherkinDocumentJson.forEach(gherkinJson => {
       let gherkinDocument;
       try {
@@ -25,13 +26,13 @@ export class UuvCustomFormatter extends Formatter {
         if (featureChild.rule) {
           featureChild.rule.steps = [];
           featureChild.rule.children.forEach(ruleChildren => {
-             this.buildAndAddScenario(ruleChildren, report, background, feature, scenariosJson, featureChild.rule);
+            this.buildAndAddScenario(ruleChildren, report, background, feature, scenariosJson, featureChild.rule);
           });
         } else {
           this.buildAndAddScenario(featureChild, report, background, feature, scenariosJson, undefined);
         }
       });
-      const rootJson = {
+      const rootJson: Json  = {
         comments: this.getComments(gherkinDocument.comments),
         description: gherkinDocument.feature.description,
         elements: scenariosJson,
@@ -42,7 +43,6 @@ export class UuvCustomFormatter extends Formatter {
         uri: gherkinDocument.uri,
         tags: this.getTags(gherkinDocument.feature.tags)
       };
-      // @ts-ignore
       cucumberReport.push(rootJson);
     });
     await this.validateReportSchema(report);
@@ -51,14 +51,13 @@ export class UuvCustomFormatter extends Formatter {
     this.helper.writeFile(outputFile, reportString);
   }
 
-  private buildAndAddScenario(child, report: string[], background: {}, feature, scenariosJson: any[], rule) {
-    let steps = [];
+  private buildAndAddScenario(child, report: string[], background: object, feature, scenariosJson: any[], rule) {
+    let steps: any[] = [];
     let stepJson = {};
     // Background
     if (child.scenario === undefined) {
       child.background.steps.forEach(step => {
         stepJson = this.createStepJson(step, report, 0);
-        // @ts-ignore
         steps.push(stepJson);
       });
       background = this.createScenarioJson(feature, child.background, steps, "background");
@@ -68,22 +67,17 @@ export class UuvCustomFormatter extends Formatter {
     else if (!child.scenario.keyword.includes("Outline")) {
       child.scenario.steps.forEach(step => {
         stepJson = this.createStepJson(step, report, 0);
-        // @ts-ignore
         steps.push(stepJson);
       });
       const scenario = this.createScenarioJson(feature, child.scenario, steps, "scenario");
       if (rule) {
-         scenario.id = `${feature.name};${rule.name};${scenario.name}`;
+        scenario.id = `${feature.name};${rule.name};${scenario.name}`;
       }
       if (Object.keys(background).length !== 0 && background !== undefined) {
-        // @ts-ignore
         scenariosJson.push(background);
       }
-      // @ts-ignore
       scenariosJson.push(scenario);
-    }
-    // Scenario Outline
-    else if (child.scenario.examples[0].tableBody !== undefined) {
+    } /* Scenario Outline */ else if (child.scenario.examples[0].tableBody !== undefined) {
       const numberOfExecutions = child.scenario.examples[0].tableBody.length;
       const numberOfStepsEachExecution = child.scenario.steps.length;
       let scenarioIndex = 0;
@@ -93,7 +87,6 @@ export class UuvCustomFormatter extends Formatter {
         while (currentStep < numberOfStepsEachExecution) {
           stepJson = this.createStepJson(child.scenario.steps[currentStep], report, scenarioIndex);
           currentStep++;
-          // @ts-ignore
           steps.push(stepJson);
         }
         const scenario = this.createScenarioJson(feature, child.scenario, steps, "scenario", scenarioIndex);
@@ -101,13 +94,13 @@ export class UuvCustomFormatter extends Formatter {
           scenario.id = `${feature.name};${rule.name};${scenario.name}`;
         }
         if (Object.keys(background).length !== 0 && background !== undefined) {
-          // @ts-ignore
           scenariosJson.push(background);
         }
-        // @ts-ignore
         scenariosJson.push(scenario);
         scenarioIndex++;
       }
     }
   }
 }
+
+interface Json { comments: any[] | undefined; line: any; elements: any[]; name: any; description: any; id: any; keyword: any; uri: any; tags: any[] | undefined}
