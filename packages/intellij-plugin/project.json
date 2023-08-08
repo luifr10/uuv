@@ -4,6 +4,64 @@
   "sourceRoot": "packages/intellij-plugin/src",
   "projectType": "library",
   "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "packages/intellij-plugin",
+        "commands": [
+          "chmod 755 ./gradlew",
+          "./gradlew buildPlugin"
+        ]
+      },
+      "outputs": ["{projectRoot}/build/distributions"]
+    },
+    "semantic-release": {
+      "executor": "@theunderscorer/nx-semantic-release:semantic-release",
+      "options": {
+        "commitMessage": "release(intellij-plugin): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}",
+        "plugins": [
+          [
+            "@google/semantic-release-replace-plugin",
+            {
+              "replacements": [
+                {
+                  "files": ["packages/intellij-plugin/gradle.properties"],
+                  "from": "version=.*",
+                  "to": "version=${nextRelease.version}",
+                  "results": [
+                    {
+                      "file": "packages/intellij-plugin/gradle.properties",
+                      "hasChanged": true,
+                      "numMatches": 1,
+                      "numReplacements": 1
+                    }
+                  ],
+                  "countMatches": true
+                }
+              ]
+            }
+          ],
+          [
+            "@semantic-release/git",
+            {
+              "assets": [
+                "gradle.properties"
+              ]
+            }
+          ]
+        ]
+      }
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "packages/intellij-plugin",
+        "commands": [
+          "chmod 755 ./gradlew",
+          "./gradlew publishPlugin"
+        ]
+      }
+    }
   },
   "tags": []
 }

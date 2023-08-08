@@ -42,6 +42,10 @@ jobs:
     needs: install
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
       - name: Installing Wine
         run: sudo apt-get update -y && sudo apt install wine64
       - name: Build artifacts
@@ -224,6 +228,10 @@ jobs:
     needs: [ release ]
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
       - name: Download Release artifact
         uses: actions/download-artifact@v3
         with:
@@ -234,13 +242,17 @@ jobs:
         with:
           node-version: ${{env.NODE_VERSION}}
           registry-url: 'https://registry.npmjs.org'
-      - name: Publishing packages
+      - name: Publishing NPM packages
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
         run: |
           for packagePath in $(find dist/packages -name "*.tgz"); do
           npm publish $packagePath --scope ${{env.NPM_PACKAGE_SCOPE}} --access public
           done
+      - name: Publishing Intellij plugin
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+        run: cd packages/intellij-plugin && ./gradlew buildPlugin && ./gradlew publishPlugin
 
   publish-docs:
     if: github.ref == 'refs/heads/main'
