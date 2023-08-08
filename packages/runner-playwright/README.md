@@ -1,9 +1,9 @@
 
 # @uuv/playwright
 <p align="center">  
-<a href="https://e2e-test-quest.github.io/uuv/">  
+<a href="https://orange-opensource.github.io/uuv/">  
 <picture>  
-<img alt="UUV Logo" src="https://e2e-test-quest.github.io/uuv/img/uuv.png">  
+<img alt="UUV Logo" src="https://orange-opensource.github.io/uuv/img/uuv.png">  
 </picture>  
 </a>  
 </p>  
@@ -62,7 +62,7 @@ we see that the sentence proposed by **UUV is the most understandable** of all
 
 
 ## Documentation
-<a href="https://e2e-test-quest.github.io/uuv/"><img src="https://img.shields.io/badge/documentation-black?&style=for-the-badge&logo=github&logoColor=white" alt="documentation"/></a>
+<a href="https://orange-opensource.github.io/uuv/"><img src="https://img.shields.io/badge/documentation-black?&style=for-the-badge&logo=github&logoColor=white" alt="documentation"/></a>
 
 ## What is @uuv/playwright?
 
@@ -85,12 +85,12 @@ or
 yarn add -D @uuv/playwright
 ``` 
 ## Configuration  (optional)
-<a href="https://e2e-test-quest.github.io/uuv/docs/getting-started/configuration"><img src="https://img.shields.io/badge/Configure%20Playwright%20doc-red?&style=for-the-badge&logo=github&logoColor=white" alt="documentation for configure uuv playwright"/></a>
+<a href="https://orange-opensource.github.io/uuv/docs/getting-started/configuration"><img src="https://img.shields.io/badge/Configure%20Playwright%20doc-red?&style=for-the-badge&logo=github&logoColor=white" alt="documentation for configure uuv playwright"/></a>
 
 ## Usage
 
 ### Scenarios example
-You can find test examples here : [weather-app.feature](https://github.com/e2e-test-quest/uuv/blob/main/example/weather-app.feature)
+You can find test examples here : [weather-app.feature](https://github.com/Orange-OpenSource/uuv/blob/main/example/weather-app.feature)
 
 ### Write test
 To write your first test, create the file `uuv/e2e/first-test.feature` in the project root with the following content :
@@ -104,7 +104,7 @@ To write your first test, create the file `uuv/e2e/first-test.feature` in the pr
 
 For more details, please go to the documentation:
 
-<a href="https://e2e-test-quest.github.io/uuv/docs/test/first-test"><img src="https://img.shields.io/badge/Write%20test%20doc-red?&style=for-the-badge&logo=github&logoColor=white" alt="documentation for write test"/></a>
+<a href="https://orange-opensource.github.io/uuv/docs/test/first-test"><img src="https://img.shields.io/badge/Write%20test%20doc-red?&style=for-the-badge&logo=github&logoColor=white" alt="documentation for write test"/></a>
 
 ### Run test
 
@@ -137,15 +137,15 @@ yarn uuv e2e --browser=edge --env="{'TAGS':'@mobile'}" --generateHtmlReport
 
 For more details, please go to the documentation:
 
-<a href="https://e2e-test-quest.github.io/uuv/docs/test/running-test"><img src="https://img.shields.io/badge/Run%20test%20doc-red?&style=for-the-badge&logo=github&logoColor=white" alt="documentation for run test"/></a>
+<a href="https://orange-opensource.github.io/uuv/docs/test/running-test"><img src="https://img.shields.io/badge/Run%20test%20doc-red?&style=for-the-badge&logo=github&logoColor=white" alt="documentation for run test"/></a>
 
 ## License
 
-[<a href="https://github.com/e2e-test-quest/uuv/blob/main/LICENSE">  
+[<a href="https://github.com/Orange-OpenSource/uuv/blob/main/LICENSE">  
 <img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT license"/>  
 </a>](https://spdx.org/licenses/MIT.html)
 
-This project is licensed under the terms of the [MIT license](https://github.com/e2e-test-quest/uuv/blob/main/LICENSE).
+This project is licensed under the terms of the [MIT license](https://github.com/Orange-OpenSource/uuv/blob/main/LICENSE).
 
 ## Authors
 

@@ -11,7 +11,7 @@ const config = {
   favicon: "img/uuv.png",
 
   // Set the production url of your site here
-  url: "https://e2e-test-quest.github.io/",
+  url: "https://orange-opensource.github.io/",
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: "/uuv/",
@@ -71,7 +71,7 @@ const config = {
             label: "Docs"
           },
           {
-            href: "https://github.com/e2e-test-quest/uuv/issues",
+            href: "https://github.com/Orange-OpenSource/uuv/issues",
             label: "Issues",
             position: "right"
           },

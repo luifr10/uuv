@@ -333,7 +333,7 @@ function UuvAssistant(props: UuvAssistantProps) {
                         "#073a69" : "#C0C0C0", height: "50px", width: "50px"
                     }} size='large'>
                     <Tooltip placement='top' title='Go to steps definition'>
-                      <a href='https://e2e-test-quest.github.io/uuv/docs/category/description-of-sentences'>
+                      <a href='https://orange-opensource.github.io/uuv/docs/category/description-of-sentences'>
                         <img
                           src={uuvLogo}
                           width='40'

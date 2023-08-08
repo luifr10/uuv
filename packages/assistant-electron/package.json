@@ -7,9 +7,9 @@
   "type": "commonjs",
   "repository": {
     "type": "git",
-    "url": "https://github.com/e2e-test-quest/uuv"
+    "url": "https://github.com/Orange-OpenSource/uuv"
   },
-  "homepage": "https://e2e-test-quest.github.io/uuv/",
+  "homepage": "https://orange-opensource.github.io/uuv/",
   "keywords": [
     "uuv",
     "e2e",

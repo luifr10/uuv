@@ -18,7 +18,7 @@ const path = require("path");
 const fs = require('fs');
 
 const IS_DEV = process.env.ELECTRON_IS_DEV;
-const BASE_URL = "https://e2e-test-quest.github.io/uuv/assistant/";
+const BASE_URL = "https://orange-opensource.github.io/uuv/assistant/";
 const ASSISTANT_SCRIPT = "uuv-assistant-resources.bundle.js";
 
 async function downloadAssistantScript() {

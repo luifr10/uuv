@@ -1,9 +1,9 @@
 
 # @uuv/runner-commons
 <p align="center">  
-<a href="https://e2e-test-quest.github.io/uuv/">  
+<a href="https://orange-opensource.github.io/uuv/">  
 <picture>  
-<img alt="UUV Logo" src="https://e2e-test-quest.github.io/uuv/img/uuv.png">  
+<img alt="UUV Logo" src="https://orange-opensource.github.io/uuv/img/uuv.png">  
 </picture>  
 </a>  
 </p>  
@@ -38,7 +38,7 @@ We can use the cypress engine with [@uuv/cypress](https://www.npmjs.com/package/
 </p>  
 
 ## Documentation
-<a href="https://e2e-test-quest.github.io/uuv/"><img src="https://img.shields.io/badge/documentation-black?&style=for-the-badge&logo=github&logoColor=white" alt="documentation"/></a>
+<a href="https://orange-opensource.github.io/uuv/"><img src="https://img.shields.io/badge/documentation-black?&style=for-the-badge&logo=github&logoColor=white" alt="documentation"/></a>
 
 ## Usage
 This library may not be downloaded directly. Please pass by [@uuv/cypress](https://www.npmjs.com/package/@uuv/cypress) or [@uuv/playwright](https://www.npmjs.com/package/@uuv/playwright)
@@ -46,11 +46,11 @@ or [@uuv/assistant](https://www.npmjs.com/package/@uuv/assistant).
 
 ## License
 
-[<a href="https://github.com/e2e-test-quest/uuv/blob/main/LICENSE">  
+[<a href="https://github.com/Orange-OpenSource/uuv/blob/main/LICENSE">  
 <img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT license"/>  
 </a>](https://spdx.org/licenses/MIT.html)
 
-This project is licensed under the terms of the [MIT license](https://github.com/e2e-test-quest/uuv/blob/main/LICENSE).
+This project is licensed under the terms of the [MIT license](https://github.com/Orange-OpenSource/uuv/blob/main/LICENSE).
 
 ## Authors
 

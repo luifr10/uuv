@@ -5,7 +5,7 @@ We try to make it easy, and all contributions, even the smaller ones, are more t
 This includes bug reports, fixes, documentation, examples...
 But first, read this page (including the small print at the end).
 
-Contributions are available on https://github.com/e2e-test-quest/uuv
+Contributions are available on https://github.com/Orange-OpenSource/uuv
 
 ## Legal
 

@@ -4,9 +4,9 @@
 
 
 <p align="center">  
-<a href="https://e2e-test-quest.github.io/uuv/">  
+<a href="https://orange-opensource.github.io/uuv/">  
 <picture>  
-<img alt="UUV Logo" src="https://e2e-test-quest.github.io/uuv/img/uuv.png">  
+<img alt="UUV Logo" src="https://orange-opensource.github.io/uuv/img/uuv.png">  
 </picture>  
 </a>  
 </p>  
@@ -50,7 +50,7 @@ we see that the sentence proposed by **UUV is the most understandable** of all
 | UUV | Then I should see a title named "Result"|
 
 ## Documentation
-<a href="https://e2e-test-quest.github.io/uuv/"><img src="https://img.shields.io/badge/documentation-black?&style=for-the-badge&logo=github&logoColor=white" alt="documentation"/></a>
+<a href="https://orange-opensource.github.io/uuv/"><img src="https://img.shields.io/badge/documentation-black?&style=for-the-badge&logo=github&logoColor=white" alt="documentation"/></a>
 
 ## Libraries
 <a href="https://www.npmjs.com/package/@uuv/assistant"><img src="https://img.shields.io/badge/@uuv/assistant-Help module that generates the most accessible sentences based on a DOM element selection-yellow?logo=npm" alt="UUV assistant npm library"/></a>  
@@ -92,11 +92,11 @@ To answer the above issues and many others, our solution is to set up a coherent
 
 ## License
 
-[<a href="https://github.com/e2e-test-quest/uuv/blob/main/LICENSE">  
+[<a href="https://github.com/Orange-OpenSource/uuv/blob/main/LICENSE">  
 <img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT license"/>  
 </a>](https://spdx.org/licenses/MIT.html)
 
-This project is licensed under the terms of the [MIT license](https://github.com/e2e-test-quest/uuv/blob/main/LICENSE).
+This project is licensed under the terms of the [MIT license](https://github.com/Orange-OpenSource/uuv/blob/main/LICENSE).
 
 ## Authors
 

@@ -3,7 +3,7 @@
   "npm": false,
   "git": true,
   "github": false,
-  "repositoryUrl": "https://github.com/e2e-test-quest/uuv",
+  "repositoryUrl": "https://github.com/Orange-OpenSource/uuv",
   "branches": [
     "main"
   ],
