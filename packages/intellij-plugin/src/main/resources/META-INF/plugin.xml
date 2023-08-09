@@ -8,12 +8,36 @@
   <name>UUV</name>
 
   <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
-  <vendor email="131726886+luifr10@users.noreply.github.com;32981008+stanlee974@users.noreply.github.com" url="https://github.com/e2e-test-quest/uuv">Orange SA</vendor>
+  <vendor email="131726886+luifr10@users.noreply.github.com;32981008+stanlee974@users.noreply.github.com" url="https://github.com/e2e-test-quest/uuv">UUV</vendor>
 
   <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
        Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
        Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
-  <description>TODO: Update - Plugin to execute your UUV tests</description>
+  <description><![CDATA[
+    <h1 id="uuv-a-solution-to-facilitate-the-writing-and-execution-of-e2e-tests-understandable-by-any-human">UUV : A solution to facilitate the writing and execution of E2E tests understandable by any human</h1>
+    <p>Even in 2023, end-to-end testing and accessibility remain the poor cousins of the automated testing family.</p>
+    <p>This plugin will helps you execute and write your uuv E2E Tests.</p>
+    <h2 id="useful-links">Useful links</h2>
+    <h3 id="source">Source</h3>
+    <ul>
+      <li>Github: <a href="https://github.com/Orange-OpenSource/uuv">https://github.com/Orange-OpenSource/uuv</a></li>
+      <li><h3 id="documentation">Documentation</h3>
+      </li>
+      <li>Use manual: <a href="https://orange-opensource.github.io/uuv/">https://orange-opensource.github.io/uuv/</a></li>
+      <li>Article: <a href="https://medium.com/@njakolouis/user-centric-e2e-testing-1f99bdd6105f">https://medium.com/@njakolouis/user-centric-e2e-testing-1f99bdd6105f</a></li>
+    </ul>
+    <h3 id="demo">Demo</h3>
+    <ul>
+      <li>@uuv/cypress usage : <a href="https://www.youtube.com/watch?v=aTahsfoU-5w">https://www.youtube.com/watch?v=aTahsfoU-5w</a></li>
+      <li>Interactive @uuv/assistant demo: <a href="https://uuv-assistant.vercel.app/">https://uuv-assistant.vercel.app/</a></li>
+    </ul>
+    <h3 id="npm-libs">Npm libs</h3>
+    <ul>
+      <li>@uuv/playwright: <a href="https://www.npmjs.com/package/@uuv/playwright">https://www.npmjs.com/package/@uuv/playwright</a></li>
+      <li>@uuv/cypress: <a href="https://www.npmjs.com/package/@uuv/cypress">https://www.npmjs.com/package/@uuv/cypress</a></li>
+      <li>@uuv/assistant: <a href="https://www.npmjs.com/package/@uuv/assistant">https://www.npmjs.com/package/@uuv/assistant</a></li>
+    </ul>]]>
+  </description>
 
   <!-- Product and plugin compatibility requirements.
        Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
