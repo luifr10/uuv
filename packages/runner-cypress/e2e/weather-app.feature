@@ -55,6 +55,7 @@ Feature: Weather App example
     And Within a button named "Filter"
     And I click
     And I reset context
+    And I wait 1000 ms
     # Checks the list of available towns.
     Then I should see elements of the list with name "Available Towns"
       | Tunis   |
