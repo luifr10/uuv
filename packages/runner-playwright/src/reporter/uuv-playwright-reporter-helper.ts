@@ -101,7 +101,7 @@ class UuvPlaywrightReporterHelper {
             this.testCasesAndTestCasesStartedIdMap.set(test.id, testCaseStartedId);
             this.initConsoleReportIfNotExists(featureFile);
         }
-        this.logTeamCity(`##teamcity[testStarted ${this.teamcityAddName(test.title)} ${this.teamcityFlowIdAndParentFlowId(test.title, featureFile)} ]`);
+        this.logTeamCity(`##teamcity[testStarted ${this.teamcityAddName(test.title)} ${this.teamcityFlowIdAndParentFlowId(test.title, featureFile)} ${this.teamcityAddCustomField("locationHint", "test://" + featureFile)} ]`);
     }
 
     public createTestStepStartedEnvelope(test: TestCase, step: TestStep, featureFile: string, startTimestamp: { seconds: number; nanos: number }) {
@@ -290,7 +290,7 @@ class UuvPlaywrightReporterHelper {
 
     private initConsoleReportIfNotExists(featureFile: string) {
         if (!this.consoleReportMap.get(featureFile)) {
-            this.logTeamCity(`##teamcity[testSuiteStarted ${this.teamcityAddName(featureFile)} ${this.teamcityFlowId(featureFile)} ]`);
+            this.logTeamCity(`##teamcity[testSuiteStarted ${this.teamcityAddName(featureFile)} ${this.teamcityFlowId(featureFile)} ${this.teamcityAddCustomField("locationHint", "suite://" + featureFile)} ]`);
             this.consoleReportMap.set(featureFile, new ReportOfFeature());
         }
     }
@@ -592,6 +592,10 @@ class UuvPlaywrightReporterHelper {
 
     private teamcityAddDuration(result: TestResult) {
         return "duration='" + result.duration + "'";
+    }
+
+    private teamcityAddCustomField(fieldName, value) {
+        return `${fieldName}='${value}'`;
     }
 }
 
