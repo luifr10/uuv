@@ -1,5 +1,6 @@
 package com.e2etesting.uuv.intellijplugin.run.configuration
 
+import com.e2etesting.uuv.intellijplugin.UUVUtils
 import com.e2etesting.uuv.intellijplugin.run.console.UUVConsoleProperties
 import com.intellij.execution.DefaultExecutionResult
 import com.intellij.execution.ExecutionException
@@ -67,13 +68,26 @@ class UUVRunConfiguration(project: Project?, factory: ConfigurationFactory?, nam
             }
 
             private fun getCommandLineToExecute(): GeneralCommandLine {
-                // TODO Replace cmd by os
                 val envParameter = "--env={'enableTeamcityLogging':true}";
-                return if (!useLocalScript) {
-                    GeneralCommandLine("npx.cmd", "uuv", targetScript, envParameter)
-                } else {
-                    GeneralCommandLine("npm.cmd", "run", "uuv:${targetScript}", "--", envParameter)
+
+                val parameters: MutableList<String> = arrayOf(envParameter).toMutableList()
+                if(this@UUVRunConfiguration.targetTestFile != null) {
+                    parameters.add("--targetTestFile=${this@UUVRunConfiguration.targetTestFile}")
                 }
+
+                return if (!useLocalScript) {
+                    GeneralCommandLine(getNpxCommand(), "uuv", targetScript, *parameters.toTypedArray())
+                } else {
+                    GeneralCommandLine(getNpmCommand(), "run", "uuv:${targetScript}", "--", *parameters.toTypedArray())
+                }
+            }
+
+            fun getNpxCommand(): String {
+                return if(UUVUtils.isWindows(UUVUtils.getOs())) "npx.cmd" else "npx"
+            }
+
+            fun getNpmCommand(): String {
+                return if(UUVUtils.isWindows(UUVUtils.getOs())) "npm.cmd" else "npm"
             }
         }
     }

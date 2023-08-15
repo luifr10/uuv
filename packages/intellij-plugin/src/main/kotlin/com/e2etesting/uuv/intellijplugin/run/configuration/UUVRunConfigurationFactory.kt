@@ -1,4 +1,4 @@
-package com.e2etesting.uuv.intellijplugin
+package com.e2etesting.uuv.intellijplugin.run.configuration
 
 import com.intellij.execution.configurations.ConfigurationFactory
 import com.intellij.execution.configurations.ConfigurationType

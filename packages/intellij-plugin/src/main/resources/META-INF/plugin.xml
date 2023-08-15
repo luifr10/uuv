@@ -42,10 +42,24 @@
   <!-- Product and plugin compatibility requirements.
        Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
   <depends>com.intellij.modules.platform</depends>
+  <depends>gherkin</depends>
 
   <!-- Extension points defined by the plugin.
        Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
   <extensions defaultExtensionNs="com.intellij">
-    <configurationType implementation="com.e2etesting.uuv.intellijplugin.UUVRunConfigurationType"/>
+    <configurationType implementation="com.e2etesting.uuv.intellijplugin.run.configuration.UUVRunConfigurationType"/>
+    <runLineMarkerContributor implementationClass="com.e2etesting.uuv.intellijplugin.run.configuration.UUVRunLineMarkerContributor"
+                              language="Gherkin"/>
   </extensions>
+  <actions>
+    <group id="com.e2etesting.uuv.intellijplugin.action.group">
+      <action
+              id="com.e2etesting.uuv.intellijplugin.action.UUVRunAction"
+              class="com.e2etesting.uuv.intellijplugin.action.UUVRunAction"
+              text="Run UUV Tests"
+              description="Execute specified UUV Tests"
+              icon="com.e2etesting.uuv.intellijplugin.UUVIcons.Action">
+      </action>
+    </group>
+  </actions>
 </idea-plugin>

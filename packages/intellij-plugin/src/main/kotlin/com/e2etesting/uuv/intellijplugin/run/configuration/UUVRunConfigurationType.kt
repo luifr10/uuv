@@ -1,12 +1,12 @@
-package com.e2etesting.uuv.intellijplugin
+package com.e2etesting.uuv.intellijplugin.run.configuration
 
+import com.e2etesting.uuv.intellijplugin.UUVIcons
 import com.intellij.execution.configurations.ConfigurationFactory
 import com.intellij.execution.configurations.ConfigurationType
-import com.intellij.openapi.util.IconLoader
 import javax.swing.Icon
 
 class UUVRunConfigurationType : ConfigurationType {
-    private val icon: Icon = IconLoader.getIcon("META-INF/pluginRunIcon.png", UUVRunConfigurationType::class.java)
+    private val icon: Icon = UUVIcons.Action
 
     override fun getDisplayName(): String {
         return "UUV"
