@@ -1,5 +1,6 @@
-package com.e2etesting.uuv.intellijplugin
+package com.e2etesting.uuv.intellijplugin.run.configuration
 
+import com.e2etesting.uuv.intellijplugin.run.console.UUVConsoleProperties
 import com.intellij.execution.DefaultExecutionResult
 import com.intellij.execution.ExecutionException
 import com.intellij.execution.ExecutionResult
@@ -9,11 +10,9 @@ import com.intellij.execution.process.*
 import com.intellij.execution.runners.ExecutionEnvironment
 import com.intellij.execution.runners.ProgramRunner
 import com.intellij.execution.testframework.sm.SMTestRunnerConnectionUtil
-import com.intellij.execution.testframework.sm.ServiceMessageBuilder
 import com.intellij.execution.testframework.sm.runner.*
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.util.Disposer
 import io.ktor.utils.io.charsets.*
 
 
@@ -34,6 +33,12 @@ class UUVRunConfiguration(project: Project?, factory: ConfigurationFactory?, nam
             options.targetScript = targetScript
         }
 
+    var targetTestFile: String?
+        get() = options.targetTestFile
+        set(targetTestFile) {
+            options.targetTestFile = targetTestFile
+        }
+
     override fun getConfigurationEditor(): SettingsEditor<out UUVRunConfiguration?> {
         return UUVRunSettingsEditor()
     }
@@ -44,8 +49,8 @@ class UUVRunConfiguration(project: Project?, factory: ConfigurationFactory?, nam
         return object : CommandLineState(executionEnvironment) {
 
             override fun execute(executor: Executor, runner: ProgramRunner<*>): ExecutionResult {
+                val properties = UUVConsoleProperties(this@UUVRunConfiguration, "UUV", executor)
                 val processHandler: ProcessHandler = startProcess()
-                val properties = SMTRunnerConsoleProperties(this@UUVRunConfiguration, "UUV", executor)
                 val uuvConsole = SMTestRunnerConnectionUtil.createAndAttachConsole("UUV", processHandler, properties)
                 return DefaultExecutionResult(uuvConsole, processHandler)
             }
