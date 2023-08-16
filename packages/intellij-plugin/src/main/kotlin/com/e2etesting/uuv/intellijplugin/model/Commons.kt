@@ -7,4 +7,4 @@ enum class UUVTargetScript() {
 
 public val DEFAULT_TARGET_SCRIPT = UUVTargetScript.e2e
 
-public val DEFAULT_TARGET_TEST_FILE = "uuv/e2e/**/*"
+public val DEFAULT_TARGET_TEST_FILE = null

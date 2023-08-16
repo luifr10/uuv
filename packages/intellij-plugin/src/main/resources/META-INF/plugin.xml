@@ -48,8 +48,8 @@
        Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
   <extensions defaultExtensionNs="com.intellij">
     <configurationType implementation="com.e2etesting.uuv.intellijplugin.run.configuration.UUVRunConfigurationType"/>
-    <runLineMarkerContributor implementationClass="com.e2etesting.uuv.intellijplugin.run.configuration.UUVRunLineMarkerContributor"
-                              language="Gherkin"/>
+    <runLineMarkerContributor implementationClass="com.e2etesting.uuv.intellijplugin.run.configuration.UUVRunLineMarkerContributor"  language="Gherkin"/>
+    <postStartupActivity implementation="com.e2etesting.uuv.intellijplugin.listener.UUVPostStartupActivity"/>
   </extensions>
   <actions>
     <group id="com.e2etesting.uuv.intellijplugin.action.group">
