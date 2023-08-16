@@ -53,11 +53,15 @@ export async function main() {
   function extractArgs(argv: any) {
     const browser = argv.browser ? argv.browser : "chrome";
     const env = argv.env ? JSON.parse(argv.env.replace(/'/g, "\"")) : {};
+    const targetTestFile = argv.targetTestFile ? argv.targetTestFile : null;
 
     console.debug("Variables: ");
     console.debug(`  -> browser: ${browser}`);
     console.debug(`  -> env: ${JSON.stringify(env)}`);
-    return { browser, env };
+    if (targetTestFile) {
+      console.debug(`  -> targetTestFile: ${targetTestFile}`);
+    }
+    return { browser, env, targetTestFile };
   }
 
   function openCypress(argv: any): Promise<any> {
@@ -69,15 +73,20 @@ export async function main() {
   }
 
   function runE2ETests(argv: any): Promise<any> {
-    const { browser, env } = extractArgs(argv);
+    const { browser, env, targetTestFile } = extractArgs(argv);
+    const options: Partial<CypressCommandLine.CypressRunOptions> = {
+      project: PROJECT_DIR,
+      browser,
+      env
+    };
+
+    if (targetTestFile) {
+      options.spec = targetTestFile;
+    }
 
     // Running Tests
     return cypress
-      .run({
-        project: PROJECT_DIR,
-        browser,
-        env,
-      })
+      .run(options)
       .then(async (result) => {
         if (argv.generateHtmlReport) {
           console.info(chalk.blueBright("Generating Test Report..."));
