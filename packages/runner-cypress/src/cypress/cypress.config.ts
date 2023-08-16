@@ -54,12 +54,12 @@ export async function setupNodeEvents (
   });
 
   on("before:spec", (spec: any) => {
-    logTeamCity(`##teamcity[testSuiteStarted ${teamcityAddName(spec.baseName)} ${teamcityFlowId(spec.baseName)} ]`);
+    logTeamCity(`##teamcity[testSuiteStarted ${teamcityAddName(spec.baseName)} ${teamcityFlowId(spec.baseName)}  ${teamcityAddCustomField("locationHint", "test://" + spec.absolute)} ]`);
   });
 
   on("after:spec", (spec: any, results) => {
     results.tests.forEach(test => {
-      logTeamCity(`##teamcity[testStarted ${teamcityAddName(test.title[1])} ${teamcityFlowIdAndParentFlowId(test.title[1], spec.baseName)} ]`);
+      logTeamCity(`##teamcity[testStarted ${teamcityAddName(test.title[1])} ${teamcityFlowIdAndParentFlowId(test.title[1], spec.baseName)} ${teamcityAddCustomField("locationHint", "test://" + spec.absolute)} ]`);
       if (test.state === "passed") {
         // eslint-disable-next-line max-len
         logTeamCity(`##teamcity[testFinished ${teamcityAddName(test.title[1])} ${teamcityFlowIdAndParentFlowId(test.title[1], spec.baseName)} ${teamcityAddDuration(test)} ]`);
@@ -95,6 +95,10 @@ export async function setupNodeEvents (
 
   function teamcityAddDuration(testResult) {
     return "duration='" + testResult.attempts[testResult.attempts.length - 1].wallClockDuration + "'";
+  }
+
+  function teamcityAddCustomField(fieldName, value) {
+    return `${fieldName}='${value}'`;
   }
 
   // Make sure to return the config object as it might have been modified by the plugin.
