@@ -99,7 +99,7 @@ function translateFeatures(tempDir: string, configDir: string) {
     });
 }
 
-function runPlaywright(mode: "open" | "e2e", configDir: string, generateHtmlReport = false, env?: any) {
+function runPlaywright(mode: "open" | "e2e", configDir: string, generateHtmlReport = false, env?: any, targetTestFile?: string) {
     const configFile = `${configDir}/playwright.config.ts`;
     const reportType = generateHtmlReport ? GeneratedReportType.HTML : GeneratedReportType.CONSOLE;
     try {
@@ -112,12 +112,21 @@ function runPlaywright(mode: "open" | "e2e", configDir: string, generateHtmlRepo
         if (env) {
             Object.keys(env).forEach(key => process.env[key] = env[key]);
         }
-        const command = `npx playwright test --project=chromium -c ${configFile} ${mode === "open" ? "--ui" : ""}`;
+        const command = `npx playwright test --project=chromium -c ${configFile} ${mode === "open" ? "--ui" : ""} ${getTargetTestFileForPlawright(targetTestFile)}`;
         console.log(chalk.gray(`Running ${command}`));
         execSync(command, { stdio: "inherit" });
     } catch (err) {
         process.exit(-1);
     }
+}
+
+function getTargetTestFileForPlawright(targetTestFile?: string): string {
+    if (!targetTestFile) {
+        return "";
+    }
+    return targetTestFile
+        .replaceAll("uuv/e2e/", ".uuv-features-gen/uuv/e2e/")
+        .replaceAll(".feature", ".feature.spec.js");
 }
 
 async function executePreprocessor(tempDir: string, configDir: string) {
@@ -127,7 +136,7 @@ async function executePreprocessor(tempDir: string, configDir: string) {
     console.log("preprocessor executed");
 }
 
-export async function run(mode: "open" | "e2e", tempDir = "uuv/.features-gen/e2e", configDir = "uuv", generateHtmlReport = false, env?: any) {
+export async function run(mode: "open" | "e2e", tempDir = "uuv/.features-gen/e2e", configDir = "uuv", generateHtmlReport = false, env?: any, targetTestFile?: string) {
     await executePreprocessor(tempDir, configDir);
-    runPlaywright(mode, configDir, generateHtmlReport, env);
+    runPlaywright(mode, configDir, generateHtmlReport, env, targetTestFile);
 }

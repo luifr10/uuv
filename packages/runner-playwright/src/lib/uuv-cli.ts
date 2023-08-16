@@ -46,11 +46,15 @@ export async function main() {
   function extractArgs(argv: any) {
     const browser = argv.browser ? argv.browser : "chrome";
     const env = argv.env ? JSON.parse(argv.env.replace(/'/g, "\"")) : {};
+    const targetTestFile = argv.targetTestFile ? argv.targetTestFile : null;
 
     console.debug("Variables: ");
     console.debug(`  -> browser: ${browser}`);
     console.debug(`  -> env: ${JSON.stringify(env)}`);
-    return { browser, env };
+    if (targetTestFile) {
+      console.debug(`  -> targetTestFile: ${targetTestFile}`);
+    }
+    return { browser, env, targetTestFile };
   }
 
   function openPlaywright(argv: any): Promise<any> {
@@ -60,7 +64,7 @@ export async function main() {
   }
 
   function runE2ETests(argv: any): Promise<any> {
-    const { browser, env } = extractArgs(argv);
+    const { browser, env, targetTestFile } = extractArgs(argv);
 
     // TODO Manage HTML Report
     // Creating needed dirs
@@ -69,7 +73,7 @@ export async function main() {
     // }
 
     // Running Tests
-    return run( "e2e", FEATURE_GEN_DIR, PROJECT_DIR, argv.generateHtmlReport, env)
+    return run( "e2e", FEATURE_GEN_DIR, PROJECT_DIR, argv.generateHtmlReport, env, targetTestFile)
         .then(async (result) => {
           console.log(`Status ${chalk.green("success")}`);
       })
