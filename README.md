@@ -89,6 +89,11 @@ To answer the above issues and many others, our solution is to set up a coherent
 
 ![Ecosystème UUV](./packages/docs/static/img/docs/ecosystem-uuv.png)
 
+### Dependencies
+#### Add dependency to a project
+```shell
+npm install dependencyName --workspace=packages/runner-playwright
+```
 
 ## License
 
