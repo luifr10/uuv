@@ -3,10 +3,10 @@ import TabItem from '@theme/TabItem';
 
 # Add custom step definitions
 
-## Install dependency ts-loader
+## Cypress
+### Install dependencies
 
-From powershell or cmd terminal **in non-administrator mode** :
-
+From powershell or cmd terminal :
 
 <Tabs>
 <TabItem value="npm" label="Npm">
@@ -25,10 +25,7 @@ yarn add -D ts-loader
 </TabItem>
 </Tabs>
 
-## Add Typescript types
-<Tabs>
-<TabItem value="cypress" label="Cypress">
-
+### Add Typescript types
 :::warning
 This step is only necessary if you plan to add your own [step_definitions](/docs/wordings/add-custom-step-definition).
 :::
@@ -42,7 +39,7 @@ Add a new file `tsconfig.e2e.json` to include the necessary types :
     "types": [
       "cypress",
       "@testing-library/cypress",
-      "@nobelisation/uuv"
+      "@uuv/cypress"
     ]
   },
   "files": [
@@ -54,16 +51,7 @@ Add a new file `tsconfig.e2e.json` to include the necessary types :
 }
 ```
 
-</TabItem>
-<TabItem value="playwright" label="Playwright">
-
-WIP
-
-</TabItem>
-</Tabs>
-
-## Create custom step definition
-### Cypress
+### Create custom step definition
 Create new `.ts` or `.js` file in the `uuv/cucumber/step_definitions/` folder.<br/>
 Here is an example :
 ```typescript title='uuv/cucumber/step_definitions/my-custom-step-definitions.ts'
@@ -129,4 +117,63 @@ When writing your own sentences, you can use :
 ##### `uuvFoundedElement(): Cypress.Chainable<JQuery<HTMLElement>>`
 > Returns the item found when a query has been performed
 
-WIP Playwright
+## Playwright
+### Install dependencies
+
+From powershell or cmd terminal :
+
+<Tabs>
+<TabItem value="npm" label="Npm">
+
+```shell
+npm install --save-dev ts-node
+```
+
+</TabItem>
+<TabItem value="Yarn" label="Yarn">
+
+```shell
+yarn add -D ts-node
+```
+
+</TabItem>
+</Tabs>
+
+### Add Typescript types
+:::warning
+This step is only necessary if you plan to add your own [step_definitions](/docs/wordings/add-custom-step-definition).
+:::
+Add a new file `tsconfig.e2e.json` to include the necessary types :
+
+```json title='tsconfig.e2e.json'
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/app",
+    "types": [
+      "@uuv/playwright"
+    ]
+  },
+  "include": [
+    "uuv/cucumber/step_definitions/**/*.ts"
+  ]
+}
+```
+
+### Create custom step definition
+Create new `.ts` or `.js` file in the `uuv/cucumber/step_definitions/` folder.<br/>
+Here is an example :
+```typescript title='uuv/cucumber/step_definitions/my-custom-step-definitions.ts'
+import {Given, When, Then} from "@cucumber/cucumber";
+import { expect } from "@playwright/test";
+
+Given('My first custom step definition', () => {
+  const myVar = 'foo';
+});
+
+Then('My second custom step definition', (this: any) => {
+  // Your verification
+  expect(this.page.getByRole('heading', { name: 'Mon titre de page' })).toBeVisible();
+});
+```
+For more information on setting up custom step definition, see this [documentation](https://cucumber.io/docs/cucumber/step-definitions/?sbsearch=step+definition&lang=javascript)
