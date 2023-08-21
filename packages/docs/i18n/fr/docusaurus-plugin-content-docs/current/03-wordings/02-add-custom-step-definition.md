@@ -1,11 +1,12 @@
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
+
 # Ajouter vos propres phrases
+## Cypress
+### Installation des dépendances
 
-## Installation de la dépendance ts-loader
-
-Depuis powershell ou un terminal cmd **en mode non-administrateur** :
+Depuis powershell ou un terminal cmd :
 
 
 <Tabs>
@@ -25,10 +26,7 @@ yarn add -D ts-loader
 </TabItem>
 </Tabs>
 
-## Ajout des types Typescripts
-
-<Tabs>
-<TabItem value="cypress" label="Cypress">
+### Ajout des types Typescripts
 
 :::info
 Cette étape n'est nécessaire que si vous prévoyez de rajouter vos propres [step_definitions](/docs/wordings/add-custom-step-definition).
@@ -43,7 +41,7 @@ Ajouter un nouveau fichier `tsconfig.e2e.json` pour inclure les types nécessair
     "types": [
       "cypress",
       "@testing-library/cypress",
-      "@nobelisation/uuv"
+      "@uuv/cypress"
     ]
   },
   "files": [
@@ -55,14 +53,7 @@ Ajouter un nouveau fichier `tsconfig.e2e.json` pour inclure les types nécessair
 }
 ```
 
-</TabItem>
-<TabItem value="playwright" label="Playwright">
-WIP
-</TabItem>
-</Tabs>
-
-## Ajout de vos propres phrases
-### Cypress
+### Ajout de vos propres phrases
 Créer un fichier `.ts` ou `.js` dans le dossier `uuv/cucumber/step_definitions/`.<br/>
 Voici un exemple :
 ```typescript title='uuv/cucumber/step_definitions/my-custom-step-definitions.ts'
@@ -128,4 +119,64 @@ Lors de la rédaction de vos propres phrases, vous pouvez utiliser :
 ##### `uuvFoundedElement(): Cypress.Chainable<JQuery<HTMLElement>>`
 > Retourne l'élément trouvé lorsqu'une recherche a été effectuée 
 
-WIP Playwright
+## Playwright
+### Installation des dépendances
+
+Depuis powershell ou un terminal cmd :
+
+<Tabs>
+<TabItem value="npm" label="Npm">
+
+```shell
+npm install --save-dev ts-node
+```
+
+</TabItem>
+<TabItem value="Yarn" label="Yarn">
+
+```shell
+yarn add -D ts-node
+```
+
+</TabItem>
+</Tabs>
+
+### Ajout des types Typescripts
+
+:::info
+Cette étape n'est nécessaire que si vous prévoyez de rajouter vos propres [step_definitions](/docs/wordings/add-custom-step-definition).
+:::
+Ajouter un nouveau fichier `tsconfig.e2e.json` pour inclure les types nécessaires :
+
+```json title='tsconfig.e2e.json'
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/app",
+    "types": [
+      "@uuv/playwright"
+    ]
+  },
+  "include": [
+    "uuv/cucumber/step_definitions/**/*.ts"
+  ]
+}
+```
+
+### Ajout de vos propres phrases
+Créer un fichier `.ts` ou `.js` dans le dossier `uuv/cucumber/step_definitions/`.<br/>
+Voici un exemple :
+```typescript title='uuv/cucumber/step_definitions/my-custom-step-definitions.ts'
+import {Given, When, Then} from "@cucumber/cucumber";
+import { expect } from "@playwright/test";
+
+Given('My first custom step definition', () => {
+    const myVar = 'foo';
+});
+
+Then('My second custom step definition', (this: any) => {
+    // Your verification
+    expect(this.page.getByRole('heading', { name: 'Mon titre de page' })).toBeVisible();
+});
+```
+Pour plus d'informations sur la mise en place de phrases cucumber, consulter cette [documentation](https://cucumber.io/docs/cucumber/step-definitions/?sbsearch=step+definition&lang=javascript)
