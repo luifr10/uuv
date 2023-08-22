@@ -560,12 +560,24 @@ class UuvPlaywrightReporterHelper {
     }
 
     private getResultIcon(testCase: TestCase): string {
-        return !testCase.ok() ? chalk.redBright("\u166D") : chalk.green("\u2713");
+        if (testCase.expectedStatus === "skipped" as TestStatus) {
+            return chalk.yellowBright("\u2192");
+        } else if (testCase.ok()) {
+            return chalk.green("\u2713");
+        } else {
+            return chalk.redBright("\u166D");
+        }
     }
 
     private getTestCaseTitle(testCase: TestCase, result: TestResult): string {
         const message = `${testCase.title}  (${result.duration}ms)`;
-        return !testCase.ok() ? chalk.redBright(message) : chalk.gray(message);
+        if (testCase.expectedStatus === "skipped" as TestStatus) {
+            return chalk.yellowBright(message);
+        } else if (testCase.ok()) {
+            return chalk.gray(message);
+        } else {
+            return chalk.redBright(message);
+        }
     }
 
     public logTeamCity(line) {
