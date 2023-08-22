@@ -166,7 +166,6 @@ class UuvPlaywrightReporterHelper {
                             }
                         });
                         this.envelopes.push(newTestStepSkippedEnvelope);
-                        this.consoleReportMap.get(featureFile)?.increment("skipped");
                     });
             }
         }
@@ -226,7 +225,6 @@ class UuvPlaywrightReporterHelper {
             });
             currentQuery.update(newTestCaseFinishedEnvelope);
             this.envelopes.push(newTestCaseFinishedEnvelope);
-
             this.updateConsoleReport(featureFile, result);
             this.addResultErrors(result, test, featureFile);
             this.createTestCaseErrorAttachmentsEnvelope(testCaseStartedId, result);
