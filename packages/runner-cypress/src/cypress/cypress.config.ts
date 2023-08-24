@@ -57,8 +57,8 @@ export async function setupNodeEvents (
     logTeamCity(`##teamcity[testSuiteStarted ${teamcityAddName(spec.baseName)} ${teamcityFlowId(spec.baseName)}  ${teamcityAddCustomField("locationHint", "test://" + spec.absolute)} ]`);
   });
 
-  on("after:spec", (spec: any, results) => {
-    results.tests.forEach(test => {
+  on("after:spec", (spec: any, results: CypressCommandLine.RunResult) => {
+    results?.tests?.forEach(test => {
       logTeamCity(`##teamcity[testStarted ${teamcityAddName(test.title[1])} ${teamcityFlowIdAndParentFlowId(test.title[1], spec.baseName)} ${teamcityAddCustomField("locationHint", "test://" + spec.absolute)} ]`);
       if (test.state === "passed") {
         // eslint-disable-next-line max-len
