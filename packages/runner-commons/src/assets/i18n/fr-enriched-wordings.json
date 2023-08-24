@@ -344,7 +344,7 @@
   "enriched": [
     {
       "key": "key.when.withinElement.roleAndName",
-      "description": "Sélectionne l'élément ayant le rôle $roleId et le [nom accessible](https://russmaxdesign.github.io/html-elements-names/) sont spécifiés",
+      "description": "Sélectionne l'élément ayant le rôle $roleId et le [nom accessible](https://russmaxdesign.github.io/html-elements-names/) sont spécifiés <br />⚠ pensez à déselectionner l'élement avec <b>[je reinitialise le contexte](#je-reinitialise-le-contexte)</b> si vous n'agissez plus dessus",
       "wording": "je vais à l'intérieur de $roleName nommé(e) {string}"
     },
     {

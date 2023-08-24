@@ -1,207 +1,207 @@
 [
-  {
-    "key": "key.when.click",
-    "description": "Triggers a click on the selected element",
-    "wording": "I click"
-  },
-  {
-    "key": "key.when.headers.forUriAndMethod",
-    "description": "Sets one or more headers to the indicated http request and only for the Http method (GET / POST / etc...) passed as a argument.<i> If you use Playwright as execution engine, <b>method</b> isn't used.</i>",
-    "wording": "I set header(s) for uri {string} and method {string}"
-  },
-  {
-    "key": "key.when.headers.forUri",
-    "description": "Sets one or more headers to the indicated http request",
-    "wording": "I set header(s) for uri {string}"
-  },
-  {
-    "key": "key.when.resetContext",
-    "description": "Deletes selected element and timeout",
-    "wording": "I reset context"
-  },
-  {
-    "key": "key.when.timeout",
-    "description": "Sets the timeout value (in millisecond) for finding element in the DOM",
-    "wording": "I set timeout with value {int}"
-  },
-  {
-    "key": "key.when.type",
-    "description": "Writes the sentence passed as a parameter (useful for example to fill in a form field)",
-    "wording": "I type the sentence {string}"
-  },
-  {
-    "key": "key.when.keyboard.press",
-    "description": "Press specified key: <table><thead><tr><th>Key</th><th>Description</th></tr></thead><tbody><tr><td>{tab}</td><td>Tabulation</td></tr><tr><td>{reverseTab}</td><td>Reverse tabulation</td></tr><tr><td>{down}</td><td>Arrow Down</td></tr><tr><td>{right}</td><td>Arrow Right</td></tr><tr><td>{left}</td><td>Arrow Left</td></tr><tr><td>{up}</td><td>Arrow Up</td></tr></tbody></table>",
-    "wording": "I press {string}"
-  },
-  {
-    "key": "key.when.keyboard.multiplePress",
-    "description": "Press specified key multiple times using | as: num|{key}",
-    "wording": "I press {int} times on {string}"
-  },
-  {
-    "key": "key.when.visit",
-    "description": "Navigate to the Uri passed as a argument (full url consisting of the BASE_URL + Uri) or navigate to Url if begin with http:// or https://",
-    "wording": "I visit path {string}"
-  },
-  {
-    "key": "key.when.withinElement.ariaLabel",
-    "description": "Selects the element whose aria-label is specified",
-    "wording": "Within the element with aria-label {string}"
-  },
-  {
-    "key": "key.when.withinElement.selector",
-    "description": "Selects the element whose selector is specified",
-    "wording": "Within the element with selector {string}"
-  },
-  {
-    "key": "key.when.withinElement.roleAndName",
-    "description": "Selects the element whose [accessible role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types) and accessible [name](https://russmaxdesign.github.io/html-elements-names/) are specified",
-    "wording": "Within the element with role {string} and name {string}"
-  },
-  {
-    "key": "key.when.withinElement.testId",
-    "description": "Selects the element whose data-testId attribute is specified",
-    "wording": "Within the element with testId {string}"
-  },
-  {
-    "key": "key.when.mock.withBody",
-    "description": "Mock a named API response with body. <i>If you use Playwright as runtime engine, <b>request</b> and <b>named</b> are unused.</i>",
-    "wording": "I mock a request {} on url {string} named {string} with content {}"
-  },
-  {
-    "key": "key.when.mock.withFixture",
-    "description": "Mock a named API response with file's extension .json, .js, .coffee, .html, .txt, .csv, .png, .jpg, .jpeg, .gif, .tif, .tiff, .zip",
-    "wording": "I mock a request {} on url {string} named {string} with fixture {}"
-  },
-  {
-    "key": "key.when.mock.withStatusCode",
-    "description": "Mock a named API response with status code",
-    "wording": "I mock a request {} on url {string} named {string} with status code {int}"
-  },
-  {
-    "key": "key.given.viewport.preset",
-    "description": "Sets the viewport dimensions with one of the presets defined by your runtime engine as Cypress: [Link](https://docs.cypress.io/api/commands/viewport#Arguments) or Playwright: [Link](https://github.com/microsoft/playwright/blob/main/packages/playwright-core/src/server/deviceDescriptorsSource.json)",
-    "wording": "I set viewport to preset {string}"
-  },
-  {
-    "key": "key.given.viewport.withWidthAndHeight",
-    "description": "Sets the viewport dimensions to the specified width and length",
-    "wording": "I set viewport with width {int} and height {int}"
-  },
-  {
-    "key": "key.then.attributes.withValues",
-    "description": "Checks Html attributes of the selected element",
-    "wording": "I should see these attributes with values"
-  },
-  {
-    "key": "key.then.element.withAriaLabelAndContent",
-    "description": "Checks that an Html element exists with the specified aria-label attribute and content",
-    "wording": "I should see an element with aria-label {string} and content {string}"
-  },
-  {
-    "key": "key.then.element.withAriaLabel",
-    "description": "Checks that an Html element exists with the specified aria-label attribute",
-    "wording": "I should see an element with aria-label {string}"
-  },
-  {
-    "key": "key.then.element.withContent",
-    "description": "Checks that an Html element exists with the specified content",
-    "wording": "I should see an element with content {string}"
-  },
-  {
-    "key": "key.then.element.withSelector",
-    "description": "Checks that an Html element exists with the specified selector",
-    "wording": "I should see an element with selector {string}"
-  },
-  {
-    "key": "key.then.element.withRoleAndNameAndContentDisabled",
-    "description": "Checks that an Html element exists with the specified [accessible role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types), [name](https://russmaxdesign.github.io/html-elements-names/) and content, and with the disabled attribute set to true",
-    "wording": "I should see an element with role {string} and name {string} and content {string} disabled"
-  },
-  {
-    "key": "key.then.element.withRoleAndNameAndContentEnabled",
-    "description": "Checks that an Html element exists with the specified [accessible role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types), [name](https://russmaxdesign.github.io/html-elements-names/) and content, and with the disabled attribute set to false",
-    "wording": "I should see an element with role {string} and name {string} and content {string} not disabled"
-  },
-  {
-    "key": "key.then.element.withRoleAndNameAndContent",
-    "description": "Checks that an Html element exists with the specified [accessible role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types), [name](https://russmaxdesign.github.io/html-elements-names/) and content",
-    "wording": "I should see an element with role {string} and name {string} and content {string}"
-  },
-  {
-    "key": "key.then.element.withRoleAndName",
-    "description": "Checks that an Html element exists with the specified [accessible role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types) and [name](https://russmaxdesign.github.io/html-elements-names/)",
-    "wording": "I should see an element with role {string} and name {string}"
-  },
-  {
-    "key": "key.then.element.withTestId",
-    "description": "Checks that an Html element exists with the specified data-testid attribute",
-    "wording": "I should see an element with testId {string}"
-  },
-  {
-    "key": "key.then.list.withNameAndContent",
-    "description": "Checks that there is a list with the specified [name](https://russmaxdesign.github.io/html-elements-names/) and content",
-    "wording": "I should see elements of the list with name {string}"
-  },
-  {
-    "key": "key.then.element.not.withContent",
-    "description": "Checks that an Html element does not exists with the specified content",
-    "wording": "I should not see an element with content {string}"
-  },
-  {
-    "key": "key.then.element.not.withTestId",
-    "description": "Checks that an Html element does not exists with the specified data-testid attribute",
-    "wording": "I should not see an element with testId {string}"
-  },
-  {
-    "key": "key.then.element.not.withRoleAndName",
-    "description": "Checks that an Html element does not exists with the specified [accessible role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types) and [name](https://russmaxdesign.github.io/html-elements-names/)",
-    "wording": "I should not see an element with role {string} and name {string}"
-  },
-  {
-    "key": "key.then.element.not.withAriaLabel",
-    "description": "Checks that an Html element does not exists with the specified aria-label attribute",
-    "wording": "I should not see an element with aria-label {string}"
-  },
-  {
-    "key": "key.then.wait.mock",
-    "description": "Wait that a named mock has been consumed until timeout",
-    "wording": "I should consume a mock named {string}"
-  },
-  {
-    "key": "key.then.wait.milliSeconds",
-    "description": "Wait milliseconds. <b>Warning:</b> use this sentence <b>in production</b> can make your <b>test flaky</b>.",
-    "wording": "I wait {int} ms"
-  },
-  {
-    "key": "key.then.a11y.check.default",
-    "description": "Check that the current page have no [accessibility issue](https://github.com/dequelabs/axe-core/blob/develop/doc/rule-descriptions.md)",
-    "wording": "I should not have any accessibility issue"
-  },
-  {
-    "key": "key.then.a11y.check.withFixtureContextAndFixtureOption",
-    "description": "Check that the current page have no accessibility issue [with an option](https://github.com/dequelabs/axe-core/blob/HEAD/doc/API.md#options-parameter) on the specific [context](https://github.com/dequelabs/axe-core/blob/HEAD/doc/API.md#context-parameter)",
-    "wording": "I should not have any accessibility issue with context json fixture {} and option json fixture {}"
-  },
-  {
-    "key": "key.then.a11y.check.withFixtureOption",
-    "description": "Check that the current page have no accessibility issue [with an option](https://github.com/dequelabs/axe-core/blob/HEAD/doc/API.md#options-parameter)",
-    "wording": "I should not have any accessibility issue with option json fixture {}"
-  },
-  {
-    "key": "key.then.a11y.check.onlyCritical",
-    "description": "Check that the current page have not critical accessibility issue",
-    "wording": "I should not have any critical accessibility issue"
-  },
-  {
-    "key": "key.then.a11y.check.withImpacts",
-    "description": "Check that the current page have not accessibility issue with one or more impacts in: 'minor','moderate','serious','critical'",
-    "wording": "I should not have any accessibility issue with impact(s) {}"
-  },
-  {
-    "key": "key.then.a11y.check.withTags",
-    "description": "Check that the current page have not accessibility issue [with one or more Accessibility Standards] (https://github.com/dequelabs/axe-core/blob/HEAD/doc/API.md#axe-core-tags)",
-    "wording": "I should not have any accessibility issue with accessibility standard(s) {}"
-  }
+ {
+ "key": "key.when.click",
+ "description": "Triggers a click on the selected element",
+ "wording": "I click"
+ },
+ {
+ "key": "key.when.headers.forUriAndMethod",
+ "description": "Sets one or more headers to the indicated http request and only for the Http method (GET / POST / etc...) passed as a argument.<i> If you use Playwright as execution engine, <b>method</b> isn't used.</i>",
+ "wording": "I set header(s) for uri {string} and method {string}"
+ },
+ {
+ "key": "key.when.headers.forUri",
+ "description": "Sets one or more headers to the indicated http request",
+ "wording": "I set header(s) for uri {string}"
+ },
+ {
+ "key": "key.when.resetContext",
+ "description": "Deletes selected element and timeout",
+ "wording": "I reset context"
+ },
+ {
+ "key": "key.when.timeout",
+ "description": "Sets the timeout value (in millisecond) for finding element in the DOM <br />⚠ remember to deselect the element with <b>[I reset context](#i-reset-context)</b> if you're no longer acting on it",
+ "wording": "I set timeout with value {int}"
+ },
+ {
+ "key": "key.when.type",
+ "description": "Writes the sentence passed as a parameter (useful for example to fill in a form field)",
+ "wording": "I type the sentence {string}"
+ },
+ {
+ "key": "key.when.keyboard.press",
+ "description": "Press specified key: <table><thead><tr><th>Key</th><th>Description</th></tr></thead><tbody><tr><td>{tab}</td><td>Tabulation</td></tr><tr><td>{reverseTab}</td><td>Reverse tabulation</td></tr><tr><td>{down}</td><td>Arrow Down</td></tr><tr><td>{right}</td><td>Arrow Right</td></tr><tr><td>{left}</td><td>Arrow Left</td></tr><tr><td>{up}</td><td>Arrow Up</td></tr></tbody></table>",
+ "wording": "I press {string}"
+ },
+ {
+  "key": "key.when.keyboard.multiplePress",
+  "description": "Press specified key multiple times using | as: num|{key}",
+  "wording": "I press {int} times on {string}"
+ },
+ {
+ "key": "key.when.visit",
+ "description": "Navigate to the Uri passed as a argument (full url consisting of the BASE_URL + Uri) or navigate to Url if begin with http:// or https://",
+ "wording": "I visit path {string}"
+ },
+ {
+ "key": "key.when.withinElement.ariaLabel",
+ "description": "Selects the element whose aria-label is specified <br />⚠ remember to deselect the element with <b>[I reset context](#i-reset-context)</b> if you're no longer acting on it",
+ "wording": "Within the element with aria-label {string}"
+ },
+ {
+ "key": "key.when.withinElement.selector",
+ "description": "Selects the element whose selector is specified <br />⚠ remember to deselect the element with <b>[I reset context](#i-reset-context)</b> if you're no longer acting on it",
+ "wording": "Within the element with selector {string}"
+ },
+ {
+ "key": "key.when.withinElement.roleAndName",
+ "description": "Selects the element whose [accessible role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types and accessible [name](https://russmaxdesign.github.io/html-elements-names/) are specified <br />⚠ remember to deselect the element with <b>[I reset context](#i-reset-context)</b> if you're no longer acting on it",
+ "wording": "Within the element with role {string} and name {string}"
+ },
+ {
+ "key": "key.when.withinElement.testId",
+ "description": "Selects the element whose data-testId attribute is specified <br />⚠ remember to deselect the element with <b>[I reset context](#i-reset-context)</b> if you're no longer acting on it",
+ "wording": "Within the element with testId {string}"
+ },
+ {
+ "key": "key.when.mock.withBody",
+ "description": "Mock a named API response with body. <i>If you use Playwright as runtime engine, <b>request</b> and <b>named</b> are unused.</i>",
+ "wording": "I mock a request {} on url {string} named {string} with content {}"
+ },
+ {
+ "key": "key.when.mock.withFixture",
+ "description": "Mock a named API response with file's extension .json, .js, .coffee, .html, .txt, .csv, .png, .jpg, .jpeg, .gif, .tif, .tiff, .zip",
+ "wording": "I mock a request {} on url {string} named {string} with fixture {}"
+ },
+ {
+ "key": "key.when.mock.withStatusCode",
+ "description": "Mock a named API response with status code",
+ "wording": "I mock a request {} on url {string} named {string} with status code {int}"
+ },
+ {
+ "key": "key.given.viewport.preset",
+ "description": "Sets the viewport dimensions with one of the presets defined by your runtime engine as Cypress: [Link](https://docs.cypress.io/api/commands/viewport#Arguments) or Playwright: [Link](https://github.com/microsoft/playwright/blob/main/packages/playwright-core/src/server/deviceDescriptorsSource.json)",
+ "wording": "I set viewport to preset {string}"
+ },
+ {
+ "key": "key.given.viewport.withWidthAndHeight",
+ "description": "Sets the viewport dimensions to the specified width and length",
+ "wording": "I set viewport with width {int} and height {int}"
+ },
+ {
+ "key": "key.then.attributes.withValues",
+ "description": "Checks Html attributes of the selected element",
+ "wording": "I should see these attributes with values"
+ },
+ {
+ "key": "key.then.element.withAriaLabelAndContent",
+ "description": "Checks that an Html element exists with the specified aria-label attribute and content",
+ "wording": "I should see an element with aria-label {string} and content {string}"
+ },
+ {
+ "key": "key.then.element.withAriaLabel",
+ "description": "Checks that an Html element exists with the specified aria-label attribute",
+ "wording": "I should see an element with aria-label {string}"
+ },
+ {
+ "key": "key.then.element.withContent",
+ "description": "Checks that an Html element exists with the specified content",
+ "wording": "I should see an element with content {string}"
+ },
+ {
+ "key": "key.then.element.withSelector",
+ "description": "Checks that an Html element exists with the specified selector",
+ "wording": "I should see an element with selector {string}"
+ },
+ {
+ "key": "key.then.element.withRoleAndNameAndContentDisabled",
+ "description": "Checks that an Html element exists with the specified [accessible role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types), [name](https://russmaxdesign.github.io/html-elements-names/) and content, and with the disabled attribute set to true",
+ "wording": "I should see an element with role {string} and name {string} and content {string} disabled"
+ },
+ {
+ "key": "key.then.element.withRoleAndNameAndContentEnabled",
+ "description": "Checks that an Html element exists with the specified [accessible role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types), [name](https://russmaxdesign.github.io/html-elements-names/) and content, and with the disabled attribute set to false",
+ "wording": "I should see an element with role {string} and name {string} and content {string} not disabled"
+ },
+ {
+ "key": "key.then.element.withRoleAndNameAndContent",
+ "description": "Checks that an Html element exists with the specified [accessible role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types), [name](https://russmaxdesign.github.io/html-elements-names/) and content",
+ "wording": "I should see an element with role {string} and name {string} and content {string}"
+ },
+ {
+ "key": "key.then.element.withRoleAndName",
+ "description": "Checks that an Html element exists with the specified [accessible role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types) and [name](https://russmaxdesign.github.io/html-elements-names/)",
+ "wording": "I should see an element with role {string} and name {string}"
+ },
+ {
+ "key": "key.then.element.withTestId",
+ "description": "Checks that an Html element exists with the specified data-testid attribute",
+ "wording": "I should see an element with testId {string}"
+ },
+ {
+ "key": "key.then.list.withNameAndContent",
+ "description": "Checks that there is a list with the specified [name](https://russmaxdesign.github.io/html-elements-names/) and content",
+ "wording": "I should see elements of the list with name {string}"
+ },
+ {
+ "key": "key.then.element.not.withContent",
+ "description": "Checks that an Html element does not exists with the specified content",
+ "wording": "I should not see an element with content {string}"
+ },
+ {
+ "key": "key.then.element.not.withTestId",
+ "description": "Checks that an Html element does not exists with the specified data-testid attribute",
+ "wording": "I should not see an element with testId {string}"
+ },
+ {
+ "key": "key.then.element.not.withRoleAndName",
+ "description": "Checks that an Html element does not exists with the specified [accessible role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types) and [name](https://russmaxdesign.github.io/html-elements-names/)",
+ "wording": "I should not see an element with role {string} and name {string}"
+ },
+ {
+ "key": "key.then.element.not.withAriaLabel",
+ "description": "Checks that an Html element does not exists with the specified aria-label attribute",
+ "wording": "I should not see an element with aria-label {string}"
+ },
+ {
+ "key": "key.then.wait.mock",
+ "description": "Wait that a named mock has been consumed until timeout",
+ "wording": "I should consume a mock named {string}"
+ },
+ {
+ "key": "key.then.wait.milliSeconds",
+ "description": "Wait milliseconds. <b>Warning:</b> use this sentence <b>in production</b> can make your <b>test flaky</b>.",
+ "wording": "I wait {int} ms"
+ },
+ {
+ "key": "key.then.a11y.check.default",
+ "description": "Check that the current page have no [accessibility issue](https://github.com/dequelabs/axe-core/blob/develop/doc/rule-descriptions.md)",
+ "wording": "I should not have any accessibility issue"
+ },
+ {
+ "key": "key.then.a11y.check.withFixtureContextAndFixtureOption",
+ "description": "Check that the current page have no accessibility issue [with an option](https://github.com/dequelabs/axe-core/blob/HEAD/doc/API.md#options-parameter) on the specific [context](https://github.com/dequelabs/axe-core/blob/HEAD/doc/API.md#context-parameter)",
+ "wording": "I should not have any accessibility issue with context json fixture {} and option json fixture {}"
+ },
+ {
+ "key": "key.then.a11y.check.withFixtureOption",
+ "description": "Check that the current page have no accessibility issue [with an option](https://github.com/dequelabs/axe-core/blob/HEAD/doc/API.md#options-parameter)",
+ "wording": "I should not have any accessibility issue with option json fixture {}"
+ },
+ {
+ "key": "key.then.a11y.check.onlyCritical",
+ "description": "Check that the current page have not critical accessibility issue",
+ "wording": "I should not have any critical accessibility issue"
+ },
+ {
+ "key": "key.then.a11y.check.withImpacts",
+ "description": "Check that the current page have not accessibility issue with one or more impacts in: 'minor','moderate','serious','critical'",
+ "wording": "I should not have any accessibility issue with {} impact(s)"
+ },
+ {
+ "key": "key.then.a11y.check.withTags",
+ "description": "Check that the current page have not accessibility issue [with one or more Accessibility Standards](https://github.com/dequelabs/axe-core/blob/HEAD/doc/API.md#axe-core-tags)",
+ "wording": "I should not have any accessibility issue with accessibility standard(s) {}"
+ }
 ]
