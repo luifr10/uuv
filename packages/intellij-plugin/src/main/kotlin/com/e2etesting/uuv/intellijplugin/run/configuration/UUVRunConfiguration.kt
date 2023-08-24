@@ -78,7 +78,7 @@ class UUVRunConfiguration(project: Project?, factory: ConfigurationFactory?, nam
                 return if (!useLocalScript) {
                     GeneralCommandLine(getNpxCommand(), "uuv", targetScript, *parameters.toTypedArray())
                 } else {
-                    GeneralCommandLine(getNpmCommand(), "run", "uuv:${targetScript}", "--", *parameters.toTypedArray())
+                    GeneralCommandLine(getNpmCommand(), "run", "uuv", "${targetScript}", "--", *parameters.toTypedArray())
                 }
             }
 
