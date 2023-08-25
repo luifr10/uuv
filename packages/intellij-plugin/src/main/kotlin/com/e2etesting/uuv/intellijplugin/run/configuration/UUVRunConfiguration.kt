@@ -22,6 +22,12 @@ class UUVRunConfiguration(project: Project?, factory: ConfigurationFactory?, nam
         return super.getOptions() as UUVRunConfigurationOptions
     }
 
+    var projectHomeDir: String?
+        get() = options.projectHomeDir
+        set(projectHomeDir) {
+            options.projectHomeDir = projectHomeDir;
+        }
+
     var useLocalScript: Boolean
         get() = options.useLocalScript
         set(useLocalScript) {
@@ -60,7 +66,11 @@ class UUVRunConfiguration(project: Project?, factory: ConfigurationFactory?, nam
             override fun startProcess(): ProcessHandler {
                 val commandLine = getCommandLineToExecute()
                         .withEnvironment("PATH", System.getenv("PATH"))
-                        .withWorkDirectory(executionEnvironment.project.basePath)
+                        .withWorkDirectory(
+                                if(this@UUVRunConfiguration.projectHomeDir != null)
+                                    this@UUVRunConfiguration.projectHomeDir
+                                else executionEnvironment.project.basePath
+                        )
                         .withCharset(Charset.forName("UTF-8"))
                 val processHandler = ProcessHandlerFactory.getInstance().createColoredProcessHandler(commandLine)
                 ProcessTerminatedListener.attach(processHandler)

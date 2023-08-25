@@ -43,6 +43,7 @@ object UUVUtils {
         var runnerAndConfigurationSetting = getRunnerAndConfigurationSettingsFromName(project, runConfigurationName)
         if(runnerAndConfigurationSetting == null) {
             runnerAndConfigurationSetting = RunManager.getInstance(project).createConfiguration(runConfigurationName, UUVRunConfigurationType::class.java)
+            (runnerAndConfigurationSetting.configuration as UUVRunConfiguration).projectHomeDir = project.basePath
             (runnerAndConfigurationSetting.configuration as UUVRunConfiguration).targetScript = targetScript.name
             RunManager.getInstance(project).addConfiguration(runnerAndConfigurationSetting)
         }

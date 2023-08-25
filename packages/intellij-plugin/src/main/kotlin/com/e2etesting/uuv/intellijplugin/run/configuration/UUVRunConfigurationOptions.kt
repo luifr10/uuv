@@ -6,9 +6,16 @@ import com.intellij.execution.configurations.RunConfigurationOptions
 import com.intellij.openapi.components.StoredProperty
 
 class UUVRunConfigurationOptions : RunConfigurationOptions() {
+    private val projectHomeDirProperty: StoredProperty<String?> = string(null).provideDelegate(this, "projectHomeDir")
     private val useLocalScriptProperty: StoredProperty<Boolean> = property(false).provideDelegate(this, "useLocalScript")
     private val targetScriptProperty: StoredProperty<String?> = string(DEFAULT_TARGET_SCRIPT.name).provideDelegate(this, "targetScript")
     private val targetTestFileProperty: StoredProperty<String?> = string(DEFAULT_TARGET_TEST_FILE).provideDelegate(this, "targetTestFile")
+
+    var projectHomeDir: String?
+        get() = projectHomeDirProperty.getValue(this)
+        set(projectHomeDir) {
+            projectHomeDirProperty.setValue(this, projectHomeDir)
+        }
 
     var useLocalScript: Boolean
         get() = useLocalScriptProperty.getValue(this)
