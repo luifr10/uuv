@@ -1,5 +1,6 @@
 package com.e2etesting.uuv.intellijplugin.run.configuration
 
+import com.e2etesting.uuv.intellijplugin.message.UiMessage
 import com.intellij.execution.configurations.ConfigurationFactory
 import com.intellij.execution.configurations.ConfigurationType
 import com.intellij.execution.configurations.RunConfiguration
@@ -12,7 +13,7 @@ class UUVRunConfigurationFactory(type: ConfigurationType?) : ConfigurationFactor
     }
 
     override fun createTemplateConfiguration(project: Project): RunConfiguration {
-        return UUVRunConfiguration(project, this, "UUV E2E")
+        return UUVRunConfiguration(project, this, UiMessage.message("runconfiguration.name"))
     }
 
     override fun getOptionsClass(): Class<out BaseState?> {

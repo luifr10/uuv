@@ -1,6 +1,7 @@
 package com.e2etesting.uuv.intellijplugin.run.configuration
 
 import com.e2etesting.uuv.intellijplugin.action.UUVRunAction
+import com.e2etesting.uuv.intellijplugin.message.UiMessage
 import com.intellij.execution.TestStateStorage
 import com.intellij.execution.lineMarker.RunLineMarkerContributor
 import com.intellij.psi.PsiElement
@@ -37,6 +38,6 @@ class UUVRunLineMarkerContributor: RunLineMarkerContributor() {
     private fun getInfo(state: TestStateStorage.Record?, element: PsiElement)
             = Info(
                 getTestStateIcon(state, false),
-                arrayOf(UUVRunAction("Run UUV Tests", element.containingFile.virtualFile.canonicalPath))
-            ) { "Run UUV Tests" }
+                arrayOf(UUVRunAction(UiMessage.message("runconfiguration.action.run.label"), element.containingFile.virtualFile.canonicalPath))
+            ) { UiMessage.message("runconfiguration.action.run.label") }
 }

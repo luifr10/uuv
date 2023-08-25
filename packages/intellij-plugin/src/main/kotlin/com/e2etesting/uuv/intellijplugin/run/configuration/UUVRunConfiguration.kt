@@ -1,6 +1,8 @@
 package com.e2etesting.uuv.intellijplugin.run.configuration
 
 import com.e2etesting.uuv.intellijplugin.UUVUtils
+import com.e2etesting.uuv.intellijplugin.message.TechMessage
+import com.e2etesting.uuv.intellijplugin.message.UiMessage
 import com.e2etesting.uuv.intellijplugin.run.console.UUVConsoleProperties
 import com.intellij.execution.DefaultExecutionResult
 import com.intellij.execution.ExecutionException
@@ -56,49 +58,47 @@ class UUVRunConfiguration(project: Project?, factory: ConfigurationFactory?, nam
         return object : CommandLineState(executionEnvironment) {
 
             override fun execute(executor: Executor, runner: ProgramRunner<*>): ExecutionResult {
-                val properties = UUVConsoleProperties(this@UUVRunConfiguration, "UUV", executor)
+                val properties = UUVConsoleProperties(this@UUVRunConfiguration, UiMessage.message("runconfiguration.framework.name"), executor)
                 val processHandler: ProcessHandler = startProcess()
-                val uuvConsole = SMTestRunnerConnectionUtil.createAndAttachConsole("UUV", processHandler, properties)
+                val uuvConsole = SMTestRunnerConnectionUtil.createAndAttachConsole(UiMessage.message("runconfiguration.framework.name"), processHandler, properties)
                 return DefaultExecutionResult(uuvConsole, processHandler)
             }
 
             @Throws(ExecutionException::class)
             override fun startProcess(): ProcessHandler {
                 val commandLine = getCommandLineToExecute()
-                        .withEnvironment("PATH", System.getenv("PATH"))
+                        .withEnvironment(TechMessage.message("system.env.path"), System.getenv(TechMessage.message("system.env.path")))
                         .withWorkDirectory(
                                 if(this@UUVRunConfiguration.projectHomeDir != null)
                                     this@UUVRunConfiguration.projectHomeDir
                                 else executionEnvironment.project.basePath
                         )
-                        .withCharset(Charset.forName("UTF-8"))
+                        .withCharset(Charset.forName(TechMessage.message("charset")))
                 val processHandler = ProcessHandlerFactory.getInstance().createColoredProcessHandler(commandLine)
                 ProcessTerminatedListener.attach(processHandler)
                 return processHandler
             }
 
             private fun getCommandLineToExecute(): GeneralCommandLine {
-                val envParameter = "--env={'enableTeamcityLogging':true}";
+                val envParameter = TechMessage.message("cmd.parameter.teamcity.enable")
 
                 val parameters: MutableList<String> = arrayOf(envParameter).toMutableList()
                 if(this@UUVRunConfiguration.targetTestFile != null) {
-                    parameters.add("--targetTestFile=${this@UUVRunConfiguration.targetTestFile}")
+                    parameters.add(TechMessage.message("cmd.parameter.targettestfile",
+                        this@UUVRunConfiguration.targetTestFile!!
+                    ))
                 }
 
                 return if (!useLocalScript) {
-                    GeneralCommandLine(getNpxCommand(), "uuv", targetScript, *parameters.toTypedArray())
+                    GeneralCommandLine(getNpxCommand(), TechMessage.message("cmd.executor.run.uuv"), targetScript, *parameters.toTypedArray())
                 } else {
-                    GeneralCommandLine(getNpmCommand(), "run", "uuv", "${targetScript}", "--", *parameters.toTypedArray())
+                    GeneralCommandLine(getNpmCommand(), TechMessage.message("cmd.executor.run"), TechMessage.message("cmd.executor.run.uuv"), "${targetScript}", TechMessage.message("cmd.executor.passvariable"), *parameters.toTypedArray())
                 }
             }
 
-            fun getNpxCommand(): String {
-                return if(UUVUtils.isWindows(UUVUtils.getOs())) "npx.cmd" else "npx"
-            }
+            fun getNpxCommand(): String = if(UUVUtils.isWindows(UUVUtils.getOs())) TechMessage.message("cmd.executor.npx.win") else TechMessage.message("cmd.executor.npx.unix")
 
-            fun getNpmCommand(): String {
-                return if(UUVUtils.isWindows(UUVUtils.getOs())) "npm.cmd" else "npm"
-            }
+            fun getNpmCommand(): String = if(UUVUtils.isWindows(UUVUtils.getOs())) TechMessage.message("cmd.executor.npm.win") else TechMessage.message("cmd.executor.npm.unix")
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.e2etesting.uuv.intellijplugin.run.configuration
 
+import com.e2etesting.uuv.intellijplugin.message.UiMessage
 import com.e2etesting.uuv.intellijplugin.model.UUVTargetScript
 import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.options.SettingsEditor
@@ -55,31 +56,31 @@ class UUVRunSettingsEditor : SettingsEditor<UUVRunConfiguration>() {
         val fileChooser = FileChooserDescriptorFactory.createSingleFolderDescriptor()
         val textFieldWithBrowseButton = TextFieldWithBrowseButton(JTextField(50))
         textFieldWithBrowseButton.addBrowseFolderListener(
-                "Select your project directory",
+            UiMessage.message("runconfiguration.field.chooseproject.select"),
                 null,
                 null,
                 fileChooser
         )
-        projectHomeDir = LabeledComponent.create(textFieldWithBrowseButton, "Project directory", BorderLayout.WEST)
+        projectHomeDir = LabeledComponent.create(textFieldWithBrowseButton, UiMessage.message("runconfiguration.field.chooseproject.label"), BorderLayout.WEST)
         projectHomeDirPanel.layout = FlowLayout(FlowLayout.LEFT)
         projectHomeDirPanel.add(projectHomeDir)
         mainPanel.add(projectHomeDirPanel)
 
         val targetScriptPanel = JPanel()
-        targetScript = LabeledComponent.create(ComboBoxWithHistory("targetScript", UUVTargetScript.values().map { it.name }.toTypedArray()), "Target script", BorderLayout.WEST)
+        targetScript = LabeledComponent.create(ComboBoxWithHistory(UiMessage.message("runconfiguration.field.targetscript.historyid"), UUVTargetScript.values().map { it.name }.toTypedArray()), UiMessage.message("runconfiguration.field.targetscript.label"), BorderLayout.WEST)
         targetScriptPanel.layout = FlowLayout(FlowLayout.LEFT)
         targetScriptPanel.add(targetScript)
         mainPanel.add(targetScriptPanel)
 
 
         val useLocalScriptPanel = JPanel()
-        useLocalScript = LabeledComponent.create(CheckBoxWithDescription(JCheckBox(), null), "Use local npm script", BorderLayout.WEST)
+        useLocalScript = LabeledComponent.create(CheckBoxWithDescription(JCheckBox(), null), UiMessage.message("runconfiguration.check.localnpm"), BorderLayout.WEST)
         useLocalScriptPanel.layout = FlowLayout(FlowLayout.LEFT)
         useLocalScriptPanel.add(useLocalScript)
         mainPanel.add(useLocalScriptPanel)
 
         val targetTestFilePanel = JPanel()
-        targetTestFile = LabeledComponent.create(JTextField(50), "Target test file", BorderLayout.WEST)
+        targetTestFile = LabeledComponent.create(JTextField(50), UiMessage.message("runconfiguration.field.targettestfile"), BorderLayout.WEST)
         targetTestFilePanel.layout = FlowLayout(FlowLayout.LEFT)
         targetTestFilePanel.add(targetTestFile)
         mainPanel.add(targetTestFilePanel)

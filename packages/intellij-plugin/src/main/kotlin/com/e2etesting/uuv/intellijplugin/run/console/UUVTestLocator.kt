@@ -1,5 +1,6 @@
 package com.e2etesting.uuv.intellijplugin.run.console
 
+import com.e2etesting.uuv.intellijplugin.message.TechMessage
 import com.intellij.execution.Location
 import com.intellij.execution.PsiLocation
 import com.intellij.execution.testframework.sm.runner.SMTestLocator
@@ -25,9 +26,9 @@ class UUVTestLocator : SMTestLocator {
     }
 
     companion object {
-        private const val PROTOCOL_ID__CONFIG_FILE = "config"
-        private const val PROTOCOL_ID__TEST_SUITE = "suite"
-        private const val PROTOCOL_ID__TEST = "test"
+        private val PROTOCOL_ID__CONFIG_FILE = TechMessage.message("protocol.id.configfile")
+        private val PROTOCOL_ID__TEST_SUITE = TechMessage.message("protocol.id.testsuite")
+        private val PROTOCOL_ID__TEST = TechMessage.message("protocol.id.test")
         val INSTANCE = UUVTestLocator()
         @Nullable
         private fun getConfigLocation(project: Project, @NotNull locationData: String): Location<PsiFile>? {

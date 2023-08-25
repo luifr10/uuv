@@ -1,5 +1,6 @@
 package com.e2etesting.uuv.intellijplugin
 
+import com.e2etesting.uuv.intellijplugin.message.TechMessage
 import com.e2etesting.uuv.intellijplugin.model.UUVTargetScript
 import com.e2etesting.uuv.intellijplugin.run.configuration.UUVRunConfiguration
 import com.e2etesting.uuv.intellijplugin.run.configuration.UUVRunConfigurationType
@@ -21,11 +22,11 @@ object UUVUtils {
     }
 
     fun isWindows(os: String): Boolean {
-        return os.indexOf("win") >= 0
+        return os.indexOf(TechMessage.message("env.win")) >= 0
     }
 
     fun getOs(): String {
-        return System.getProperty("os.name").lowercase(Locale.getDefault())
+        return System.getProperty(TechMessage.message("os.name")).lowercase(Locale.getDefault())
     }
 
 
@@ -55,7 +56,7 @@ object UUVUtils {
     }
 
     fun executeRunnerAndConfigurationThenSelectIt(runnerAndConfigurationSetting: RunnerAndConfigurationSettings, actionEvent: AnActionEvent) {
-        val executor = ExecutorRegistry.getInstance().getExecutorById("Run")
+        val executor = ExecutorRegistry.getInstance().getExecutorById(TechMessage.message("executor.id"))
         ProgramRunnerUtil.executeConfiguration(runnerAndConfigurationSetting, executor!!)
         RunManager.getInstance(actionEvent.project!!).selectedConfiguration = runnerAndConfigurationSetting
     }

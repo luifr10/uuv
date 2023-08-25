@@ -13,7 +13,9 @@
           "./gradlew buildPlugin"
         ]
       },
-      "outputs": ["{projectRoot}/build/distributions"]
+      "outputs": [
+        "{projectRoot}/build/distributions"
+      ]
     },
     "semantic-release": {
       "executor": "@theunderscorer/nx-semantic-release:semantic-release",
@@ -25,7 +27,9 @@
             {
               "replacements": [
                 {
-                  "files": ["packages/intellij-plugin/gradle.properties"],
+                  "files": [
+                    "packages/intellij-plugin/gradle.properties"
+                  ],
                   "from": "version=.*",
                   "to": "version=${nextRelease.version}",
                   "results": [
