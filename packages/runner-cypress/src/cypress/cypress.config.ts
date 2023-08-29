@@ -5,6 +5,7 @@ export async function setupNodeEvents (
   on: Cypress.PluginEvents,
   config: Cypress.PluginConfigOptions
 ): Promise<Cypress.PluginConfigOptions> {
+  const startedFile: string[] = [];
   await addCucumberPreprocessorPlugin(on, config);
   on(
     "file:preprocessor",
@@ -54,7 +55,10 @@ export async function setupNodeEvents (
   });
 
   on("before:spec", (spec: any) => {
-    logTeamCity(`##teamcity[testSuiteStarted ${teamcityAddName(spec.baseName)} ${teamcityFlowId(spec.baseName)}  ${teamcityAddCustomField("locationHint", "test://" + spec.absolute)} ]`);
+    if (!startedFile.includes(spec.absolute)) {
+      logTeamCity(`##teamcity[testSuiteStarted ${teamcityAddName(spec.baseName)} ${teamcityFlowId(spec.baseName)}  ${teamcityAddCustomField("locationHint", "test://" + spec.absolute)} ]`);
+      startedFile.push(spec.absolute);
+    }
   });
 
   on("after:spec", (spec: any, results: CypressCommandLine.RunResult) => {
