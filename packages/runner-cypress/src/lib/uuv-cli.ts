@@ -103,6 +103,7 @@ export async function main() {
       })
       .catch((err: any) => {
         console.error(chalk.red(err));
+        process.exit(-1);
       });
   }
 
