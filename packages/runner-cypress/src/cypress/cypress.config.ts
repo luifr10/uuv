@@ -1,5 +1,5 @@
 import * as webpack from "@cypress/webpack-preprocessor";
-import { addCucumberPreprocessorPlugin } from "@badeball/cypress-cucumber-preprocessor";
+import { addCucumberPreprocessorPlugin, beforeRunHandler, afterRunHandler, beforeSpecHandler, afterSpecHandler } from "@badeball/cypress-cucumber-preprocessor";
 
 export async function setupNodeEvents (
   on: Cypress.PluginEvents,
@@ -46,22 +46,26 @@ export async function setupNodeEvents (
     })
   );
 
-  on("before:run", () => {
+  on("before:run", async () => {
+    await beforeRunHandler(config);
     logTeamCity("##teamcity[progressStart 'Running UUV Tests']");
   });
 
-  on("after:run", () => {
+  on("after:run", async () => {
+    await afterRunHandler(config);
     logTeamCity("##teamcity[progressFinish 'Running UUV Tests']");
   });
 
-  on("before:spec", (spec: any) => {
+  on("before:spec", async (spec: any) => {
     if (!startedFile.includes(spec.absolute)) {
+      await beforeSpecHandler(config);
       logTeamCity(`##teamcity[testSuiteStarted ${teamcityAddName(spec.baseName)} ${teamcityFlowId(spec.baseName)}  ${teamcityAddCustomField("locationHint", "test://" + spec.absolute)} ]`);
       startedFile.push(spec.absolute);
     }
   });
 
-  on("after:spec", (spec: any, results: CypressCommandLine.RunResult) => {
+  on("after:spec", async (spec: any, results: CypressCommandLine.RunResult) => {
+    await afterSpecHandler(config, spec, results);
     results?.tests?.forEach(test => {
       logTeamCity(`##teamcity[testStarted ${teamcityAddName(test.title[1])} ${teamcityFlowIdAndParentFlowId(test.title[1], spec.baseName)} ${teamcityAddCustomField("locationHint", "test://" + spec.absolute)} ]`);
       if (test.state === "passed") {
