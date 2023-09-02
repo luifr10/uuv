@@ -43,7 +43,7 @@
     "cross-env": "^7.0.3",
     "electron": "25.4.0",
     "electron-installer-zip": "0.1.2",
-    "electron-packager": "17.1.1",
+    "electron-packager": "17.1.2",
     "eslint": "8.46.0"
   }
 }
