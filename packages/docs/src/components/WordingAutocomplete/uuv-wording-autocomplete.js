@@ -20,7 +20,7 @@ function buildItemsForLanguage(lang) {
 function getPlaceholder(lang) {
     switch (lang) {
         case 'fr':
-            return 'Saississez un mot clé pour trouver une phrase';
+            return 'Saisissez un mot clé pour trouver une phrase';
         default:
             return 'Enter a keyword to find a phrase';
     }
@@ -33,9 +33,10 @@ export function UuvWordingAutocomplete({lang}) {
     const [value, setValue] = useState('');
     const [items, setItems] = useState(inputItems);
 
+    const normalizeString = (data) => data?.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
     const search = (event) => {
         const textToSearch = event.query;
-        setItems(inputItems.filter(item => item.suggestion.includes(textToSearch)));
+        setItems(inputItems.filter(item => normalizeString(item.suggestion)?.includes(normalizeString(textToSearch))));
         setSearchText(textToSearch);
     }
 
@@ -45,6 +46,7 @@ export function UuvWordingAutocomplete({lang}) {
                 highlightClassName="HighlightWord"
                 searchWords={[searchText]}
                 autoEscape={true}
+                sanitize={normalizeString}
                 textToHighlight={item.suggestion}
             />
         );
