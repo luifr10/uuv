@@ -125,12 +125,7 @@ export class TranslateHelper {
           .replace("$roleName", role?.name ?? accessibleRole)
           .replace("{string}", `"${accessibleName}"`);
       })[0];
-      if (checkAction === CheckActionEnum.CLICK) {
-        const clickSentence: BaseSentence = jsonBase.filter((el: BaseSentence) => el.key === "key.when.click.withContext")[0];
-        sentenceList = [stepCase + sentence, StepCaseEnum.THEN + clickSentence.wording];
-      } else {
-        sentenceList = [stepCase + sentence];
-      }
+      sentenceList = this.getSentenceList(checkAction, jsonBase, accessibleRole, stepCase, accessibleName, sentence);
       if (content) {
         if (checkAction === CheckActionEnum.EXPECT) {
           if (isDisabled) {
@@ -154,15 +149,33 @@ export class TranslateHelper {
             .replace("{string}", `"${content}"`);
         })[0];
 
-        if (checkAction === CheckActionEnum.CLICK) {
-          const clickSentence: BaseSentence = jsonBase.filter((el: BaseSentence) => el.key === "key.when.click.withContext")[0];
-          sentenceList = [stepCase + sentence, StepCaseEnum.THEN + clickSentence.wording];
-        } else {
-          sentenceList = [stepCase + sentence];
-        }
+        sentenceList = this.getSentenceList(checkAction, jsonBase, accessibleRole, stepCase, accessibleName, sentence);
       }
     }
     return sentenceList;
+  }
+
+  private static getSentenceList(
+      checkAction: string,
+      jsonBase: BaseSentence[],
+      accessibleRole: string,
+      stepCase: string,
+      accessibleName: string,
+      sentence: string
+  ) {
+    if (checkAction === CheckActionEnum.CLICK) {
+      if (accessibleRole === "button") {
+        const clickSentence: BaseSentence = jsonBase.filter(
+            (el: BaseSentence) => (accessibleRole === "button" && el.key === "key.when.click.button")
+        )[0];
+        return [stepCase + clickSentence.wording.replace("{string}", `"${accessibleName}"`)];
+      } else {
+        const clickSentence: BaseSentence = jsonBase.filter((el: BaseSentence) => el.key === "key.when.click.withRole")[0];
+        return [stepCase + clickSentence.wording.replace("{string}", `"${accessibleRole}"`).replace("{string}", `"${accessibleName}"`)];
+      }
+    } else {
+      return [stepCase + sentence];
+    }
   }
 }
 

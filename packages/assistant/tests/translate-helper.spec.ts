@@ -76,15 +76,15 @@ describe("translateEngine - Click", () => {
   const { buttonWithRoleName, buttonWithRoleNameAndContent, selectorWithDataTestId, selectorWithNth } = dom();
   test("translateEngine - with role, name and content", () => {
     expect(TranslateHelper.translateEngine(buttonWithRoleNameAndContent, CheckActionEnum.CLICK, false)).toEqual(
-      ["When Within a button named \"myButton\"", "Then I click"]);
+      ["When I click on button named \"myButton\""]);
   });
   test("translateEngine - with role, name", () => {
     expect(TranslateHelper.translateEngine(buttonWithRoleName, CheckActionEnum.CLICK, false)).toEqual(
-      ["When Within a button named \"myButton\"", "Then I click"]);
+      ["When I click on button named \"myButton\""]);
   });
   test("translateEngine - with role, name and content disabled", () => {
     expect(TranslateHelper.translateEngine(buttonWithRoleNameAndContent, CheckActionEnum.CLICK, true)).toEqual(
-      ["When Within a button named \"myButton\"", "Then I click"]);
+      ["When I click on button named \"myButton\""]);
   });
   test("translateEngine - with selector- with Id", () => {
     expect(TranslateHelper.translateEngine(selectorWithDataTestId, CheckActionEnum.CLICK, false)).toEqual(
