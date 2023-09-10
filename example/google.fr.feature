@@ -7,20 +7,15 @@ Feature: English Test Step Definition
     Then I should see a title named "Avant d'accéder à Google"
 
   Scenario: click example
-    When Within an button named "Tout accepter"
-    Then I click
+    When I click on button named "Tout accepter"
 
   Scenario: click and expect example
-    When Within an button named "Tout accepter"
-    Then I click
-    Then I reset context
+    When I click on button named "Tout accepter"
     Then I should see a button named "Recherche Google"
 
   Scenario: fill example
     # validate cookies preference
-    When Within an button named "Tout accepter"
-    Then I click
-    Then I reset context
+    When I click on button named "Tout accepter"
 
     # focus textarea and search github "@uuv"
     When Within an combo box named "Rech."
