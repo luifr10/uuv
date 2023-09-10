@@ -45,7 +45,7 @@
     "@nrwl/linter": "16.6.0",
     "@theunderscorer/nx-semantic-release": "^2.4.0",
     "@types/jest": "29.5.4",
-    "@types/node": "16.18.48",
+    "@types/node": "16.18.50",
     "@typescript-eslint/eslint-plugin": "5.62.0",
     "@typescript-eslint/parser": "5.62.0",
     "eslint": "8.46.0",
