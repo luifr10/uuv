@@ -50,7 +50,7 @@
     "axe-core": "4.7.2",
     "chalk": "4.1.2",
     "cucumber-json-report-formatter": "0.1.4",
-    "cypress": "12.17.3",
+    "cypress": "12.17.4",
     "cypress-axe": "1.4.0",
     "cypress-real-events": "^1.10.0",
     "figlet": "1.6.0",
