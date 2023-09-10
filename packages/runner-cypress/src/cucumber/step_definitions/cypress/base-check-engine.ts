@@ -33,10 +33,18 @@ When(`${key.when.visit}`, function(siteUrl: string) {
   return cy.visit(`${Cypress.config().baseUrl}${siteUrl}`);
 });
 
-When(`${key.when.click}`, function() {
+When(`${key.when.click.withContext}`, function() {
   cy.uuvCheckContextFocusedElement().then(context => {
     context.focusedElement!.click();
   });
+});
+
+When(`${key.when.click.button}`, function(name: string) {
+  click("button", name);
+});
+
+When(`${key.when.click.withRole}`, function(role: string, name: string) {
+  click(role, name);
 });
 
 When(`${key.when.type}`, function(textToType: string) {
@@ -409,5 +417,17 @@ function pressKey(context: Cypress.Chainable<JQuery<HTMLElement>>, key: string) 
   }
   cy.uuvPatchContext({
     focusedElement: cy.focused()
+  });
+}
+
+function click(role: string, name: string) {
+  cy.uuvGetContext().then(context => {
+    const parentElement = context.focusedElement;
+    if (parentElement) {
+      cy.uuvFindByRole(role, { name: name }).uuvFoundedElement().click();
+      cy.wrap(new Context()).as("context");
+    } else {
+      cy.findByRole(role, { name: name }).click();
+    }
   });
 }

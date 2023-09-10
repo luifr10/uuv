@@ -100,7 +100,7 @@ export class TranslateHelper {
         el.wording.replace("{string}", `"${this.getSelector(htmlElem)}"`)
       )[0];
     if (checkAction === CheckActionEnum.CLICK) {
-      const clickSentence: BaseSentence = jsonBase.filter((el: BaseSentence) => el.key === "key.when.click")[0];
+      const clickSentence: BaseSentence = jsonBase.filter((el: BaseSentence) => el.key === "key.when.click.withContext")[0];
       sentenceList = [stepCase + sentence, StepCaseEnum.THEN + clickSentence.wording];
     } else {
       sentenceList = [stepCase + sentence];
@@ -126,7 +126,7 @@ export class TranslateHelper {
           .replace("{string}", `"${accessibleName}"`);
       })[0];
       if (checkAction === CheckActionEnum.CLICK) {
-        const clickSentence: BaseSentence = jsonBase.filter((el: BaseSentence) => el.key === "key.when.click")[0];
+        const clickSentence: BaseSentence = jsonBase.filter((el: BaseSentence) => el.key === "key.when.click.withContext")[0];
         sentenceList = [stepCase + sentence, StepCaseEnum.THEN + clickSentence.wording];
       } else {
         sentenceList = [stepCase + sentence];
@@ -155,7 +155,7 @@ export class TranslateHelper {
         })[0];
 
         if (checkAction === CheckActionEnum.CLICK) {
-          const clickSentence: BaseSentence = jsonBase.filter((el: BaseSentence) => el.key === "key.when.click")[0];
+          const clickSentence: BaseSentence = jsonBase.filter((el: BaseSentence) => el.key === "key.when.click.withContext")[0];
           sentenceList = [stepCase + sentence, StepCaseEnum.THEN + clickSentence.wording];
         } else {
           sentenceList = [stepCase + sentence];

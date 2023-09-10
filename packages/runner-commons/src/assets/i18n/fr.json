@@ -1,8 +1,23 @@
 [
   {
-    "key": "key.when.click",
+    "key": "key.when.click.withContext",
     "description": "Déclenche un click sur l'élément sélectionné",
     "wording": "je clique"
+  },
+  {
+    "key": "key.when.click.button",
+    "description": "Déclenche un click sur le bouton avec le nom donné",
+    "wording": "je clique sur le bouton nommé {string}"
+  },
+  {
+    "key": "key.when.click.link",
+    "description": "Déclenche un click sur le lien avec le nom donné",
+    "wording": "je clique sur le lien nommé {string}"
+  },
+  {
+    "key": "key.when.click.withRole",
+    "description": "Déclenche un click sur un élément avec le rôle et le nom donnés",
+    "wording": "je clique sur l'élément avec le rôle {string} et le nom {string}"
   },
   {
     "key": "key.when.headers.forUriAndMethod",

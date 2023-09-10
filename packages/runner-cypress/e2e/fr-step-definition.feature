@@ -60,11 +60,25 @@ Fonctionnalité: Dictionnaire français de phrases de base utilisant cypress
         | class | fname-class |
 
   Règle: Action
-    Scénario: key.then.element.key.when.click
+    Scénario: key.then.element.key.when.click.withContext
       Et je vais à l'intérieur de l'élément ayant pour testId "fieldset"
       Et je vais à l'intérieur de l'élément ayant pour rôle "button" et pour nom "Submit"
       Quand je clique
       Et je reinitialise le contexte
+      Alors je dois voir un titre nommé "404"
+
+    Scénario: key.then.element.key.when.click.button without context
+      Quand je clique sur le bouton nommé "Reset"
+      Alors je ne dois pas voir un titre nommé "404"
+
+    Scénario: key.then.element.key.when.click.button with context
+      Et je vais à l'intérieur de l'élément ayant pour testId "fieldset"
+      Quand je clique sur le bouton nommé "Submit"
+      Alors je dois voir un titre nommé "404"
+
+    Scénario: key.then.element.key.when.click.withRole
+      Et je vais à l'intérieur de l'élément ayant pour testId "fieldset"
+      Quand je clique sur le bouton nommé "Submit"
       Alors je dois voir un titre nommé "404"
 
     Scénario: key.then.element.key.when.type

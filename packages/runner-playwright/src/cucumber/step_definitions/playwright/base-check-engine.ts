@@ -20,7 +20,7 @@ import { devices, expect } from "@playwright/test";
 import { Page } from "playwright";
 import { DataTable } from "@cucumber/cucumber";
 import {
-  addCookieWhenValueIsList,
+  addCookieWhenValueIsList, checkTextContentLocator,
   COOKIE_NAME, deleteCookieByName,
   deleteCookieByValue,
   FILTER_TYPE,
@@ -55,8 +55,17 @@ Given(`${key.when.visit}`, { timeout: 60 * 1000 }, async function(this: World, s
   await this.page.goto(`${siteUrl}`);
 });
 
-When(`${key.when.click}`, async function(this: World) {
+When(`${key.when.click.withContext}`, async function(this: World) {
   await getPageOrElement(this).then((element: Locator) => element.click({ timeout: DEFAULT_TIMEOUT }));
+});
+
+
+When(`${key.when.click.button}`, async function(this: World, name: string) {
+  await click(this, "button", name);
+});
+
+When(`${key.when.click.withRole}`, async function(this: World, role: string, name: string) {
+  await click(this, role, name);
 });
 
 // TODO : permet de gérer les label accessibles donc pas que les aria : https://playwright.dev/docs/api/class-locator#locator-get-by-label
@@ -375,6 +384,15 @@ async function pressKey(world: World, element: Locator, key: string) {
   }
   await deleteCookieByName(world, COOKIE_NAME.SELECTED_ELEMENT);
   await addCookieWhenValueIsList(world, COOKIE_NAME.SELECTED_ELEMENT, { name: FILTER_TYPE.SELECTOR_PARENT, value: "*:focus" });
+}
+
+async function click(world: World, role: any, name: string) {
+  await getPageOrElement(world).then(async (element) => {
+      const byRole = await element.getByRole(role, { name: name, includeHidden: true, exact: true });
+      await expect(byRole).toHaveCount(1);
+      await byRole.click({ timeout: DEFAULT_TIMEOUT });
+      await world.context.clearCookies();
+  });
 }
 
 

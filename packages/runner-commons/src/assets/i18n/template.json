@@ -1,7 +1,11 @@
 {
   "when": {
     "visit": "",
-    "click": "",
+    "click": {
+      "button": "",
+      "withRole": "",
+      "withContext": ""
+    },
     "type": "",
     "keyboard": {
       "multiplePress": "",

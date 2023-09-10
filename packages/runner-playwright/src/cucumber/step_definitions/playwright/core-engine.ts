@@ -131,7 +131,7 @@ export async function deleteCookieByName(world: World, cookieName: COOKIE_NAME) 
     await world.context.addCookies(filteredCookies);
 }
 
-export async function findWithRoleAndName(world: World, role: string, name: string) {
+export async function findWithRoleAndName(world: World, role: string, name: string): Promise<any> {
     await findWithRoleAndNameAndContent(world, role, name);
 }
 
@@ -147,7 +147,7 @@ export async function notFoundWithRoleAndName(world: World, role: string, name: 
 
 }
 
-export async function findWithRoleAndNameAndContent(world: World, expectedRole: string, name: string, expectedTextContent: string | undefined = undefined) {
+export async function findWithRoleAndNameAndContent(world: World, expectedRole: string, name: string, expectedTextContent: string | undefined = undefined): Promise<any> {
     expectedRole = encodeURIComponent(expectedRole);
     await getPageOrElement(world).then(async (element) => {
            // console.log("final:",expectedRole,name)

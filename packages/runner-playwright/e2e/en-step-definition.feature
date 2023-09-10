@@ -53,11 +53,25 @@ Feature: English Test Step Definition
     And I should see these attributes with values
       | class | fname-class |
 
-  Scenario: key.then.element.key.when.click
+  Scenario: key.then.element.key.when.click.withContext
     And Within the element with testId "fieldset"
     And Within the element with role "button" and name "Submit"
     When I click
      And I reset context
+    Then I should see a title named "404"
+
+  Scenario: key.then.element.key.when.click.button without context
+    When I click on button named "Reset"
+    Then I should not see a title named "404"
+
+  Scenario: key.then.element.key.when.click.button with context
+    When Within the element with testId "fieldset"
+    And I click on button named "Submit"
+    Then I should see a title named "404"
+
+  Scenario: key.then.element.key.when.click.withRole
+    And Within the element with testId "fieldset"
+    When I click on element with role "button" and name "Submit"
     Then I should see a title named "404"
 
   Scenario: key.then.element.key.when.type
