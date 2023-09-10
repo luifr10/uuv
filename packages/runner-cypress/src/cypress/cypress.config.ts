@@ -14,7 +14,8 @@ export async function setupNodeEvents (
         resolve: {
           extensions: [".ts", ".js"],
           fallback: {
-            fs: false
+            fs: false,
+            path: require.resolve("path-browserify")
           }
         },
         module: {

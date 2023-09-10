@@ -15,20 +15,13 @@
 
 import { LANG } from "./lang-enum";
 import fs from "fs";
+import { Common } from "./common";
+import * as path from "path";
 
-class Common {
-    static cleanGeneratedFilesIfExists(
-        generatedFile: string,
-        lang: string,
-        indexOfFile: string
-    ): void {
-        if (fs.existsSync(generatedFile)) {
-            fs.rmSync(generatedFile);
-            console.log(
-                `[DEL] ${indexOfFile}-${lang}-generated-wording-description.md deleted successfully`
-            );
-        }
-    }
+
+export class AutocompletionSuggestion {
+    suggestion !: string;
+    link !: string;
 }
 
 export function runGenerateDoc(destDir: string) {
@@ -43,10 +36,26 @@ export function runGenerateDoc(destDir: string) {
         const generatedFile = `${GENERATED_DIR_DOC}/${indexOfFile}-${lang}-generated-wording-description.md`;
         const wordingBaseFile = `${__dirname}/../assets/i18n/${lang}.json`;
         const wordingEnrichedFile = `${__dirname}/../assets/i18n/${lang}-enriched-wordings.json`;
-        Common.cleanGeneratedFilesIfExists(generatedFile, lang, indexOfFile);
-        generateWordingFiles(wordingBaseFile, wordingEnrichedFile, generatedFile, lang, indexOfFile);
+        const autocompletionSuggestionFile = path.join(GENERATED_DIR_DOC, `${lang}-autocompletion-suggestion.json`);
+        cleanGeneratedFilesIfExists(generatedFile, lang, indexOfFile);
+        Common.cleanGeneratedFilesIfExists(autocompletionSuggestionFile);
+        generateWordingFiles(wordingBaseFile, wordingEnrichedFile, generatedFile, lang, indexOfFile, autocompletionSuggestionFile);
         fs.copyFileSync(generatedFile, `${GENERATED_DIR_DOC_FR}/${indexOfFile}-${lang}-generated-wording-description.md`);
+        fs.copyFileSync(autocompletionSuggestionFile, path.join(GENERATED_DIR_DOC_FR, `${lang}-autocompletion-suggestion.json`));
     });
+
+    function cleanGeneratedFilesIfExists(
+            generatedFile: string,
+            lang: string,
+            indexOfFile: string
+    ): void {
+            if (fs.existsSync(generatedFile)) {
+            fs.rmSync(generatedFile);
+            console.log(
+                `[DEL] ${indexOfFile}-${lang}-generated-wording-description.md deleted successfully`
+            );
+        }
+    }
 
 
     function generateWordingFiles(
@@ -54,13 +63,22 @@ export function runGenerateDoc(destDir: string) {
         wordingEnrichedFile: string,
         generatedFile: string,
         lang: string,
-        indexOfFile: string
+        indexOfFile: string,
+        autocompletionSuggestionFile: string
     ): void {
-        const data = computeWordingFile(wordingBaseFile, wordingEnrichedFile, lang);
-        writeWordingFile(generatedFile, data, lang, indexOfFile);
+         const { wordingFileContent, autocompletionSuggestionContent } = computeWordingFile(
+             wordingBaseFile,
+             wordingEnrichedFile,
+             lang
+         );
+        writeWordingFile(generatedFile, wordingFileContent, lang, indexOfFile);
+        Common.writeWordingFile(autocompletionSuggestionFile, autocompletionSuggestionContent);
     }
 
-    function computeWordingFile(wordingBaseFile: string, wordingEnrichedFile: string, lang: string): string {
+    function computeWordingFile(wordingBaseFile: string, wordingEnrichedFile: string, lang: string): {
+        wordingFileContent: string,
+        autocompletionSuggestionContent: string
+    } {
         const wordingsBase = fs.readFileSync(wordingBaseFile);
         const wordingsBaseJson = JSON.parse(wordingsBase.toString());
         const wordingsEnriched = fs.readFileSync(wordingEnrichedFile,
@@ -77,7 +95,9 @@ export function runGenerateDoc(destDir: string) {
                     return "# Anglais";
             }
         })();
-        const rows = [title];
+        const autocompletionComponent = `\nimport {UuvWordingAutocomplete} from '@site/src/components/WordingAutocomplete/uuv-wording-autocomplete.js';\n\n<UuvWordingAutocomplete lang={'${lang}'}/>\n`;
+        const rows = [title, autocompletionComponent];
+        const autocompletionSuggestions: AutocompletionSuggestion[] = [];
 
         const stepTitle: string[] = (function () {
             switch (lang) {
@@ -89,14 +109,26 @@ export function runGenerateDoc(destDir: string) {
                     return ["", "", ""];
             }
         })();
-        const given = computeStepDefinition(
+        const { step: given, autocompletionSuggestions: givenAutocompletionSuggestions } = computeStepDefinition(
             wordingsBaseJson,
             "key.given",
-            stepTitle[0]
+            stepTitle[0],
+            undefined
         );
-        const when = computeStepDefinition(wordingsBaseJson, "key.when", stepTitle[1]);
-        const then = computeStepDefinition(wordingsBaseJson, "key.then", stepTitle[2]);
+        const { step: when, autocompletionSuggestions: whenAutocompletionSuggestions } = computeStepDefinition(
+            wordingsBaseJson,
+            "key.when",
+            stepTitle[1],
+            undefined
+        );
+        const { step: then, autocompletionSuggestions: thenAutocompletionSuggestions } = computeStepDefinition(
+            wordingsBaseJson,
+            "key.then",
+            stepTitle[2],
+            undefined
+        );
         rows.push(...given, ...when, ...then);
+        autocompletionSuggestions.push(...givenAutocompletionSuggestions, ...whenAutocompletionSuggestions, ...thenAutocompletionSuggestions);
         rows.push("## Par rôle");
         const dataOrigin: string = wordingsEnriched;
         let dataUpdated: string = dataOrigin;
@@ -109,7 +141,7 @@ export function runGenerateDoc(destDir: string) {
                 .replaceAll("$roleName", role.name)
                 .replaceAll("$roleId", role.id);
             const wordingsEnrichedJson = JSON.parse(dataUpdated);
-            const enrichedGiven = computeStepDefinition(
+            const { step: enrichedGiven, autocompletionSuggestions: enrichedGivenAutocompletionSuggestions } = computeStepDefinition(
                 wordingsEnrichedJson.enriched,
                 "key.given",
                 undefined,
@@ -117,8 +149,9 @@ export function runGenerateDoc(destDir: string) {
             );
             if (enrichedGiven.length > 1) {
                 rows.push(...enrichedGiven);
+                autocompletionSuggestions.push(...enrichedGivenAutocompletionSuggestions);
             }
-            const enrichedWhen = computeStepDefinition(
+            const { step: enrichedWhen, autocompletionSuggestions: enrichedWhenAutocompletionSuggestions } = computeStepDefinition(
                 wordingsEnrichedJson.enriched,
                 "key.when",
                 undefined,
@@ -126,8 +159,9 @@ export function runGenerateDoc(destDir: string) {
             );
             if (enrichedWhen.length > 1) {
                 rows.push(...enrichedWhen);
+                autocompletionSuggestions.push(...enrichedWhenAutocompletionSuggestions);
             }
-            const enrichedThen = computeStepDefinition(
+            const { step: enrichedThen, autocompletionSuggestions: enrichedThenAutocompletionSuggestions } = computeStepDefinition(
                 wordingsEnrichedJson.enriched,
                 "key.then",
                 undefined,
@@ -135,11 +169,15 @@ export function runGenerateDoc(destDir: string) {
             );
             if (enrichedThen.length > 1) {
                 rows.push(...enrichedThen);
+                autocompletionSuggestions.push(...enrichedThenAutocompletionSuggestions);
             }
         });
 
 
-        return rows.join("\n");
+        return {
+            wordingFileContent: rows.join("\n"),
+            autocompletionSuggestionContent: JSON.stringify(autocompletionSuggestions)
+        };
     }
 
     /* eslint-disable  @typescript-eslint/no-explicit-any */
@@ -148,8 +186,12 @@ export function runGenerateDoc(destDir: string) {
         stepKey: string,
         stepTitle: string | undefined,
         level: string | undefined = "###"
-    ) {
+    ):{
+        step: string[],
+        autocompletionSuggestions: AutocompletionSuggestion[]
+    } {
         const step: string[] = [];
+        const autocompletionSuggestion: AutocompletionSuggestion[] = [];
         if (stepTitle) {
             step.push(stepTitle);
         }
@@ -158,9 +200,22 @@ export function runGenerateDoc(destDir: string) {
                 const wording = `${level} ${conf.wording}`;
                 step.push(wording);
                 step.push(`> ${conf.description ?? ""}\n`);
+                autocompletionSuggestion.push({
+                    suggestion: conf.wording,
+                    link: conf.wording
+                        .replaceAll("{", "")
+                        .replaceAll("}", "")
+                        .replaceAll("(", "")
+                        .replaceAll(")", "")
+                        .replaceAll("'", "")
+                        .replaceAll(/\s/g, "-").toLowerCase()
+                });
             }
         });
-        return step;
+        return {
+            step,
+            autocompletionSuggestions: autocompletionSuggestion
+        };
     }
 
     function writeWordingFile(generatedFile, data, lang, indexOfFile) {

@@ -1,0 +1,28 @@
+.AutocompleteContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+}
+
+.AutocompleteContainer .Autocomplete {
+    width: 90%;
+}
+
+.AutocompleteContainer .Autocomplete .p-inputwrapper {
+    width: 100%;
+    height: 35px;
+}
+
+.AutocompleteContainer .Autocomplete .p-inputwrapper input {
+    width: 100%;
+}
+
+.HighlightWord {
+    font-weight: bolder;
+    background-color: transparent;
+}
+
+.p-float-label .p-inputwrapper-filled ~ label {
+    font-size: 14px;
+}
