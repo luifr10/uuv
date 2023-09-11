@@ -18,9 +18,10 @@
 import chalk from "chalk";
 import { generateTestFiles } from "../cucumber/preprocessor/gen";
 import fs from "fs";
-import { execSync } from "child_process";
+import cp, { execSync } from "child_process";
 import { GherkinDocument } from "@cucumber/messages/dist/esm/src";
 import { GeneratedReportType } from "../reporter/uuv-playwright-reporter-helper";
+import path from "path";
 
 export interface UUVPlaywrightCucumberMapItem {
     originalFile: string;
@@ -129,7 +130,7 @@ function getTargetTestFileForPlawright(targetTestFile?: string): string {
         .replaceAll(".feature", ".feature.spec.js");
 }
 
-async function executePreprocessor(tempDir: string, configDir: string) {
+export async function executePreprocessor(tempDir: string, configDir: string) {
     console.log("running preprocessor...");
     await bddGen(tempDir);
     translateFeatures(tempDir, configDir);
@@ -138,5 +139,8 @@ async function executePreprocessor(tempDir: string, configDir: string) {
 
 export async function run(mode: "open" | "e2e", tempDir = "uuv/.features-gen/e2e", configDir = "uuv", generateHtmlReport = false, env?: any, targetTestFile?: string) {
     await executePreprocessor(tempDir, configDir);
+    if (mode === "open") {
+        cp.fork(path.join(__dirname, "watch-test-files"), [tempDir, configDir]);
+    }
     runPlaywright(mode, configDir, generateHtmlReport, env, targetTestFile);
 }
