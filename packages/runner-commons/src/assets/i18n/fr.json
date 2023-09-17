@@ -156,7 +156,7 @@
   },
   {
     "key": "key.then.list.withNameAndContent",
-    "description": "Vérifie qu'il existe une liste avec le nom et le contenu spécifiés",
+    "description": "Vérifie qu'il existe une liste avec le nom et le contenu spécifiés.<br/>Voici un <a href='https://github.com/Orange-OpenSource/uuv/blob/9e3c9914420c6d527f7ad8b0017a0f8e26250f86/example/weather-app.feature#L17'>exemple</a>",
     "wording": "je dois voir des elements de la liste ayant pour nom {string}"
   },
   {

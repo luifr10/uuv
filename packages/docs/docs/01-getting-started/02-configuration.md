@@ -16,7 +16,7 @@ Edit the `.gitignore` file to add the following lines :
 ## IDE Plugins
 ### IntelliJ 
   - Download the [cucumber.js](https://plugins.jetbrains.com/plugin/7418-cucumber-js) plugin **for autocompletion** while writing your tests.
-  - Install [UUV Jetbrain Plugin](/docs/tools/uuv-jetbrain-plugin) **for test execution inside ide**
+  - Install [UUV Jetbrains Plugin](/docs/tools/uuv-jetbrain-plugin) **for test execution inside ide**
 
 ### VS Code 
 **For autocompletion** while writing your tests, download the [Cucumber (Gherkin) Full Support](https://marketplace.visualstudio.com/items?itemName=alexkrechik.cucumberautocomplete) plugin.<br/>Then, create or edit the `.vscode/settings.json` file to add the following lines :

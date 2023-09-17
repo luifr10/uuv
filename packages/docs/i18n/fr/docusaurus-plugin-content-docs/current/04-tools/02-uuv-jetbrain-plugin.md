@@ -1,4 +1,4 @@
-# UUV Jetbrain Plugin
+# UUV Jetbrains Plugin
 
 Ce plugin vous aide à écrire et à exécuter vos tests UUV E2E.
 
@@ -13,7 +13,7 @@ Ce plugin vous aide à écrire et à exécuter vos tests UUV E2E.
 
 2. Cliquer sur ![le bouton exécuter](https://resources.jetbrains.com/help/img/idea/2023.2/app.actions.execute_dark.svg) ou appuyer sur `Shift` + `F10`.
 
-Cela déclenche l'ouverture du runner sélectionné(playwright, cypress, etc).
+Cela déclenche l'ouverture de l'interface graphique du runner sélectionné (playwright, cypress, etc).
 
 ## Exécuter **e2e**
 1. Dans la barre d'outils principale, sélectionnez la configuration d'exécution UUV ***e2e***
@@ -22,25 +22,25 @@ Cela déclenche l'ouverture du runner sélectionné(playwright, cypress, etc).
 
 2. Cliquer sur ![le bouton exécuter](https://resources.jetbrains.com/help/img/idea/2023.2/app.actions.execute_dark.svg) ou appuyer sur `Shift` + `F10`.
 
-Cela déclenche l'exécution de vos tests e2e uuv.
+Cela déclenche l'exécution de vos tests e2e uuv (sans l'interface graphique du runner).
 
 ## Exécuter uniquement un fichier
 1. Ouvrir le fichier de test uuv concerné
-2. Cliquer sur ![Run icon](https://resources.jetbrains.com/help/img/idea/2023.2/app.actions.execute_dark.svg) dans la gouttière au niveau di noeud **Feature**, et sélectionner **Run UUV Tests** dans la liste des options.
+2. Cliquer sur ![Run icon](https://resources.jetbrains.com/help/img/idea/2023.2/app.actions.execute_dark.svg) dans la gouttière au niveau du noeud **Feature**, et sélectionner **Run UUV Tests** dans la liste des options.
 
     ![Execute single file](@site/static/img/docs/jetbrain-plugin/execute-single-file.png)
 
 Cela exécute le fichier de test uuv cible
 
 ## Configurations personnalisées
-Une configuration d'exécution UUV contient les paramètres suivant :
+Une configuration d'exécution UUV contient les paramètres suivants :
 
 ![Custom run configuration](@site/static/img/docs/jetbrain-plugin/run-custom-run-config.png)
 
-| Parameter            | Description                                                                                                                     |
-|----------------------|---------------------------------------------------------------------------------------------------------------------------------|
-| Project Directory    | Doit être le répertoire contenant le package.json où la dépendance uuv est installée                                            |
-| Target script        | `open` : pour ouvrir le runner<br/> `e2e` : pour exécuter les tests                                                             |
-| Use local npm script | Cochez cette case si, pour une raison quelconque, vous ne pouvez pas exécuter les scripts **npx** à partir de votre ordinateur  |
-| Target test file     | **Si vide** : tous les fichiers de test seront inclus<br/>**Si défini** : contient un chemin `specPattern` relatif au paramètre ProjetDir   |
+| Parameter            | Description                                                                                                                               |
+|----------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
+| Project Directory    | Doit être le répertoire contenant le package.json où la dépendance uuv est installée                                                      |
+| Target script        | `open` : pour ouvrir l'interface graphique du runner<br/> `e2e` : pour exécuter les tests (sans interface graphique du runner)            |
+| Use local npm script | Cochez cette case si, pour une raison quelconque, vous ne pouvez pas exécuter les scripts **npx** à partir de votre ordinateur            |
+| Target test file     | **Si vide** : tous les fichiers de test seront inclus<br/>**Si défini** : contient un chemin `specPattern` relatif au paramètre ProjetDir |
 

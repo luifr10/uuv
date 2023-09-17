@@ -1,4 +1,4 @@
-# UUV Jetbrain Plugin
+# UUV Jetbrains Plugin
 
 This plugin helps you to  write and execute your UUV E2E tests. 
 
@@ -13,7 +13,7 @@ This plugin helps you to  write and execute your UUV E2E tests.
 
 2. Click ![The Run button](https://resources.jetbrains.com/help/img/idea/2023.2/app.actions.execute_dark.svg) or press `Shift` + `F10`.
 
-It triggers the opening of the selected runner(playwright, cypress, etc).
+It triggers the opening of the selected GUI runner (playwright, cypress, etc).
 
 ## Execute **e2e**
 1. On the main toolbar, select the UUV ***e2e*** run configuration
@@ -22,7 +22,7 @@ It triggers the opening of the selected runner(playwright, cypress, etc).
 
 2. Click ![The Run button](https://resources.jetbrains.com/help/img/idea/2023.2/app.actions.execute_dark.svg) or press `Shift` + `F10`.
 
-It runs all your e2e uuv tests.
+It runs all your e2e uuv tests without GUI runner.
 
 ## Execute single file
 1. Open the target uuv test file
@@ -40,7 +40,7 @@ A UUV Run configuration contains the followings parameters :
 | Parameter            | Description                                                                                                                     |
 |----------------------|---------------------------------------------------------------------------------------------------------------------------------|
 | Project Directory    | Must be the directory containing the package.json where the uuv dependency is installed                                         |
-| Target script        | `open` : to open the runner<br/> `e2e` : to execute tests                                                                       |
+| Target script        | `open` : to open the GUI runner<br/> `e2e` : to execute tests without GUI runner                                                |
 | Use local npm script | Check this box if for some reason you are unable to run **npx scripts** from your ide                                           |
-| Target test file     | **If empty**: all test files will be included<br/>**If set**: contains a `specPattern` path relative to the ProjetDir parameter   |
+| Target test file     | **If empty**: all test files will be included<br/>**If set**: contains a `specPattern` path relative to the ProjetDir parameter |
 
