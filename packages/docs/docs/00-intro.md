@@ -45,7 +45,7 @@ To answer the above issues and many others, our solution is to set up a coherent
 ## The benefits
 - If used correctly, integrates accessibility from the development stage
 - A living documentation is possible because we propose an unified language for developers and non-developers with a [rich dictionary](category/step-definition) of ready-to-use sentences
-- [@uuv/assistant)](tools/uuv-assistant) that facilitates the writing of tests by suggesting the most accessible sentences
+- [@uuv/assistant](tools/uuv-assistant) that facilitates the writing of tests by suggesting the most accessible sentences
 - Integrates several runtime engines: Cypress / Playwright
 - User friendly and standardized execution report
 

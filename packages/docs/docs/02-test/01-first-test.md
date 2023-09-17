@@ -1,7 +1,7 @@
 # Your first test
 
 :::caution
-**For autocompletion** while writing your tests, read this [section](/docs/getting-started/configuration#autocompletion)
+**For autocompletion** and **execution from ide** while writing your tests, read this [section](/docs/getting-started/configuration#ide-plugins)
 :::
 
 ## Writing test

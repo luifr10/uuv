@@ -41,7 +41,7 @@ yarn uuv open
 </TabItem>
 </Tabs>
 
-## Exécution des tests E2E depuis la console
+## Running E2E tests from console
 
 From powershell or cmd terminal :
 
