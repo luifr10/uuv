@@ -1,7 +1,7 @@
 [
   {
     "key": "key.when.click.withContext",
-    "description": "Déclenche un click sur l'élément sélectionné",
+    "description": "Déclenche un click sur l'élément sélectionné.<br/>Assurez vous d'avoir effectué une sélection d'élément avant avec les phrases <strong>Je vais à l'intérieur...</strong>.",
     "wording": "je clique"
   },
   {
@@ -41,12 +41,12 @@
   },
   {
     "key": "key.when.type",
-    "description": "Saisit de la phrase passée en paramètre (utile par exemple de remplir un champ de formulaire)",
+    "description": "Saisit de la phrase passée en paramètre (utile par exemple de remplir un champ de formulaire).<br/>Assurez vous d'avoir effectué une sélection d'élément avant avec les phrases <strong>Je vais à l'intérieur...</strong>.",
     "wording": "je saisie le(s) mot(s) {string}"
   },
   {
     "key": "key.when.keyboard.press",
-    "description": "Simule un appui sur la touche spécifiée : <table><thead><tr><th>Touche</th><th>Description</th></tr></thead><tbody><tr><td>{tab}</td><td>Tabulation</td></tr><tr><td>{reverseTab}</td><td>Tabulation arrière</td></tr><tr><td>{down}</td><td>Flèche du bas</td></tr><tr><td>{right}</td><td>Flèche de droite</td></tr><tr><td>{left}</td><td>Flèche de gauche</td></tr><tr><td>{up}</td><td>Flèche du haut</td></tr></tbody></table>",
+    "description": "Simule un appui sur la touche spécifiée : <table><thead><tr><th>Touche</th><th>Description</th></tr></thead><tbody><tr><td>{tab}</td><td>Tabulation</td></tr><tr><td>{reverseTab}</td><td>Tabulation arrière</td></tr><tr><td>{down}</td><td>Flèche du bas</td></tr><tr><td>{right}</td><td>Flèche de droite</td></tr><tr><td>{left}</td><td>Flèche de gauche</td></tr><tr><td>{up}</td><td>Flèche du haut</td></tr></tbody></table>.<br/>Assurez vous d'avoir effectué une sélection d'élément avant avec les phrases <strong>Je vais à l'intérieur...</strong>.",
     "wording": "j'appuie sur {string}"
   },
   {
