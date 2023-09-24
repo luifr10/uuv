@@ -6,13 +6,17 @@
   "targets": {
     "build": {
       "executor": "@nrwl/js:tsc",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "rootDir": "packages/runner-cypress/src",
         "outputPath": "packages/runner-cypress/dist/",
         "main": "packages/runner-cypress/src/index.ts",
         "tsConfig": "packages/runner-cypress/tsconfig.lib.json",
-        "assets": ["packages/runner-cypress/*.md"]
+        "assets": [
+          "packages/runner-cypress/*.md"
+        ]
       },
       "dependsOn": [
         "^build",
@@ -22,7 +26,7 @@
     "generate": {
       "executor": "nx:run-script",
       "outputs": [
-        "packages/runner-cypress/src/cucumber/step_definitions/cypress/generated"
+        "{projectRoot}/src/cucumber/step_definitions/cypress/generated"
       ],
       "options": {
         "script": "generate:step-definitions-documentation"
@@ -33,9 +37,13 @@
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["packages/runner-cypress/src/**/*.{ts,js,feature}"],
+        "lintFilePatterns": [
+          "packages/runner-cypress/src/**/*.{ts,js,feature}"
+        ],
         "fix": true,
         "eslintConfig": "packages/runner-cypress/.eslintrc.json"
       }

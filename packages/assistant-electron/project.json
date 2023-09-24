@@ -1,6 +1,6 @@
 {
   "name": "assistant-electron",
-  "root": "packages/assistant-electron",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/assistant-electron/src",
   "projectType": "library",
   "implicitDependencies": [

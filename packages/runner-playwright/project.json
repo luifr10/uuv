@@ -6,13 +6,17 @@
   "targets": {
     "build": {
       "executor": "@nrwl/js:tsc",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "rootDir": "packages/runner-playwright/src",
         "outputPath": "packages/runner-playwright/dist/",
         "main": "packages/runner-playwright/src/index.ts",
         "tsConfig": "packages/runner-playwright/tsconfig.lib.json",
-        "assets": ["packages/runner-playwright/*.md"]
+        "assets": [
+          "packages/runner-playwright/*.md"
+        ]
       },
       "dependsOn": [
         "^build",
@@ -22,7 +26,7 @@
     "generate": {
       "executor": "nx:run-script",
       "outputs": [
-        "packages/runner-playwright/src/cucumber/step_definitions/cypress/generated"
+        "{projectRoot}/src/cucumber/step_definitions/cypress/generated"
       ],
       "options": {
         "script": "generate:step-definitions"
@@ -30,7 +34,9 @@
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
         "lintFilePatterns": [
           "packages/runner-playwright/src/**/*.{ts,js,feature}"
