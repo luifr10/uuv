@@ -13,7 +13,7 @@
  * understanding English or French.
  */
 
-import { DataTable, Given, Then, When } from "@badeball/cypress-cucumber-preprocessor";
+import { DataTable, Given, Then, When, defineStep as UuvTemplate } from "@badeball/cypress-cucumber-preprocessor";
 import { Context } from "./_context";
 import "../../../cypress/commands";
 import { Method } from "cypress/types/net-stubbing";

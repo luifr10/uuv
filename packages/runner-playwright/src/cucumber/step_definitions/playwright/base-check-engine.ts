@@ -14,7 +14,7 @@
  */
 
 import { DEFAULT_TIMEOUT, fs, key, KEY_PRESS } from "@uuv/runner-commons";
-import { checkA11y, configureAxe, injectAxe } from "axe-playwright";
+import { checkA11y, injectAxe } from "axe-playwright";
 import { Locator } from "playwright";
 import { devices, expect } from "@playwright/test";
 import { Page } from "playwright";

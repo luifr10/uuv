@@ -8,7 +8,8 @@ export default defineConfig({
     screenshotsFolder: "reports/screenshots",
     e2e: {
         baseUrl: "http://localhost:4200",
-        specPattern: "e2e/**/*.{cy.ts,feature}",
+        specPattern: ["e2e/**/*.cy.ts", "e2e/**/*.feature"],
+        excludeSpecPattern: ["e2e/**/*.playbook.feature", "e2e/**/*.playbooked.feature"],
         supportFile: false,
         setupNodeEvents,
         viewportWidth: 1536,

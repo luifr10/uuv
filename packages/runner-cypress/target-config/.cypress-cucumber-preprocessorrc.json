@@ -1,7 +1,8 @@
 {
   "stepDefinitions": [
     "cucumber/step_definitions/**/*.{js,ts}",
-    "../node_modules/@uuv/cypress/dist/cucumber/step_definitions/cypress/{generated,unsafe}/**/*.{js,ts}"
+    "../node_modules/@uuv/cypress/dist/cucumber/step_definitions/cypress/{generated,unsafe}/**/*.{js,ts}",
+    "uuv/generated/*.{js,ts}"
   ],
   "messages": {
     "enabled": true

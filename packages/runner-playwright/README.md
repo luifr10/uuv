@@ -19,6 +19,9 @@ Make test writing fast, understandable by any human understanding English or Fre
 <p align="center">  
 <a href="https://www.npmjs.com/package/@uuv/playwright">  
 <img src="https://img.shields.io/badge/available%20on%20npm-grey?logo=npm" alt="npm"/>  
+</a>
+<a href="https://www.npmjs.com/package/@uuv/playwright">  
+<img src="https://img.shields.io/npm/dt/%40uuv%2Fplaywright" alt="downloads"/>  
 </a>  
 <a href="https://playwright.dev/">  
 <img src="https://img.shields.io/badge/tested with-playwright-1dbb68?logo=playwright" alt="playwright"/>  

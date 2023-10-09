@@ -34,6 +34,7 @@
   ],
   "scripts": {
     "generate:step-definitions": "ts-node generate-step-definitions.ts",
+    "generate:playbook-step-definitions": "ts-node generate-playbook-step-definitions.ts",
     "package": "npm pack --pack-destination=\"../../dist/packages\"",
     "postinstall": "node postinstall.js",
     "serverTest:run": "ts-node playwright/run-test-app.ts 9002",

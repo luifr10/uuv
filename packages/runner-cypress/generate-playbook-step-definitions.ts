@@ -1,0 +1,19 @@
+/**
+* Software Name : UUV
+*
+* SPDX-FileCopyrightText: Copyright (c) 2022-2023 Orange
+* SPDX-License-Identifier: MIT
+*
+* This software is distributed under the MIT License,
+* the text of which is available at https://spdx.org/licenses/MIT.html
+* or see the "LICENSE" file for more details.
+*
+* Authors: NJAKO MOLOM Louis Fredice & SERVICAL Stanley
+* Software description: Make test writing fast, understandable by any human
+* understanding English or French.
+*/
+
+import { STEP_DEFINITION_FILE_NAME, TEST_RUNNER_ENUM, PlaybookStepDefinition } from "@uuv/runner-commons";
+
+const playbookStepDefinition: PlaybookStepDefinition = new PlaybookStepDefinition(__dirname, TEST_RUNNER_ENUM.CYPRESS, STEP_DEFINITION_FILE_NAME.BY_SCENARIO_TEMPLATE);
+playbookStepDefinition.runGenerate();

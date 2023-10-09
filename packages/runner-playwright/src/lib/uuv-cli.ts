@@ -21,6 +21,7 @@ import figlet from "figlet";
 import minimist from "minimist";
 import { run } from "./runner-playwright";
 import fs from "fs";
+import { PlaybookStepDefinition, STEP_DEFINITION_FILE_NAME, TEST_RUNNER_ENUM } from "@uuv/runner-commons";
 
 export async function main() {
   const PROJECT_DIR = "uuv";
@@ -36,6 +37,9 @@ export async function main() {
       break;
     case "e2e":
       await runE2ETests(argv);
+      break;
+    case "playbook":
+      await runPlaybook();
       break;
     default:
       console.error(chalk.red("Unknown command"));
@@ -81,6 +85,11 @@ export async function main() {
         console.error(chalk.red(err));
         process.exit(-1);
       });
+  }
+
+  async function runPlaybook(): Promise<any> {
+    const playbookStepDefinition: PlaybookStepDefinition = new PlaybookStepDefinition(__dirname + "/../..", TEST_RUNNER_ENUM.PLAYWRIGHT, STEP_DEFINITION_FILE_NAME.BY_SCENARIO_TEMPLATE);
+    playbookStepDefinition.runGenerate();
   }
 
   function findTargetCommand(argv: any) {

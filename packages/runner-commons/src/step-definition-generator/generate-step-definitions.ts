@@ -16,6 +16,7 @@
 import { BaseStepDefinition } from "./generate-base-step-definitions";
 import { BasedRoleStepDefinition } from "./generate-based-role-step-definitions";
 import { STEP_DEFINITION_FILE_NAME, TEST_RUNNER_ENUM } from "./common";
+import { PlaybookStepDefinition } from "./generate-playbook-step-definitions";
 
 
 export function generateStepDefinitionForRunner(baseDir: string, runner: TEST_RUNNER_ENUM) {
@@ -23,4 +24,6 @@ export function generateStepDefinitionForRunner(baseDir: string, runner: TEST_RU
  cypressBaseStepDefinition.runGenerate();
  const cypressBasedRoleStepDefinition: BasedRoleStepDefinition = new BasedRoleStepDefinition(baseDir, runner, STEP_DEFINITION_FILE_NAME.BY_ROLE);
  cypressBasedRoleStepDefinition.runGenerate();
+ const cypressPlaybookStepDefinition: PlaybookStepDefinition = new PlaybookStepDefinition(baseDir, runner, STEP_DEFINITION_FILE_NAME.BY_SCENARIO_TEMPLATE);
+ cypressPlaybookStepDefinition.runGenerate();
 }

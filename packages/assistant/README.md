@@ -24,6 +24,9 @@ Make test writing fast, understandable by any human understanding English or Fre
 <img src="https://img.shields.io/badge/available%20on%20npm-grey?logo=npm" alt="npm"/>  
 </a>  
 <a href="https://www.npmjs.com/package/@uuv/assistant">  
+<img src="https://img.shields.io/npm/dt/%40uuv%2assistant" alt="downloads"/>  
+</a> 
+<a href="https://www.npmjs.com/package/@uuv/assistant">  
 <img src="https://img.shields.io/badge/using-react-00DCFF?logo=react" alt="npm"/>  
 </a>  
 <a href="https://jestjs.io/fr/">  

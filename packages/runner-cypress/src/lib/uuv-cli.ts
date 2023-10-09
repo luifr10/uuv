@@ -25,6 +25,7 @@ import fs from "fs";
 import cypress from "cypress";
 import { UuvCustomFormatter } from "../cucumber/uuv-custom-formatter";
 
+import { PlaybookStepDefinition, STEP_DEFINITION_FILE_NAME, TEST_RUNNER_ENUM } from "@uuv/runner-commons";
 
 export async function main() {
   const JSON_REPORT_DIR = "./uuv/reports/e2e/json";
@@ -37,15 +38,19 @@ export async function main() {
   const argv = minimist(process.argv.slice(2));
   const command = findTargetCommand(argv);
   console.info(chalk.blueBright(`Executing UUV command ${command}...`));
-  switch (command) {
-    case "open":
-      await openCypress(argv);
-      break;
-    case "e2e":
-      await runE2ETests(argv);
-      break;
-    default:
-      console.error(chalk.red("Unknown command"));
+
+      switch (command) {
+        case "open":
+          await openCypress(argv);
+          break;
+        case "e2e":
+          await runE2ETests(argv);
+          break;
+        case "playbook":
+          await runPlaybook();
+          break;
+        default:
+          console.error(chalk.red("Unknown command"));
       process.exit(1);
   }
   console.info(`UUV command ${command} executed`);
@@ -105,6 +110,11 @@ export async function main() {
         console.error(chalk.red(err));
         process.exit(-1);
       });
+  }
+
+  async function runPlaybook(): Promise<any> {
+    const playbookStepDefinition: PlaybookStepDefinition = new PlaybookStepDefinition(__dirname + "/../..", TEST_RUNNER_ENUM.CYPRESS, STEP_DEFINITION_FILE_NAME.BY_SCENARIO_TEMPLATE);
+    playbookStepDefinition.runGenerate();
   }
 
   async function formatCucumberMessageFile() {

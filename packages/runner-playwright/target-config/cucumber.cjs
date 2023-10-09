@@ -8,6 +8,7 @@ module.exports = {
         publishQuiet: true,
         requireModule: [
             'ts-node/register'
-        ]
+        ],
+        tags: 'not @Ignore'
     },
 };

@@ -20,6 +20,9 @@ Make test writing fast, understandable by any human understanding English or Fre
 <a href="https://www.npmjs.com/package/@uuv/cypress">  
 <img src="https://img.shields.io/badge/available%20on%20npm-grey?logo=npm" alt="npm"/>  
 </a>  
+<a href="https://www.npmjs.com/package/@uuv/cypress">  
+<img src="https://img.shields.io/npm/dt/%40uuv%2Fcypress" alt="downloads"/>  
+</a>  
 <a href="https://www.cypress.io/">  
 <img src="https://img.shields.io/badge/tested with-cypress-04C38E?logo=cypress" alt="cypress"/>  
 </a>  
