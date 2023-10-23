@@ -37,10 +37,11 @@ Une configuration d'exécution UUV contient les paramètres suivants :
 
 ![Custom run configuration](@site/static/img/docs/jetbrain-plugin/run-custom-run-config.png)
 
-| Parameter            | Description                                                                                                                               |
-|----------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
-| Project Directory    | Doit être le répertoire contenant le package.json où la dépendance uuv est installée                                                      |
-| Target script        | `open` : pour ouvrir l'interface graphique du runner<br/> `e2e` : pour exécuter les tests (sans interface graphique du runner)            |
-| Use local npm script | Cochez cette case si, pour une raison quelconque, vous ne pouvez pas exécuter les scripts **npx** à partir de votre ordinateur            |
-| Target test file     | **Si vide** : tous les fichiers de test seront inclus<br/>**Si défini** : contient un chemin `specPattern` relatif au paramètre ProjetDir |
+| Parameter              | Required | Description                                                                                                                        |
+|------------------------|----------|------------------------------------------------------------------------------------------------------------------------------------|
+| Project Directory      | Yes      | Doit être le répertoire contenant le package.json où la dépendance uuv est installée                                               |
+| Target script          | Yes      | `open` : pour ouvrir l'interface graphique du runner<br/> `e2e` : pour exécuter les tests (sans interface graphique du runner)     |
+| Use local npm script   | No       | Cochez cette case si, pour une raison quelconque, vous ne pouvez pas exécuter les scripts **npx** à partir de votre ordinateur     |
+| Target test file       | No       | **Si vide** : tous les fichiers de test seront inclus<br/>**Si défini** : contient un chemin `specPattern` relatif au paramètre ProjetDir |
+| Environment variables  | No       | Ecrase les variables d'environnements avec les variables d'environnement courantes et les variables d'environnement personnalisées |
 
