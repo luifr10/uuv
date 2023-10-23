@@ -2,6 +2,7 @@ package com.e2etesting.uuv.intellijplugin.run.configuration
 
 import com.e2etesting.uuv.intellijplugin.message.UiMessage
 import com.e2etesting.uuv.intellijplugin.model.UUVTargetScript
+import com.intellij.execution.configuration.EnvironmentVariablesComponent
 import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.ui.CheckBoxWithDescription
@@ -18,11 +19,13 @@ import javax.swing.JPanel
 import javax.swing.JTextField
 
 class UUVRunSettingsEditor : SettingsEditor<UUVRunConfiguration>() {
-    private val mainPanel: JPanel = JPanel()
+    private val mainPanel: JPanel = JPanel(GridLayout(5,1, 0, 3))
     private var projectHomeDir: LabeledComponent<TextFieldWithBrowseButton>? = null
     private var useLocalScript: LabeledComponent<CheckBoxWithDescription>? = null
     private var targetScript: LabeledComponent<ComboBoxWithHistory>? = null
     private var targetTestFile: LabeledComponent<JTextField>? = null
+    private var specificPathVariable: EnvironmentVariablesComponent? = null
+
 
 
     override fun resetEditorFrom(uuvRunConfiguration: UUVRunConfiguration) {
@@ -30,6 +33,7 @@ class UUVRunSettingsEditor : SettingsEditor<UUVRunConfiguration>() {
         useLocalScript!!.component.checkBox.isSelected = uuvRunConfiguration.useLocalScript
         targetScript!!.component.selectedItem = uuvRunConfiguration.targetScript
         targetTestFile!!.component.text = uuvRunConfiguration.targetTestFile
+        specificPathVariable!!.component.textField.text = uuvRunConfiguration.specificPathVariable
     }
 
     private fun getProjectHomeDir(uuvRunConfiguration: UUVRunConfiguration): String? =
@@ -43,10 +47,11 @@ class UUVRunSettingsEditor : SettingsEditor<UUVRunConfiguration>() {
         uuvRunConfiguration.useLocalScript = useLocalScript!!.component.checkBox.isSelected
         uuvRunConfiguration.targetScript = targetScript!!.component.editor.item as String
         uuvRunConfiguration.targetTestFile = targetTestFile!!.component.text
+        uuvRunConfiguration.specificPathVariable = specificPathVariable!!.envs.entries.joinToString(";")
+
     }
 
     override fun createEditor(): JComponent {
-        mainPanel.layout = GridLayout(4,1, 0, 3)
         this.createUIComponents()
         return mainPanel
     }
@@ -54,12 +59,12 @@ class UUVRunSettingsEditor : SettingsEditor<UUVRunConfiguration>() {
     private fun createUIComponents() {
         val projectHomeDirPanel = JPanel()
         val fileChooser = FileChooserDescriptorFactory.createSingleFolderDescriptor()
-        val textFieldWithBrowseButton = TextFieldWithBrowseButton(JTextField(50))
+        val textFieldWithBrowseButton = TextFieldWithBrowseButton(JTextField(45))
         textFieldWithBrowseButton.addBrowseFolderListener(
             UiMessage.message("runconfiguration.field.chooseproject.select"),
-                null,
-                null,
-                fileChooser
+            null,
+            null,
+            fileChooser
         )
         projectHomeDir = LabeledComponent.create(textFieldWithBrowseButton, UiMessage.message("runconfiguration.field.chooseproject.label"), BorderLayout.WEST)
         projectHomeDirPanel.layout = FlowLayout(FlowLayout.LEFT)
@@ -80,9 +85,13 @@ class UUVRunSettingsEditor : SettingsEditor<UUVRunConfiguration>() {
         mainPanel.add(useLocalScriptPanel)
 
         val targetTestFilePanel = JPanel()
-        targetTestFile = LabeledComponent.create(JTextField(50), UiMessage.message("runconfiguration.field.targettestfile"), BorderLayout.WEST)
+        targetTestFile = LabeledComponent.create(JTextField(45), UiMessage.message("runconfiguration.field.targettestfile"), BorderLayout.WEST)
         targetTestFilePanel.layout = FlowLayout(FlowLayout.LEFT)
         targetTestFilePanel.add(targetTestFile)
         mainPanel.add(targetTestFilePanel)
+
+        specificPathVariable = EnvironmentVariablesComponent()
+        specificPathVariable!!.labelLocation = BorderLayout.WEST
+        mainPanel.add(specificPathVariable)
     }
 }

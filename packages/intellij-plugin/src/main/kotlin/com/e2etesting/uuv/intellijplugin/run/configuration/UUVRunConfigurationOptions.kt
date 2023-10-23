@@ -11,6 +11,7 @@ class UUVRunConfigurationOptions : RunConfigurationOptions() {
     private val useLocalScriptProperty: StoredProperty<Boolean> = property(false).provideDelegate(this, TechMessage.message("runconfiguration.option.property.name.uselocalscript"))
     private val targetScriptProperty: StoredProperty<String?> = string(DEFAULT_TARGET_SCRIPT.name).provideDelegate(this, TechMessage.message("runconfiguration.option.property.name.targetscript"))
     private val targetTestFileProperty: StoredProperty<String?> = string(DEFAULT_TARGET_TEST_FILE).provideDelegate(this, TechMessage.message("runconfiguration.option.property.name.targettestfile"))
+    private val specificPathVariableProperty: StoredProperty<String?> = string(null).provideDelegate(this, TechMessage.message("runconfiguration.option.property.name.specificpathvariable"))
 
     var projectHomeDir: String?
         get() = projectHomeDirProperty.getValue(this)
@@ -34,6 +35,12 @@ class UUVRunConfigurationOptions : RunConfigurationOptions() {
         get() = targetTestFileProperty.getValue(this)
         set(targetTestFile) {
             targetTestFileProperty.setValue(this, targetTestFile)
+        }
+
+    var specificPathVariable: String?
+        get() = specificPathVariableProperty.getValue(this)
+        set(specificPathVariable) {
+            specificPathVariableProperty.setValue(this, specificPathVariable ?: "")
         }
 }
 

@@ -27,13 +27,13 @@ class UUVRunConfiguration(project: Project?, factory: ConfigurationFactory?, nam
     var projectHomeDir: String?
         get() = options.projectHomeDir
         set(projectHomeDir) {
-            options.projectHomeDir = projectHomeDir;
+            options.projectHomeDir = projectHomeDir
         }
 
     var useLocalScript: Boolean
         get() = options.useLocalScript
         set(useLocalScript) {
-            options.useLocalScript = useLocalScript;
+            options.useLocalScript = useLocalScript
         }
 
     var targetScript: String?
@@ -48,13 +48,19 @@ class UUVRunConfiguration(project: Project?, factory: ConfigurationFactory?, nam
             options.targetTestFile = targetTestFile
         }
 
+    var specificPathVariable: String?
+        get() = options.specificPathVariable
+        set(specificPathVariable) {
+            options.specificPathVariable = specificPathVariable
+        }
+
     override fun getConfigurationEditor(): SettingsEditor<out UUVRunConfiguration?> {
         return UUVRunSettingsEditor()
     }
 
     override fun checkConfiguration() {}
 
-    override fun getState(executor: Executor, executionEnvironment: ExecutionEnvironment): RunProfileState? {
+    override fun getState(executor: Executor, executionEnvironment: ExecutionEnvironment): RunProfileState {
         return object : CommandLineState(executionEnvironment) {
 
             override fun execute(executor: Executor, runner: ProgramRunner<*>): ExecutionResult {
@@ -66,8 +72,14 @@ class UUVRunConfiguration(project: Project?, factory: ConfigurationFactory?, nam
 
             @Throws(ExecutionException::class)
             override fun startProcess(): ProcessHandler {
+                val defaultEnvVar: Map<String, String> = mapOf(Pair(TechMessage.message("system.env.path"), System.getenv(TechMessage.message("system.env.path"))))
+                val specificPathVariableArray: List<String> = specificPathVariable?.split(";") ?: listOf(specificPathVariable ?: "")
+                val specificPathVariableMap: Map<String, String> = specificPathVariableArray.associate {
+                    val (left, right) = it.split("=")
+                    left to right
+                }
                 val commandLine = getCommandLineToExecute()
-                        .withEnvironment(TechMessage.message("system.env.path"), System.getenv(TechMessage.message("system.env.path")))
+                        .withEnvironment(specificPathVariableMap ?: defaultEnvVar)
                         .withWorkDirectory(
                                 if(this@UUVRunConfiguration.projectHomeDir != null)
                                     this@UUVRunConfiguration.projectHomeDir
