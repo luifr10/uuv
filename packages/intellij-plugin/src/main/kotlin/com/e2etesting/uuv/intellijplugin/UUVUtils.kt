@@ -4,6 +4,7 @@ import com.e2etesting.uuv.intellijplugin.message.TechMessage
 import com.e2etesting.uuv.intellijplugin.model.UUVTargetScript
 import com.e2etesting.uuv.intellijplugin.run.configuration.UUVRunConfiguration
 import com.e2etesting.uuv.intellijplugin.run.configuration.UUVRunConfigurationType
+import com.google.gson.Gson
 import com.intellij.execution.ExecutorRegistry
 import com.intellij.execution.ProgramRunnerUtil
 import com.intellij.execution.RunManager
@@ -59,5 +60,16 @@ object UUVUtils {
         val executor = ExecutorRegistry.getInstance().getExecutorById(TechMessage.message("executor.id"))
         ProgramRunnerUtil.executeConfiguration(runnerAndConfigurationSetting, executor!!)
         RunManager.getInstance(actionEvent.project!!).selectedConfiguration = runnerAndConfigurationSetting
+    }
+
+    fun toJsonString(inputMap: Map<String, String>): String {
+        return Gson().toJson(inputMap)
+    }
+
+    fun toMap(inputJson: String?): Map<String, String> {
+        return if (inputJson.isNullOrBlank())
+            emptyMap()
+        else
+            Gson().fromJson(inputJson, Map::class.java) as Map<String, String>
     }
 }

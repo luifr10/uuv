@@ -17,6 +17,7 @@ import com.intellij.execution.testframework.sm.runner.*
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
 import io.ktor.utils.io.charsets.*
+import org.jetbrains.annotations.Nls
 
 
 class UUVRunConfiguration(project: Project?, factory: ConfigurationFactory?, name: String?) : RunConfigurationBase<UUVRunConfigurationOptions?>(project!!, factory, name) {
@@ -48,10 +49,10 @@ class UUVRunConfiguration(project: Project?, factory: ConfigurationFactory?, nam
             options.targetTestFile = targetTestFile
         }
 
-    var specificPathVariable: String?
-        get() = options.specificPathVariable
-        set(specificPathVariable) {
-            options.specificPathVariable = specificPathVariable
+    var specificEnvironmentVariable: String?
+        get() = options.specificEnvironmentVariable
+        set(specificEnvironmentVariable) {
+            options.specificEnvironmentVariable = specificEnvironmentVariable
         }
 
     override fun getConfigurationEditor(): SettingsEditor<out UUVRunConfiguration?> {
@@ -81,14 +82,8 @@ class UUVRunConfiguration(project: Project?, factory: ConfigurationFactory?, nam
 
             @Throws(ExecutionException::class)
             override fun startProcess(): ProcessHandler {
-                val defaultEnvVar: Map<String, String> = mapOf(Pair(TechMessage.message("system.env.path"), System.getenv(TechMessage.message("system.env.path"))))
-                val specificPathVariableArray: List<String> = specificPathVariable?.split(";") ?: listOf(specificPathVariable ?: "")
-                val specificPathVariableMap: Map<String, String> = specificPathVariableArray.associate {
-                    val (left, right) = it.split("=")
-                    left to right
-                }
                 val commandLine = getCommandLineToExecute()
-                        .withEnvironment(specificPathVariableMap ?: defaultEnvVar)
+                        .withEnvironment(getEnvironmentVariable())
                         .withWorkDirectory(
                                 if(this@UUVRunConfiguration.projectHomeDir != null)
                                     this@UUVRunConfiguration.projectHomeDir
@@ -115,6 +110,15 @@ class UUVRunConfiguration(project: Project?, factory: ConfigurationFactory?, nam
                 } else {
                     GeneralCommandLine(getNpmCommand(), TechMessage.message("cmd.executor.run"), TechMessage.message("cmd.executor.run.uuv"), "${targetScript}", TechMessage.message("cmd.executor.passvariable"), *parameters.toTypedArray())
                 }
+            }
+
+            fun getEnvironmentVariable(): Map<String, String?> {
+                val specificEnvironmentVariableMap: Map<String, String> = UUVUtils.toMap(specificEnvironmentVariable)
+                return specificEnvironmentVariableMap.ifEmpty { getSystemPathVariable() }
+            }
+
+            fun getSystemPathVariable(): Map<@Nls String, String?> {
+                return mapOf(Pair<@Nls String, String?>(TechMessage.message("system.env.path"), System.getenv(TechMessage.message("system.env.path"))))
             }
 
             fun getNpxCommand(): String = if(UUVUtils.isWindows(UUVUtils.getOs())) TechMessage.message("cmd.executor.npx.win") else TechMessage.message("cmd.executor.npx.unix")
