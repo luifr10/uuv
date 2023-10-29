@@ -49,6 +49,7 @@ class UUVRunSettingsEditor : SettingsEditor<UUVRunConfiguration>() {
         uuvRunConfiguration.targetTestFile = targetTestFile!!.component.text
         uuvRunConfiguration.specificPathVariable = specificPathVariable!!.envs.entries.joinToString(";")
 
+        uuvRunConfiguration.targetScript = targetScript.component.selectedItem as String
     }
 
     override fun createEditor(): JComponent {
