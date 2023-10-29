@@ -58,7 +58,16 @@ class UUVRunConfiguration(project: Project?, factory: ConfigurationFactory?, nam
         return UUVRunSettingsEditor()
     }
 
-    override fun checkConfiguration() {}
+    override fun checkConfiguration() {
+        if(projectHomeDir.isNullOrBlank()) {
+            val field = UiMessage.message("runconfiguration.field.chooseproject.label")
+            throw RuntimeConfigurationError(UiMessage.message("runconfiguration.check.error.required", field))
+        }
+        if(targetScript.isNullOrBlank()) {
+            val field = UiMessage.message("runconfiguration.field.targetscript.label")
+            throw RuntimeConfigurationError(UiMessage.message("runconfiguration.check.error.required", field))
+        }
+    }
 
     override fun getState(executor: Executor, executionEnvironment: ExecutionEnvironment): RunProfileState {
         return object : CommandLineState(executionEnvironment) {
