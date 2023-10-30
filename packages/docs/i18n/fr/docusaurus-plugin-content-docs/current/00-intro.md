@@ -1,7 +1,7 @@
 # Concepts
 
-La librairie `@uuv` (User centric Usecases Validator) est un écosystème qui simplifie l'écriture de tests
-End to End dans une approche BDD et du point de vue d'utilisateur final.
+`@uuv` (**U**ser centric **U**secases **V**alidator) est un écosystème qui **simplifie** l'**écriture** et l'**exécution** de tests
+End to End dans une approche BDD et du point de vue d'utilisateur final. Les **tests E2E** écrits sont donc **compréhensibles par tout être humain**
 
 ## Le problème
 
@@ -53,6 +53,7 @@ Pour répondre aux problématiques ci-dessus et bien d'autres, notre solution es
 - Si bien utilisé, intègre l’accessibilité dès le développement
 - Une documentation vivante est possible car nous proposons un langage unifié pour les développeurs et les non-développeurs avec un [dictionnaire riche](category/step-definition) de phrases prêtes à l'emploi
 - [@uuv/assistant](tools/uuv-assistant) pour écrire scénarios rapidement
+- [Plugin JetBrains](tools/uuv-jetbrains-plugin) qui vous aide à écrire et à exécuter vos tests UUV E2E depuis les IDE JetBrains
 - Intègre plusieurs moteurs d'exécution : Cypress / Playwright
 - Rapport d’exécution user friendly et uniformisé
 
@@ -75,7 +76,7 @@ on peut constater que la phrase proposée par **UUV est la plus compréhensible*
 
 | Library         | Syntax                                                 |
 |:----------------|:-------------------------------------------------------|
-| Cypress         | cy.get('result').should('exist')                       |
-| Playwright      | await expect(page.getByTitle('Result')).toHaveCount(1) |
-| Testing library | expect(screen.getByTitle(/Result/i)).toBeTruthy()      |
-| UUV             | Alors Je dois voir un titre nommé "Result"             |
+| Cypress         | <CodeBlock language="js">cy.get('result').should('exist')</CodeBlock>                       |
+| Playwright      | <CodeBlock language="js">await expect(page.getByTitle('Result')).toHaveCount(1)</CodeBlock> |
+| Testing library | <CodeBlock language="js">expect(screen.getByTitle(/Result/i)).toBeTruthy() </CodeBlock>     |
+| UUV             | <CodeBlock language="gherkin">Alors Je dois voir un titre nommé "Result"</CodeBlock>          |

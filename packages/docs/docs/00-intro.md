@@ -1,12 +1,12 @@
-# Concepts
+import CodeBlock from '@theme/CodeBlock';
 
-The `@uuv` library (User centric Usecases Validator) is an ecosystem that simplifies the writing of End to End tests in a BDD approach and a user-centric way.
+# Concepts
+`@uuv` (**U**ser centric **U**secases **V**alidator) is an ecosystem that **simplifies** End to End test **writing** and **execution** using BDD(Behaviour Driven Development) and a user-centric approaches. Written **E2E tests** are therefore **understandable by any human being**.
 
 ## The problem
 
 Automated software testing is a growing practice. It adds a better
 level of quality on the code of an application by verifying non-regression or validating use cases.
-
 
 The `End to End test` is a technique used to verify if an application (web,
 mobile...) behaves as expected, from start to finish. It consists in verifying that the end user can complete the main usage scenarios of the application.
@@ -43,9 +43,11 @@ To answer the above issues and many others, our solution is to set up a coherent
   - *[Playwright](https://playwright.dev/)*
 
 ## The benefits
+
 - If used correctly, integrates accessibility from the development stage
 - A living documentation is possible because we propose an unified language for developers and non-developers with a [rich dictionary](category/step-definition) of ready-to-use sentences
 - [@uuv/assistant](tools/uuv-assistant) that facilitates the writing of tests by suggesting the most accessible sentences
+- [JetBrains Plugin](tools/uuv-jetbrains-plugin) that helps you to write and execute your UUV E2E tests from JetBrains IDEs
 - Integrates several runtime engines: Cypress / Playwright
 - User friendly and standardized execution report
 
@@ -64,11 +66,12 @@ With this dom example :
   <h1>Result<h1>
   </body>
 ```
+
 we see that the sentence proposed by **UUV is the most understandable** of all<br/>
 
-| Library         | Syntax                                                 |
-|:----------------|:-------------------------------------------------------|
-| Cypress         | cy.get('result').should('exist')                       |
-| Playwright      | await expect(page.getByTitle('Result')).toHaveCount(1) |
-| Testing library | expect(screen.getByTitle(/Result/i)).toBeTruthy()      |
-| UUV             | Then I should see a title named "Result"               |
+| Library         | Syntax                                                                                      |
+|:----------------|:--------------------------------------------------------------------------------------------|
+| Cypress         | <CodeBlock language="js">cy.get('result').should('exist')</CodeBlock>                       |
+| Playwright      | <CodeBlock language="js">await expect(page.getByTitle('Result')).toHaveCount(1)</CodeBlock> |
+| Testing library | <CodeBlock language="js">expect(screen.getByTitle(/Result/i)).toBeTruthy() </CodeBlock>     |
+| UUV             | <CodeBlock language="gherkin">Then I should see a title named "Result"</CodeBlock>          |

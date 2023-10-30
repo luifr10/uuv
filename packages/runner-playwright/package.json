@@ -3,7 +3,7 @@
   "version": "1.11.2",
   "type": "commonjs",
   "author": "Louis Fredice NJAKO MOLOM (https://github.com/luifr10) & Stanley SERVICAL (https://github.com/stanlee974)",
-  "description": "A solution to run E2E tests written in cucumber(BDD) with playwright.",
+  "description": "A solution to facilitate the writing and execution of E2E tests understandable by any human being using cucumber(BDD) and playwright",
   "license": "MIT",
   "repository": {
     "type": "git",
