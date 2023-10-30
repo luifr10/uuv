@@ -1,6 +1,6 @@
 # UUV Jetbrains Plugin
 
-This plugin helps you to  write and execute your UUV E2E tests. 
+This plugin helps you to write and execute your UUV E2E tests from JetBrains IDEs. 
 
 ## Install plugin
 - Download [UUV Plugin](https://plugins.jetbrains.com/plugin/22437-uuv)
@@ -37,11 +37,11 @@ A UUV Run configuration contains the followings parameters :
 
 ![Custom run configuration](@site/static/img/docs/jetbrain-plugin/run-custom-run-config.png)
 
-| Parameter             | Required | Description                                                                                                                     |
-|-----------------------|----------|---------------------------------------------------------------------------------------------------------------------------------|
-| Project Directory     | Yes      | Must be the directory containing the package.json where the uuv dependency is installed                                         |
-| Target script         | Yes      | `open` : to open the GUI runner<br/> `e2e` : to execute tests without GUI runner                                                |
-| Use local npm script  | No       | Check this box if for some reason you are unable to run **npx scripts** from your ide                                           |
+| Parameter             | Required | Description                                                                                                                    |
+|-----------------------|----------|--------------------------------------------------------------------------------------------------------------------------------|
+| Project Directory     | Yes      | Must be the directory containing the package.json where the uuv dependency is installed                                        |
+| Target script         | Yes      | `open` : to open the GUI runner<br/> `e2e` : to execute tests without GUI runner                                               |
+| Use local npm script  | No       | Check this box if for some reason you are unable to run **npx scripts** from your ide                                          |
 | Target test file      | No       | **If empty**: all test files will be included<br/>**If set**: contains a `specPattern` path relative to the ProjetDir parameter |
-| Environment variables | No       | Override environment variables with current environment variables and custom variables                                          |
+| Environment variables | No       | Override environment variables                                          |
 
