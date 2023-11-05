@@ -33,6 +33,12 @@
     --ifm-hero-background-color: black;
 }
 
+[data-theme='light'] {
+    /*--ifm-color-secondary: #970000;*/
+    /*--ifm-button-background-color: red !important;*/
+}
+
+
 .footer {
     background-color: #000000;
 }

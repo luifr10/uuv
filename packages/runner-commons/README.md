@@ -13,21 +13,40 @@ Test as final user
 </h3>  
 
 <p align="center">  
-Make test writing fast, understandable by any human understanding English or French.  
+A solution to facilitate the writing and execution of E2E tests understandable by any human being(English or French) using cucumber(BDD) and cypress or playwright.
 </p>  
 
 <p align="center">  
-<a href="https://www.npmjs.com/package/@uuv/commons">  
+<a href="https://www.npmjs.com/package/@uuv/commons" target="_blank">  
 <img src="https://img.shields.io/badge/available%20on%20npm-grey?logo=npm" alt="npm"/>  
 </a>  
-<a href="https://www.npmjs.com/package/@uuv/commons">  
+<a href="https://www.npmjs.com/package/@uuv/commons" target="_blank">  
 <img src="https://img.shields.io/badge/accessibility-yes-green" alt="accessibility"/>  
 </a>  
-<a href="https://jestjs.io/fr/">  
+<a href="https://jestjs.io/fr/" target="_blank">  
 <img src="https://img.shields.io/badge/tested%20with-jest-yellow?logo=jest" alt="jest"/>  
 </a>  
 <br />  
 </p>  
+
+<div align="center">
+<a href="https://www.npmjs.com/package/@uuv/cypress" target="_blank">
+    <img alt="@uuv/cypress npm library download count"
+        src="https://img.shields.io/npm/dt/%40uuv/cypress?logo=npm&label=%40uuv%2Fcypress"></img>
+</a>
+<a href="https://www.npmjs.com/package/@uuv/playwright" target="_blank">
+    <img alt="@uuv/playwright npm library download count"
+         src="https://img.shields.io/npm/dt/%40uuv/playwright?logo=npm&label=%40uuv%2Fplaywright"></img>
+</a>
+<a href="https://www.npmjs.com/package/@uuv/assistant" target="_blank">
+    <img alt="@uuv/assistant npm library download count"
+         src="https://img.shields.io/npm/dt/%40uuv/assistant?logo=npm&label=%40uuv%2Fassistant"></img>
+</a>
+<a href="https://plugins.jetbrains.com/plugin/22437-uuv" target="_blank">
+    <img alt="JetBrains Plugin Downloads" src="https://img.shields.io/jetbrains/plugin/d/22437-uuv?logo=jetbrains&label=UUV%20plugin"></img>
+</a>
+<br />
+</div>
 
 ## What is @uuv/commons ?
 

@@ -18,6 +18,39 @@
 
 .buttons {
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
+}
+
+.button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+[data-theme='light'] .button {
+  background-color: #f2cc31;
+  border-color: #f2cc31;
+  color: black;
+}
+
+.buttonIconGetStarted {
+  width: 31px;
+}
+
+.downloadSection {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 800px) {
+  .downloadSection {
+    flex-direction: column;
+    gap: 10px;
+  }
 }

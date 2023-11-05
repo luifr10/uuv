@@ -13,23 +13,52 @@ Test as final user
 </h3>  
 
 <p align="center">  
-Make test writing fast, understandable by any human understanding English or French.  
+A solution to facilitate the writing and execution of E2E tests understandable by any human being(English or French) using cucumber(BDD) and cypress or playwright.  
 </p>  
 
 <p align="center">  
-<a href="https://www.npmjs.com/package/@uuv/playwright">  
+<a href="https://www.npmjs.com/package/@uuv/playwright" target="_blank">  
 <img src="https://img.shields.io/badge/available%20on%20npm-grey?logo=npm" alt="npm"/>  
 </a>  
-<a href="https://playwright.dev/">  
+<a href="https://playwright.dev/" target="_blank">  
 <img src="https://img.shields.io/badge/tested with-playwright-1dbb68?logo=playwright" alt="playwright"/>  
 </a>  
-<a href="https://testing-library.com/">  
+<a href="https://testing-library.com/" target="_blank">  
 <img src="https://img.shields.io/badge/tested%20with-testing%20library-ED3B3A?logo=testing-library" alt="testing-library"/>  
 </a>  
-<a href="https://cucumber.io/">  
+<a href="https://cucumber.io/" target="_blank">  
 <img src="https://img.shields.io/badge/tested%20with-cucumber-1dbb68?logo=cucumber" alt="cucumber"/>  
 </a><br />  
+</p>
+
+<div align="center">
+<a href="https://www.npmjs.com/package/@uuv/cypress" target="_blank">
+    <img alt="@uuv/cypress npm library download count"
+        src="https://img.shields.io/npm/dt/%40uuv/cypress?logo=npm&label=%40uuv%2Fcypress"></img>
+</a>
+<a href="https://www.npmjs.com/package/@uuv/playwright" target="_blank">
+    <img alt="@uuv/playwright npm library download count"
+         src="https://img.shields.io/npm/dt/%40uuv/playwright?logo=npm&label=%40uuv%2Fplaywright"></img>
+</a>
+<a href="https://www.npmjs.com/package/@uuv/assistant" target="_blank">
+    <img alt="@uuv/assistant npm library download count"
+         src="https://img.shields.io/npm/dt/%40uuv/assistant?logo=npm&label=%40uuv%2Fassistant"></img>
+</a>
+<a href="https://plugins.jetbrains.com/plugin/22437-uuv" target="_blank">
+    <img alt="JetBrains Plugin Downloads" src="https://img.shields.io/jetbrains/plugin/d/22437-uuv?logo=jetbrains&label=UUV%20plugin"></img>
+</a>
+<br />
+</div>
+
+## What is @uuv/playwright?
+
+
+<p align="center">  
+
+The `@uuv` library (User centric Usecases Validator) is an ecosystem that simplifies the writing of End to End tests in a BDD approach and a user-centric way.  
+We can use the playwright engine(`@uuv/playwright`) to run test or cypress with [@uuv/cypress](https://www.npmjs.com/package/@uuv/cypress)
 </p>  
+
 
 ## Benefits
 - If used correctly, integrates accessibility from the development stage
@@ -63,16 +92,6 @@ we see that the sentence proposed by **UUV is the most understandable** of all
 
 ## Documentation
 <a href="https://orange-opensource.github.io/uuv/"><img src="https://img.shields.io/badge/documentation-black?&style=for-the-badge&logo=github&logoColor=white" alt="documentation"/></a>
-
-## What is @uuv/playwright?
-
-
-<p align="center">  
-
-The `@uuv` library (User centric Usecases Validator) is an ecosystem that simplifies the writing of End to End tests in a BDD approach and a user-centric way.  
-We can use the playwright engine to run test or cypress with [@uuv/cypress](https://www.npmjs.com/package/@uuv/cypress)
-</p>  
-
 
 ## Installation
 
