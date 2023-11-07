@@ -90,7 +90,7 @@
   },
   "devDependencies": {
     "@types/minimist": "1.2.4",
-    "@types/node": "16.18.59",
+    "@types/node": "16.18.61",
     "cross-env": "7.0.3",
     "eslint-plugin-cucumber": "2.0.0",
     "eslint-plugin-jest": "27.6.0",

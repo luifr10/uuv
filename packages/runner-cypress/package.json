@@ -100,7 +100,7 @@
   },
   "devDependencies": {
     "@types/minimist": "1.2.4",
-    "@types/node": "16.18.59",
+    "@types/node": "16.18.61",
     "cross-env": "7.0.3",
     "eslint-plugin-cypress": "2.15.1",
     "serve-handler": "6.1.5",
