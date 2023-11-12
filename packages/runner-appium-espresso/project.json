@@ -1,0 +1,74 @@
+{
+  "name": "runner-appium-espresso",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/runner-appium-espresso/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "rootDir": "packages/runner-appium-espresso/src",
+        "outputPath": "packages/runner-appium-espresso/dist/",
+        "main": "packages/runner-appium-espresso/src/index.ts",
+        "tsConfig": "packages/runner-appium-espresso/tsconfig.lib.json",
+        "assets": ["packages/runner-appium-espresso/*.md"]
+      },
+      "dependsOn": [
+        "^build",
+        "generate"
+      ]
+    },
+    "generate": {
+      "executor": "nx:run-script",
+      "outputs": [
+        "packages/runner-appium-espresso/src/cucumber/step_definitions/appium/generated"
+      ],
+      "options": {
+        "script": "generate:step-definitions-documentation"
+      },
+      "dependsOn": [
+        "generate:step-definitions"
+      ]
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/runner-appium-espresso/src/**/*.{ts,js,feature}"],
+        "fix": true,
+        "eslintConfig": "packages/runner-appium-espresso/.eslintrc.json"
+      }
+    },
+    "semantic-release": {
+      "executor": "@theunderscorer/nx-semantic-release:semantic-release",
+      "options": {
+        "commitMessage": "release(runner-appium-espresso): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}",
+        "plugins": [
+          [
+            "@semantic-release/npm",
+            {
+              "npmPublish": false,
+              "tarballDir": "dist/packages",
+              "pkgRoot": "packages/runner-appium-espresso"
+            }
+          ],
+          [
+            "@semantic-release/github",
+            {
+              "successComment": false,
+              "failComment": false,
+              "assets": [
+                {
+                  "path": "dist/packages/uuv-appium-*.tgz",
+                  "label": "Npm Package"
+                }
+              ]
+            }
+          ]
+        ]
+      }
+    }
+  },
+  "tags": []
+}
