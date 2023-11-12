@@ -44,7 +44,7 @@ With this dom example :
 we see that the sentence proposed by **UUV is the most understandable** of all
 | Library | Syntax |
 |:--|:--|
-| Cypress  | cy.get('result').should('exist') |
+| Cypress  | cy.get('h1').contains('Result') |
 | Playwright| await expect(page.getByTitle('Result')).toHaveCount(1) |
 | Testing library  | expect(screen.getByTitle(/Result/i)).toBeTruthy() |
 | UUV | Then I should see a title named "Result"|

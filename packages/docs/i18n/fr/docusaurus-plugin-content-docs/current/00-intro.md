@@ -76,7 +76,7 @@ on peut constater que la phrase proposée par **UUV est la plus compréhensible*
 
 | Library         | Syntax                                                 |
 |:----------------|:-------------------------------------------------------|
-| Cypress         | <CodeBlock language="js">cy.get('result').should('exist')</CodeBlock>                       |
+| Cypress         | <CodeBlock language="js">cy.get('h1').contains('Result')</CodeBlock>                       |
 | Playwright      | <CodeBlock language="js">await expect(page.getByTitle('Result')).toHaveCount(1)</CodeBlock> |
 | Testing library | <CodeBlock language="js">expect(screen.getByTitle(/Result/i)).toBeTruthy() </CodeBlock>     |
 | UUV             | <CodeBlock language="gherkin">Alors Je dois voir un titre nommé "Result"</CodeBlock>          |
