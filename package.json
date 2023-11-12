@@ -4,6 +4,7 @@
   "author": "Louis Fredice NJAKO MOLOM (https://github.com/luifr10) & Stanley SERVICAL (https://github.com/stanlee974)",
   "description": "A transpiler from cucumber step definitions to target runtime engine language",
   "license": "MIT",
+  "private": true,
   "repository": {
     "type": "git",
     "url": "https://github.com/Orange-OpenSource/uuv"
@@ -62,9 +63,17 @@
   "overrides": {
     "lodash": "~4.17.21"
   },
-  "workspaces": [
-    "packages/*"
-  ],
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "**/appium-uiautomator2",
+      "**/appium-uiautomator2/**",
+      "**/appium-espresso",
+      "**/appium-espresso/**"
+    ]
+  },
   "engines": {
     "node": "^18.12.0"
   }
