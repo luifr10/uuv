@@ -1,4 +1,5 @@
 const { join } =  require("path");
+const { generateHtmlReport } = require("@uuv/appium-uiautomator2");
 
 const port = 9090;
 
@@ -60,7 +61,7 @@ exports.config = {
     ],
     framework: "cucumber",
     specs: [
-        "./tests/e2e/**/*.feature",
+        "./uuv/e2e/**/*.feature",
     ],
     capabilities: [
         {
@@ -76,7 +77,7 @@ exports.config = {
             // 'appium:orientation': 'PORTRAIT',
             "appium:automationName": "UiAutomator2",
             // The path to the app
-            "appium:app": join(__dirname, "./tests/apps/mmvm-simple-app-debug.apk"),
+            "appium:app": join(__dirname, "./uuv/apps/app-debug.apk"),
             "appium:fullReset": true,
             // 'appium:appWaitActivity': 'MainActivity',
             // 'appium:appWaitPackage': 'com.example.mvvm_simple_app',
@@ -126,8 +127,16 @@ exports.config = {
         timeout: 20000,
         // <string[]> (file/dir) require files before executing features
         require: [
-            "./src/cucumber/step_definitions/appium-uiautomator2/**/*.ts",
+            "node_modules/@uuv/appium-uiautomator2/dist/cucumber/step_definitions/appium-uiautomator2/**/*.js",
+        ],
+        format: [
+            ["message", "./uuv/cucumber-messages.ndjson"],
+            ["json", "./uuv/reports/e2e/json/cucumber-report.json"]
         ]
+    },
+    onComplete: async () => {
+        console.log("onComplete");
+        await generateHtmlReport("android");
     }
 };
 
