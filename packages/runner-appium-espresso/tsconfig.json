@@ -1,26 +1,36 @@
 {
-    "compilerOptions": {
-        "outDir": "./.tsbuild/",
-        "sourceMap": false,
-        "target": "es2019",
-        "module": "commonjs",
-        "removeComments": true,
-        "noImplicitAny": true,
-        "strictPropertyInitialization": true,
-        "strictNullChecks": true,
-        "types": [
-            "node",
-            "@wdio/globals/types",
-            "webdriverio/async",
-            "@wdio/mocha-framework",
-            "expect-webdriverio",
-            "@wdio/sauce-service",
-            "chai"
-        ]
-    },
-    "include": [
-        "./src/**/*.ts",
-        "./config/**/*.ts",
-        "./tests/**/*.ts"
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "resolveJsonModule": true,
+    "types": [
+      "node",
+      "@wdio/globals/types"
     ]
+  },
+  "files": [],
+  "include": [
+    "src/**.*ts",
+    "**.*ts",
+    "**.*js"
+  ],
+  "exclude": [
+    "dist/**.*"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.lib.json"
+    }
+  ],
+  "ts-node": {
+    "require": [
+      "tsconfig-paths/register"
+    ]
+  }
 }

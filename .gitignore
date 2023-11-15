@@ -58,4 +58,6 @@ tests/integration/runner-cypress/
 tests/integration/runner-playwright/
 packages/intellij-plugin/.idea/
 /packages/runner-appium-espresso/wdio-appium.log
+/packages/runner-appium-espresso/tsconfig.lib.tsbuildinfo
 /packages/runner-appium-uiautomator2/wdio-appium.log
+/packages/runner-appium-uiautomator2/tsconfig.lib.tsbuildinfo
