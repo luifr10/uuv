@@ -15,6 +15,8 @@
   "exclude": [
     "jest.config.ts",
     "src/**/*.spec.ts",
-    "src/**/*.test.ts"
+    "src/**/*.test.ts",
+    "src/cucumber/step_definitions/appium-espresso/base-check-engine.ts",
+    "src/cucumber/step_definitions/appium-espresso/based-role-check-engine.ts"
   ]
 }

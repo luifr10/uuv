@@ -127,7 +127,7 @@ exports.config = {
         timeout: 20000,
         // <string[]> (file/dir) require files before executing features
         require: [
-            "./src/cucumber/step_definitions/**/*.ts",
+            "./src/cucumber/step_definitions/appium-espresso/generated/**/*.ts",
         ]
     }
 };

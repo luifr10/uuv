@@ -35,6 +35,7 @@
     "espresso"
   ],
   "scripts": {
+    "generate:step-definitions": "ts-node generate-step-definitions.ts",
     "package": "npm pack --pack-destination=\"../../dist/packages\"",
     "postinstall": "node postinstall.js",
     "test": "ts-node test.ts",
