@@ -17,7 +17,8 @@ import { DataTable, Given, Then, When } from "@badeball/cypress-cucumber-preproc
 import { Context } from "./_context";
 import "../../../cypress/commands";
 import { Method } from "cypress/types/net-stubbing";
-import { key, KEY_PRESS } from "@uuv/runner-commons";
+import { KEY_PRESS } from "@uuv/runner-commons";
+import { key } from "@uuv/runner-commons/wording/web";
 import {
   assertTextContent,
   findWithRoleAndName,

@@ -15,7 +15,7 @@
 
 import { World } from "../../preprocessor/run/world";
 import { expect, Locator as LocatorTest } from "@playwright/test";
-import { Cookie, Locator, Page } from "playwright";
+import { Cookie, Locator, Page } from "@playwright/test";
 
 export enum COOKIE_NAME {
     SELECTED_ELEMENT="selectedElement",

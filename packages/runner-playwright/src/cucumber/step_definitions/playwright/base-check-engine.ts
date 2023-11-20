@@ -13,14 +13,15 @@
  * understanding English or French.
  */
 
-import { DEFAULT_TIMEOUT, fs, key, KEY_PRESS } from "@uuv/runner-commons";
-import { checkA11y, configureAxe, injectAxe } from "axe-playwright";
-import { Locator } from "playwright";
+import { DEFAULT_TIMEOUT, fs, KEY_PRESS } from "@uuv/runner-commons";
+import { key } from "@uuv/runner-commons/wording/web";
+import { checkA11y, injectAxe } from "axe-playwright";
+import { Locator } from "@playwright/test";
 import { devices, expect } from "@playwright/test";
-import { Page } from "playwright";
+import { Page } from "@playwright/test";
 import { DataTable } from "@cucumber/cucumber";
 import {
-  addCookieWhenValueIsList, checkTextContentLocator,
+  addCookieWhenValueIsList,
   COOKIE_NAME, deleteCookieByName,
   deleteCookieByValue,
   FILTER_TYPE,

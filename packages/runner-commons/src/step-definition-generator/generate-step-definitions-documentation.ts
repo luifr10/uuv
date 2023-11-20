@@ -34,8 +34,8 @@ export function runGenerateDoc(destDir: string) {
             useGrouping: false,
         });
         const generatedFile = `${GENERATED_DIR_DOC}/${indexOfFile}-${lang}-generated-wording-description.md`;
-        const wordingBaseFile = `${__dirname}/../assets/i18n/${lang}.json`;
-        const wordingEnrichedFile = `${__dirname}/../assets/i18n/${lang}-enriched-wordings.json`;
+        const wordingBaseFile = `${__dirname}/../assets/i18n/web/${lang}.json`;
+        const wordingEnrichedFile = `${__dirname}/../assets/i18n/web/${lang}-enriched-wordings.json`;
         const autocompletionSuggestionFile = path.join(GENERATED_DIR_DOC, `${lang}-autocompletion-suggestion.json`);
         cleanGeneratedFilesIfExists(generatedFile, lang, indexOfFile);
         Common.cleanGeneratedFilesIfExists(autocompletionSuggestionFile);

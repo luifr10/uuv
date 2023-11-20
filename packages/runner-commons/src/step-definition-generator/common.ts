@@ -14,18 +14,21 @@
 */
 
 import fs from "fs";
+import path from "path";
 
 export { fs };
 
 export abstract class GenerateFileProcessing {
-    baseDir?: string;
-    stepDefinitionFile?: string = "";
-    generatedDir?: string = "";
+    baseDir!: string;
+    stepDefinitionFile!: string;
+    generatedDir!: string;
+    wordingFilePath !: string;
 
-    protected constructor(baseDir: string, runner: TEST_RUNNER_ENUM, stepDefinitionFileName: STEP_DEFINITION_FILE_NAME) {
+    constructor(baseDir: string, runner: TEST_RUNNER_ENUM, stepDefinitionFileName: STEP_DEFINITION_FILE_NAME, wordingFileRelativePath) {
         this.baseDir = baseDir;
-        this.stepDefinitionFile = `${this.baseDir}/src/cucumber/step_definitions/${runner.toString()}/${stepDefinitionFileName.toString()}.ts`;
-        this.generatedDir = `${this.baseDir}/src/cucumber/step_definitions/${runner.toString()}/generated`;
+        this.stepDefinitionFile = path.join(this.baseDir, `src/cucumber/step_definitions/${runner.toString()}/${stepDefinitionFileName.toString()}.ts`);
+        this.generatedDir = path.join(this.baseDir, `src/cucumber/step_definitions/${runner.toString()}/generated`);
+        this.wordingFilePath = path.join(__dirname, `${wordingFileRelativePath}`);
     }
 
     abstract runGenerate(): void;
@@ -33,12 +36,14 @@ export abstract class GenerateFileProcessing {
     abstract generateWordingFiles(generatedFile: string,
                                   lang: string);
 
-    abstract computeWordingFile(data: string, wordingFile: string);
+    abstract computeWordingFile(data: string, wordingFile: string, generatedFile?: string);
 }
 
 export enum TEST_RUNNER_ENUM {
     CYPRESS = "cypress",
-    PLAYWRIGHT = "playwright"
+    PLAYWRIGHT = "playwright",
+    APPIUM_UIAUTOMATOR2 = "appium-uiautomator2",
+    APPIUM_ESPRESSO = "appium-espresso"
 }
 
 export enum STEP_DEFINITION_FILE_NAME {

@@ -13,6 +13,6 @@
 * understanding English or French.
 */
 
-import { generateStepDefinitionForRunner, TEST_RUNNER_ENUM } from "@uuv/runner-commons";
+import { generateStepDefinitionForWebRunner, TEST_RUNNER_ENUM } from "@uuv/runner-commons";
 
-generateStepDefinitionForRunner(__dirname, TEST_RUNNER_ENUM.PLAYWRIGHT);
+generateStepDefinitionForWebRunner(__dirname, TEST_RUNNER_ENUM.PLAYWRIGHT);

@@ -1,0 +1,59 @@
+{
+  "role": [
+    {"id":"Button","name":"button"},
+    {"id":"Checkbox","name":"checkbox"},
+    {"id":"Dropdownlist","name":"dropdown list"},
+    {"id":"Image","name":"picture"},
+    {"id":"RadioButton","name":"radio button"},
+    {"id":"Switch","name":"switch"},
+    {"id":"Tab","name":"tab"}
+  ],
+  "enriched": [
+    {
+      "key": "key.then.tap.withRoleAndDescriptionAndContent",
+      "description": "Checks that an element exists with the specified [role](https://developer.android.com/reference/kotlin/androidx/compose/ui/semantics/Role), content description and content",
+      "wording": "[FR]I tap on a(n) $roleName with description {string} and containing {string}"
+    },
+    {
+      "key": "key.then.tap.withRoleAndDescription",
+      "description": "Checks that an exists with the specified [role](https://developer.android.com/reference/kotlin/androidx/compose/ui/semantics/Role) and content description",
+      "wording": "[FR]I tap on a(n) $roleName with description {string}"
+    },
+    {
+      "key": "key.then.tap.withRoleAndContent",
+      "description": "Checks that an element exists with the specified [role](https://developer.android.com/reference/kotlin/androidx/compose/ui/semantics/Role) and content",
+      "wording": "[FR]I tap on a(n) $roleName containing {string}"
+    },
+    {
+      "key": "key.then.element.withRoleAndDescription",
+      "description": "Checks that an exists with the specified [role](https://developer.android.com/reference/kotlin/androidx/compose/ui/semantics/Role) and content description",
+      "wording": "[FR]I should see a(n) $roleName with description {string}"
+    },
+    {
+      "key": "key.then.element.not.withRoleAndDescription",
+      "description": "Checks that an element does not exists with the specified [role](https://developer.android.com/reference/kotlin/androidx/compose/ui/semantics/Role) and content description",
+      "wording": "[FR]I should not see a(n) $roleName with description {string}"
+    },
+    {
+      "key": "key.then.element.withRoleAndDescriptionAndContent",
+      "description": "Checks that an element exists with the specified [role](https://developer.android.com/reference/kotlin/androidx/compose/ui/semantics/Role), content description and content",
+      "wording": "[FR]I should see a(n) $roleName with description {string} and containing {string}"
+    },
+    {
+      "key": "key.then.element.not.withRoleAndDescriptionAndContent",
+      "description": "Checks that an element exists with the specified [role](https://developer.android.com/reference/kotlin/androidx/compose/ui/semantics/Role), content description and content",
+      "wording": "[FR]I should not see a(n) $roleName with description {string} and containing {string}"
+    },
+    {
+      "key": "key.then.element.withRoleAndContent",
+      "description": "Checks that an element exists with the specified [role](https://developer.android.com/reference/kotlin/androidx/compose/ui/semantics/Role), content description and content",
+      "wording": "[FR]I should see a(n) $roleName containing {string}"
+    },
+    {
+      "key": "key.then.element.not.withRoleAndContent",
+      "description": "Checks that an Html element exists with the specified [role](https://developer.android.com/reference/kotlin/androidx/compose/ui/semantics/Role), content description and content",
+      "wording": "[FR]I should not see a(n) $roleName containing {string}"
+    }
+  ]
+}
+

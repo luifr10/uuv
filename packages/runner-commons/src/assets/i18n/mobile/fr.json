@@ -1,0 +1,57 @@
+[
+  {
+    "key": "key.given.reloadApp",
+    "description": "Close and re-open app",
+    "wording": "[FR]I reload app"
+  },
+  {
+    "key": "key.then.element.withContent",
+    "description": "Checks that an element exists with the specified content",
+    "wording": "[FR]I should see an element with content {string}"
+  },
+  {
+    "key": "key.then.element.withDescription",
+    "description": "Checks that an element exists with the specified content description",
+    "wording": "[FR]I should see an element with description {string}"
+  },
+  {
+    "key": "key.then.element.withRoleAndContent",
+    "description": "Checks that an element exists with the specified role and content",
+    "wording": "[FR]I should see an element with role {string} and content {string}"
+  },
+  {
+    "key": "key.then.element.withRoleAndDescription",
+    "description": "Checks that an element exists with the specified role and content description",
+    "wording": "[FR]I should see an element with role {string} and description {string}"
+  },
+  {
+    "key": "key.then.element.withRoleAndDescriptionAndContent",
+    "description": "Checks that an element exists with the specified role, content description and content",
+    "wording": "[FR]I should see an element with role {string} and description {string} and content {string}"
+  },
+  {
+    "key": "key.then.element.not.withContent",
+    "description": "Checks that an element does not exists with the specified content",
+    "wording": "[FR]I should not see an element with content {string}"
+  },
+  {
+    "key": "key.then.element.not.withDescription",
+    "description": "Checks that an element does not exists with the specified content description",
+    "wording": "[FR]I should not see an element with description {string}"
+  },
+  {
+    "key": "key.then.element.not.withRoleAndContent",
+    "description": "Checks that an element does not exists with the specified role and content",
+    "wording": "[FR]I should not see an element with role {string} and content {string}"
+  },
+  {
+    "key": "key.then.element.not.withRoleAndDescription",
+    "description": "Checks that an element does not exists with the specified role and content description",
+    "wording": "[FR]I should not see an element with role {string} and description {string}"
+  },
+  {
+    "key": "key.then.element.not.withRoleAndDescriptionAndContent",
+    "description": "Checks that an element does not exists with the specified role, content description and content",
+    "wording": "[FR]I should not see an element with role {string} and description {string} and content {string}"
+  }
+]

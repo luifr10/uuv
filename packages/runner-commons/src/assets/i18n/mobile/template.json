@@ -1,0 +1,28 @@
+{
+  "given": {
+    "reloadApp": ""
+  },
+  "when": {
+    "tap": {
+      "withRoleAndContent": "",
+      "withRoleAndDescription": "",
+      "withRoleAndDescriptionAndContent": ""
+    }
+  },
+  "then": {
+    "element": {
+      "withContent": "",
+      "withDescription": "",
+      "withRoleAndContent": "",
+      "withRoleAndDescription": "",
+      "withRoleAndDescriptionAndContent": "",
+      "not": {
+        "withContent": "",
+        "withDescription": "",
+        "withRoleAndContent": "",
+        "withRoleAndDescription": "",
+        "withRoleAndDescriptionAndContent": ""
+      }
+    }
+  }
+}

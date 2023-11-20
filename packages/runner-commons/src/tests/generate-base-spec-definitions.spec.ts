@@ -1,7 +1,8 @@
 import fs from "fs";
 import { Common, STEP_DEFINITION_FILE_NAME, TEST_RUNNER_ENUM } from "../step-definition-generator/common";
 import { BaseStepDefinition } from "../step-definition-generator/generate-base-step-definitions";
-import json from "../assets/i18n/en.json";
+import json from "../assets/i18n/web/en.json";
+import path from "path";
 
 describe("tester la classe BaseStepDefinition", () => {
   const dirPath = "tests";
@@ -27,7 +28,7 @@ describe("tester la classe BaseStepDefinition", () => {
   let stepDef: BaseStepDefinition;
 
   beforeEach(() => {
-    stepDef = new BaseStepDefinition(dirPath, TEST_RUNNER_ENUM.CYPRESS, STEP_DEFINITION_FILE_NAME.BASE);
+    stepDef = new BaseStepDefinition(dirPath, TEST_RUNNER_ENUM.CYPRESS, STEP_DEFINITION_FILE_NAME.BASE, "../assets/i18n/web");
   });
 
   afterEach(() => {
@@ -35,8 +36,8 @@ describe("tester la classe BaseStepDefinition", () => {
   });
 
   test("classe - les attributs sont bien alimentés", () => {
-    expect(stepDef.generatedDir).toEqual("tests/src/cucumber/step_definitions/cypress/generated");
-    expect(stepDef.stepDefinitionFile).toEqual("tests/src/cucumber/step_definitions/cypress/base-check-engine.ts");
+    expect(stepDef.generatedDir).toEqual(path.join("tests/src/cucumber/step_definitions/cypress/generated"));
+    expect(stepDef.stepDefinitionFile).toEqual(path.join("tests/src/cucumber/step_definitions/cypress/base-check-engine.ts"));
     expect(stepDef.baseDir).toEqual(dirPath);
   });
 
@@ -47,9 +48,9 @@ describe("tester la classe BaseStepDefinition", () => {
     stepDef.runGenerate();
 
     const generateDir = "tests/src/cucumber/step_definitions/cypress/generated";
-    expect(spyBuildDir).toHaveBeenCalledWith(generateDir);
-    expect(spyClean).toHaveBeenCalledWith(generateDir + "/_fr-generated-cucumber-steps-definition.ts");
-    expect(spyClean).toHaveBeenCalledWith(generateDir + "/_en-generated-cucumber-steps-definition.ts");
+    expect(spyBuildDir).toHaveBeenCalledWith(path.join(generateDir));
+    expect(spyClean).toHaveBeenCalledWith(path.join(generateDir, "_fr-generated-cucumber-steps-definition.ts"));
+    expect(spyClean).toHaveBeenCalledWith(path.join(generateDir, "_en-generated-cucumber-steps-definition.ts"));
     expect(spyGenerate).toHaveBeenCalled();
   });
   test("computeWordingFile - les attributs sont bien alimentés", () => {
@@ -75,7 +76,7 @@ describe("tester la classe BaseStepDefinition", () => {
 
     stepDef.generateWordingFiles(filePath, "en");
 
-    expect(spyReadFile).toHaveBeenCalledWith("tests/src/cucumber/step_definitions/cypress/base-check-engine.ts", { encoding: "utf8" });
+    expect(spyReadFile).toHaveBeenCalledWith(path.join("tests/src/cucumber/step_definitions/cypress/base-check-engine.ts"), { encoding: "utf8" });
     expect(spyCompute).toHaveBeenCalled();
     expect(spyWrite).toHaveBeenCalled();
   });

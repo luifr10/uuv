@@ -61,3 +61,5 @@ packages/intellij-plugin/.idea/
 /packages/runner-appium-espresso/tsconfig.lib.tsbuildinfo
 /packages/runner-appium-uiautomator2/wdio-appium.log
 /packages/runner-appium-uiautomator2/tsconfig.lib.tsbuildinfo
+/packages/runner-appium-uiautomator2/src/cucumber/step_definitions/appium-uiautomator2/generated/
+/packages/runner-appium-espresso/src/cucumber/step_definitions/appium-espresso/generated/

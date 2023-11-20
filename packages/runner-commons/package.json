@@ -53,6 +53,16 @@
       "import": "./dist/index.js",
       "require": "./dist/index.js",
       "types": "./dist/index.d.ts"
+    },
+    "./wording/web": {
+      "import": "./dist/assets/i18n/web/index.js",
+      "require": "./dist/assets/i18n/web/index.js",
+      "types": "./dist/assets/i18n/web/index.d.ts"
+    },
+    "./wording/mobile": {
+      "import": "./dist/assets/i18n/mobile/index.js",
+      "require": "./dist/assets/i18n/mobile/index.js",
+      "types": "./dist/assets/i18n/mobile/index.d.ts"
     }
   }
 }

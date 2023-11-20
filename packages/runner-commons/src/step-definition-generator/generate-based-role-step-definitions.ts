@@ -15,36 +15,33 @@
 
 import { Common, fs, GenerateFileProcessing, STEP_DEFINITION_FILE_NAME, TEST_RUNNER_ENUM } from "./common";
 import { LANG } from "./lang-enum";
+import path from "path";
 
 export class BasedRoleStepDefinition extends GenerateFileProcessing {
-    constructor(baseDir: string, runner: TEST_RUNNER_ENUM, stepDefinitionFileName: STEP_DEFINITION_FILE_NAME) {
-        super(baseDir, runner, stepDefinitionFileName);
-    }
-    generatedFile = "";
     runGenerate() {
         Object.values(LANG).forEach((lang: string) => {
             const generatedSubfolder = `enriched/${lang}`;
-            const generatedFolder = `${this.generatedDir}/${generatedSubfolder}`;
+            const generatedFolder = path.join(this.generatedDir, generatedSubfolder);
             Common.cleanFolderIfExists(generatedFolder);
             Common.buildDirIfNotExists(generatedFolder);
-            this.generatedFile = `${generatedFolder}/_${lang}-generated-steps-definition_$roleId.ts`;
+            const generatedFile = path.join(generatedFolder, `_${lang}-generated-steps-definition_$roleId.ts`);
             // console.debug("generatedFile template", this.generatedFile)
-            this.generateWordingFiles(this.generatedFile, lang);
+            this.generateWordingFiles(generatedFile, lang);
         });
     }
     generateWordingFiles(
         generatedFile: string,
         lang: string
     ): void {
-        const wordingFile = `${__dirname}/../assets/i18n/${lang}-enriched-wordings.json`;
+        const wordingFile = path.join(this.wordingFilePath, `${lang}-enriched-wordings.json`);
         const data = fs.readFileSync(
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            this.stepDefinitionFile!,
-            { encoding: "utf8" });
-        this.computeWordingFile(data, wordingFile);
+            this.stepDefinitionFile,
+            { encoding: "utf8" }
+        );
+        this.computeWordingFile(data, wordingFile, generatedFile);
     }
 
-    computeWordingFile(data: string, wordingFile: string): void {
+    computeWordingFile(data: string, wordingFile: string, generatedFile: string): void {
         const dataOrigin: string = data;
         let dataUpdated: string = dataOrigin;
         const wordings = fs.readFileSync(wordingFile);
@@ -59,8 +56,10 @@ export class BasedRoleStepDefinition extends GenerateFileProcessing {
             dataUpdated = dataUpdated
                 .replace("../../cypress/commands", "../../../../../../cypress/commands")
                 .replace("../i18n/template.json", "../../../../i18n/template.json")
-                .replace("import { key } from \"@uuv/runner-commons\";", "")
-                .replace("import {key} from \"@uuv/runner-commons\";", "")
+                .replace("import { key } from \"@uuv/runner-commons/wording/web\";", "")
+                .replace("import {key} from \"@uuv/runner-commons/wording/web\";", "")
+                .replace("import { key } from \"@uuv/runner-commons/wording/mobile\";", "")
+                .replace("import {key} from \"@uuv/runner-commons/wording/mobile\";", "")
                 .replace("./core-engine", "../../../core-engine")
                 .replace("../../preprocessor/run/world", "../../../../../preprocessor/run/world");
             wordingsJson.enriched.forEach((conf) => {
@@ -71,7 +70,7 @@ export class BasedRoleStepDefinition extends GenerateFileProcessing {
                     .replaceAll("$roleId", role.id)
                     .replaceAll("$roleName", role.name);
             });
-            const generatedFilename = this.generatedFile.replace("$roleId", role.id);
+            const generatedFilename = generatedFile.replace("$roleId", role.id);
             // console.debug(">>> data", dataUpdated)
             // console.debug(">>> generatedFilename", generatedFilename)
             Common.writeWordingFile(generatedFilename, dataUpdated);
