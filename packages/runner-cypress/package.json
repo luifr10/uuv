@@ -104,7 +104,7 @@
     "cross-env": "7.0.3",
     "eslint-plugin-cypress": "2.15.1",
     "serve-handler": "6.1.5",
-    "ts-loader": "9.4.2",
+    "ts-loader": "9.5.1",
     "tsconfig-paths": "4.2.0"
   }
 }
