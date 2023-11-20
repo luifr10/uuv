@@ -126,7 +126,7 @@ exports.config = {
         timeout: 20000,
         // <string[]> (file/dir) require files before executing features
         require: [
-            "./src/cucumber/step_definitions/appium-uiautomator2/**/*.ts",
+            "./src/cucumber/step_definitions/appium-uiautomator2/generated/**/*.ts",
         ]
     }
 };

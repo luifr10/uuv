@@ -36,12 +36,14 @@
     "uiautomator2"
   ],
   "scripts": {
+    "generate:step-definitions": "ts-node generate-step-definitions.ts",
     "package": "npm pack --pack-destination=\"../../dist/packages\"",
     "postinstall": "node postinstall.js",
     "test": "ts-node test.ts",
     "lint": "eslint -c .eslintrc.json"
   },
   "dependencies": {
+    "@uuv/runner-commons": "1.10.1",
     "@wdio/appium-service": "^8.19.0",
     "@wdio/cli": "^8.19.0",
     "@wdio/cucumber-framework": "8.23.0",

@@ -11,7 +11,11 @@
         "commands": [
           "npx tsc -p tsconfig.lib.json --rootDir src --outDir dist"
         ]
-      }
+      },
+      "dependsOn": [
+        "^build",
+        "generate:step-definitions"
+      ]
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",

@@ -127,7 +127,7 @@ exports.config = {
         timeout: 20000,
         // <string[]> (file/dir) require files before executing features
         require: [
-            "node_modules/@uuv/appium-uiautomator2/dist/cucumber/step_definitions/appium-uiautomator2/**/*.js",
+            "node_modules/@uuv/appium-uiautomator2/dist/cucumber/step_definitions/appium-uiautomator2/generated/**/*.js",
         ],
         format: [
             ["message", "./uuv/cucumber-messages.ndjson"],
