@@ -56,7 +56,7 @@ npx uuv e2e
 Avec des arguments
 
 ```shell
-npx run uuv e2e --browser=edge --env="{'TAGS':'@mobile'}" --generateHtmlReport
+npx run uuv e2e --browser=edge --env="{'TAGS':'@mobile'}" --generateHtmlReport --targetTestFile=./uuv/e2e/first-test.feature
 ```
 
 </TabItem>
@@ -69,7 +69,7 @@ yarn uuv e2e
 Avec des arguments
 
 ```shell
-yarn uuv e2e --browser=edge --env="{'TAGS':'@mobile'}" --generateHtmlReport
+yarn uuv e2e --browser=edge --env="{'TAGS':'@mobile'}" --generateHtmlReport --targetTestFile=./uuv/e2e/first-test.feature
 ```
 
 </TabItem>
@@ -106,6 +106,7 @@ export CYPRESS_BASE_URL=http://localhost:4200
 | `browser`            | Navigateur cible                                                                                              | `chrome` / `edge` / `firefox` / `electron`                                                                                                                                                                                                                                           |
 | `env`                | Variable d'environnement                                                                                      | Objet json contenant les propriétés: <br/> - `TAGS` : Pour cibler des [tags cucumber](https://cucumber.io/docs/cucumber/api/?lang=javascript#tags) <br/> - `...` : L'ensemble des [propriétés possible pour cypress](https://docs.cypress.io/guides/references/configuration#Global) |
 | `generateHtmlReport` | Lorsque cette option est présente, un rapport html des tests éxécutés sera généré içi : `./reports/e2e/html/` | N/A                                                                                                                                                                                                                                                                                  |
+| `targetTestFile`     | Specifie les fichiers de test à exécuter                                                                      | **Si absent** : tous les fichiers de test seront inclus<br/>**Si défini** : contient un chemin `specPattern` relatif au paramètre ProjetDir                                                                                                                                          |
 
 </TabItem>
 <TabItem value="playwright" label="Playwright">
@@ -120,6 +121,7 @@ WIP
 |----------------------|---------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `browser` WIP        | Navigateur cible                                                                                              | `chrome` / `edge` / `firefox` / `electron`                                                                                                                                                                                                                                           |
 | `generateHtmlReport` | Lorsque cette option est présente, un rapport html des tests éxécutés sera généré içi : `./reports/e2e/html/` | N/A                                                                                                                                                                                                                                                                                  |
+| `targetTestFile`     | Specifie les fichiers de test à exécuter                                                                      | **Si absent** : tous les fichiers de test seront inclus<br/>**Si défini** : contient un chemin `specPattern` relatif au paramètre ProjetDir                                                                                                                                          |
 
 
 </TabItem>

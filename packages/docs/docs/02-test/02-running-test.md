@@ -56,7 +56,7 @@ npx uuv e2e
 With arguments
 
 ```shell
-npx uuv e2e --browser=edge --env="{'TAGS':'@mobile'}" --generateHtmlReport
+npx uuv e2e --browser=edge --env="{'TAGS':'@mobile'}" --generateHtmlReport --targetTestFile=./uuv/e2e/first-test.feature
 ```
 
 </TabItem>
@@ -69,7 +69,7 @@ yarn uuv e2e
 With arguments
 
 ```shell
-yarn uuv e2e --browser=edge --env="{'TAGS':'@mobile'}" --generateHtmlReport
+yarn uuv e2e --browser=edge --env="{'TAGS':'@mobile'}" --generateHtmlReport --targetTestFile=./uuv/e2e/first-test.feature
 ```
 
 </TabItem>
@@ -101,11 +101,12 @@ export CYPRESS_BASE_URL=http://localhost:4200
 </Tabs>
 :::
 
-| Nom                  | Description                                                                                                   | Valeur                                                                                                                                                                                                                                                                                 |
-|----------------------|---------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `browser`            | Target browser                                                                                                | `chrome` / `edge` / `firefox` / `electron`                                                                                                                                                                                                                                             |
-| `env`                | Environment variables                                                                                         | Json object containing the properties: <br/> - `TAGS` : To target the [cucumber tags](https://cucumber.io/docs/cucumber/api/?lang=javascript#tags) <br/> - `...` : All [possible properties](https://docs.cypress.io/guides/references/configuration#Global) for cypress |
-| `generateHtmlReport` | When this option is present, an html report of the executed tests will be generated here : `./reports/e2e/html/` | N/A                                                                                                                                                                                                                                                                                    |
+| Nom                  | Description                                                                                                      | Valeur                                                                                                                                                                                                                                                                   |
+|----------------------|------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `browser`            | Target browser                                                                                                   | `chrome` / `edge` / `firefox` / `electron`                                                                                                                                                                                                                               |
+| `env`                | Environment variables                                                                                            | Json object containing the properties: <br/> - `TAGS` : To target the [cucumber tags](https://cucumber.io/docs/cucumber/api/?lang=javascript#tags) <br/> - `...` : All [possible properties](https://docs.cypress.io/guides/references/configuration#Global) for cypress |
+| `generateHtmlReport` | When this option is present, an html report of the executed tests will be generated here : `./reports/e2e/html/` | N/A                                                                                                                                                                                                                                                                      |
+| `targetTestFile`     | Specify test files to execute                                                                                    | **If not present**: all test files will be included<br/>**If set**: contains a `specPattern` path relative to the ProjetDir parameter                                                                                                                                    |
 
 </TabItem>
 <TabItem value="playwright" label="Playwright">
@@ -116,11 +117,11 @@ To modify the BASE_URL in E2E mode, simply set the environment variable :
 WIP
 :::
 
-| Nom                  | Description                                                                                                   | Valeur                                                                                                                                                                                                                                                                                 |
-|----------------------|---------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `browser` WIP        | Target browser                                                                                                | `chrome` / `edge` / `firefox` / `electron`                                                                                                                                                                                                                                             |
-| `generateHtmlReport` | When this option is present, an html report of the executed tests will be generated here : `./reports/e2e/html/` | N/A                                                                                                                                                                                                                                                                                    |
-
+| Nom                  | Description                                                                                                      | Valeur                                                                                                                                |
+|----------------------|------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
+| `browser` WIP        | Target browser                                                                                                   | `chrome` / `edge` / `firefox` / `electron`                                                                                            |
+| `generateHtmlReport` | When this option is present, an html report of the executed tests will be generated here : `./reports/e2e/html/` | N/A                                                                                                                                   |
+| `targetTestFile`     | Specify test files to execute                                                                                    | **If not present**: all test files will be included<br/>**If set**: contains a `specPattern` path relative to the ProjetDir parameter |
 
 </TabItem>
 </Tabs>

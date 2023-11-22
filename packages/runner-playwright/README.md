@@ -147,11 +147,11 @@ yarn uuv e2e
 ```
 ##### with args
 ```bash  
-npx uuv e2e --browser=edge --env="{'TAGS':'@mobile'}" --generateHtmlReport
+npx uuv e2e --browser=edge --env="{'TAGS':'@mobile'}" --generateHtmlReport --targetTestFile=./uuv/e2e/first-test.feature
 ```
 or
 ```bash  
-yarn uuv e2e --browser=edge --env="{'TAGS':'@mobile'}" --generateHtmlReport
+yarn uuv e2e --browser=edge --env="{'TAGS':'@mobile'}" --generateHtmlReport --targetTestFile=./uuv/e2e/first-test.feature
 ```
 
 For more details, please go to the documentation:
