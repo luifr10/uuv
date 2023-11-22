@@ -1,4 +1,33 @@
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # FAQ
+
+## Comment envoyer les résultats de tests vers Jira XRAY ?
+:::caution
+Tout d'abord, lors de l'écriture de vos scénarios, vous devez **tagger chaque noeud Scénario** avec l'identifiant de test Jira.<br/>
+Par exemple, pour le test Jira `MyProject-Test-1` :
+```gherkin title='uuv/e2e/first-test.feature'
+Feature: Hello World
+
+  // highlight-start
+  @MyProject-Test-1
+  // highlight-end
+  Scenario: Search - Successful case
+    When I visit path "/"
+    Then I should see an element with role "heading" and name "My app title"
+```
+:::
+Pour envoyer les résultats de tests vers Jira XRAY, il suffit de transmettre le fichier de rapport généré `uuv/reports/e2e/json/cucumber-report.json` après l'exécution :
+<Tabs>
+<TabItem value="curl" label="curl">
+
+```shell
+curl -v -X POST -H "Content-Type: application/json" -H "Authorization: Bearer <jira_personal_access_token>" -d @uuv/reports/e2e/json/cucumber-report.json https://<jira_base_url>/rest/raven/1.0/import/execution/cucumber
+```
+
+</TabItem>
+</Tabs>
 
 ## Vous n'arrivez pas à exécuter les tests normalement ?
 

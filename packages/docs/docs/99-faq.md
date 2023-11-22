@@ -1,4 +1,33 @@
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # FAQ
+
+## How to upload test execution results to Jira XRAY ?
+:::caution
+First of all, when writing your scenarios, you need to **tag each scenario node** with the Jira test id.<br/>
+For example, for the Jira test `MyProject-Test-1` :
+```gherkin title='uuv/e2e/first-test.feature'
+Feature: Hello World
+
+  // highlight-start
+  @MyProject-Test-1
+  // highlight-end
+  Scenario: Search - Successful case
+    When I visit path "/"
+    Then I should see an element with role "heading" and name "My app title"
+```
+:::
+To upload test execution results to Jira XRAY, simply send the report file generated `uuv/reports/e2e/json/cucumber-report.json` after execution :
+<Tabs>
+<TabItem value="curl" label="curl">
+
+```shell
+curl -v -X POST -H "Content-Type: application/json" -H "Authorization: Bearer <jira_personal_access_token>" -d @uuv/reports/e2e/json/cucumber-report.json https://<jira_base_url>/rest/raven/1.0/import/execution/cucumber
+```
+
+</TabItem>
+</Tabs>
 
 ## Cannot run the tests from console ?
 
