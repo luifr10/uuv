@@ -55,7 +55,7 @@ Pour répondre aux problématiques ci-dessus et bien d'autres, notre solution es
 - [@uuv/assistant](tools/uuv-assistant) pour écrire scénarios rapidement
 - [Plugin JetBrains](tools/uuv-jetbrains-plugin) qui vous aide à écrire et à exécuter vos tests UUV E2E depuis les IDE JetBrains
 - Intègre plusieurs moteurs d'exécution : Cypress / Playwright
-- Rapport d’exécution user friendly et uniformisé
+- Rapport d’exécution user friendly et uniformisé([exemple](https://e2e-test-quest.github.io/kata-e2e-uuv/5-go-further/))
 
 ### Comparaison
 |                      Criteria                       | Cypress | Playwright | Testing library | UUV |  

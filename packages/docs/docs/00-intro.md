@@ -49,7 +49,7 @@ To answer the above issues and many others, our solution is to set up a coherent
 - [@uuv/assistant](tools/uuv-assistant) that facilitates the writing of tests by suggesting the most accessible sentences
 - [JetBrains Plugin](tools/uuv-jetbrains-plugin) that helps you to write and execute your UUV E2E tests from JetBrains IDEs
 - Integrates several runtime engines: Cypress / Playwright
-- User friendly and standardized execution report
+- User friendly and standardized execution report([example](https://e2e-test-quest.github.io/kata-e2e-uuv/5-go-further/))
 
 ### Comparison
 |                      Criteria                       | Cypress | Playwright | Testing library | UUV |  

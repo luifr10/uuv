@@ -13,5 +13,6 @@ Feature: Hello World
     When I visit path "/"
     Then I should see an element with role "heading" and name "My app title"
 ```
-Vous pouvez trouver d'autres exemples de test ici : [weather-app.feature](https://github.com/Orange-OpenSource/uuv/blob/main/example/weather-app.feature)
-
+Vous pouvez trouver d'autres exemples de test ici :
+- [weather-app.feature](https://github.com/Orange-OpenSource/uuv/blob/main/example/weather-app.feature)
+- [Kata E2E UUV](https://github.com/e2e-test-quest/kata-e2e-uuv/) : une serie d'exercices pour apprendre à écrire des scénarios
