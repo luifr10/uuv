@@ -54,7 +54,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5.0.1",
-    "@cucumber/cucumber": "9.3.0",
+    "@cucumber/cucumber": "9.6.0",
     "antd": "^5.4.6",
     "figlet": "1.6.0",
     "playwright-chromium": "1.33.0"
