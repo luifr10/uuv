@@ -47,7 +47,7 @@
     "@cypress/webpack-preprocessor": "5.17.1",
     "@testing-library/cypress": "9.0.0",
     "@uuv/runner-commons": "1.10.5",
-    "axe-core": "4.7.2",
+    "axe-core": "4.8.2",
     "chalk": "4.1.2",
     "cucumber-json-report-formatter": "0.1.4",
     "cypress": "12.17.4",
