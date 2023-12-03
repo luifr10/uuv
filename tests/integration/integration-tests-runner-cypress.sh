@@ -33,6 +33,7 @@ sed -i 's/http:\/\/localhost:4200/https:\/\/e2e-test-quest.github.io\/simple-web
 log "I" "Running e2e test"
 if ! npx uuv e2e; then
     log "E" "An error occured during e2e testing"
+    exit 1
 fi
 
 log "I" "Ended"
