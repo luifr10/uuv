@@ -40,6 +40,10 @@ Then(
     }
 );
 
+When(`${key.when.type}`, function(textToType: string, name: string) {
+    cy.uuvFindByRole("$roleId", { name: name }).uuvFoundedElement().type(textToType);
+});
+
 Then(
     `${key.then.element.withRoleAndNameAndContent}`,
     async function(name: string, expectedTextContent: string) {

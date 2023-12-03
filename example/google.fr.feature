@@ -16,10 +16,7 @@ Feature: English Test Step Definition
   Scenario: fill example
     # validate cookies preference
     When I click on button named "Tout accepter"
-
     # focus textarea and search github "@uuv"
-    When Within an combo box named "Rech."
-    Then I type the sentence "github \"@uuv\" {enter}"
-    Then I reset context
+    And I type the sentence "github \"@uuv\" {enter}" in the combo box named "Rech."
 
-    Then I should see a title named "e2e-test-quest/uuv" and containing "e2e-test-quest/uuv"
+    Then I should see a title named "UUV - User centric Usecases Validator"

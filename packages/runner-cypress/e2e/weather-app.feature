@@ -38,9 +38,7 @@ Feature: Weather App example
     # Click on <Get started> button
     When I click on button named "Get started"
     # Type sentence "i" on input field
-    And Within an text box named "Search for a town"
-    And I type the sentence "i"
-    And I reset context
+    And I type the sentence "i" in the text box named "Search for a town"
     # Click on <Filter> button
     And I click on button named "Filter"
     # Checks the list of available towns.

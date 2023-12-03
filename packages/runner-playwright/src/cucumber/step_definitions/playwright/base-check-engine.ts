@@ -14,13 +14,12 @@
  */
 
 import { DEFAULT_TIMEOUT, fs, key, KEY_PRESS } from "@uuv/runner-commons";
-import { checkA11y, configureAxe, injectAxe } from "axe-playwright";
-import { Locator } from "playwright";
+import { checkA11y, injectAxe } from "axe-playwright";
 import { devices, expect } from "@playwright/test";
-import { Page } from "playwright";
+import { Page, Locator } from "playwright";
 import { DataTable } from "@cucumber/cucumber";
 import {
-  addCookieWhenValueIsList, checkTextContentLocator,
+  addCookieWhenValueIsList,
   COOKIE_NAME, deleteCookieByName,
   deleteCookieByValue,
   FILTER_TYPE,

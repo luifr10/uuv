@@ -17,11 +17,15 @@ import { key } from "@uuv/runner-commons";
 import { Then, When } from "@cucumber/cucumber";
 import {
     findWithRoleAndName,
-    findWithRoleAndNameAndContent, findWithRoleAndNameAndContentDisable, findWithRoleAndNameAndContentEnable,
+    findWithRoleAndNameAndContent,
+    findWithRoleAndNameAndContentDisable,
+    findWithRoleAndNameAndContentEnable,
+    getPageOrElement,
     notFoundWithRoleAndName,
     withinRoleAndName
 } from "./core-engine";
 import { World } from "../../preprocessor/run/world";
+import { expect } from "@playwright/test";
 
 When(`${key.when.withinElement.roleAndName}`, async function (this: World, name: string) {
     return await withinRoleAndName(this, "$roleId", name);
@@ -37,6 +41,16 @@ Then(
        await notFoundWithRoleAndName(this, "$roleId", name);
     }
 );
+
+When(`${key.when.type}`, async function(this: World, textToType: string, name: string) {
+    await getPageOrElement(this).then(async (element) => {
+        const byRole = await element.getByRole("$roleId", { name: name, includeHidden: true, exact: true });
+        await expect(byRole).toHaveCount(1);
+        await byRole.type(textToType);
+        await this.context.clearCookies();
+    });
+});
+
 
 Then(
     `${key.then.element.withRoleAndNameAndContent}`,

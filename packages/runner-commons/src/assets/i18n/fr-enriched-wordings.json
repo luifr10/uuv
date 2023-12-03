@@ -371,6 +371,11 @@
       "key": "key.then.element.withRoleAndNameAndContentEnabled",
       "description": "Vérifie l'existence d'un élément Html ayant le rôle $roleId, le [nom accessible](https://russmaxdesign.github.io/html-elements-names/), le contenu spécifiés et avec l'attribut disabled à true",
       "wording": "je dois voir un(e) $roleName nommé(e) {string} et contenant {string} actif"
+    },
+    {
+      "key": "key.when.type",
+      "description": "Saisie de la phrase passée en paramètre dans le champ spécifié(utile par exemple de remplir un champ de formulaire).",
+      "wording": "je saisie le(s) mot(s) {string} dans le/la $roleName nommé(e) {string}"
     }
   ]
 }

@@ -50,12 +50,8 @@ Feature: Accessibility Step Definition
 
     Scenario: key.then.keyboard.multiplePress - Reverse Tab & Tab
       When I visit path "https://e2e-test-quest.github.io/weather-app/"
-      And Within an button named "Get started"
-      And I click
-      And I reset context
-      And Within an text box named "Search for a town"
-      And I type the sentence "i"
-      And I reset context
+      And I click on button named "Get started"
+      And I type the sentence "i" in the text box named "Search for a town"
       And Within a link named "Home"
       And I press 2 times on "{tab}"
       And I click
