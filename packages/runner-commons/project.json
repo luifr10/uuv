@@ -6,25 +6,35 @@
   "targets": {
     "build": {
       "executor": "@nrwl/js:tsc",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "rootDir": "packages/runner-commons/src",
         "outputPath": "packages/runner-commons/dist/",
         "main": "packages/runner-commons/src/index.ts",
         "tsConfig": "packages/runner-commons/tsconfig.lib.json",
-        "assets": ["packages/runner-commons/*.md"]
+        "assets": [
+          "packages/runner-commons/*.md"
+        ]
       }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["packages/runner-commons/src/**/*.ts"]
+        "lintFilePatterns": [
+          "packages/runner-commons/src/**/*.ts"
+        ]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
       "options": {
         "jestConfig": "packages/runner-commons/jest.config.ts",
         "passWithNoTests": true
@@ -50,19 +60,26 @@
             }
           ],
           [
-            "@semantic-release/github", {
-            "successComment": false,
-            "failComment": false,
-            "assets": [
-              {"path": "dist/packages/uuv-runner-commons-*.tgz", "label": "Npm Package"}
-            ]
-          }],
+            "@semantic-release/github",
+            {
+              "successComment": false,
+              "failComment": false,
+              "assets": [
+                {
+                  "path": "dist/packages/uuv-runner-commons-*.tgz",
+                  "label": "Npm Package"
+                }
+              ]
+            }
+          ],
           [
             "@google/semantic-release-replace-plugin",
             {
               "replacements": [
                 {
-                  "files": ["packages/runner-cypress/package.json"],
+                  "files": [
+                    "packages/runner-cypress/package.json"
+                  ],
                   "from": "\"@uuv/runner-commons\": \".*\"",
                   "to": "\"@uuv/runner-commons\": \"${nextRelease.version}\"",
                   "results": [
@@ -76,7 +93,9 @@
                   "countMatches": true
                 },
                 {
-                  "files": ["packages/runner-playwright/package.json"],
+                  "files": [
+                    "packages/runner-playwright/package.json"
+                  ],
                   "from": "\"@uuv/runner-commons\": \".*\"",
                   "to": "\"@uuv/runner-commons\": \"${nextRelease.version}\"",
                   "results": [
