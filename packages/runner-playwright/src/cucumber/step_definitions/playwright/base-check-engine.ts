@@ -37,6 +37,7 @@ import {
 import { Given, When, Then } from "@cucumber/cucumber";
 import { World } from "../../preprocessor/run/world";
 import { ContextObject, RunOptions } from "axe-core";
+import path from "path";
 
 Given(`${key.given.viewport.preset}`, async function(this: World, viewportPreset: string) {
   await this.page.setViewportSize(devices[viewportPreset].viewport);
@@ -147,7 +148,7 @@ When(
  `${key.when.mock.withFixture}`,
  async function(this: World, verb: string, url: string, name: string, fixture: any) {
    await addCookieWhenValueIsList(this, COOKIE_NAME.MOCK_URL, { name: name, url: url });
-   const data = await fs.readFileSync(`uuv/playwright/fixtures/${fixture}`);
+   const data = await fs.readFileSync(path.join(getConfigDir(), `playwright/fixtures/${fixture}`));
    await this.page.route(url, async route => {
      await route.fulfill({ body: data });
    });
@@ -212,19 +213,23 @@ Then(
  `${key.then.a11y.check.withFixtureOption}`,
  async function(this: World, option: any) {
    await injectAxe(this.page as Page);
-   const optionFile = await fs.readFileSync(`playwright/fixtures/${option}`);
+   const optionFile = await fs.readFileSync(path.join(getConfigDir(), `playwright/fixtures/${option}`));
    const optionJson = JSON.parse(optionFile.toString());
    await checkA11y(this.page as Page, undefined, {
      axeOptions: optionJson as RunOptions
    });
  });
 
+function getConfigDir(): string {
+    return process.env["CONFIG_DIR"] ? process.env["CONFIG_DIR"] : "";
+}
+
 Then(
  `${key.then.a11y.check.withFixtureContextAndFixtureOption}`,
  async function(this: World, context: any, option: any) {
    await injectAxe(this.page as Page);
-   const contextFile = await fs.readFileSync(`playwright/fixtures/${context}`);
-   const optionFile = await fs.readFileSync(`playwright/fixtures/${option}`);
+   const contextFile = await fs.readFileSync(path.join(getConfigDir(), `playwright/fixtures/${context}`));
+   const optionFile = await fs.readFileSync(path.join(getConfigDir(), `playwright/fixtures/${option}`));
    const optionJson = JSON.parse(optionFile.toString());
    await checkA11y(this.page as Page, JSON.parse(contextFile.toString()) as ContextObject, {
      axeOptions: optionJson as RunOptions
