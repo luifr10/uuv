@@ -41,7 +41,7 @@
   },
   {
     "key": "key.when.type",
-    "description": "Saisit de la phrase passée en paramètre (utile par exemple de remplir un champ de formulaire).<br/>Assurez vous d'avoir effectué une sélection d'élément avant avec les phrases <strong>Je vais à l'intérieur...</strong>.",
+    "description": "Saisit de la phrase passée en paramètre (utile par exemple pour remplir un champ de formulaire).<br/>Assurez vous d'avoir effectué une sélection d'élément avant avec les phrases <strong>Je vais à l'intérieur...</strong>.",
     "wording": "je saisie le(s) mot(s) {string}"
   },
   {
