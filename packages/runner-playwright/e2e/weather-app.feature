@@ -5,7 +5,7 @@ Feature: Weather App example
 
   Scenario: Homepage
     # Verify elements on landing page
-    Then I should see a title named "Weather App"
+    Then I should see a title named "Welcome to Weather App"
     And I should see a button named "Get started"
 
   Scenario: Weather - "Nothing to display" must be displayed
