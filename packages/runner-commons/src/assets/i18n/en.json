@@ -62,22 +62,22 @@
  {
   "key": "key.when.withinElement.ariaLabel",
   "description": "Selects the element whose aria-label is specified <br />⚠ remember to deselect the element with <b>[I reset context](#i-reset-context)</b> if you're no longer acting on it",
-  "wording": "Within the element with aria-label {string}"
+  "wording": "within the element with aria-label {string}"
  },
  {
   "key": "key.when.withinElement.selector",
   "description": "Selects the element whose selector is specified <br />⚠ remember to deselect the element with <b>[I reset context](#i-reset-context)</b> if you're no longer acting on it",
-  "wording": "Within the element with selector {string}"
+  "wording": "within the element with selector {string}"
  },
  {
   "key": "key.when.withinElement.roleAndName",
   "description": "Selects the element whose [accessible role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types and accessible [name](https://russmaxdesign.github.io/html-elements-names/) are specified <br />⚠ remember to deselect the element with <b>[I reset context](#i-reset-context)</b> if you're no longer acting on it",
-  "wording": "Within the element with role {string} and name {string}"
+  "wording": "within the element with role {string} and name {string}"
  },
  {
   "key": "key.when.withinElement.testId",
   "description": "Selects the element whose data-testId attribute is specified <br />⚠ remember to deselect the element with <b>[I reset context](#i-reset-context)</b> if you're no longer acting on it",
-  "wording": "Within the element with testId {string}"
+  "wording": "within the element with testId {string}"
  },
  {
   "key": "key.when.mock.withBody",

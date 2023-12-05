@@ -11,10 +11,10 @@ Feature: Assistant vital features
 
   Scenario: Select with expected action
     When I visit path "/test"
-    Then Within a button named "select button"
+    Then within a button named "select button"
     Then I click
     Then I reset context
-    Then Within a text box named "Last name"
+    Then within a text box named "Last name"
     Then I click
     Then I reset context
     Then I should see an element with content "Then I should see a text box named \"Last name\" and containing \"Doe\""
@@ -22,10 +22,10 @@ Feature: Assistant vital features
 
   Scenario: Select with selector warning
     When I visit path "/test"
-    Then Within a button named "select button"
+    Then within a button named "select button"
     Then I click
     Then I reset context
-    Then Within the element with testId "sentence"
+    Then within the element with testId "sentence"
     Then I click
     Then I reset context
     Then I should see an element with content "Then I should see an element with selector \"p[data-testid=sentence]\""
@@ -33,7 +33,7 @@ Feature: Assistant vital features
 
   Scenario: Expander up
     When I visit path "/test"
-    Then Within the element with testId "expanderButton"
+    Then within the element with testId "expanderButton"
     Then I click
     Then I reset context
     Then I should see a picture named "UUV logo"
@@ -45,26 +45,26 @@ Feature: Assistant vital features
 
 #  Scenario: Change theme
 #    When I visit path "/uuv"
-#    Then Within a picture named "Light mode"
+#    Then within a picture named "Light mode"
 #    Then I click
 #    Then I reset context
-#    Then Within a button named "select button"
+#    Then within a button named "select button"
 #    Then I should see these attributes with values
 #    |||
 
 #  Scenario: Select with within action
 #    When I visit path "/uuv"
-#    Then Within the element with testId "selectListExpanded"
+#    Then within the element with testId "selectListExpanded"
 #    Then I click
 #    Then I reset context
-#    Then Within the element with selector "#rc_select_2_list_1"
+#    Then within the element with selector "#rc_select_2_list_1"
 #    Then I click
 #    Then I reset context
-#    Then Within a button named "select button"
+#    Then within a button named "select button"
 #    Then I click
 #    Then I reset context
-#    Then Within a text box named "Last name"
+#    Then within a text box named "Last name"
 #    Then I click
 #    Then I reset context
-#    Then I should see an element with content "When Within a text box named \"Last name\""
+#    Then I should see an element with content "When within a text box named \"Last name\""
 

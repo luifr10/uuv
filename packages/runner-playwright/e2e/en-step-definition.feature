@@ -6,7 +6,7 @@ Feature: English Test Step Definition
     Then I should see an element with aria-label "flegend"
 
   Scenario: key.then.element.withAriaLabel - 2/2
-    And Within the element with aria-label "flegend"
+    And within the element with aria-label "flegend"
 
   Scenario: key.then.element.not.withAriaLabel
     Then I should not see an element with aria-label "NOT flegend"
@@ -49,13 +49,13 @@ Feature: English Test Step Definition
       | c |
 
   Scenario: key.then.attributes.withValues
-    When Within the element with role "textbox" and name "First name"
+    When within the element with role "textbox" and name "First name"
     And I should see these attributes with values
       | class | fname-class |
 
   Scenario: key.then.element.key.when.click.withContext
-    And Within the element with testId "fieldset"
-    And Within the element with role "button" and name "Submit"
+    And within the element with testId "fieldset"
+    And within the element with role "button" and name "Submit"
     When I click
      And I reset context
     Then I should see a title named "404"
@@ -65,25 +65,25 @@ Feature: English Test Step Definition
     Then I should not see a title named "404"
 
   Scenario: key.then.element.key.when.click.button with context
-    When Within the element with testId "fieldset"
+    When within the element with testId "fieldset"
     And I click on button named "Submit"
     Then I should see a title named "404"
 
   Scenario: key.then.element.key.when.click.withRole
-    And Within the element with testId "fieldset"
+    And within the element with testId "fieldset"
     When I click on element with role "button" and name "Submit"
     Then I should see a title named "404"
 
   Scenario: key.then.element.key.when.type
-    And Within the element with testId "fieldset"
-    And Within the element with role "textbox" and name "Last name"
+    And within the element with testId "fieldset"
+    And within the element with role "textbox" and name "Last name"
     When I type the sentence "Toto"
      And I reset context
     Then I should see an element with role "textbox" and name "Last name" and content "TotoDoe"
 
   Scenario: key.given.within.selector
-    Then Within the element with selector '[data-testid="fieldset"]'
-    And Within the element with selector '#fname'
+    Then within the element with selector '[data-testid="fieldset"]'
+    And within the element with selector '#fname'
     And I should see these attributes with values
     | class | fname-class |
     And I reset context

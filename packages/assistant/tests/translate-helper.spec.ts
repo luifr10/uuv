@@ -52,23 +52,23 @@ describe("translateEngine - Within", () => {
   const { buttonWithRoleName, buttonWithRoleNameAndContent, selectorWithDataTestId, selectorWithNth } = dom();
   test("translateEngine - with role, name and content", () => {
     expect(TranslateHelper.translateEngine(buttonWithRoleNameAndContent, CheckActionEnum.WITHIN, false)).toEqual(
-      ["When Within a button named \"myButton\""]);
+      ["When within a button named \"myButton\""]);
   });
   test("translateEngine - with role, name", () => {
     expect(TranslateHelper.translateEngine(buttonWithRoleName, CheckActionEnum.WITHIN, false)).toEqual(
-      ["When Within a button named \"myButton\""]);
+      ["When within a button named \"myButton\""]);
   });
   test("translateEngine - with role, name and content disabled", () => {
     expect(TranslateHelper.translateEngine(buttonWithRoleNameAndContent, CheckActionEnum.WITHIN, true)).toEqual(
-      ["When Within a button named \"myButton\""]);
+      ["When within a button named \"myButton\""]);
   });
   test("translateEngine - with selector- with Id", () => {
     expect(TranslateHelper.translateEngine(selectorWithDataTestId, CheckActionEnum.WITHIN, false)).toEqual(
-      ["When Within the element with selector \"span[data-testid=spanTestId]\""]);
+      ["When within the element with selector \"span[data-testid=spanTestId]\""]);
   });
   test("translateEngine - with selector- with nth", () => {
     expect(TranslateHelper.translateEngine(selectorWithNth, CheckActionEnum.WITHIN, false)).toEqual(
-      ["When Within the element with selector \"div#myDiv>span:nth-of-type(3)\""]);
+      ["When within the element with selector \"div#myDiv>span:nth-of-type(3)\""]);
   });
 });
 
@@ -88,10 +88,10 @@ describe("translateEngine - Click", () => {
   });
   test("translateEngine - with selector- with Id", () => {
     expect(TranslateHelper.translateEngine(selectorWithDataTestId, CheckActionEnum.CLICK, false)).toEqual(
-      ["When Within the element with selector \"span[data-testid=spanTestId]\"", "Then I click"]);
+      ["When within the element with selector \"span[data-testid=spanTestId]\"", "Then I click"]);
   });
   test("translateEngine - with selector- with nth", () => {
     expect(TranslateHelper.translateEngine(selectorWithNth, CheckActionEnum.CLICK, false)).toEqual(
-      ["When Within the element with selector \"div#myDiv>span:nth-of-type(3)\"", "Then I click"]);
+      ["When within the element with selector \"div#myDiv>span:nth-of-type(3)\"", "Then I click"]);
   });
 });
