@@ -90,7 +90,7 @@
     {
       "key": "key.when.withinElement.roleAndName",
       "description": "Selects the element whose [accessible role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types and accessible [name](https://russmaxdesign.github.io/html-elements-names/) are specified <br />⚠ remember to deselect the element with <b>[I reset context](#i-reset-context)</b> if you're no longer acting on it",
-      "wording": "Within a(n) $roleName named {string}"
+      "wording": "within a(n) $roleName named {string}"
     },
     {
       "key": "key.then.element.withRoleAndName",

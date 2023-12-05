@@ -27,10 +27,10 @@ Feature: Weather App example
     # Click on <Get started> button
     When I click on button named "Get started"
     # Select Douala town
-    And Within a list named "Available Towns"
+    And within a list named "Available Towns"
     And I click on element with role "listitem" and name "Douala"
     # Check the weather details for Douala town
-    Then Within the element with aria-label "Weather of Douala"
+    Then within the element with aria-label "Weather of Douala"
     And I should see a title named "Douala"
     And I should see an element with content "min: 10.8 °c"
 

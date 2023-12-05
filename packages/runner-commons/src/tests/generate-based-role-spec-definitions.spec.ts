@@ -63,7 +63,7 @@ describe("tester la classe BasedRoleStepDefinition", () => {
     expect(result).toContain("../../../core-engine");
     expect(result).toContain("../../../../../../cypress/commands");
     expect(result).toContain("../../../../i18n/template.json");
-    expect(result).toContain("Within a(n) alert named {string}");
+    expect(result).toContain("within a(n) alert named {string}");
     expect(result).toContain("withinRole(\"alert\")");
     expect(spyWrite).toHaveBeenCalled();
   });
