@@ -38,7 +38,7 @@
     "generate:step-definitions": "ts-node generate-step-definitions.ts",
     "package": "npm pack --pack-destination=\"../../dist/packages\"",
     "postinstall": "node postinstall.js",
-    "test": "ts-node test.ts",
+    "test:e2e": "ts-node test.ts",
     "lint": "eslint -c .eslintrc.json"
   },
   "dependencies": {
@@ -82,6 +82,7 @@
     "@types/minimist": "1.2.2",
     "@types/node": "16.18.50",
     "ts-loader": "9.4.2",
-    "tsconfig-paths": "4.2.0"
+    "tsconfig-paths": "4.2.0",
+    "jest": "29.7.0"
   }
 }

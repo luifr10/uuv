@@ -1,3 +1,5 @@
+import { XpathSelector } from "./xpath-selector";
+
 export async function traceElement(name: string, element: any) {
     console.debug(name, element);
     console.debug(name, "class", element.getAttribute("class"));
@@ -24,11 +26,39 @@ export async function elementClassShouldNotBe(elementToCheck: WebdriverIO.Elemen
 }
 
 export async function findWithContent(contentText: string) {
-    return $(`=${contentText}`);
+    const selector = new XpathSelector()
+                                        .withRole("*")
+                                        .withText(contentText);
+    return $(selector.asString());
+}
+
+export async function findWithRoleContent(role: string, contentText: string) {
+    const selector = new XpathSelector()
+                                        .withRole(role)
+                                        .withText(contentText);
+    return $(selector.asString());
 }
 
 export async function findWithDescription(accessibleDescription: string) {
-    return $(`~${accessibleDescription}`);
+    const selector = new XpathSelector()
+                                        .withRole("*")
+                                        .withDescription(accessibleDescription);
+    return $(selector.asString());
+}
+
+export async function findWithRoleDescription(role: string, accessibleDescription: string) {
+    const selector = new XpathSelector()
+                        .withRole(role)
+                        .withDescription(accessibleDescription);
+    return $(selector.asString());
+}
+
+export async function findWithRoleDescriptionAndContent(role: string, accessibleDescription: string, contentText: string) {
+    const selector = new XpathSelector()
+        .withRole(role)
+        .withDescription(accessibleDescription)
+        .withText(contentText);
+    return $(selector.asString());
 }
 
 export async function not(selectorFn: () => Promise<WebdriverIO.Element>): Promise<any> {
@@ -40,20 +70,4 @@ export async function not(selectorFn: () => Promise<WebdriverIO.Element>): Promi
         error = e;
     }
     return error;
-}
-
-export async function role(selectorFn: () => Promise<WebdriverIO.Element>, expectedRole: string): Promise<WebdriverIO.Element> {
-    const foundElement = await selectorFn();
-    await traceElement("foundElement", foundElement);
-    expect(await foundElement.isExisting()).toBeTruthy();
-    await elementClassShouldBe(foundElement, expectedRole);
-    return foundElement;
-}
-
-export async function contains(selectorFn: () => Promise<WebdriverIO.Element>, expectedTextContent: string): Promise<WebdriverIO.Element> {
-    const foundElement = await selectorFn();
-    await traceElement("foundElement", foundElement);
-    expect(await foundElement.isExisting()).toBeTruthy();
-    await findInsideText(foundElement, expectedTextContent);
-    return foundElement;
 }

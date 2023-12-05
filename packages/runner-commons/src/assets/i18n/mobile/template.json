@@ -12,6 +12,7 @@
   "then": {
     "element": {
       "withContent": "",
+      "withContentAndAttributes": "",
       "withDescription": "",
       "withRoleAndContent": "",
       "withRoleAndDescription": "",

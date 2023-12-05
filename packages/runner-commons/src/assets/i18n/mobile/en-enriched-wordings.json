@@ -6,7 +6,8 @@
     {"id":"Image","name":"picture"},
     {"id":"RadioButton","name":"radio button"},
     {"id":"Switch","name":"switch"},
-    {"id":"Tab","name":"tab"}
+    {"id":"Tab","name":"tab"},
+    {"id":"Text","name":"text"}
   ],
   "enriched": [
     {

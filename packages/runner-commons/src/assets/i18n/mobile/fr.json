@@ -10,6 +10,11 @@
     "wording": "[FR]I should see an element with content {string}"
   },
   {
+    "key": "key.then.element.withContentAndAttributes",
+    "description": "Checks that an element exists with the specified content and attributes",
+    "wording": "[FR]I should see an element with content {string} and attributes"
+  },
+  {
     "key": "key.then.element.withDescription",
     "description": "Checks that an element exists with the specified content description",
     "wording": "[FR]I should see an element with description {string}"

@@ -42,7 +42,8 @@ export class BaseStepDefinition extends GenerateFileProcessing {
             .replace("import {key} from \"@uuv/runner-commons/wording/mobile\";", "")
             .replace("import { key } from \"@uuv/runner-commons/wording/mobile\";", "")
             .replace("./core-engine", "../core-engine")
-            .replace("../../preprocessor/run/world", "../../../preprocessor/run/world");
+            .replace("../../preprocessor/run/world", "../../../preprocessor/run/world")
+            .replace("./xpath-selector", "../xpath-selector");
         const wordings = fs.readFileSync(wordingFile);
         const wordingsJson = JSON.parse(wordings.toString());
         wordingsJson.forEach((conf) => {

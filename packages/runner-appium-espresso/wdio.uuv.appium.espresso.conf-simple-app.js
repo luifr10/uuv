@@ -60,7 +60,7 @@ exports.config = {
     ],
     framework: "cucumber",
     specs: [
-        "./tests/e2e/**/jetsnack.feature",
+        "./tests/e2e/**/*.feature",
     ],
     capabilities: [
         {
@@ -77,9 +77,9 @@ exports.config = {
             "appium:automationName": "Espresso",
             "appium:settings[driver]": "compose",
             // The path to the app
-            "appium:app": join(__dirname, "./tests/apps/app-jetsnack-debug.apk"),
+            "appium:app": join(__dirname, "./tests/apps/compose-app-debug.apk"),
             "appium:fullReset": true,
-            // "appium:appWaitActivity": "com.example.simpleandroidapp.MainActivity",
+            "appium:appWaitActivity": "com.example.simpleandroidapp.MainActivity",
             "appium:newCommandTimeout": 240,
             "appium:settings[ignoreUnimportantViews]": true,
             "appium:settings[allowInvisibleElements]": false,
