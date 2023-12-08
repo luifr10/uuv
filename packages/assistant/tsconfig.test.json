@@ -15,7 +15,10 @@
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "paths": {
+      "@uuv/runner-commons/wording/web/*": ["../runner-commons/src/assets/i18n/web/*"]
+    }
   },
   "include": [
     "tests"

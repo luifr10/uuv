@@ -53,8 +53,7 @@
       },
       "dependsOn": [
         "build:react",
-        "build:tsc",
-        "build:copy-sentences"
+        "build:tsc"
       ]
     },
     "build:react": {
@@ -67,21 +66,6 @@
       ],
       "options": {
         "script": "build:react"
-      }
-    },
-    "build:copy-sentences": {
-      "executor": "nx:run-script",
-      "inputs": [
-        "{projectRoot}/copy-sentences.ts",
-        "{projectRoot}/../runner-commons/src/assets/i18n/en.json",
-        "{projectRoot}/../runner-commons/src/assets/i18n/en-enriched-wordings.json"
-      ],
-      "outputs": [
-        "{projectRoot}/src/assets/en.json",
-        "{projectRoot}/src/assets/en-enriched-wordings.json"
-      ],
-      "options": {
-        "script": "build:copy-sentences"
       }
     },
     "lint": {

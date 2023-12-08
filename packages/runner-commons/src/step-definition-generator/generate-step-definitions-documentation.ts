@@ -15,7 +15,7 @@
 
 import { LANG } from "./lang-enum";
 import fs from "fs";
-import { Common } from "./common";
+import { Common, getDefinedRoles } from "./common";
 import * as path from "path";
 
 
@@ -34,8 +34,8 @@ export function runGenerateDoc(destDir: string) {
             useGrouping: false,
         });
         const generatedFile = `${GENERATED_DIR_DOC}/${indexOfFile}-${lang}-generated-wording-description.md`;
-        const wordingBaseFile = `${__dirname}/../assets/i18n/${lang}.json`;
-        const wordingEnrichedFile = `${__dirname}/../assets/i18n/${lang}-enriched-wordings.json`;
+        const wordingBaseFile = path.join(__dirname, `/../assets/i18n/web/${lang}/${lang}.json`);
+        const wordingEnrichedFile = path.join(__dirname, `/../assets/i18n/web/${lang}/${lang}-enriched-wordings.json`);
         const autocompletionSuggestionFile = path.join(GENERATED_DIR_DOC, `${lang}-autocompletion-suggestion.json`);
         cleanGeneratedFilesIfExists(generatedFile, lang, indexOfFile);
         Common.cleanGeneratedFilesIfExists(autocompletionSuggestionFile);
@@ -133,8 +133,8 @@ export function runGenerateDoc(destDir: string) {
         const dataOrigin: string = wordingsEnriched;
         let dataUpdated: string = dataOrigin;
         // console.debug("roles", wordingsEnrichedJson.role)
-        const wordingsEnrichedJson = JSON.parse(dataUpdated);
-        wordingsEnrichedJson.role.forEach((role) => {
+        const definedRoles = getDefinedRoles(lang);
+        definedRoles.forEach((role) => {
             rows.push(`### ${role.id}`);
             // console.debug("dataUpdated", dataUpdated)
             dataUpdated = dataOrigin

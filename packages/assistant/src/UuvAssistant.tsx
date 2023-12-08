@@ -58,7 +58,7 @@ function UuvAssistant(props: UuvAssistantProps) {
   const [isHide, setIsHide] = useState(false);
 
   const Inspector = require("inspector-dom");
-  const inspector = new Inspector({
+  const inspector = Inspector({
     root: "body",
     excluded: ["#uvv-assistant-root"],
     outlineStyle: "2px solid red",

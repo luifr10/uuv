@@ -42,7 +42,7 @@ Feature: Accessibility Step Definition
   Rule: accessibility keys
     Scenario: key.then.keyboard.press - Reverse Tab & Tab
       When I visit path "https://e2e-test-quest.github.io/weather-app/"
-      And within an button named "Get started"
+      And within a button named "Get started"
       And I press "{reverseTab}"
       And I press "{tab}"
       And I click
@@ -61,29 +61,29 @@ Feature: Accessibility Step Definition
 
     Scenario: key.then.keyboard.press - Left right
       When I visit path "https://e2e-test-quest.github.io/weather-app/"
-      And within an button named "Get started"
+      And within a button named "Get started"
       And I click
       And I reset context
-      And within an text box named "Search for a town"
+      And within a text box named "Search for a town"
       And I type the sentence "mo"
       And I press 2 times on "{left}"
       And I type the sentence "Li"
       And I press 2 times on "{right}"
       And I type the sentence "ges"
       And I reset context
-      Then I should see an text box named "Search for a town" and containing "Limoges"
+      Then I should see a text box named "Search for a town" and containing "Limoges"
 
     Scenario: key.then.keyboard.press - Up Down
       When I visit path "https://e2e-test-quest.github.io/weather-app/"
-      And within an button named "Get started"
+      And within a button named "Get started"
       And I click
       And I reset context
-      And within an text box named "Search for a town"
+      And within a text box named "Search for a town"
       And I type the sentence "mo"
       And I press "{up}"
       And I type the sentence "Li"
       And I press "{down}"
       And I type the sentence "ges"
       And I reset context
-      Then I should see an text box named "Search for a town" and containing "Limoges"
+      Then I should see a text box named "Search for a town" and containing "Limoges"
 

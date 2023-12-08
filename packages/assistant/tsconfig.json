@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "target": "es5",
     "lib": [
       "dom",
@@ -21,6 +22,9 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
+    "paths": {
+        "@uuv/runner-commons/wording/web/*": ["../runner-commons/src/assets/i18n/web/*"]
+    }
   },
   "include": [
     "src",

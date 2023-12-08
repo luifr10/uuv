@@ -15,8 +15,7 @@
 
 
 import { computeAccessibleName, getRole } from "dom-accessibility-api";
-import enBaseJson from "../assets/en.json";
-import enRoleBasedJson from "../assets/en-enriched-wordings.json";
+import { EN_ROLES, enSentences, enBasedRoleSentences } from "@uuv/runner-commons/wording/web/en";
 
 export type BaseSentence = {
   key: string;
@@ -25,7 +24,6 @@ export type BaseSentence = {
 }
 
 export type EnrichedSentenceWrapper = {
-  role: Array<EnrichedSentenceRole>;
   enriched: Array<EnrichedSentence>;
 }
 
@@ -82,8 +80,7 @@ export class TranslateHelper {
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
   public static translateEngine(htmlElem: HTMLElement, checkAction: string, isDisabled: boolean): string[] {
-    const jsonBase: BaseSentence[] = enBaseJson;
-    console.log(jsonBase[0].wording, isDisabled);
+    const jsonBase: BaseSentence[] = enSentences;
     let sentenceList: string[] = [];
     let computedKey = "";
     let stepCase = "";
@@ -109,7 +106,7 @@ export class TranslateHelper {
     const accessibleName = computeAccessibleName(htmlElem);
     const content = htmlElem.getAttribute("value") ?? htmlElem.firstChild?.textContent?.trim();
     if (accessibleRole && accessibleName) {
-      const jsonEnriched: EnrichedSentenceWrapper = enRoleBasedJson;
+      const jsonEnriched: EnrichedSentenceWrapper = enBasedRoleSentences;
       if (checkAction === CheckActionEnum.EXPECT) {
         computedKey = "key.then.element.withRoleAndName";
         stepCase = StepCaseEnum.THEN;
@@ -119,10 +116,14 @@ export class TranslateHelper {
       }
       const sentence = jsonEnriched.enriched.filter((value: EnrichedSentence) => value.key === computedKey).map((enriched: EnrichedSentence) => {
         const sentenceAvailable = enriched.wording;
-        const role = jsonEnriched.role.filter((role: EnrichedSentenceRole) => role.id === accessibleRole)[0];
+        const role = EN_ROLES.filter((role: EnrichedSentenceRole) => role.id === accessibleRole)[0];
         return sentenceAvailable
           .replaceAll("(n)", "")
-          .replace("$roleName", role?.name ?? accessibleRole)
+          .replaceAll("$roleName", role?.name ?? accessibleRole)
+          .replaceAll("$definiteArticle", role?.getDefiniteArticle())
+          .replaceAll("$indefiniteArticle", role?.getIndefiniteArticle())
+          .replaceAll("$namedAdjective", role?.namedAdjective())
+          .replaceAll("$ofDefiniteArticle", role?.getOfDefiniteArticle())
           .replace("{string}", `"${accessibleName}"`);
       })[0];
       sentenceList = this.getSentenceList(checkAction, jsonBase, accessibleRole, stepCase, accessibleName, sentence);
@@ -141,10 +142,14 @@ export class TranslateHelper {
         }
         const sentence = jsonEnriched.enriched.filter((value: EnrichedSentence) => value.key === computedKey).map((enriched: EnrichedSentence) => {
           const sentenceAvailable = enriched.wording;
-          const role = jsonEnriched.role.filter((role: EnrichedSentenceRole) => role.id === accessibleRole)[0];
+          const role = EN_ROLES.filter((role: EnrichedSentenceRole) => role.id === accessibleRole)[0];
           return sentenceAvailable
             .replaceAll("(n)", "")
-            .replace("$roleName", role?.name ?? accessibleRole)
+            .replaceAll("$roleName", role?.name ?? accessibleRole)
+            .replaceAll("$definiteArticle", role?.getDefiniteArticle())
+            .replaceAll("$indefiniteArticle", role?.getIndefiniteArticle())
+            .replaceAll("$namedAdjective", role?.namedAdjective())
+            .replaceAll("$ofDefiniteArticle", role?.getOfDefiniteArticle())
             .replace("{string}", `"${accessibleName}"`)
             .replace("{string}", `"${content}"`);
         })[0];

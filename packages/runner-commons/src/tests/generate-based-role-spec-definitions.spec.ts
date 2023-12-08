@@ -1,7 +1,9 @@
 import fs from "fs";
 import { Common, STEP_DEFINITION_FILE_NAME, TEST_RUNNER_ENUM } from "../step-definition-generator/common";
-import json from "../assets/i18n/en-enriched-wordings.json";
+import json from "../assets/i18n/web/en/en-enriched-wordings.json";
 import { BasedRoleStepDefinition } from "../step-definition-generator/generate-based-role-step-definitions";
+import * as path from "path";
+import { EN_ROLES } from "../assets/i18n/web/en/en-roles";
 
 describe("tester la classe BasedRoleStepDefinition", () => {
   const dirPath = "tests";
@@ -10,8 +12,8 @@ describe("tester la classe BasedRoleStepDefinition", () => {
     import { fr } from "../i18n/template.json";
       import { Context } from "./_context";
       import { command } from "../../cypress/commands";
-      import { key } from "@uuv/runner-commons";
-      import {key} from "@uuv/runner-commons";
+      import { key } from "@uuv/runner-commons/wording/web";
+      import {key} from "@uuv/runner-commons/wording/web";
       import {
           withinRoleAndName
       } from "./core-engine";
@@ -22,7 +24,7 @@ describe("tester la classe BasedRoleStepDefinition", () => {
     `;
   let stepDef: BasedRoleStepDefinition;
   beforeEach(() => {
-    stepDef = new BasedRoleStepDefinition(dirPath, TEST_RUNNER_ENUM.CYPRESS, STEP_DEFINITION_FILE_NAME.BY_ROLE);
+    stepDef = new BasedRoleStepDefinition(dirPath, TEST_RUNNER_ENUM.CYPRESS, STEP_DEFINITION_FILE_NAME.BY_ROLE, "../assets/i18n/web");
   });
 
   afterEach(() => {
@@ -30,8 +32,8 @@ describe("tester la classe BasedRoleStepDefinition", () => {
   });
 //
   test("classe - les attributs sont bien alimentés", () => {
-    expect(stepDef.generatedDir).toEqual("tests/src/cucumber/step_definitions/cypress/generated");
-    expect(stepDef.stepDefinitionFile).toEqual("tests/src/cucumber/step_definitions/cypress/based-role-check-engine.ts");
+    expect(stepDef.generatedDir).toEqual(path.join("tests/src/cucumber/step_definitions/cypress/generated"));
+    expect(stepDef.stepDefinitionFile).toEqual(path.join("tests/src/cucumber/step_definitions/cypress/based-role-check-engine.ts"));
     expect(stepDef.baseDir).toEqual(dirPath);
   });
 
@@ -42,28 +44,29 @@ describe("tester la classe BasedRoleStepDefinition", () => {
     stepDef.runGenerate();
 
     const generateDir = "tests/src/cucumber/step_definitions/cypress/generated";
-    expect(spyBuildDir).toHaveBeenCalledWith(generateDir + "/enriched/fr");
-    expect(spyBuildDir).toHaveBeenCalledWith(generateDir + "/enriched/en");
-    expect(spyClean).toHaveBeenCalledWith(generateDir + "/enriched/fr");
-    expect(spyClean).toHaveBeenCalledWith(generateDir + "/enriched/en");
-    expect(spyGenerate).toHaveBeenCalledWith(generateDir + "/enriched/fr/_fr-generated-steps-definition_$roleId.ts", "fr");
-    expect(spyGenerate).toHaveBeenCalledWith(generateDir + "/enriched/en/_en-generated-steps-definition_$roleId.ts", "en");
+    expect(spyBuildDir).toHaveBeenCalledWith(path.join(generateDir, "enriched/fr"));
+    expect(spyBuildDir).toHaveBeenCalledWith(path.join(generateDir, "enriched/en"));
+    expect(spyClean).toHaveBeenCalledWith(path.join(generateDir, "enriched/fr"));
+    expect(spyClean).toHaveBeenCalledWith(path.join(generateDir, "enriched/en"));
+    expect(spyGenerate).toHaveBeenCalledWith(path.join(generateDir, "enriched/fr/_fr-generated-steps-definition_$roleId.ts"), "fr");
+    expect(spyGenerate).toHaveBeenCalledWith(path.join(generateDir, "enriched/en/_en-generated-steps-definition_$roleId.ts"), "en");
   });
 
   test("computeWordingFile - les attributs sont bien alimentés", () => {
     const spyReadFile = jest.spyOn(fs, "readFileSync").mockImplementation(() => JSON.stringify(json));
     const spyWrite = jest.spyOn(Common, "writeWordingFile").mockImplementation();
 
-    stepDef.computeWordingFile(template, filePath);
+    stepDef.computeWordingFile(template, filePath, EN_ROLES, "mockFile");
     expect(spyReadFile).toHaveBeenCalled();
     const result = spyWrite.mock.calls[0][1];
     expect(result).toContain("NE PAS MODIFIER, FICHIER GENERE");
-    expect(result).not.toContain("import {key} from \"@uuv/runner-commons\"");
-    expect(result).not.toContain("import { key } from \"@uuv/runner-commons\"");
+    expect(result).not.toContain("import {key} from \"@uuv/runner-commons/wording/web\"");
+    expect(result).not.toContain("import { key } from \"@uuv/runner-commons/wording/web\"");
     expect(result).toContain("../../../core-engine");
     expect(result).toContain("../../../../../../cypress/commands");
     expect(result).toContain("../../../../i18n/template.json");
-    expect(result).toContain("within a(n) alert named {string}");
+    expect(result).toContain("within an alert named {string}");
+    expect(result).not.toContain("$");
     expect(result).toContain("withinRole(\"alert\")");
     expect(spyWrite).toHaveBeenCalled();
   });
@@ -74,7 +77,7 @@ describe("tester la classe BasedRoleStepDefinition", () => {
 
     stepDef.generateWordingFiles(filePath, "en");
 
-    expect(spyReadFile).toHaveBeenCalledWith("tests/src/cucumber/step_definitions/cypress/based-role-check-engine.ts", { encoding: "utf8" });
+    expect(spyReadFile).toHaveBeenCalledWith(path.join("tests/src/cucumber/step_definitions/cypress/based-role-check-engine.ts"), { encoding: "utf8" });
     expect(spyCompute).toHaveBeenCalled();
   });
 });

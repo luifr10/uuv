@@ -14,26 +14,43 @@
 */
 
 import fs from "fs";
+import * as path from "path";
+import { LANG } from "./lang-enum";
+import { EN_ROLES } from "../assets/i18n/web/en/en-roles";
+import { FR_ROLES } from "../assets/i18n/web/fr/fr-roles";
+import { AccessibleRole } from "./accessible-role";
 
 export { fs };
 
 export abstract class GenerateFileProcessing {
-    baseDir?: string;
-    stepDefinitionFile?: string = "";
-    generatedDir?: string = "";
+    baseDir!: string;
+    stepDefinitionFile!: string;
+    generatedDir!: string;
+    wordingFilePath !: string;
 
-    protected constructor(baseDir: string, runner: TEST_RUNNER_ENUM, stepDefinitionFileName: STEP_DEFINITION_FILE_NAME) {
+    constructor(baseDir: string, runner: TEST_RUNNER_ENUM, stepDefinitionFileName: STEP_DEFINITION_FILE_NAME, wordingFileRelativePath) {
         this.baseDir = baseDir;
         this.stepDefinitionFile = `${this.baseDir}/src/cucumber/step_definitions/${runner.toString()}/${stepDefinitionFileName.toString()}.ts`;
         this.generatedDir = `${this.baseDir}/src/cucumber/step_definitions/${runner.toString()}/generated`;
+        this.stepDefinitionFile = path.join(this.baseDir, `src/cucumber/step_definitions/${runner.toString()}/${stepDefinitionFileName.toString()}.ts`);
+        this.generatedDir = path.join(this.baseDir, `src/cucumber/step_definitions/${runner.toString()}/generated`);
+        this.wordingFilePath = path.join(__dirname, `${wordingFileRelativePath}`);
     }
 
     abstract runGenerate(): void;
 
-    abstract generateWordingFiles(generatedFile: string,
-                                  lang: string);
+    abstract generateWordingFiles(generatedFile: string, lang: string);
 
-    abstract computeWordingFile(data: string, wordingFile: string);
+    abstract computeWordingFile(data: string, wordingFile: string, roles?: AccessibleRole[], generatedFile?: string);
+}
+
+export function getDefinedRoles(lang: string): AccessibleRole[] {
+    switch (lang) {
+        case LANG.FR.toString():
+            return FR_ROLES;
+        default:
+            return EN_ROLES;
+    }
 }
 
 export enum TEST_RUNNER_ENUM {
@@ -99,3 +116,4 @@ export class Common {
         );
     }
 }
+

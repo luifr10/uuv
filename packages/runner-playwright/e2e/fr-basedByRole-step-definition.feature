@@ -22,7 +22,7 @@ Fonctionnalité: phrases enrichies
 
   Règle: Attributes
     Scénario: key.then.attributes.withValues
-      Alors je vais à l'intérieur de boîte à texte nommée "First name"
+      Alors je vais à l'intérieur de la boîte à texte nommée "First name"
       Et je dois voir les attributs avec valeurs suivantes
         | class | fname-class |
 

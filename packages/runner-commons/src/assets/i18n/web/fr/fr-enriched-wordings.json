@@ -1,0 +1,39 @@
+{
+  "enriched": [
+    {
+      "key": "key.when.withinElement.roleAndName",
+      "description": "Sélectionne l'élément ayant le rôle $roleId et le [nom accessible](https://russmaxdesign.github.io/html-elements-names/) sont spécifiés <br />⚠ pensez à déselectionner l'élement avec <b>[je reinitialise le contexte](#je-reinitialise-le-contexte)</b> si vous n'agissez plus dessus",
+      "wording": "je vais à l'intérieur $ofDefiniteArticle$roleName $namedAdjective {string}"
+    },
+    {
+      "key": "key.then.element.withRoleAndName",
+      "description": "Vérifie l'existence d'un élément Html ayant le rôle $roleId et le [nom accessible](https://russmaxdesign.github.io/html-elements-names/) spécifiés",
+      "wording": "je dois voir $indefiniteArticle $roleName $namedAdjective {string}"
+    },
+    {
+      "key": "key.then.element.not.withRoleAndName",
+      "description": "Vérifie l'inexistence d'un élément Html ayant le rôle $roleId et le [nom accessible](https://russmaxdesign.github.io/html-elements-names/) spécifiés",
+      "wording": "je ne dois pas voir $indefiniteArticle $roleName $namedAdjective {string}"
+    },
+    {
+      "key": "key.then.element.withRoleAndNameAndContent",
+      "description": "Vérifie l'existence d'un élément Html ayant le rôle $roleId, le [nom accessible](https://russmaxdesign.github.io/html-elements-names/) et le contenu spécifiés",
+      "wording": "je dois voir $indefiniteArticle $roleName $namedAdjective {string} et contenant {string}"
+    },
+    {
+      "key": "key.then.element.withRoleAndNameAndContentDisabled",
+      "description": "Vérifie l'existence d'un élément Html ayant le rôle $roleId, le [nom accessible](https://russmaxdesign.github.io/html-elements-names/), le contenu spécifiés et avec l'attribut disabled à false",
+      "wording": "je dois voir $indefiniteArticle $roleName $namedAdjective {string} et contenant {string} inactif"
+    },
+    {
+      "key": "key.then.element.withRoleAndNameAndContentEnabled",
+      "description": "Vérifie l'existence d'un élément Html ayant le rôle $roleId, le [nom accessible](https://russmaxdesign.github.io/html-elements-names/), le contenu spécifiés et avec l'attribut disabled à true",
+      "wording": "je dois voir $indefiniteArticle $roleName $namedAdjective {string} et contenant {string} actif"
+    },
+    {
+      "key": "key.when.type",
+      "description": "Saisie de la phrase passée en paramètre dans le champ spécifié(utile par exemple pour remplir un champ de formulaire).",
+      "wording": "je saisie le(s) mot(s) {string} dans $definiteArticle$roleName $namedAdjective {string}"
+    }
+  ]
+}

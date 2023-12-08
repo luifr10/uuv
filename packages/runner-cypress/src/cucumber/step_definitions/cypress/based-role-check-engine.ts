@@ -23,7 +23,7 @@ import {
     notFoundWithRoleAndName,
     withinRoleAndName
 } from "./core-engine";
-import { key } from "@uuv/runner-commons";
+import { key } from "@uuv/runner-commons/wording/web";
 
 When(`${key.when.withinElement.roleAndName}`, function(name: string) {
     return withinRoleAndName("$roleId", name);

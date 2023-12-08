@@ -45,6 +45,7 @@
     "dist/index.js",
     "dist/step-definition-generator/**/*",
     "dist/assets/**/*",
+    "src/assets/i18n/*/*/*.json",
     "dist/runner/**/*",
     "*.md"
   ],
@@ -53,6 +54,16 @@
       "import": "./dist/index.js",
       "require": "./dist/index.js",
       "types": "./dist/index.d.ts"
+    },
+    "./wording/web": {
+      "import": "./dist/assets/i18n/web/index.js",
+      "require": "./dist/assets/i18n/web/index.js",
+      "types": "./dist/assets/i18n/web/index.d.ts"
+    },
+    "./wording/web/en": {
+      "import": "./dist/assets/i18n/web/en/index.js",
+      "require": "./dist/assets/i18n/web/en/index.js",
+      "types": "./dist/assets/i18n/web/en/index.d.ts"
     }
   }
 }

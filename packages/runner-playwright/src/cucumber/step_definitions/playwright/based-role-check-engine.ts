@@ -13,7 +13,7 @@
 * understanding English or French.
 */
 
-import { key } from "@uuv/runner-commons";
+import { key } from "@uuv/runner-commons/wording/web";
 import { Then, When } from "@cucumber/cucumber";
 import {
     findWithRoleAndName,

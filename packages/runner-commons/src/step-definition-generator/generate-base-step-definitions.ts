@@ -11,24 +11,33 @@
 * Software description: Make test writing fast, understandable by any human understanding English or French.
  */
 import { LANG } from "./lang-enum";
-import { Common, fs, GenerateFileProcessing, STEP_DEFINITION_FILE_NAME, TEST_RUNNER_ENUM } from "./common";
+import { Common, fs, GenerateFileProcessing } from "./common";
+import * as path from "path";
 
 export class BaseStepDefinition extends GenerateFileProcessing {
-    constructor(baseDir: string, runner: TEST_RUNNER_ENUM, stepDefinitionFileName: STEP_DEFINITION_FILE_NAME) {
-        super(baseDir, runner, stepDefinitionFileName);
-    }
-    runGenerate() {
+    override runGenerate() {
         Object.values(LANG).forEach((lang: string) => {
-            const generatedFile = `${this.generatedDir}/_${lang}-generated-cucumber-steps-definition.ts`;
-
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            Common.buildDirIfNotExists(this.generatedDir!);
+            const generatedFile = path.join(this.generatedDir, `_${lang}-generated-cucumber-steps-definition.ts`);
+            Common.buildDirIfNotExists(this.generatedDir);
             Common.cleanGeneratedFilesIfExists(generatedFile);
             this.generateWordingFiles(generatedFile, lang);
         });
     }
 
-    computeWordingFile(data: string, wordingFile: string): string {
+    override generateWordingFiles(
+        generatedFile: string,
+        lang: string
+    ): void {
+        const wordingFile = path.join(this.wordingFilePath, lang, `${lang}.json`);
+        const data = fs.readFileSync(
+            this.stepDefinitionFile,
+            { encoding: "utf8" }
+        );
+        const updatedData = this.computeWordingFile(data, wordingFile);
+        Common.writeWordingFile(generatedFile, updatedData);
+    }
+
+    override computeWordingFile(data: string, wordingFile: string): string {
         data =
             "/*******************************\n" +
             "NE PAS MODIFIER, FICHIER GENERE\n" +
@@ -41,8 +50,8 @@ export class BaseStepDefinition extends GenerateFileProcessing {
             .replace("../../../cypress/commands", "../../../../cypress/commands")
             .replace("../../../playwright/chromium", "../../../../playwright/chromium")
             .replace("../i18n/template.json", "../../i18n/template.json")
-            .replace("import {key} from \"@uuv/runner-commons\";", "")
-            .replace("import { key } from \"@uuv/runner-commons\";", "")
+            .replace("import {key} from \"@uuv/runner-commons/wording/web\";", "")
+            .replace("import { key } from \"@uuv/runner-commons/wording/web\";", "")
             .replace("./core-engine", "../core-engine")
             .replace("../../preprocessor/run/world", "../../../preprocessor/run/world");
         const wordings = fs.readFileSync(wordingFile);
@@ -52,18 +61,5 @@ export class BaseStepDefinition extends GenerateFileProcessing {
             // console.debug(conf, data)
         });
         return data;
-    }
-
-    generateWordingFiles(
-        generatedFile: string,
-        lang: string
-    ): void {
-        const wordingFile = `${__dirname}/../assets/i18n/${lang}.json`;
-        const data = fs.readFileSync(
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            this.stepDefinitionFile!,
-            { encoding: "utf8" });
-        const updatedData = this.computeWordingFile(data, wordingFile);
-        Common.writeWordingFile(generatedFile, updatedData);
     }
 }

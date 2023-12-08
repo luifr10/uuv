@@ -18,9 +18,29 @@ import { BasedRoleStepDefinition } from "./generate-based-role-step-definitions"
 import { STEP_DEFINITION_FILE_NAME, TEST_RUNNER_ENUM } from "./common";
 
 
-export function generateStepDefinitionForRunner(baseDir: string, runner: TEST_RUNNER_ENUM) {
- const cypressBaseStepDefinition: BaseStepDefinition = new BaseStepDefinition(baseDir, runner, STEP_DEFINITION_FILE_NAME.BASE);
- cypressBaseStepDefinition.runGenerate();
- const cypressBasedRoleStepDefinition: BasedRoleStepDefinition = new BasedRoleStepDefinition(baseDir, runner, STEP_DEFINITION_FILE_NAME.BY_ROLE);
+function generateStepDefinitionForRunner(baseDir: string, runner: TEST_RUNNER_ENUM, wordingFileRelativePath: string) {
+ const runnerBaseStepDefinition: BaseStepDefinition = new BaseStepDefinition(
+     baseDir,
+     runner,
+     STEP_DEFINITION_FILE_NAME.BASE,
+     wordingFileRelativePath
+ );
+ runnerBaseStepDefinition.runGenerate();
+
+ const cypressBasedRoleStepDefinition: BasedRoleStepDefinition = new BasedRoleStepDefinition(
+     baseDir,
+     runner,
+     STEP_DEFINITION_FILE_NAME.BY_ROLE,
+     wordingFileRelativePath
+ );
  cypressBasedRoleStepDefinition.runGenerate();
+}
+
+
+export function generateStepDefinitionForWebRunner(baseDir: string, runner: TEST_RUNNER_ENUM) {
+ generateStepDefinitionForRunner(baseDir, runner, "../assets/i18n/web");
+}
+
+export function generateStepDefinitionForMobileRunner(baseDir: string, runner: TEST_RUNNER_ENUM) {
+ generateStepDefinitionForRunner(baseDir, runner, "../assets/i18n/mobile");
 }

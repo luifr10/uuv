@@ -13,7 +13,8 @@
  * understanding English or French.
  */
 
-import { DEFAULT_TIMEOUT, fs, key, KEY_PRESS } from "@uuv/runner-commons";
+import { DEFAULT_TIMEOUT, fs, KEY_PRESS } from "@uuv/runner-commons";
+import { key } from "@uuv/runner-commons/wording/web";
 import { checkA11y, injectAxe } from "axe-playwright";
 import { devices, expect } from "@playwright/test";
 import { Page, Locator } from "playwright";

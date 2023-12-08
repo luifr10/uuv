@@ -21,7 +21,7 @@ Fonctionnalité: phrases enrichies
       Et je dois voir une boîte à texte nommée "Last name" et contenant "Doe" actif
   Règle: Attributes
     Scénario: key.then.attributes.withValues
-      Et je vais à l'intérieur de boîte à texte nommée "First name"
+      Et je vais à l'intérieur de la boîte à texte nommée "First name"
       Et je dois voir les attributs avec valeurs suivantes
         | class | fname-class |
 
