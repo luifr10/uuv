@@ -37,14 +37,18 @@ const config = {
       /** @type {import("@docusaurus/preset-classic").Options} */
       ({
         docs: {
-          sidebarPath: require.resolve("./sidebars.js")
+          sidebarPath: require.resolve("./sidebars.js"),
+          editUrl: ({ docPath }) => {
+            return `https://holocron.so/github/pr/Orange-OpenSource/uuv/main/editor/packages/docs/docs/${docPath}`
+          },
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl:
-            "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/"
+          editUrl: ({ docPath }) => {
+            return `https://holocron.so/github/pr/Orange-OpenSource/uuv/main/editor/packages/docs/docs/${docPath}`
+          },
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css")
