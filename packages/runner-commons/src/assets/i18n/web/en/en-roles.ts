@@ -53,10 +53,10 @@ class EnAccessibleRole extends AccessibleRole {
 }
 
 export const EN_ROLES: AccessibleRole[] = [
-    { id: "alert", name: "alert", definiteArticle: DEFINITE_ARTICLE.THE, indefiniteArticle: INDEFINITE_ARTICLE.AN },
-    { id: "alertdialog", name: "alert dialog", definiteArticle: DEFINITE_ARTICLE.THE, indefiniteArticle: INDEFINITE_ARTICLE.AN },
-    { id: "application", name: "application", definiteArticle: DEFINITE_ARTICLE.THE, indefiniteArticle: INDEFINITE_ARTICLE.AN },
-    { id: "article", name: "article", definiteArticle: DEFINITE_ARTICLE.THE, indefiniteArticle: INDEFINITE_ARTICLE.AN },
+    { id: "alert", name: "alert", indefiniteArticle: INDEFINITE_ARTICLE.AN },
+    { id: "alertdialog", name: "alert dialog", indefiniteArticle: INDEFINITE_ARTICLE.AN },
+    { id: "application", name: "application", indefiniteArticle: INDEFINITE_ARTICLE.AN },
+    { id: "article", name: "article", indefiniteArticle: INDEFINITE_ARTICLE.AN },
     { id: "banner", name: "banner" },
     { id: "button", name: "button" },
     { id: "cell", name: "cell" },
@@ -81,7 +81,7 @@ export const EN_ROLES: AccessibleRole[] = [
     { id: "group", name: "group" },
     { id: "heading", name: "title" },
     { id: "img", name: "picture" },
-    { id: "input", name: "entry", definiteArticle: DEFINITE_ARTICLE.THE, indefiniteArticle: INDEFINITE_ARTICLE.AN },
+    { id: "input", name: "entry", indefiniteArticle: INDEFINITE_ARTICLE.AN },
     { id: "landmark", name: "landmark" },
     { id: "link", name: "link" },
     { id: "list", name: "list" },
@@ -100,7 +100,7 @@ export const EN_ROLES: AccessibleRole[] = [
     { id: "navigation", name: "navigation" },
     { id: "none", name: "no" },
     { id: "note", name: "note" },
-    { id: "option", name: "option" },
+    { id: "option", name: "option", indefiniteArticle: INDEFINITE_ARTICLE.AN },
     { id: "presentation", name: "presentation" },
     { id: "progressbar", name: "progress bar" },
     { id: "radio", name: "radio" },

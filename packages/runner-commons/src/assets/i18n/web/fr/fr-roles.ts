@@ -135,9 +135,9 @@ export const FR_ROLES: AccessibleRole[] = [
     },
     {
         id: "contentinfo",
-        name: "contentinfo",
-        definiteArticle: FR_DEFINITE_ARTICLE.LE,
-        indefiniteArticle: FR_INDEFINITE_ARTICLE.UN
+        name: "information de contenu",
+        definiteArticle: FR_DEFINITE_ARTICLE.L,
+        indefiniteArticle: FR_INDEFINITE_ARTICLE.UNE
     },
     {
         id: "definition",
@@ -429,7 +429,7 @@ export const FR_ROLES: AccessibleRole[] = [
     },
     {
         id: "select",
-        name: "sélectionner",
+        name: "sélecteur",
         definiteArticle: FR_DEFINITE_ARTICLE.LE,
         indefiniteArticle: FR_INDEFINITE_ARTICLE.UN
     },
@@ -484,18 +484,18 @@ export const FR_ROLES: AccessibleRole[] = [
     {
         id: "table",
         name: "tableau",
-        definiteArticle: FR_DEFINITE_ARTICLE.LA,
+        definiteArticle: FR_DEFINITE_ARTICLE.LE,
         indefiniteArticle: FR_INDEFINITE_ARTICLE.UNE
     },
     {
         id: "tablist",
-        name: "tablist",
+        name: "liste d'onglet",
         definiteArticle: FR_DEFINITE_ARTICLE.LA,
         indefiniteArticle: FR_INDEFINITE_ARTICLE.UNE
     },
     {
         id: "tabpanel",
-        name: "tabpanel",
+        name: "panneau d'onglet",
         definiteArticle: FR_DEFINITE_ARTICLE.LE,
         indefiniteArticle: FR_INDEFINITE_ARTICLE.UN
     },
