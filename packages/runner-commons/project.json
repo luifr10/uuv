@@ -107,6 +107,22 @@
                     }
                   ],
                   "countMatches": true
+                },
+                {
+                  "files": [
+                    "packages/assistant/package.json"
+                  ],
+                  "from": "\"@uuv/runner-commons\": \".*\"",
+                  "to": "\"@uuv/runner-commons\": \"${nextRelease.version}\"",
+                  "results": [
+                    {
+                      "file": "packages/assistant/package.json",
+                      "hasChanged": true,
+                      "numMatches": 1,
+                      "numReplacements": 1
+                    }
+                  ],
+                  "countMatches": true
                 }
               ]
             }
