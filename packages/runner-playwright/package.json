@@ -45,7 +45,7 @@
   },
   "dependencies": {
     "@cucumber/cucumber": "9.6.0",
-    "@playwright/test": "1.33.0",
+    "@playwright/test": "1.40.1",
     "@uuv/runner-commons": "2.0.1",
     "axe-core": "4.8.2",
     "axe-playwright": "1.2.3",
