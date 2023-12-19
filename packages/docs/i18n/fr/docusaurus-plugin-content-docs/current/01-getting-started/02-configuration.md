@@ -19,15 +19,17 @@ Modifier le fichier `.gitignore` pour rajouter les lignes suivantes :
 - Installer [le plugin Jetbrains UUV](/docs/tools/uuv-jetbrains-plugin) **pour exécuter les tests depuis l'ide**
 
 ### VS Code
-**Pour l'autocompletion** lors de l'écriture de vos tests, télécharger le plugin [Cucumber (Gherkin) Full Support](https://marketplace.visualstudio.com/items?itemName=alexkrechik.cucumberautocomplete).<br/>Puis, créer ou modifier le fichier `.vscode/settings.json` afin d'ajouter les lignes suivantes :
+**Pour l'autocompletion** lors de l'écriture de vos tests, télécharger le plugin [Cucumber](https://marketplace.visualstudio.com/items?itemName=CucumberOpen.cucumber-official).<br/>Puis, créer ou modifier le fichier `.vscode/settings.json` afin d'ajouter les lignes suivantes :
   ```json title='.vscode/settings.json'
   {
-      "cucumberautocomplete.steps": [
-         "uuv/cucumber/step_definitions/**/*.{js,ts}",
-         "node_modules/@uuv/*/src/cucumber/step_definitions/*/unsafe/**/*.ts",
-         "node_modules/@uuv/*/src/cucumber/step_definitions/*/generated/**/*.ts",
-         "node_modules/@uuv/*/src/cucumber/step_definitions/*/generated/enriched/*/*.ts"
+      "cucumber.features": [
+        "uuv/e2e/**/*.feature"
       ],
-      "cucumberautocomplete.strictGherkinCompletion": true
+      "cucumber.glue": [
+        "uuv/cucumber/step_definitions/**/*.{js,ts}",
+        "node_modules/@uuv/*/src/cucumber/step_definitions/*/unsafe/**/*.ts",
+        "node_modules/@uuv/*/src/cucumber/step_definitions/*/generated/**/*.ts",
+        "node_modules/@uuv/*/src/cucumber/step_definitions/*/generated/enriched/*/*.ts"
+      ]
   }
   ```
