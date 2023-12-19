@@ -6,7 +6,7 @@
   ],
   "timezone": "Europe/Paris",
   "schedule": [ "every weekend" ],
-  "baseBranches": ["main"],
+  "baseBranches": ["406-improve-renovatebot"],
   "assignees": ["stanlee974", "luifr10"],
   "packageRules": [
     {
@@ -16,10 +16,34 @@
       "automergeType": "branch"
     },
     {
-      "matchDepTypes": ["devDependencies"],
+      "matchDepTypes": ["dependencies", "devDependencies"],
       "automerge": true,
       "automergeType": "pr",
       "automergeStrategy": "rebase"
+    },
+    {
+      "matchFileNames": ["packages/a11y/package.json"],
+      "semanticCommitScope": "a11y"
+    },
+    {
+      "matchFileNames": ["packages/assistant/package.json"],
+      "semanticCommitScope": "assistant"
+    },
+    {
+      "matchFileNames": ["packages/assistant-electron/package.json"],
+      "semanticCommitScope": "assistant-electron"
+    },
+    {
+      "matchFileNames": ["packages/runner-commons/package.json"],
+      "semanticCommitScope": "runner-commons"
+    },
+    {
+      "matchFileNames": ["packages/runner-cypress/package.json"],
+      "semanticCommitScope": "runner-cypress"
+    },
+    {
+      "matchFileNames": ["packages/runner-playwright/package.json"],
+      "semanticCommitScope": "runner-playwright"
     }
   ]
 }
