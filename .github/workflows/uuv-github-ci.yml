@@ -69,7 +69,7 @@ jobs:
             packages/assistant/build
             packages/assistant-electron/dist/uuv-assistant-win32-x64.zip
       - name: Upload docs artifact
-        uses: actions/upload-pages-artifact@main
+        uses: actions/upload-pages-artifact@v3
         with:
           name: github-pages
           path: packages/docs/build
@@ -284,4 +284,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4
