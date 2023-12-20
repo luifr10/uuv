@@ -139,7 +139,11 @@ export function runGenerateDoc(destDir: string) {
             // console.debug("dataUpdated", dataUpdated)
             dataUpdated = dataOrigin
                 .replaceAll("$roleName", role.name)
-                .replaceAll("$roleId", role.id);
+                .replaceAll("$roleId", role.id)
+                .replaceAll("$definiteArticle", role.getDefiniteArticle())
+                .replaceAll("$indefiniteArticle", role.getIndefiniteArticle())
+                .replaceAll("$namedAdjective", role.namedAdjective())
+                .replaceAll("$ofDefiniteArticle", role.getOfDefiniteArticle());
             const wordingsEnrichedJson = JSON.parse(dataUpdated);
             const { step: enrichedGiven, autocompletionSuggestions: enrichedGivenAutocompletionSuggestions } = computeStepDefinition(
                 wordingsEnrichedJson.enriched,
