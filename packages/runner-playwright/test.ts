@@ -47,7 +47,7 @@ async function testUUV() {
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    await run(mode === "open" ? "open" : "e2e", "tests/.features-gen", ".", argv.generateHtmlReport);
+    await run(mode === "open" ? "open" : "e2e", "tests/.features-gen", ".", argv);
 }
 
 testUUV();

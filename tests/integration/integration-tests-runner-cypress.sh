@@ -31,7 +31,7 @@ log "I" "Replace baseUurl"
 sed -i 's/http:\/\/localhost:4200/https:\/\/e2e-test-quest.github.io\/simple-webapp\//g' uuv/cypress.config.ts
 
 log "I" "Running e2e test"
-if ! npx uuv e2e; then
+if ! npx uuv e2e --generateHtmlReport; then
     log "E" "An error occured during e2e testing"
     exit 1
 fi

@@ -38,13 +38,14 @@
     "postinstall": "node postinstall.js",
     "serverTest:run": "ts-node playwright/run-test-app.ts 9002",
     "test:run": "ts-node test.ts run",
-    "test:open": "ts-node test.ts open",
+    "test:open": "ts-node test.ts open --",
     "test:alone:run": "npx playwright test",
     "test:format": "ts-node format-cucumber-report.ts",
-    "test": "npm run test:run"
+    "test": "npm run test:run --"
   },
   "dependencies": {
     "@cucumber/cucumber": "9.6.0",
+    "@cucumber/tag-expressions": "^6.0.0",
     "@playwright/test": "1.33.0",
     "@uuv/runner-commons": "2.0.3",
     "axe-core": "4.8.2",

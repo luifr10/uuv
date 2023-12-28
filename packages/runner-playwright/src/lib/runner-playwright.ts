@@ -30,10 +30,11 @@ export interface UUVPlaywrightCucumberMapItem {
 
 export const UUVPlaywrightCucumberMapFile = ".uuv-playwright-cucumber-map.json";
 
-async function bddGen(tempDir: string) {
+async function bddGen(tempDir: string, env: any) {
     try {
         const mapOfFile = await generateTestFiles({
             outputDir: tempDir,
+            tags: env.TAGS
         });
         const content: UUVPlaywrightCucumberMapItem[] = [];
         mapOfFile.forEach((value: GherkinDocument, key: string) => {
@@ -100,7 +101,7 @@ function translateFeatures(tempDir: string, configDir: string) {
     });
 }
 
-function runPlaywright(mode: "open" | "e2e", configDir: string, generateHtmlReport = false, env?: any, targetTestFile?: string) {
+function runPlaywright(mode: "open" | "e2e", configDir: string, browser = "chromium", generateHtmlReport = false, env?: any, targetTestFile?: string) {
     const configFile = `${configDir}/playwright.config.ts`;
     const reportType = generateHtmlReport ? GeneratedReportType.HTML : GeneratedReportType.CONSOLE;
     try {
@@ -110,10 +111,14 @@ function runPlaywright(mode: "open" | "e2e", configDir: string, generateHtmlRepo
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         process.env.CONFIG_DIR = configDir;
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        process.env.browser = browser;
         if (env) {
             Object.keys(env).forEach(key => process.env[key] = env[key]);
         }
-        const command = `npx playwright test --project=chromium -c ${configFile} ${mode === "open" ? "--ui" : ""} ${getTargetTestFileForPlawright(targetTestFile)}`;
+        // eslint-disable-next-line max-len
+        const command = `npx playwright test --project=${browser} -c ${configFile} ${mode === "open" ? "--ui" : ""}${getTargetTestFileForPlawright(targetTestFile)}`;
         console.log(chalk.gray(`Running ${command}`));
         execSync(command, { stdio: "inherit" });
     } catch (err) {
@@ -125,22 +130,37 @@ function getTargetTestFileForPlawright(targetTestFile?: string): string {
     if (!targetTestFile) {
         return "";
     }
-    return targetTestFile
+    return ` ${targetTestFile
         .replaceAll("uuv/e2e/", ".uuv-features-gen/uuv/e2e/")
-        .replaceAll(".feature", ".feature.spec.js");
+        .replaceAll(".feature", ".feature.spec.js")}`;
 }
 
-export async function executePreprocessor(tempDir: string, configDir: string) {
+export async function executePreprocessor(tempDir: string, configDir: string, env: any) {
     console.log("running preprocessor...");
-    await bddGen(tempDir);
+    await bddGen(tempDir, env);
     translateFeatures(tempDir, configDir);
     console.log("preprocessor executed");
 }
 
-export async function run(mode: "open" | "e2e", tempDir = "uuv/.features-gen/e2e", configDir = "uuv", generateHtmlReport = false, env?: any, targetTestFile?: string) {
-    await executePreprocessor(tempDir, configDir);
+export async function run(mode: "open" | "e2e", tempDir = "uuv/.features-gen/e2e", configDir = "uuv", argv: any) {
+    const { browser, env, targetTestFile } = extractArgs(argv);
+    await executePreprocessor(tempDir, configDir, env);
     if (mode === "open") {
-        cp.fork(path.join(__dirname, "watch-test-files"), [tempDir, configDir]);
+        cp.fork(path.join(__dirname, "watch-test-files"), [tempDir, configDir, env]);
     }
-    runPlaywright(mode, configDir, generateHtmlReport, env, targetTestFile);
+    runPlaywright(mode, configDir, browser, argv.generateHtmlReport, env, targetTestFile);
+}
+
+function extractArgs(argv: any) {
+    const browser = argv.browser;
+    const env = argv.env ? JSON.parse(argv.env.replace(/'/g, "\"")) : {};
+    const targetTestFile = argv.targetTestFile ? argv.targetTestFile : null;
+
+    console.debug("Variables: ");
+    console.debug(`  -> browser: ${browser}`);
+    console.debug(`  -> env: ${JSON.stringify(env)}`);
+    if (targetTestFile) {
+        console.debug(`  -> targetTestFile: ${targetTestFile}`);
+    }
+    return { browser, env, targetTestFile };
 }

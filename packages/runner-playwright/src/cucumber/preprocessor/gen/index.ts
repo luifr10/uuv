@@ -13,6 +13,7 @@ export type GenOptions = {
   outputDir?: string;
   cucumberConfig?: string;
   cwd?: string;
+  tags?: string;
 };
 
 const defaults: Required<Pick<GenOptions, "outputDir" | "cwd">> = {
@@ -21,9 +22,9 @@ const defaults: Required<Pick<GenOptions, "outputDir" | "cwd">> = {
 };
 
 export async function generateTestFiles(inputOptions?: GenOptions): Promise<Map<string, GherkinDocument>> {
-  const { outputDir, cwd, cucumberConfig } = Object.assign({}, defaults, inputOptions);
+  const { outputDir, cwd, cucumberConfig, tags } = Object.assign({}, defaults, inputOptions);
   const features = await loadFeatures({ file: cucumberConfig }, { cwd });
-  const files = buildFiles(features);
+  const files = buildFiles(features, tags);
   const paths = saveFiles(files, path.join(cwd, outputDir));
   const mapOfFile = new Map<string, GherkinDocument>();
   paths.forEach((path, index) => mapOfFile.set(path, Array.from(features.keys())[index]));
@@ -37,9 +38,9 @@ async function loadFeatures(options?: ILoadConfigurationOptions, environment?: I
   return groupByDocument(filteredPickles);
 }
 
-function buildFiles(features: Map<GherkinDocument, Pickle[]>) {
+function buildFiles(features: Map<GherkinDocument, Pickle[]>, tags?: string) {
   const files: PWFile[] = [];
-  features.forEach((pickles, doc) => files.push(new PWFile(doc, pickles).build()));
+  features.forEach((pickles, doc) => files.push(new PWFile(doc, pickles, tags).build()));
   return files;
 }
 

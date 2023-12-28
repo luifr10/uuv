@@ -10,6 +10,7 @@ import { TestStep } from "@playwright/test/types/testReporter";
 import chalk from "chalk";
 import chalkTable from "chalk-table";
 import { UuvCustomFormatter } from "./uuv-custom-formatter";
+import parseTagsExpression from "@cucumber/tag-expressions";
 
 
 const NANOS_IN_SECOND = 1000000000;
@@ -388,6 +389,8 @@ class UuvPlaywrightReporterHelper {
     private initializeCucumberReportNdJson(suite: Suite, featureFiles: string[]) {
         featureFiles.forEach(featureFile => {
             const originalFile = this.getOriginalFeatureFile(featureFile);
+            const tagsParameter = this.getTagsParameter();
+            const tagsExpression = parseTagsExpression(tagsParameter ? tagsParameter : "");
             if (originalFile) {
                 const currentEnvelopes = generateMessages(
                     fs.readFileSync(originalFile).toString(),
@@ -401,7 +404,22 @@ class UuvPlaywrightReporterHelper {
                     }
                 );
                 const currentQuery = new Query();
-                currentEnvelopes.forEach(envelope => currentQuery.update(envelope));
+                currentEnvelopes
+                    .map(envelope => {
+                        if (tagsParameter && envelope?.gherkinDocument?.feature) {
+                            envelope.gherkinDocument.feature.children = envelope.gherkinDocument.feature.children.filter(
+                                child => child.scenario?.tags && tagsExpression.evaluate(child.scenario.tags.map(tag => tag.name))
+                            );
+                        }
+                        return envelope;
+                    })
+                    .filter(envelope => {
+                        if (tagsParameter && envelope?.pickle?.steps) {
+                            return tagsExpression.evaluate(envelope.pickle.tags.map(pickleTag => pickleTag.name));
+                        }
+                        return true;
+                    })
+                    .forEach(envelope => currentQuery.update(envelope));
                 this.queries.set(originalFile, currentQuery);
                 this.envelopes = this.envelopes.concat(currentEnvelopes);
                 this.featureFileAndTestCaseStatusMap.set(originalFile, []);
@@ -474,9 +492,23 @@ class UuvPlaywrightReporterHelper {
     }
 
     private generateHtmlReportFromJson(reportDirHtml: string, reportDirJson: string) {
+        const UNKNOWN_VALUE = "unknown";
         report.generate({
             jsonDir: reportDirJson,
-            reportPath: reportDirHtml
+            reportPath: reportDirHtml,
+            metadata: {
+                browser: {
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                    // @ts-ignore
+                    name: process.env.browser,
+                    version: UNKNOWN_VALUE
+                },
+                device: UNKNOWN_VALUE,
+                platform: {
+                    name: UNKNOWN_VALUE,
+                    version: UNKNOWN_VALUE,
+                },
+            },
         });
     }
 
@@ -606,6 +638,12 @@ class UuvPlaywrightReporterHelper {
 
     private teamcityAddCustomField(fieldName, value) {
         return `${fieldName}='${value}'`;
+    }
+
+    private getTagsParameter() {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        return process.env.TAGS;
     }
 }
 

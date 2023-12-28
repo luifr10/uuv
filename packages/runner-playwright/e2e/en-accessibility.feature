@@ -1,9 +1,10 @@
 Feature: Accessibility Step Definition
 
-    Scenario: key.then.a11y.check.default
-      When I visit path "https://e2e-test-quest.github.io/simple-webapp/"
-      Then I should not have any accessibility issue
+  Scenario: key.then.a11y.check.default
+    When I visit path "https://e2e-test-quest.github.io/simple-webapp/"
+    Then I should not have any accessibility issue
 
+  @a11y @another
   Scenario: key.then.a11y.check.onlyCritical
     When I visit path "https://e2e-test-quest.github.io/weather-app/"
     When within a button named "Get started"
@@ -11,26 +12,27 @@ Feature: Accessibility Step Definition
     And I reset context
     Then I should not have any critical accessibility issue
 
-    Scenario: key.then.a11y.check.withFixtureOption
-      When I visit path "https://e2e-test-quest.github.io/weather-app/"
-      And within a button named "Get started"
-      And I click
-      And I reset context
-      Then I should not have any accessibility issue with option json fixture withExperimentalOption.json
+  @a11y
+  Scenario: key.then.a11y.check.withFixtureOption
+    When I visit path "https://e2e-test-quest.github.io/weather-app/"
+    And within a button named "Get started"
+    And I click
+    And I reset context
+    Then I should not have any accessibility issue with option json fixture withExperimentalOption.json
 
-    Scenario: key.then.a11y.check.withImpacts
-      When I visit path "https://e2e-test-quest.github.io/weather-app/"
-      And within a button named "Get started"
-      And I click
-      And I reset context
-      Then I should not have any accessibility issue with critical impact
+  Scenario: key.then.a11y.check.withImpacts
+    When I visit path "https://e2e-test-quest.github.io/weather-app/"
+    And within a button named "Get started"
+    And I click
+    And I reset context
+    Then I should not have any accessibility issue with critical impact
 
-    Scenario: key.then.a11y.check.withFixtureContextAndFixtureOption
-      When I visit path "https://e2e-test-quest.github.io/weather-app/"
-      And within a button named "Get started"
-      And I click
-      And I reset context
-      Then I should not have any accessibility issue with context json fixture withExcludeErrorContext.json and option json fixture withBestPracticeOption.json
+  Scenario: key.then.a11y.check.withFixtureContextAndFixtureOption
+    When I visit path "https://e2e-test-quest.github.io/weather-app/"
+    And within a button named "Get started"
+    And I click
+    And I reset context
+    Then I should not have any accessibility issue with context json fixture withExcludeErrorContext.json and option json fixture withBestPracticeOption.json
 
   Scenario: key.then.a11y.check.withTags
     When I visit path "https://e2e-test-quest.github.io/weather-app/"

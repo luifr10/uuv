@@ -15,12 +15,18 @@ import {
 } from "@cucumber/messages";
 import * as formatter from "./formatter";
 import { KeywordsMap, getKeywordsMap } from "./i18n";
+import parseTagsExpression from "@cucumber/tag-expressions";
 
 export class PWFile {
   private lines: string[] = [];
   private keywordsMap?: KeywordsMap;
+  private tagsExpression;
 
-  constructor(public doc: GherkinDocument, private pickles: Pickle[]) {}
+  constructor(public doc: GherkinDocument, private pickles: Pickle[], private readonly tags?: string) {
+    if (tags) {
+      this.tagsExpression = parseTagsExpression(tags);
+    }
+  }
 
   get content() {
     return this.lines.join("\n");
@@ -57,15 +63,23 @@ throw new Error("Document without feature.");
 
   private getSuiteChild(child: FeatureChild | RuleChild) {
     if ("rule" in child && child.rule) {
-return this.getSuite(child.rule);
-}
+      return this.getSuite(child.rule);
+    }
     const { background, scenario } = child;
     if (background) {
-return this.getBeforeEach(background);
-}
+      return this.getBeforeEach(background);
+    }
     if (scenario) {
-return this.getScenarioLines(scenario);
-}
+      if (this.tagsExpression) {
+        if (this.tagsExpression.evaluate(scenario.tags.map(tag => tag.name))) {
+          return this.getScenarioLines(scenario);
+        } else {
+          return [];
+        }
+      } else {
+        return this.getScenarioLines(scenario);
+      }
+    }
     throw new Error(`Empty child: ${JSON.stringify(child)}`);
   }
 

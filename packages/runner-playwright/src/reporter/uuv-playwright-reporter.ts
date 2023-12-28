@@ -17,7 +17,8 @@ class UuvPlawrightReporter implements Reporter {
     }
 
     onError?(error: TestError): void {
-        console.dir(chalk.red(error));
+        console.error(chalk.red("An error occured: "));
+        console.dir(error);
     }
 
     onTestBegin(test: TestCase, result: TestResult) {

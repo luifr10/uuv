@@ -143,6 +143,12 @@ jobs:
         run: mkdir -p ./dist/packages && npm run nx package runner-commons && npm run nx package runner-cypress
       - name: Running cypress integration tests
         run: cd ./tests/integration && chmod 755 ./integration-tests-runner-cypress.sh && ./integration-tests-runner-cypress.sh
+      - name: Upload uuv test artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: integration-tests-cypress-artifacts
+          path: |
+            tests/integration/runner-cypress/uuv/reports
 
   integration-tests-playwright:
     runs-on: ubuntu-latest
@@ -170,6 +176,12 @@ jobs:
         run: mkdir -p ./dist/packages && npm run nx package runner-commons && npm run nx package runner-playwright
       - name: Running playwright integration tests
         run: cd ./tests/integration && chmod 755 ./integration-tests-runner-playwright.sh && ./integration-tests-runner-playwright.sh
+      - name: Upload uuv test artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: integration-tests-playwright-artifacts
+          path: |
+            tests/integration/runner-playwright/uuv/reports
 
   lint:
     runs-on: ubuntu-latest

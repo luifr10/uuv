@@ -114,15 +114,14 @@ export CYPRESS_BASE_URL=http://localhost:4200
 
 :::tip
 To modify the BASE_URL in E2E mode, simply set the environment variable :
-
-WIP
 :::
 
-| Nom                  | Description                                                                                                      | Valeur                                                                                                                                |
-|----------------------|------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
-| `browser` WIP        | Target browser                                                                                                   | `chrome` / `edge` / `firefox` / `electron`                                                                                            |
+| Nom                 | Description                                                                                                                                                                                                 | Valeur                                                                                                                                |
+|---------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
+| `browser`        | Target browser (one of those defined in `uuv/playwright.config.ts` file)                                                                                                                                    | `firefox` / `chromium` / `Google Chrome` / `Microsoft Edge`                                                                                            |
+| `env`                | Environment variables                                                                                                                                                                                       | Json object containing the properties: <br/> - `TAGS` : To target the [cucumber tags](https://cucumber.io/docs/cucumber/api/?lang=javascript#tags) <br/> |
 | `generateHtmlReport` | When this option is present, an html report of the executed tests will be generated here : `./reports/e2e/html/`<br/> [An example of a report](https://e2e-test-quest.github.io/kata-e2e-uuv/5-go-further/) | N/A                                                                                                                                                                                                                                                                                    |
-| `targetTestFile`     | Specify test files to execute                                                                                    | **If not present**: all test files will be included<br/>**If set**: contains a `specPattern` path relative to the ProjetDir parameter |
+| `targetTestFile`    | Specify test files to execute                                                                                                                                                                               | **If not present**: all test files will be included<br/>**If set**: contains a `specPattern` path relative to the ProjetDir parameter |
 
 </TabItem>
 </Tabs>
