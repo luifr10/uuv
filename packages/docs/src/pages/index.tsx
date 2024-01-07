@@ -20,6 +20,12 @@ function HomepageHeader() {
                     id: 'homepage.headline',
                     message: siteConfig.tagline
                 })}</p>
+                <div className={styles.homepageShortDescription}>
+                    <p className="">
+                        <Translate id="homepage.shortDescription">An accessibility driven solution
+                            to facilitate the writing and execution of end-to-end tests that are understandable to any human being.</Translate>
+                    </p>
+                </div>
                 <div className={styles.downloadSection}>
                     <a href={'https://www.npmjs.com/package/@uuv/cypress'} target={'_blank'}>
                         <img alt="@uuv/cypress npm library download count"
@@ -32,6 +38,10 @@ function HomepageHeader() {
                     <a href={'https://www.npmjs.com/package/@uuv/assistant'} target={'_blank'}>
                         <img alt="@uuv/assistant npm library download count"
                              src="https://img.shields.io/npm/dt/%40uuv/assistant?logo=npm&label=%40uuv%2Fassistant"></img>
+                    </a>
+                    <a href={'https://www.npmjs.com/package/@uuv/a11y'} target={'_blank'}>
+                        <img alt="@uuv/a11y npm library download count"
+                             src="https://img.shields.io/npm/dt/%40uuv/a11y?logo=npm&label=%40uuv%2Fa11y"></img>
                     </a>
                     <a href={'https://plugins.jetbrains.com/plugin/22437-uuv'} target={'_blank'}>
                         <img alt="JetBrains Plugin Downloads" src="https://img.shields.io/jetbrains/plugin/d/22437-uuv?logo=jetbrains&label=UUV%20plugin"></img>

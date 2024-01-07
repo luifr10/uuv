@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html dir='ltr' lang='fr' xmlns='http://www.w3.org/1999/xhtml' xml:lang='fr'>
+  <head>
+    <title>1 - Image</title>
+  </head>
+  <body>
+    <h1>1.1</h1>
+    <h2>1.1.1 - tag</h2>
+    <img data-testid="img-with-custom-role" src="./warning.png" role="button" style="width: 32px; height: 32px" alt=""/>
+    <img data-testid="img-with-empty-alt" src="./warning.png" style="width: 32px; height: 32px" alt=""/>
+    <img data-testid="img-with-alt" src="./warning.png" style="width: 32px; height: 32px" alt="label1"/>
+    <img data-testid="img" src="./warning.png" style="width: 32px; height: 32px"/>
+    <img data-testid="img-with-alt-and-aria-label" src="./warning.png" style="width: 32px; height: 32px" alt="logo UUV" aria-label="je ne suis pas pertinent"/>
+    <img data-testid="img-with-aria-label" src="./warning.png" style="width: 32px; height: 32px" aria-label="je ne suis pas pertinent non plus"/>
+    <span id="label1">Image</span>
+    <img data-testid="img-with-aria-labelledby-notExist" src="./warning.png" style="width: 32px; height: 32px" aria-labelledby="labelNotExist"/>
+    <img data-testid="img-with-aria-labelledby" src="./warning.png" style="width: 32px; height: 32px" aria-labelledby="label1"/>
+    <img data-testid="img-with-title" src="./warning.png" style="width: 32px; height: 32px" title="label1"/>
+    <h2>1.1.1 - role</h2>
+    <div data-testid="div-with-aria-label" role="img" aria-label="test">
+    </div>
+    <div data-testid="div-with-empty-aria-label" role="img" aria-label="">
+    </div>
+    <div data-testid="div" role="img" a>
+    </div>
+    <span id="label1.1.1C">Image</span>
+    <div data-testid="div-with-aria-labelledby-notExist" role="img" aria-labelledby="labelNotExist">
+    </div>
+    <div data-testid="div-with-aria-labelledby" role="img" aria-labelledby="label1.1.1C">
+    </div>
+    <h2>1.1.2</h2>
+    <map name="infographic">
+      <area
+        data-testid="area-with-aria-label"
+        shape="poly"
+        coords="260,96,209,249,130,138"
+        href="https://developer.mozilla.org/docs/Web/HTML"
+        target="_blank"
+        aria-label="HTML" />
+      <area
+        data-testid="area-href-without-alt"
+        shape="poly"
+        coords="209,249,49,249,130,139"
+        href="https://developer.mozilla.org/docs/Web/JavaScript"
+        target="_blank"
+      />
+    </map>
+    <h2>1.1.3</h2>
+    <input data-testid="inputimg-without-alt" type="image" src="./warning.png" style="width: 32px; height: 32px"/>
+    <input data-testid="inputimg-alt" type="image" alt="logo UUV" src="./warning.png" style="width: 32px; height: 32px"/>
+    <input data-testid="img-with-empty-alt" type="image" alt="" src="./warning.png" style="width: 32px; height: 32px"/>
+    <input data-testid="img-with-empty-title" type="image" title="" src="./warning.png" style="width: 32px; height: 32px"/>
+    <input data-testid="img-with-empty-aria-label" type="image" aria-label="" src="./warning.png" style="width: 32px; height: 32px"/>
+    <input data-testid="img-with-aria-labelledby-notExist" type="image" aria-labelledby="labelNotExist" src="./warning.png" style="width: 32px; height: 32px"/>
+    <input data-testid="inputimg-alt" type="image" alt="logo UUV" src="./warning.png" style="width: 32px; height: 32px"/>
+    <input data-testid="inputimg-aria-label" type="image" aria-label="logo UUV" src="./warning.png" style="width: 32px; height: 32px"/>
+    <input data-testid="inputimg-title" type="image" title="logo UUV" src="./warning.png" style="width: 32px; height: 32px"/>
+    <span id="label1.1.3">Image</span>
+    <input data-testid="inputimg-aria-labelledby" type="image" aria-labelledby="label1.1.3" src="./warning.png" style="width: 32px; height: 32px"/>
+    <h2>1.1.4</h2>
+    <h2>1.1.5</h2>
+    <svg data-testid="svg-without-role-image" height="100" width="100">
+      <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" />
+    </svg>
+    <svg data-testid="svg-without-role-image-and-with-title" height="100" width="100" title="blue circle">
+      <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="blue" />
+    </svg>
+    <svg data-testid="svg-with-role-and-title" role="img" title="red circle" height="100" width="100">
+      <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" />
+    </svg>
+    <svg data-testid="svg-with-role-and-without-title" role="img" height="100" width="100">
+      <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" />
+    </svg>
+  </body>
+</html>

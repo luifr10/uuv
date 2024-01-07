@@ -61,7 +61,8 @@
 }
 
 [data-theme='dark'] .homepage-feature-img {
-    filter: drop-shadow(0 0 0.1rem white);
+    filter: drop-shadow(0 0 0.15rem white);
+    /*fill: var(--ifm-color-primary);*/
 }
 
 [data-theme='dark'] .aa-DetachedSearchButton {

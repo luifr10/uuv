@@ -79,7 +79,8 @@ build-runner-cypress:
     paths:
       - "packages/runner-cypress/dist"
       - "packages/runner-cypress/src/cucumber/step_definitions/cypress/generated"
-      - "packages/docs/docs/03-wordings/01-generated-wording-description"
+      - "packages/docs/docs/04-wordings/01-generated-wording-description"
+      - "packages/docs/docs/05-tools"
   only:
     - master
 

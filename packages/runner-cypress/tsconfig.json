@@ -17,7 +17,9 @@
     "**.*js"
   ],
   "exclude": [
-    "dist/**.*"
+    "dist/**.*",
+    "src/cucumber/step_definitions/cypress/base-check-engine.ts",
+    "src/cucumber/step_definitions/cypress/based-role-check-engine.ts"
   ],
   "references": [
     {

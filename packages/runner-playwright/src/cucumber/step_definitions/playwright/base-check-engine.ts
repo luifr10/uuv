@@ -204,14 +204,14 @@ Then(`${key.then.element.not.withTestId}`, async function(this: World, testId: s
 });
 
 Then(
- `${key.then.a11y.check.default}`,
+ `${key.then.a11y.axecore.default}`,
  async function(this: World) {
    await injectAxe(this.page as Page);
    await checkA11y(this.page as Page);
  });
 
 Then(
- `${key.then.a11y.check.withFixtureOption}`,
+     `${key.then.a11y.axecore.withFixtureOption}`,
  async function(this: World, option: any) {
    await injectAxe(this.page as Page);
    const optionFile = await fs.readFileSync(path.join(getConfigDir(), `playwright/fixtures/${option}`));
@@ -222,11 +222,12 @@ Then(
  });
 
 function getConfigDir(): string {
+    // eslint-disable-next-line dot-notation
     return process.env["CONFIG_DIR"] ? process.env["CONFIG_DIR"] : "";
 }
 
 Then(
- `${key.then.a11y.check.withFixtureContextAndFixtureOption}`,
+ `${key.then.a11y.axecore.withFixtureContextAndFixtureOption}`,
  async function(this: World, context: any, option: any) {
    await injectAxe(this.page as Page);
    const contextFile = await fs.readFileSync(path.join(getConfigDir(), `playwright/fixtures/${context}`));
@@ -238,7 +239,7 @@ Then(
  });
 
 Then(
- `${key.then.a11y.check.onlyCritical}`,
+ `${key.then.a11y.axecore.onlyCritical}`,
  async function(this: World) {
    await injectAxe(this.page as Page);
    await checkA11y(this.page as Page, undefined, {
@@ -247,7 +248,7 @@ Then(
  });
 
 Then(
- `${key.then.a11y.check.withImpacts}`,
+ `${key.then.a11y.axecore.withImpacts}`,
  async function(this: World, impacts: any) {
    await injectAxe(this.page as Page);
    await checkA11y(this.page as Page, undefined, {
@@ -255,7 +256,7 @@ Then(
    });
  });
 Then(
- `${key.then.a11y.check.withTags}`,
+ `${key.then.a11y.axecore.withTags}`,
  async function(this: World, tags: any) {
    await injectAxe(this.page as Page);
    await checkA11y(this.page as Page, undefined, {

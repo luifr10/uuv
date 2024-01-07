@@ -4,6 +4,7 @@
   "sourceRoot": "packages/docs/src",
   "projectType": "application",
   "implicitDependencies": [
+    "a11y",
     "runner-cypress",
     "runner-playwright",
     "assistant",

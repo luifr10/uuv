@@ -290,6 +290,9 @@
     "message": "Tags",
     "description": "The title of the tag list page"
   },
+  "homepage.shortDescription": {
+    "message": "Une solution basée sur l'accessibilité pour faciliter l'écriture et l'exécution des tests bout en bout dans un langage naturel"
+  },
   "homepage.headline": {
     "message": "Explorer votre application par la validation de vos cas d'utilisation"
   },
@@ -297,21 +300,54 @@
     "message": "Démarrer"
   },
   "homepage.keyFeature.featureOne.title": {
-    "message": "Behaviour Driven"
+    "message": "Basé sur l'accessibilité"
   },
   "homepage.keyFeature.featureOne.message": {
-    "message": "Expression des scénarios d'utilisation simplifiée"
+    "message": "Plus qu'un simple module, l'accessibilité est l'une des raisons principales d'être de cette solution"
   },
   "homepage.keyFeature.featureTwo.title": {
-    "message": "Environnement Web"
+    "message": "Simplifie l'écriture des tests"
   },
   "homepage.keyFeature.featureTwo.message": {
-    "message": "Toute application qui s'exécute dans un navigateur web est éligible"
+    "message": "Avec UUV, écrire des tests de bout en bout n'aura jamais été aussi simple, même pour les néophytes."
   },
   "homepage.keyFeature.featureThree.title": {
     "message": "Centré sur l'utilisateur"
   },
   "homepage.keyFeature.featureThree.message": {
-    "message": "Vérifications dans le DOM seront effectués en s'appuyant sur les rôles et attributs accessibles"
+    "message": "Vérifications dans le DOM sont effectués en s'appuyant sur les rôles et attributs accessibles"
+  },
+  "autocomplete.placeholder": {
+    "message": "Saisissez un mot clé pour trouver une phrase"
+  },
+  "autocomplete.toast.summary": {
+    "message": "Succès"
+  },
+  "autocomplete.toast.detail": {
+    "message": "La phrase \"{suggestion}\" a été copiée dans le presse-papier"
+  },
+  "a11y.criteria.loading": {
+    "message": "Chargement..."
+  },
+  "a11y.criteria.manual.check": {
+    "message": "{icon} avec {manualChecks} test{plural} manuel{plural}"
+  },
+  "a11y.criteria.coverage": {
+    "message": "{icon} {coverage}%"
+  },
+  "a11y.legend.implemented": {
+    "message": "La règle est entièrement implémentée"
+  },
+  "a11y.legend.inProgress": {
+    "message": "L'implémentation de la règle est programmée"
+  },
+  "a11y.legend.partial": {
+    "message": "La règle est partiellement implémentée"
+  },
+  "a11y.legend.wontBeImplemented": {
+    "message": "La règle ne sera pas implémentée"
+  },
+  "a11y.legend.manual": {
+    "message": "Les noeuds du DOM sont collectés pour une analyse manuelle"
   }
 }

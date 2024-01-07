@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html dir='ltr' lang='fr' xmlns='http://www.w3.org/1999/xhtml' xml:lang='fr'>
+  <head>
+    <title>1 - Image</title>
+  </head>
+  <body>
+    <h1>1.1</h1>
+    <h2>1.1.1 - tag</h2>
+    <img data-testid="img-with-custom-role" src="./warning.png" role="button" style="width: 32px; height: 32px" alt="ok"/>
+    <img data-testid="img-with-alt" src="./warning.png" style="width: 32px; height: 32px" alt="label1"/>
+    <img data-testid="img-with-alt-and-aria-label" src="./warning.png" style="width: 32px; height: 32px" alt="logo UUV" aria-label="je ne suis pas pertinent"/>
+    <img data-testid="img-with-aria-label" src="./warning.png" style="width: 32px; height: 32px" aria-label="je ne suis pas pertinent non plus"/>
+    <span id="label1">Image</span>
+    <img data-testid="img-with-aria-labelledby" src="./warning.png" style="width: 32px; height: 32px" aria-labelledby="label1"/>
+    <img data-testid="img-with-title" src="./warning.png" style="width: 32px; height: 32px" title="label1"/>
+    <h2>1.1.1 - role</h2>
+    <div data-testid="div-with-aria-label" role="img" aria-label="test">
+    </div>
+    <span id="label1.1.1C">Image</span>
+    <div data-testid="div-with-aria-labelledby" role="img" aria-labelledby="label1.1.1C">
+    </div>
+    <div data-testid="div-with-title" role="img" title="label1.1.1C">
+    </div>
+    <h2>1.1.2 - tag</h2>
+    <map name="infographic">
+      <area
+        data-testid="area-without-href"
+        shape="poly"
+        coords="129,0,260,95,129,138"
+        target="_blank"/>
+      <area
+        data-testid="area-nohref"
+        shape="poly"
+        coords="129,0,260,95,129,138"
+        target="_blank"
+        nohref/>
+      <area
+        data-testid="area-with-alt1"
+        shape="poly"
+        coords="129,0,260,95,129,138"
+        href="https://developer.mozilla.org/docs/Web/HTTP"
+        target="_blank"
+        alt="HTTP" />
+      <area
+        data-testid="area-with-aria-label"
+        shape="poly"
+        coords="260,96,209,249,130,138"
+        href="https://developer.mozilla.org/docs/Web/HTML"
+        target="_blank"
+        aria-label="HTML" />
+      <area
+        data-testid="area-nohref-without-alt"
+        shape="poly"
+        coords="48,249,0,96,129,138"
+        nohref
+        target="_blank"
+      />
+      <area
+        data-testid="area-without-href-and-alt"
+        shape="poly"
+        coords="0,95,128,0,128,137"
+        target="_blank"
+      />
+    </map>
+    <h2>1.1.3</h2>
+    <input data-testid="inputimg-alt" type="image" alt="logo UUV" src="./warning.png" style="width: 32px; height: 32px"/>
+    <input data-testid="inputimg-aria-label" type="image" aria-label="logo UUV" src="./warning.png" style="width: 32px; height: 32px"/>
+    <input data-testid="inputimg-title" type="image" title="logo UUV" src="./warning.png" style="width: 32px; height: 32px"/>
+    <span id="label1.1.3">Image</span>
+    <input data-testid="inputimg-aria-labelledby" type="image" aria-labelledby="label1.1.3" src="./warning.png" style="width: 32px; height: 32px"/>
+    <h2>1.1.5</h2>
+    <svg data-testid="svg-with-role-and-title" role="img" title="red circle" height="100" width="100">
+      <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" />
+    </svg>
+    <svg data-testid="svg-with-role-and-aria-label" role="img" aria-label="red circle" height="100" width="100">
+      <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" />
+    </svg>
+    <span id="label1.1.5">svg</span>
+    <svg data-testid="svg-with-role-and-aria-labelledby" role="img" aria-labelledby="label1.1.5" height="100" width="100">
+      <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" />
+    </svg>
+  </body>
+</html>

@@ -4,42 +4,42 @@ Fonctionnalité: Accessibility Step Definition
   Règle: a11y
     Scénario: key.then.a11y.check.default
       Lorsque je visite l'Url "https://e2e-test-quest.github.io/simple-webapp/"
-      Alors je ne dois pas avoir de problèmes d'accessibilité
+      Alors je ne dois pas avoir de problèmes d'accessibilité axe-core
 
   Scénario: key.then.a11y.check.onlyCritical
     Lorsque je visite l'Url "https://e2e-test-quest.github.io/weather-app/"
     Et je vais à l'intérieur du bouton nommé "Get started"
     Et je clique
     Et je reinitialise le contexte
-    Alors je ne dois pas avoir de problèmes d'accessibilité de niveau critique
+    Alors je ne dois pas avoir de problèmes d'accessibilité axe-core de niveau critique
 
     Scénario: key.then.a11y.check.withFixtureOption
       Lorsque je visite l'Url "https://e2e-test-quest.github.io/weather-app/"
       Et je vais à l'intérieur du bouton nommé "Get started"
       Et je clique
       Et je reinitialise le contexte
-      Alors je ne dois pas avoir de problèmes d'accessibilité avec le fichier json suivant d'option withExperimentalOption.json
+      Alors je ne dois pas avoir de problèmes d'accessibilité axe-core avec le fichier json suivant d'option withExperimentalOption.json
 
     Scénario: key.then.a11y.check.withImpacts
       Lorsque je visite l'Url "https://e2e-test-quest.github.io/weather-app/"
       Et je vais à l'intérieur du bouton nommé "Get started"
       Et je clique
       Et je reinitialise le contexte
-      Alors je ne dois pas avoir de problèmes d'accessibilité avec les impacts critical
+      Alors je ne dois pas avoir de problèmes d'accessibilité axe-core avec les impacts critical
 
     Scénario: key.then.a11y.check.withFixtureContextAndFixtureOption
       Lorsque je visite l'Url "https://e2e-test-quest.github.io/weather-app/"
       Et je vais à l'intérieur du bouton nommé "Get started"
       Et je clique
       Et je reinitialise le contexte
-      Alors je ne dois pas avoir de problèmes d'accessibilité sur le fichier json suivant de contexte withExcludeErrorContext.json et avec le fichier json suivant d'option withBestPracticeOption.json
+      Alors je ne dois pas avoir de problèmes d'accessibilité axe-core sur le fichier json suivant de contexte withExcludeErrorContext.json et avec le fichier json suivant d'option withBestPracticeOption.json
 
     Scénario: key.then.a11y.check.withTags
       Lorsque je visite l'Url "https://e2e-test-quest.github.io/weather-app/"
       Et je vais à l'intérieur du bouton nommé "Get started"
       Et je clique
       Et je reinitialise le contexte
-      Alors je ne dois pas avoir de problèmes d'accessibilité avec le standard wcag2a
+      Alors je ne dois pas avoir de problèmes d'accessibilité axe-core avec le standard wcag2a
 
   Règle: touches d'accessibilité
     Scénario: key.then.keyboard.press - Reverse Tab & Tab

@@ -1,7 +1,7 @@
 import CodeBlock from '@theme/CodeBlock';
 
 # Concepts
-`@uuv` (**U**ser centric **U**secases **V**alidator) is an ecosystem that **simplifies** End to End test **writing** and **execution** using BDD(Behaviour Driven Development) and a user-centric approaches. Written **E2E tests** are therefore **understandable by any human being**.
+`@uuv` (**U**ser centric **U**secases **V**alidator) is an ecosystem that **simplifies** End to End test **writing** and **execution** using BDD (Behaviour Driven Development) and a user-centric approaches. Written **E2E tests** are therefore **understandable by any human being**.
 
 ## The problem
 

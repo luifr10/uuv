@@ -30,18 +30,34 @@ import {
 } from "../cucumber/step_definitions/cypress/_.common";
 import { Context } from "../cucumber/step_definitions/cypress/_context";
 import "cypress-real-events";
+import { injectUvvA11y, checkUvvA11y } from "../cucumber/step_definitions/cypress/a11y-engine";
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import {A11yReferenceEnum, A11yResult} from "@uuv/a11y";
+
 declare global {
   namespace Cypress {
     interface Chainable {
       uuvGetContext(): Cypress.Chainable<Context>;
+
       uuvCheckContextFocusedElement(): Cypress.Chainable<Context>;
+
       uuvPatchContext(partOfContext: any): Chainable<Context>;
+
       uuvFindByText(textToSearch: string, roleOptions: ByRoleOptions): Cypress.Chainable<JQuery<HTMLElement>>;
+
       uuvFindByTestId(testId: string): Cypress.Chainable<JQuery<HTMLElement>>;
+
       uuvFindByRole(role: string, roleOptions: ByRoleOptions): Cypress.Chainable<JQuery<HTMLElement>>;
+
       uuvFindByLabelText(labelTextToSearch: string, roleOptions: ByRoleOptions): Cypress.Chainable<JQuery<HTMLElement>>;
+
       uuvFindAllByRole(role: string, roleOptions: ByRoleOptions): Cypress.Chainable<JQuery<HTMLElement>>;
+
       uuvFoundedElement(): Cypress.Chainable<JQuery<HTMLElement>>;
+
+      injectUvvA11y(): Cypress.Chainable<void>;
+
+      checkUvvA11y(reference: A11yReferenceEnum, expectedResult?: any): Cypress.Chainable<A11yResult>;
     }
   }
 }
@@ -55,4 +71,5 @@ Cypress.Commands.add("uuvFindByRole", uuvFindByRole);
 Cypress.Commands.add("uuvFindByLabelText", uuvFindByLabelText);
 Cypress.Commands.add("uuvFindAllByRole", uuvFindAllByRole);
 Cypress.Commands.add("uuvFoundedElement", { prevSubject: true }, uuvFoundedElement);
-
+Cypress.Commands.add("injectUvvA11y", injectUvvA11y);
+Cypress.Commands.add("checkUvvA11y", checkUvvA11y);

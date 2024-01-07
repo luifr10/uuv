@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "lib": ["ES2022", "DOM"],
+    "lib": ["ES2022", "DOM", "dom.iterable"],
     "module": "CommonJS",
     "moduleResolution": "Node",
     "resolveJsonModule": true,
@@ -18,11 +18,16 @@
     "noImplicitAny": false,
     "skipLibCheck": true,
     "paths": {
+      "@uuv/a11y": ["packages/a11y/src/index.ts"],
       "@uuv/runner-commons": ["packages/runner-commons/src/index.ts"],
+      "@uuv/runner-commons/wording/mobile": [
+        "packages/runner-commons/src/assets/i18n/mobile/index.ts"
+      ],
+      "@uuv/runner-commons/wording/web": [
+        "packages/runner-commons/src/assets/i18n/web/index.ts"
+      ],
       "@uuv/runner-cypress": ["packages/runner-cypress/src/index.ts"],
-      "@uuv/runner-playwright": ["packages/runner-playwright/src/index.ts"],
-      "@uuv/runner-commons/wording/web": ["packages/runner-commons/src/assets/i18n/web/index.ts"],
-      "@uuv/runner-commons/wording/mobile": ["packages/runner-commons/src/assets/i18n/mobile/index.ts"]
+      "@uuv/runner-playwright": ["packages/runner-playwright/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "**/dist/**.*"]

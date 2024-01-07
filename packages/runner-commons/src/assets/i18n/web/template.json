@@ -66,13 +66,17 @@
       "withValues": ""
     },
     "a11y" : {
-      "check": {
+      "axecore": {
         "default": "",
         "withFixtureOption": "",
         "withFixtureContextAndFixtureOption": "",
         "onlyCritical": "",
         "withImpacts": "",
         "withTags": ""
+      },
+      "rgaa": {
+        "default": "",
+        "defaultWithResult": ""
       }
     }
   }

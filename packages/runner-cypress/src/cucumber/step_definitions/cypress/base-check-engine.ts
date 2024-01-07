@@ -20,13 +20,19 @@ import { Method } from "cypress/types/net-stubbing";
 import { KEY_PRESS } from "@uuv/runner-commons";
 import { key } from "@uuv/runner-commons/wording/web";
 import {
-  assertTextContent,
-  findWithRoleAndName,
-  findWithRoleAndNameAndContent, findWithRoleAndNameAndContentDisable, findWithRoleAndNameAndContentEnable,
-  notFoundWithRoleAndName,
-  withinRoleAndName
+    assertTextContent,
+    findWithRoleAndName,
+    findWithRoleAndNameAndContent,
+    findWithRoleAndNameAndContentDisable,
+    findWithRoleAndNameAndContentEnable,
+    notFoundWithRoleAndName,
+    withinRoleAndName
 } from "./core-engine";
+import { A11yReferenceEnum } from "@uuv/a11y";
 
+/**
+ * key.when.visit.description
+ * */
 When(`${key.when.visit}`, function(siteUrl: string) {
   if (siteUrl.match("^http:\\/\\/|https:\\/\\/")) {
     return cy.visit(`${siteUrl}`);
@@ -34,20 +40,32 @@ When(`${key.when.visit}`, function(siteUrl: string) {
   return cy.visit(`${Cypress.config().baseUrl}${siteUrl}`);
 });
 
+/**
+ * key.when.click.withContext.description
+ * */
 When(`${key.when.click.withContext}`, function() {
   cy.uuvCheckContextFocusedElement().then(context => {
     context.focusedElement!.click();
   });
 });
 
+/**
+ * key.when.click.button.description
+ * */
 When(`${key.when.click.button}`, function(name: string) {
   click("button", name);
 });
 
+/**
+ * key.when.click.withRole.description
+ * */
 When(`${key.when.click.withRole}`, function(role: string, name: string) {
   click(role, name);
 });
 
+/**
+ * key.when.type.description
+ * */
 When(`${key.when.type}`, function(textToType: string) {
   cy.uuvCheckContextFocusedElement().then((context) => {
     context.focusedElement!.focus();
@@ -55,6 +73,9 @@ When(`${key.when.type}`, function(textToType: string) {
   });
 });
 
+/**
+ * key.when.keyboard.multiplePress.description
+ * */
 When(`${key.when.keyboard.multiplePress}`, function(nbTimes: number, key: string) {
   for (let i = 1; i <= nbTimes; i++) {
     cy.uuvCheckContextFocusedElement().then((context) => {
@@ -64,6 +85,9 @@ When(`${key.when.keyboard.multiplePress}`, function(nbTimes: number, key: string
   }
 });
 
+/**
+ * key.when.keyboard.press.description
+ * */
 When(`${key.when.keyboard.press}`, function(key: string) {
   cy.uuvCheckContextFocusedElement().then((context) => {
     context.focusedElement!.focus();
@@ -75,10 +99,16 @@ When(`${key.when.keyboard.press}`, function(key: string) {
 // Context ACTIONS
 ////////////////////////////////////////////
 
+/**
+ * key.given.viewport.preset.description
+ * */
 Given(`${key.given.viewport.preset}`, function(viewportPreset: string) {
   return cy.viewport(viewportPreset as Cypress.ViewportPreset);
 });
 
+/**
+ * key.given.viewport.withWidthAndHeight.description
+ * */
 Given(
  `${key.given.viewport.withWidthAndHeight}`,
  function(width: number, height: number) {
@@ -86,16 +116,25 @@ Given(
  }
 );
 
+/**
+ * key.when.timeout.description
+ * */
 When(`${key.when.timeout}`, function(newTimeout: number) {
   return cy.uuvPatchContext({
     timeout: newTimeout
   });
 });
 
+/**
+ * key.when.withinElement.description
+ * */
 When(`${key.when.withinElement.roleAndName}`, function(role: string, name: string) {
   return withinRoleAndName(role, name);
 });
 
+/**
+ * key.when.withinElement.ariaLabel.description
+ * */
 When(`${key.when.withinElement.ariaLabel}`, function(expectedAriaLabel: string) {
   const foundedElement = cy.uuvFindByLabelText(expectedAriaLabel, {})
    .uuvFoundedElement()
@@ -106,6 +145,9 @@ When(`${key.when.withinElement.ariaLabel}`, function(expectedAriaLabel: string) 
   });
 });
 
+/**
+ * key.when.withinElement.description
+ * */
 When(`${key.when.withinElement.testId}`, function(testId: string) {
   const foundedElement = cy.uuvFindByTestId(testId)
    .uuvFoundedElement()
@@ -116,6 +158,9 @@ When(`${key.when.withinElement.testId}`, function(testId: string) {
   });
 });
 
+/**
+ * key.when.withinElement.selector.description
+ * */
 When(`${key.when.withinElement.selector}`, function(selector: string) {
   const foundedElement = cy.uuvGetContext().then(context => {
     const parentElement = context.focusedElement;
@@ -135,10 +180,16 @@ When(`${key.when.withinElement.selector}`, function(selector: string) {
   });
 });
 
+/**
+ * key.when.resetContext.description
+ * */
 When(`${key.when.resetContext}`, function() {
   return cy.wrap(new Context()).as("context");
 });
 
+/**
+ * key.when.mock.withBody.description
+ * */
 When(
  `${key.when.mock.withBody}`,
  function(verb: Method, uri: string, name: string, body: any) {
@@ -150,6 +201,9 @@ When(
  }
 );
 
+/**
+ * key.when.mock.withStatusCode.description
+ * */
 When(
  `${key.when.mock.withStatusCode}`,
  function(verb: Method, uri: string, name: string, statusCode: number) {
@@ -161,6 +215,9 @@ When(
  }
 );
 
+/**
+ * key.when.mock.withFixture.description
+ * */
 When(
  `${key.when.mock.withFixture}`,
  function(verb: Method, uri: string, name: string, fixture: any) {
@@ -175,6 +232,9 @@ When(
 ////////////////////////////////////////////
 // INTERCEPTION
 ////////////////////////////////////////////
+/**
+ * key.when.headers.forUriAndMethod.description
+ * */
 When(
  `${key.when.headers.forUriAndMethod}`,
  function(url: string, method: string, headersToSet: DataTable) {
@@ -188,6 +248,9 @@ When(
  }
 );
 
+/**
+ * key.when.headers.forUri.description
+ * */
 When(`${key.when.headers.forUri}`, function(url: string, headersToSet: DataTable) {
   cy.intercept(url, (req) => {
     req.headers = {
@@ -203,34 +266,49 @@ When(`${key.when.headers.forUri}`, function(url: string, headersToSet: DataTable
 ////////////////////////////////////////////
 
 /**
- * Look for an element based on its content
- */
+ * key.then.element.withContent.description
+ * */
 Then(`${key.then.element.withContent}`, async function(textContent: string) {
   cy.uuvFindByText(textContent, {})
    .uuvFoundedElement()
    .should("exist");
 });
 
+/**
+ * key.then.element.not.withContent.description
+ * */
 Then(`${key.then.element.not.withContent}`, async function(textContent: string) {
   cy.uuvFindByText(textContent, {})
    .should("not.exist");
 });
 
+/**
+ * key.then.element.withTestId.description
+ * */
 Then(`${key.then.element.withTestId}`, async function(testId: string) {
   cy.uuvFindByTestId(testId)
    .uuvFoundedElement()
    .should("exist");
 });
 
+/**
+ * key.then.element.not.withTestId.description
+ * */
 Then(`${key.then.element.not.withTestId}`, async function(testId: string) {
   cy.uuvFindByTestId(testId)
    .should("not.exist");
 });
 
+/**
+ * key.then.element.withRoleAndName.description
+ * */
 Then(`${key.then.element.withRoleAndName}`, async function(role: string, name: string) {
   findWithRoleAndName(role, name);
 });
 
+/**
+ * key.then.element.not.withRoleAndName.description
+ * */
 Then(
  `${key.then.element.not.withRoleAndName}`,
  async function(role: string, name: string) {
@@ -238,6 +316,9 @@ Then(
  }
 );
 
+/**
+ * key.then.element.withRoleAndNameAndContent.description
+ * */
 Then(
  `${key.then.element.withRoleAndNameAndContent}`,
  async function(expectedRole: string, name: string, expectedTextContent: string) {
@@ -245,6 +326,9 @@ Then(
  }
 );
 
+/**
+ * key.then.element.withRoleAndNameAndContentDisabled.description
+ * */
 Then(
  `${key.then.element.withRoleAndNameAndContentDisabled}`,
  async function(expectedRole: string, name: string, expectedTextContent: string) {
@@ -252,6 +336,9 @@ Then(
  }
 );
 
+/**
+ * key.then.element.withRoleAndNameAndContentEnabled.description
+ * */
 Then(
  `${key.then.element.withRoleAndNameAndContentEnabled}`,
  async function(expectedRole: string, name: string, expectedTextContent: string) {
@@ -259,17 +346,26 @@ Then(
  }
 );
 
+/**
+ * key.then.element.withAriaLabel.description
+ * */
 Then(`${key.then.element.withAriaLabel}`, async function(expectedAriaLabel: string) {
   cy.uuvFindByLabelText(expectedAriaLabel, {})
    .uuvFoundedElement()
    .should("exist");
 });
 
+/**
+ * key.then.element.not.withAriaLabel.description
+ * */
 Then(`${key.then.element.not.withAriaLabel}`, async function(expectedAriaLabel: string) {
   cy.uuvFindByLabelText(expectedAriaLabel, {})
    .should("not.exist");
 });
 
+/**
+ * key.then.element.withAriaLabelAndContent.description
+ * */
 Then(
  `${key.then.element.withAriaLabelAndContent}`,
  async function(expectedAriaLabel: string, expectedTextContent: string) {
@@ -283,14 +379,23 @@ Then(
  }
 );
 
+/**
+ * key.then.wait.mock.description
+ * */
 Then(`${key.then.wait.mock}`, async function(name: string) {
   cy.wait([`@${name}`]);
 });
 
+/**
+ * key.when.click.withContext.description
+ * */
 Then(`${key.then.wait.milliSeconds}`, async function(ms: number) {
   cy.wait(ms);
 });
 
+/**
+ * key.then.list.withNameAndContent.description
+ * */
 Then(
  `${key.then.list.withNameAndContent}`,
  async function(expectedListName: string, expectedElementsOfList: DataTable) {
@@ -307,13 +412,16 @@ Then(
         assert.deepEqual(
          foundedElement,
          expectedElementsOfList.raw(),
-         `expected [${expectedElementsOfList.raw()}] to be [${foundedElement}]`
+         `expected [${foundedElement}] to be [${expectedElementsOfList.raw()}]`
         );
       });
     });
  }
 );
 
+/**
+ * key.then.attributes.withValues.description
+ * */
 Then(
  `${key.then.attributes.withValues}`,
  async function(expectedAttributeList: DataTable) {
@@ -330,20 +438,28 @@ Then(
  }
 );
 
+/**
+ * key.then.element.withSelector.description
+ * */
 Then(`${key.then.element.withSelector}`, async function(selector: string) {
   cy.get(selector).should("exist");
 });
 
-
+/**
+ * key.then.a11y.axecore.default.description
+ * */
 Then(
- `${key.then.a11y.check.default}`,
+ `${key.then.a11y.axecore.default}`,
  async function() {
    cy.injectAxe();
    cy.checkA11y();
  });
 
+/**
+ * key.then.a11y.axecore.onlyCritical.description
+ * */
 Then(
- `${key.then.a11y.check.onlyCritical}`,
+ `${key.then.a11y.axecore.onlyCritical}`,
  async function() {
    cy.injectAxe();
    cy.checkA11y(undefined, {
@@ -351,8 +467,11 @@ Then(
    });
  });
 
+/**
+ * key.then.a11y.axecore.withImpacts.description
+ * */
 Then(
- `${key.then.a11y.check.withImpacts}`,
+ `${key.then.a11y.axecore.withImpacts}`,
  async function(impacts: any) {
    cy.injectAxe();
    cy.checkA11y(undefined, {
@@ -360,8 +479,11 @@ Then(
    });
  });
 
+/**
+ * key.then.a11y.axecore.withTags.description
+ * */
 Then(
- `${key.then.a11y.check.withTags}`,
+ `${key.then.a11y.axecore.withTags}`,
  async function(tags: any) {
    cy.injectAxe();
    cy.checkA11y(undefined, {
@@ -372,8 +494,11 @@ Then(
    });
  });
 
+/**
+ * key.then.a11y.axecore.withFixtureContextAndFixtureOption.description
+ * */
 Then(
- `${key.then.a11y.check.withFixtureContextAndFixtureOption}`,
+ `${key.then.a11y.axecore.withFixtureContextAndFixtureOption}`,
  async function(context: any, option: any) {
    cy.injectAxe();
    cy.fixture(context).then(context => {
@@ -383,14 +508,64 @@ Then(
    });
  });
 
+/**
+ * key.then.a11y.axecore.withFixtureOption.description
+ * */
 Then(
- `${key.then.a11y.check.withFixtureOption}`,
+ `${key.then.a11y.axecore.withFixtureOption}`,
  async function(option: any) {
    cy.injectAxe();
    cy.fixture(option).then(data => {
      cy.checkA11y(undefined, data);
    });
  });
+
+
+/**
+ * key.then.a11y.rgaa.default.description
+ * */
+Then(
+ `${key.then.a11y.rgaa.default}`,
+ async function() {
+     cy.injectUvvA11y();
+     cy.checkUvvA11y(A11yReferenceEnum.RGAA);
+    // const versionAlix = "5.2.1";
+    // cy.url().then(async (url) => {
+        // const rgaaChecker = new RgaaChecker(url);
+        // return rgaaChecker.validate()
+        //     .pipe(
+        //         tap((result: A11yResult) => {
+        //             result.ruleResults.forEach(ruleResult => {
+        //                 logValidatingA11yRule(result.reference, ruleResult);
+        //                 logA11yRuleResult(result.reference, ruleResult);
+        //             });
+        //             assert.equal(result.status, A11yResultStatus.SUCCESS, "A11y validation failed");
+        //         })
+        //     )
+        //     .toPromise();
+        // switch (reference) {
+        //     case "RGAA":
+        //         await new RgaaChecker(url, a11yCypressEngine).checkCriteria();
+        //     // new AlixError(versionAlix).checkCriteria();
+        //     // new AlixWarning(versionAlix).checkCriteria();
+        //     // new AlixAdvice(versionAlix).checkCriteria();
+        //     // new AlixObsolete(versionAlix).checkCriteria();
+        //     case "WCAG-WEB":
+        //         break;
+        //     case "WCAG-ANDROID":
+        //         break;
+        //     case "WCAG-IOS":
+        //         break;
+        // }
+    // });
+ });
+
+Then(
+    `${key.then.a11y.rgaa.defaultWithResult}`,
+    async function(expectedResult: string) {
+        cy.injectUvvA11y();
+        cy.checkUvvA11y(A11yReferenceEnum.RGAA, JSON.parse(expectedResult));
+});
 
 function pressKey(context: Cypress.Chainable<JQuery<HTMLElement>>, key: string) {
   switch (key) {
@@ -432,3 +607,4 @@ function click(role: string, name: string) {
     }
   });
 }
+

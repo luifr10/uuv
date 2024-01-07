@@ -11,8 +11,8 @@
     "message": "Docs",
     "description": "Navbar item with label Docs"
   },
-  "item.label.Issues": {
-    "message": "Issues",
-    "description": "Navbar item with label Issues"
+  "item.label.Github": {
+    "message": "Github",
+    "description": "Go to github repository"
   }
 }

@@ -46,6 +46,7 @@
     "@badeball/cypress-cucumber-preprocessor": "16.0.3",
     "@cypress/webpack-preprocessor": "5.17.1",
     "@testing-library/cypress": "9.0.0",
+    "@uuv/a11y": "0.0.1",
     "@uuv/runner-commons": "2.1.0",
     "axe-core": "4.8.2",
     "chalk": "4.1.2",

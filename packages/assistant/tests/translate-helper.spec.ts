@@ -45,7 +45,7 @@ describe("translateEngine - Expected", () => {
   });
   test("translateEngine - with selector- with nth", () => {
     expect(TranslateHelper.translateEngine(selectorWithNth, CheckActionEnum.EXPECT, false)).toEqual(
-      ["Then I should see an element with selector \"div#myDiv>span:nth-of-type(3)\""]);
+      ["Then I should see an element with selector \"div#myDiv > span:nth-of-type(3)\""]);
   });
 });
 describe("translateEngine - Within", () => {
@@ -68,7 +68,7 @@ describe("translateEngine - Within", () => {
   });
   test("translateEngine - with selector- with nth", () => {
     expect(TranslateHelper.translateEngine(selectorWithNth, CheckActionEnum.WITHIN, false)).toEqual(
-      ["When within the element with selector \"div#myDiv>span:nth-of-type(3)\""]);
+      ["When within the element with selector \"div#myDiv > span:nth-of-type(3)\""]);
   });
 });
 
@@ -92,6 +92,6 @@ describe("translateEngine - Click", () => {
   });
   test("translateEngine - with selector- with nth", () => {
     expect(TranslateHelper.translateEngine(selectorWithNth, CheckActionEnum.CLICK, false)).toEqual(
-      ["When within the element with selector \"div#myDiv>span:nth-of-type(3)\"", "Then I click"]);
+      ["When within the element with selector \"div#myDiv > span:nth-of-type(3)\"", "Then I click"]);
   });
 });

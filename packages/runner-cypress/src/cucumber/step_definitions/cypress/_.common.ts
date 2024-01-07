@@ -122,4 +122,3 @@ export function uuvFoundedElement(subject) : Cypress.Chainable<JQuery<HTMLElemen
       });
 }
 
-

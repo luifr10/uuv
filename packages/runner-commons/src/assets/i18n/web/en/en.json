@@ -71,7 +71,7 @@
  },
  {
   "key": "key.when.withinElement.roleAndName",
-  "description": "Selects the element whose [accessible role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types and accessible [name](https://russmaxdesign.github.io/html-elements-names/) are specified <br />⚠ remember to deselect the element with <b>[I reset context](#i-reset-context)</b> if you're no longer acting on it",
+  "description": "Selects the element whose [accessible role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types) and accessible [name](https://russmaxdesign.github.io/html-elements-names/) are specified <br />⚠ remember to deselect the element with <b>[I reset context](#i-reset-context)</b> if you're no longer acting on it",
   "wording": "within the element with role {string} and name {string}"
  },
  {
@@ -190,33 +190,43 @@
   "wording": "I wait {int} ms"
  },
  {
-  "key": "key.then.a11y.check.default",
-  "description": "Check that the current page have no [accessibility issue](https://github.com/dequelabs/axe-core/blob/develop/doc/rule-descriptions.md)",
-  "wording": "I should not have any accessibility issue"
+  "key": "key.then.a11y.axecore.default",
+  "description": "Check that the current page have no accessibility issue for [axe-core](https://github.com/dequelabs/axe-core/blob/develop/doc/rule-descriptions.md)",
+  "wording": "I should not have any axe-core accessibility issue"
  },
  {
-  "key": "key.then.a11y.check.withFixtureContextAndFixtureOption",
-  "description": "Check that the current page have no accessibility issue [with an option](https://github.com/dequelabs/axe-core/blob/HEAD/doc/API.md#options-parameter) on the specific [context](https://github.com/dequelabs/axe-core/blob/HEAD/doc/API.md#context-parameter)",
-  "wording": "I should not have any accessibility issue with context json fixture {} and option json fixture {}"
+  "key": "key.then.a11y.axecore.withFixtureContextAndFixtureOption",
+  "description": "Check that the current page have no accessibility issue for [axe-core](https://github.com/dequelabs/axe-core/blob/develop/doc/rule-descriptions.md) [with an option](https://github.com/dequelabs/axe-core/blob/HEAD/doc/API.md#options-parameter) on the specific [context](https://github.com/dequelabs/axe-core/blob/HEAD/doc/API.md#context-parameter)",
+  "wording": "I should not have any axe-core accessibility issue with context json fixture {} and option json fixture {}"
  },
  {
-  "key": "key.then.a11y.check.withFixtureOption",
-  "description": "Check that the current page have no accessibility issue [with an option](https://github.com/dequelabs/axe-core/blob/HEAD/doc/API.md#options-parameter)",
-  "wording": "I should not have any accessibility issue with option json fixture {}"
+  "key": "key.then.a11y.axecore.withFixtureOption",
+  "description": "Check that the current page have no accessibility issue for [axe-core](https://github.com/dequelabs/axe-core/blob/develop/doc/rule-descriptions.md) [with an option](https://github.com/dequelabs/axe-core/blob/HEAD/doc/API.md#options-parameter)",
+  "wording": "I should not have any axe-core accessibility issue with option json fixture {}"
  },
  {
-  "key": "key.then.a11y.check.onlyCritical",
-  "description": "Check that the current page have not critical accessibility issue",
-  "wording": "I should not have any critical accessibility issue"
+  "key": "key.then.a11y.axecore.onlyCritical",
+  "description": "Check that the current page have not critical accessibility issue for [axe-core](https://github.com/dequelabs/axe-core/blob/develop/doc/rule-descriptions.md)",
+  "wording": "I should not have any axe-core critical accessibility issue"
  },
  {
-  "key": "key.then.a11y.check.withImpacts",
-  "description": "Check that the current page have not accessibility issue with one or more impacts in: 'minor','moderate','serious','critical'",
-  "wording": "I should not have any accessibility issue with {} impact(s)"
+  "key": "key.then.a11y.axecore.withImpacts",
+  "description": "Check that the current page have not accessibility issue for [axe-core](https://github.com/dequelabs/axe-core/blob/develop/doc/rule-descriptions.md) with one or more impacts in: 'minor','moderate','serious','critical'",
+  "wording": "I should not have any axe-core accessibility issue with {} impact(s)"
  },
  {
-  "key": "key.then.a11y.check.withTags",
-  "description": "Check that the current page have not accessibility issue [with one or more Accessibility Standards](https://github.com/dequelabs/axe-core/blob/HEAD/doc/API.md#axe-core-tags)",
-  "wording": "I should not have any accessibility issue with accessibility standard(s) {}"
+  "key": "key.then.a11y.axecore.withTags",
+  "description": "Check that the current page have not accessibility issue for [axe-core](https://github.com/dequelabs/axe-core/blob/develop/doc/rule-descriptions.md) [with one or more Accessibility Standards](https://github.com/dequelabs/axe-core/blob/HEAD/doc/API.md#axe-core-tags)",
+  "wording": "I should not have any axe-core accessibility issue with accessibility standard(s) {}"
+ },
+ {
+  "key": "key.then.a11y.rgaa.default",
+  "description": "Check that the current page have no [accessibility issue](https://accessibilite.numerique.gouv.fr/methode/criteres-et-tests/) with one of reference : RGAA",
+  "wording": "I should not have any rgaa accessibility issue"
+ },
+ {
+  "key": "key.then.a11y.rgaa.defaultWithResult",
+  "description": "Check that the current page have the following [result](https://accessibilite.numerique.gouv.fr/methode/criteres-et-tests/) with one of reference : RGAA",
+  "wording": "I should have the following result based on the rgaa reference"
  }
 ]

@@ -53,11 +53,13 @@ export class BaseStepDefinition extends GenerateFileProcessing {
             .replace("import {key} from \"@uuv/runner-commons/wording/web\";", "")
             .replace("import { key } from \"@uuv/runner-commons/wording/web\";", "")
             .replace("./core-engine", "../core-engine")
-            .replace("../../preprocessor/run/world", "../../../preprocessor/run/world");
+            .replace("../../preprocessor/run/world", "../../../preprocessor/run/world")
+            .replace("./a11y-engine", "../a11y-engine");
         const wordings = fs.readFileSync(wordingFile);
         const wordingsJson = JSON.parse(wordings.toString());
         wordingsJson.forEach((conf) => {
             data = data.replace("${" + conf.key + "}", conf.wording);
+            data = data.replace(conf.key + ".description", conf.description);
             // console.debug(conf, data)
         });
         return data;

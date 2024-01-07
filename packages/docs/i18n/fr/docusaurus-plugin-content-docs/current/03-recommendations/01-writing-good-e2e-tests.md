@@ -1,4 +1,4 @@
-# Recommandations
+# Ecrire de bons tests E2E
 
 :::tip
 Vos scénarios de tests doivent ressembler autant que possible aux interactions utilisateur avec votre application.<br/>
@@ -11,5 +11,5 @@ Pour cela nous vous recommandons cet ordre de priorité dans vos vérifications 
 3. ### Rechercher un élément à partir de son attribut aria-label
 
 ## 2. Test IDs
-   1. ### Rechercher un élément à partir de son attribut data-testid
+1. ### Rechercher un élément à partir de son attribut data-testid
 

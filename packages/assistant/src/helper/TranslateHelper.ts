@@ -68,14 +68,14 @@ export class TranslateHelper {
           }
           sibling = sibling.previousSibling;
         }
-        if (index > 1) {
+        if (index > 1  || element.nextSibling) {
           selector += ":nth-of-type(" + index + ")";
         }
       }
       path.unshift(selector);
       element = element.parentNode;
     }
-    return path.join(">");
+    return path.join(" > ");
   }
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */

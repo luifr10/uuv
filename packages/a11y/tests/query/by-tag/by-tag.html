@@ -1,0 +1,102 @@
+<html xml:lang="fr">
+    <body>
+        <title>Is it revelant ? </title>
+        <main role="main">
+            <h1>Critère 1.1</h1>
+            <span data-testid="simple-span" some-attr="test"></span>
+            <img data-testid="img-with-alt" src="./uuvFixture.png" class="h-32px m-16px w-32px" alt="">
+            <img data-testid="img" src="./uuvBody.png" class="h-32px m-16px w-32px">
+            <img data-testid="img-with-alt-and-aria-label" src="./uuvBody.png" class="h-32px m-16px w-32px" alt="logo UUV" aria-label="je ne suis pas pertinent">
+            <img data-testid="img-with-aria-label" src="./uuvBody.png" class="h-32px m-16px w-32px" aria-label="je ne suis pas pertinent non plus">
+            <applet></applet>
+            <map name="infographic">
+                <area
+                        shape="poly"
+                        coords="129,0,260,95,129,138"
+                        href="https://developer.mozilla.org/docs/Web/HTTP"
+                        target="_blank"
+                        alt="HTTP" />
+                <area
+                        shape="poly"
+                        coords="260,96,209,249,130,138"
+                        href="https://developer.mozilla.org/docs/Web/HTML"
+                        target="_blank"
+                        alt="HTML" />
+                <area
+                        shape="poly"
+                        coords="209,249,49,249,130,139"
+                        href="https://developer.mozilla.org/docs/Web/JavaScript"
+                        target="_blank"
+                        />
+                <area
+                        shape="poly"
+                        coords="48,249,0,96,129,138"
+                        href="https://developer.mozilla.org/docs/Web/API"
+                        target="_blank"
+                        />
+                <area
+                        shape="poly"
+                        coords="0,95,128,0,128,137"
+                        href="https://developer.mozilla.org/docs/Web/CSS"
+                        target="_blank"
+                        />
+            </map>
+            <input type="image" id="wrongImage" name="wrongImage" />
+            <input type="text" id="wrongUserId" name="wrongUserId" />
+            <input type="image" id="image" alt="logo UUV" src="./uuvBody.png" />
+
+            <svg height="100" width="100">
+                <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" />
+            </svg>
+            <svg height="100" width="100" alt="blue circle">
+                <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="blue" />
+            </svg>
+            <svg role="img" alt="red circle" height="100" width="100">
+                <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" />
+            </svg>
+
+            <embed type="image/png" src="./uuvBody.png" width="30" height="20" alt="logo UUV">
+            <embed type="image/png" src="./uuvBody.png" width="30" height="20">
+
+            <canvas id="notValidCanvas" width="30" height="15" style="border:1px solid grey"></canvas>
+            <canvas id="validCanvas" width="30" height="15" style="border:1px solid grey" alt="a rectangle"></canvas>
+
+            <object data="" type="image/png" alt='logo UUV'/>
+
+            <object data="" type="image/svg" />
+            <object data="" type="noimage/svg" />
+            <object data="" type="image/svg" />
+            <object data="" type="text" />
+            <h1>Critère 2.1</h1>
+            <iframe src="https://orange-opensource.github.io/uuv/"></iframe>
+            <iframe src="https://orange-opensource.github.io/uuv/" title="UUV documentation"></iframe>
+            <!-- deprecated in html 5 -->
+            <frame src="https://orange-opensource.github.io/uuv/"></frame>
+            <frame src="https://orange-opensource.github.io/uuv/" title="UUV documentation"></frame>
+
+            <h1>Critère 2.2</h1>
+            <iframe src="https://orange-opensource.github.io/uuv/" title="contenu non pertinent"></iframe>
+            <iframe src="https://orange-opensource.github.io/uuv/" title=""></iframe>
+            <!-- deprecated in html 5 -->
+            <frame src="https://orange-opensource.github.io/uuv/" title="contenu non pertinent"></frame>
+            <frame src="https://orange-opensource.github.io/uuv/" title=""></frame>
+
+            <h1>Critère 8.10</h1>
+            <span>Ceci est un texte écrit de gauche à droite</span>
+            <span dir="ltr">Ceci est un texte écrit de gauche à droite</span>
+            <span dir="rtl">etoird à ehcuag ed tircé etxet nu tse icec</span>
+            <span dir="auto">Ceci est un texte écrit de gauche à droite</span>
+            <span dir="existePas">Ceci est un texte écrit de gauche à droite</span>
+
+            <h1>Critère 11.1</h1>
+            <label id=' toto'>logo UUV</label>
+            <label for='image2'>logo UUV</label>
+            <input type="image" id="image2" alt="logo UUVad" src="./uuvBody.png" />
+            <input type="image" alt="logo UUV" src="./uuvBody.png" />
+            <input type="password" alt="logo UUV" title="logo UUV" src="./uuvBody.png" />
+            <input type="image" alt="logo UUV" aria-label="logo UUV" src="./uuvBody.png" />
+            <input type="image" alt="logo UUV" aria-labelledby="logo UUV" src="./uuvBody.png" />
+        </main>
+    </body>
+</html>
+

@@ -3,6 +3,7 @@
 
 const lightCodeTheme = require("prism-react-renderer/themes/github");
 const darkCodeTheme = require("prism-react-renderer/themes/dracula");
+const rgaaCoveragePlugin= require("./src/plugins/rgaa-coverage.plugin");
 
 /** @type {import("@docusaurus/types").Config} */
 const config = {
@@ -23,9 +24,6 @@ const config = {
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
 
-  // Even if you don't use internalization, you can use this field to set useful
-  // metadata like html lang. For example, if your site is Chinese, you may want
-  // to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: "en",
     locales: ["fr", "en"]
@@ -37,7 +35,8 @@ const config = {
       /** @type {import("@docusaurus/preset-classic").Options} */
       ({
         docs: {
-          sidebarPath: require.resolve("./sidebars.js")
+          sidebarPath: require.resolve("./sidebars.js"),
+          beforeDefaultRemarkPlugins: [rgaaCoveragePlugin]
         },
         blog: {
           showReadingTime: true,
@@ -71,8 +70,8 @@ const config = {
             label: "Docs"
           },
           {
-            href: "https://github.com/Orange-OpenSource/uuv/issues",
-            label: "Issues",
+            href: "https://github.com/Orange-OpenSource/uuv/",
+            label: "Github",
             position: "right"
           },
           {
@@ -123,14 +122,14 @@ const config = {
     }),
   plugins: [
     [
-      require.resolve("@cmfcmf/docusaurus-search-local"),
+      require.resolve("@easyops-cn/docusaurus-search-local"),
       {
         indexDocs: true,
+        indexBlog: false,
         language: "fr",
-        maxSearchResults: 8
+        searchResultContextMaxLength: 8
       }
     ]
   ]
 };
-
-module.exports = config;
+export default config;

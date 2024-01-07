@@ -54,3 +54,15 @@
     gap: 10px;
   }
 }
+
+.homepageShortDescription {
+  display: flex;
+  justify-content: center;
+}
+
+.homepageShortDescription * {
+  max-width: 600px;
+  color: var(--ifm-color-primary);
+  font-style: italic;
+  font-weight: bold;
+}

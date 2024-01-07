@@ -25,8 +25,8 @@ export class AutocompletionSuggestion {
 }
 
 export function runGenerateDoc(destDir: string) {
-    const GENERATED_DIR_DOC = `${destDir}/docs/03-wordings/01-generated-wording-description`;
-    const GENERATED_DIR_DOC_FR = `${destDir}/i18n/fr/docusaurus-plugin-content-docs/current/03-wordings/01-generated-wording-description`;
+    const GENERATED_DIR_DOC = `${destDir}/docs/04-wordings/01-generated-wording-description`;
+    const GENERATED_DIR_DOC_FR = `${destDir}/i18n/fr/docusaurus-plugin-content-docs/current/04-wordings/01-generated-wording-description`;
 
     Object.values(LANG).forEach((lang: string, index: number) => {
         const indexOfFile = (index + 1).toLocaleString("fr-FR", {
@@ -79,10 +79,12 @@ export function runGenerateDoc(destDir: string) {
         wordingFileContent: string,
         autocompletionSuggestionContent: string
     } {
-        const wordingsBase = fs.readFileSync(wordingBaseFile);
-        const wordingsBaseJson = JSON.parse(wordingsBase.toString());
+        const wordingsBase = fs.readFileSync(wordingBaseFile, { encoding: "utf8" });
         const wordingsEnriched = fs.readFileSync(wordingEnrichedFile,
             { encoding: "utf8" });
+        const wordingEnrichedNormalized = normalizedMdxData(wordingsEnriched);
+        const wordingBaseNormalized = normalizedMdxData(wordingsBase);
+        const wordingsBaseJson = JSON.parse(wordingBaseNormalized);
         const title = (function () {
             switch (lang) {
                 case LANG.FR.toString():
@@ -92,7 +94,7 @@ export function runGenerateDoc(destDir: string) {
                         "Pensez bien à rajouter `#language: fr` en entête de votre fichier feature.\n" +
                         ":::\n\n");
                 default:
-                    return "# Anglais";
+                    return "# English";
             }
         })();
         const autocompletionComponent = `\nimport {UuvWordingAutocomplete} from '@site/src/components/WordingAutocomplete/uuv-wording-autocomplete.js';\n\n<UuvWordingAutocomplete lang={'${lang}'}/>\n`;
@@ -130,7 +132,7 @@ export function runGenerateDoc(destDir: string) {
         rows.push(...given, ...when, ...then);
         autocompletionSuggestions.push(...givenAutocompletionSuggestions, ...whenAutocompletionSuggestions, ...thenAutocompletionSuggestions);
         rows.push("## Par rôle");
-        const dataOrigin: string = wordingsEnriched;
+        const dataOrigin: string = wordingEnrichedNormalized;
         let dataUpdated: string = dataOrigin;
         // console.debug("roles", wordingsEnrichedJson.role)
         const definedRoles = getDefinedRoles(lang);
@@ -205,13 +207,15 @@ export function runGenerateDoc(destDir: string) {
                 step.push(wording);
                 step.push(`> ${conf.description ?? ""}\n`);
                 autocompletionSuggestion.push({
-                    suggestion: conf.wording,
+                    suggestion: conf.wording
+                     .replaceAll("\\", ""),
                     link: conf.wording
                         .replaceAll("{", "")
                         .replaceAll("}", "")
                         .replaceAll("(", "")
                         .replaceAll(")", "")
                         .replaceAll("'", "")
+                        .replaceAll("\\", "")
                         .replaceAll(/\s/g, "-").toLowerCase()
                 });
             }
@@ -228,4 +232,16 @@ export function runGenerateDoc(destDir: string) {
                 `[WRITE] ${indexOfFile}-${lang}-generated-wording-description.md written successfully`
             );
         }
+    function normalizedMdxData(data) {
+        return data.replaceAll("{string}", "\\\\{string\\\\}")
+         .replaceAll("{}", "\\\\{\\\\}")
+         .replaceAll("{int}", "\\\\{int\\\\}")
+         .replaceAll("{key}", "\\\\{key\\\\}")
+         .replaceAll("{reverseTab}", "\\\\{reverseTab\\\\}")
+         .replaceAll("{tab}", "\\\\{tab\\\\}")
+         .replaceAll("{down}", "\\\\{down\\\\}")
+         .replaceAll("{right}", "\\\\{right\\\\}")
+         .replaceAll("{left}", "\\\\{left\\\\}")
+         .replaceAll("{up}", "\\\\{up\\\\}");
+    }
 }

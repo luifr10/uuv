@@ -7,6 +7,7 @@ source functions.sh
 WORKING_DIR='runner-playwright'
 RUNNER_DIR='../../../packages/runner-playwright'
 NPM_PACKAGE_COMMONS=$(ls ../../dist/packages/uuv-runner-commons-*)
+NPM_PACKAGE_A11Y=$(ls ../../dist/packages/uuv-a11y-*)
 NPM_PACKAGE_PLAYWRIGHT=$(ls ../../dist/packages/uuv-playwright-*)
 
 log "I" "Cleaning existing directory"
@@ -20,7 +21,7 @@ log "I" "Creating new npm project"
 npm init -y
 
 log "I" "Installing npm dependencies"
-npm install -D "../$NPM_PACKAGE_COMMONS" "../$NPM_PACKAGE_PLAYWRIGHT"
+npm install -D "../$NPM_PACKAGE_COMMONS" "../$NPM_PACKAGE_A11Y" "../$NPM_PACKAGE_PLAYWRIGHT"
 
 log "I" "Copying test files and dependencies"
 cp -R "${RUNNER_DIR}/e2e/" ./uuv

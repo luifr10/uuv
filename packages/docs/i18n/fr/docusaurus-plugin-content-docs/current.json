@@ -24,15 +24,15 @@
     "message": "Les phrases sont pour l'instant disponibles en français et en anglais."
   },
   "sidebar.tutorialSidebar.category.Step Definition.link.generated-index.description": {
-    "message": "Découvrez les phrases mises à disposition par UUV.",
-    "description": "The generated-index page description for category Phrases (Step Definition) in sidebar tutorialSidebar"
+    "message": "Découvrez les phrases mises à disposition par UUV."
   },
   "sidebar.tutorialSidebar.category.Tools": {
-    "message": "Outils",
-    "description": "The label for category Tools in sidebar tutorialSidebar"
+    "message": "Outils"
   },
   "sidebar.tutorialSidebar.category.Tools.link.generated-index.description": {
-    "message": "Découvrez les autres outils de l'écosystème UUV.",
-    "description": "The generated-index page description for category Tools in sidebar tutorialSidebar"
+    "message": "Découvrez les autres outils de l'écosystème UUV"
+  },
+  "sidebar.tutorialSidebar.category.Migration.link.generated-index.description": {
+    "message": "Guide des migrations de UUV"
   }
 }

@@ -72,7 +72,8 @@ export class BasedRoleStepDefinition extends GenerateFileProcessing {
                     .replaceAll("$definiteArticle", role.getDefiniteArticle())
                     .replaceAll("$indefiniteArticle", role.getIndefiniteArticle())
                     .replaceAll("$namedAdjective", role.namedAdjective())
-                    .replaceAll("$ofDefiniteArticle", role.getOfDefiniteArticle());
+                    .replaceAll("$ofDefiniteArticle", role.getOfDefiniteArticle())
+                    .replaceAll(conf.key + ".description", conf.description);
             });
             const generatedFilename = generatedFile.replace("$roleId", role.id);
             // console.debug(">>> data", dataUpdated)

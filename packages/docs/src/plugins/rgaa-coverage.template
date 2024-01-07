@@ -1,0 +1,15 @@
+
+{{#each referenceCoverage.topics as |topic|}}
+### {{topic.id}}. [{{topic.name}}]({{getLink topic.id}}) {{{coverage topic}}} {{{manualCheck topic}}} {{{partial topic}}} {{{inProgress topic}}} {{{wontBeImplemented topic}}}
+{{{comments topic}}}
+{{#each topic.criterias as |criteria|}}
+- #### [{{criteria.id}}]({{getLink criteria.id}}) {{{coverage criteria}}} {{{manualCheck criteria}}} {{{partial criteria}}} {{{inProgress criteria}}} {{{wontBeImplemented criteria}}}
+    {{{comments criteria 1}}}
+    {{criteria.name}}
+    {{#each criteria.tests as |test|}}
+    - ##### [{{test.id}}]({{getLink test.id}}) {{{getIcon test}}}
+        {{{comments test 2}}}
+        {{test.name}}
+    {{/each}}
+{{/each}}
+{{/each}}

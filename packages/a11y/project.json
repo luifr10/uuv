@@ -1,0 +1,134 @@
+{
+  "name": "a11y",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/a11y/src",
+  "projectType": "library",
+  "targets": {
+    "build:tsc": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "rootDir": "packages/a11y/src",
+        "outputPath": "packages/a11y/dist/",
+        "main": "packages/a11y/src/index.ts",
+        "tsConfig": "packages/a11y/tsconfig.lib.json",
+        "assets": [
+          "packages/a11y/*.md"
+        ]
+      }
+    },
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "main": "packages/a11y/src/index.ts",
+        "outputPath": "packages/a11y/bundle/",
+        "tsConfig": "packages/a11y/tsconfig.lib.json",
+        "webpackConfig": "packages/a11y/webpack.config.js"
+      },
+      "dependsOn": [
+        "build:tsc"
+      ]
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "packages/a11y/src/**/*.ts"
+        ]
+      }
+    },
+    "semantic-release": {
+      "executor": "@theunderscorer/nx-semantic-release:semantic-release",
+      "options": {
+        "commitMessage": "release(a11y): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}",
+        "branches": [
+          { "name": "a11-for-beta-mode" },
+          { "name": "main", "channel": "beta", "prerelease": "beta" }
+        ],
+        "plugins": [
+          [
+            "@semantic-release/npm",
+            {
+              "npmPublish": false,
+              "tarballDir": "dist/packages",
+              "pkgRoot": "packages/a11y"
+            }
+          ],
+          [
+            "@semantic-release/github",
+            {
+              "successComment": false,
+              "failComment": false,
+              "assets": [
+                {
+                  "path": "dist/packages/a11y-*.tgz",
+                  "label": "Npm Package"
+                }
+              ]
+            }
+          ],
+          [
+            "@google/semantic-release-replace-plugin",
+            {
+              "replacements": [
+                {
+                  "files": [
+                    "packages/runner-cypress/package.json"
+                  ],
+                  "from": "\"@uuv/a11y\": \".*\"",
+                  "to": "\"@uuv/a11y\": \"${nextRelease.version}\"",
+                  "results": [
+                    {
+                      "file": "packages/runner-cypress/package.json",
+                      "hasChanged": true,
+                      "numMatches": 1,
+                      "numReplacements": 1
+                    }
+                  ],
+                  "countMatches": true
+                },
+                {
+                  "files": [
+                    "packages/runner-playwright/package.json"
+                  ],
+                  "from": "\"@uuv/a11y\": \".*\"",
+                  "to": "\"@uuv/a11y\": \"${nextRelease.version}\"",
+                  "results": [
+                    {
+                      "file": "packages/runner-playwright/package.json",
+                      "hasChanged": true,
+                      "numMatches": 1,
+                      "numReplacements": 1
+                    }
+                  ],
+                  "countMatches": true
+                },
+                {
+                  "files": [
+                    "packages/docs/package.json"
+                  ],
+                  "from": "\"@uuv/a11y\": \".*\"",
+                  "to": "\"@uuv/a11y\": \"${nextRelease.version}\"",
+                  "results": [
+                    {
+                      "file": "packages/docs/package.json",
+                      "hasChanged": true,
+                      "numMatches": 1,
+                      "numReplacements": 1
+                    }
+                  ],
+                  "countMatches": true
+                }
+              ]
+            }
+          ]
+        ]
+      }
+    }
+  },
+  "tags": []
+}

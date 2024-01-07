@@ -1,4 +1,4 @@
-# Recommendation
+# Writing good E2E Tests
 
 :::tip
 Your test scenario should resemble as much as possible the user interactions with your application.<br/>

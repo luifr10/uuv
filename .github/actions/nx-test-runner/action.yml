@@ -18,6 +18,7 @@ runs:
           node_modules
           packages/assistant/node_modules
           packages/docs/node_modules
+          packages/a11y/node_modules
           packages/runner-commons/node_modules
           packages/runner-cypress/node_modules
           packages/runner-playwright/node_modules
@@ -32,5 +33,5 @@ runs:
         node-version: ${{ inputs.node-version }}
     - run: npm ci
       shell: bash
-    - run: cd packages/runner-${{ inputs.runner-name }} && npm run test:run
+    - run: cd packages/${{ inputs.runner-name }} && npm run test:run
       shell: bash

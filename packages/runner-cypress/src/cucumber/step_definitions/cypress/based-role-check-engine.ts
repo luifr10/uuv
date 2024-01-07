@@ -25,14 +25,23 @@ import {
 } from "./core-engine";
 import { key } from "@uuv/runner-commons/wording/web";
 
+/**
+ * key.when.withinElement.roleAndName.description
+ * */
 When(`${key.when.withinElement.roleAndName}`, function(name: string) {
     return withinRoleAndName("$roleId", name);
 });
 
+/**
+ * key.then.element.withRoleAndName.description
+ * */
 Then(`${key.then.element.withRoleAndName}`, async function(name: string) {
     findWithRoleAndName("$roleId", name);
 });
 
+/**
+ * key.then.element.not.withRoleAndName.description
+ * */
 Then(
     `${key.then.element.not.withRoleAndName}`,
     async function(name: string) {
@@ -40,10 +49,16 @@ Then(
     }
 );
 
+/**
+ * key.when.type.description
+ * */
 When(`${key.when.type}`, function(textToType: string, name: string) {
     cy.uuvFindByRole("$roleId", { name: name }).uuvFoundedElement().type(textToType);
 });
 
+/**
+ * key.then.element.withRoleAndNameAndContent.description
+ * */
 Then(
     `${key.then.element.withRoleAndNameAndContent}`,
     async function(name: string, expectedTextContent: string) {
@@ -51,6 +66,9 @@ Then(
     }
 );
 
+/**
+ * key.then.element.withRoleAndNameAndContentDisabled.description
+ * */
 Then(
     `${key.then.element.withRoleAndNameAndContentDisabled}`,
     async function(name: string, expectedTextContent: string) {
@@ -58,6 +76,9 @@ Then(
     }
 );
 
+/**
+ * key.then.element.withRoleAndNameAndContentEnabled.description
+ * */
 Then(
     `${key.then.element.withRoleAndNameAndContentEnabled}`,
     async function(name: string, expectedTextContent: string) {
