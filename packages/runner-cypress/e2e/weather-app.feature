@@ -45,3 +45,12 @@ Feature: Weather App example
     Then I should see elements of the list with name "Available Towns"
       | Tunis   |
       | Limoges |
+
+  Scenario: Issue 340 - Checking list items does not work with within
+    # Click on <Get started> button
+    When I click on button named "Get started"
+    Then within the element with selector "body"
+    And I should see elements of the list with name "Available Towns"
+      | Douala  |
+      | Tunis   |
+      | Limoges |

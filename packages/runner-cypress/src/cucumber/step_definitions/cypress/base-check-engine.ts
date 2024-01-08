@@ -403,7 +403,7 @@ Then(
     .uuvFoundedElement()
     .should("exist")
     .within(() => {
-      return cy.uuvFindAllByRole("listitem", {}).then((listitem) => {
+      return cy.findAllByRole("listitem", {}).then((listitem) => {
         const foundedElement: any[] = [];
         for (let i = 0; i < listitem.length; i++) {
           foundedElement.push([listitem[i].textContent]);
