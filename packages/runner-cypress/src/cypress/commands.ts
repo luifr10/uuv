@@ -31,8 +31,7 @@ import {
 import { Context } from "../cucumber/step_definitions/cypress/_context";
 import "cypress-real-events";
 import { injectUvvA11y, checkUvvA11y } from "../cucumber/step_definitions/cypress/a11y-engine";
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import {A11yReferenceEnum, A11yResult} from "@uuv/a11y";
+import { A11yReferenceEnum, A11yResult } from "@uuv/a11y";
 
 declare global {
   namespace Cypress {
@@ -57,7 +56,7 @@ declare global {
 
       injectUvvA11y(): Cypress.Chainable<void>;
 
-      checkUvvA11y(reference: A11yReferenceEnum, expectedResult?: any): Cypress.Chainable<A11yResult>;
+      checkUvvA11y(reference: A11yReferenceEnum, expectedResult?: any, isContainsMode?: boolean): Cypress.Chainable<A11yResult>;
     }
   }
 }
@@ -73,3 +72,6 @@ Cypress.Commands.add("uuvFindAllByRole", uuvFindAllByRole);
 Cypress.Commands.add("uuvFoundedElement", { prevSubject: true }, uuvFoundedElement);
 Cypress.Commands.add("injectUvvA11y", injectUvvA11y);
 Cypress.Commands.add("checkUvvA11y", checkUvvA11y);
+
+const chaiSubset = require("chai-subset");
+chai.use(chaiSubset);

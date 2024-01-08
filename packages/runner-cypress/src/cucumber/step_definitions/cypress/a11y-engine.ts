@@ -40,7 +40,7 @@ export const injectUvvA11y = () => {
     );
 };
 
-export const checkUvvA11y = (reference: A11yReferenceEnum, expectedResult?: any) => {
+export const checkUvvA11y = (reference: A11yReferenceEnum, expectedResult?: any, isContainsMode = false) => {
     cy.window({ log: false })
         .then((win: any) => {
             const url = win.location.href;
@@ -50,7 +50,7 @@ export const checkUvvA11y = (reference: A11yReferenceEnum, expectedResult?: any)
                 .pipe(
                     tap((result: A11yResult) => {
                         logAllA11yRuleResult(result);
-                        assertWithExpectedResult(expectedResult, result);
+                        assertWithExpectedResult(result, expectedResult, isContainsMode);
                     })
                 )
                 .toPromise();
@@ -74,12 +74,18 @@ function getA11yCheckerForReference(win: any, reference: A11yReferenceEnum, url)
     return rgaaChecker;
 }
 
-function assertWithExpectedResult(expectedResult: any, result: A11yResult) {
+function assertWithExpectedResult(result: A11yResult, expectedResult?: any, isContainsMode = false) {
+    const validationFailedMessage = "A11y validation failed";
     if (expectedResult) {
-        assert.deepEqual(result.summary(), expectedResult, "A11y validation failed");
+        if (!isContainsMode) {
+            assert.deepEqual(result.summary(), expectedResult, validationFailedMessage);
+        } else {
+            cy.wrap(result.summary())
+                .should("containSubset", expectedResult);
+        }
     } else {
-        assert.notEqual(result.status, A11yResultStatus.ERROR, "A11y validation failed");
-        assert.notEqual(result.status, A11yResultStatus.UNKNOWN, "A11y validation failed");
+        assert.notEqual(result.status, A11yResultStatus.ERROR, validationFailedMessage);
+        assert.notEqual(result.status, A11yResultStatus.UNKNOWN, validationFailedMessage);
     }
 }
 

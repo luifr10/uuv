@@ -529,35 +529,6 @@ Then(
  async function() {
      cy.injectUvvA11y();
      cy.checkUvvA11y(A11yReferenceEnum.RGAA);
-    // const versionAlix = "5.2.1";
-    // cy.url().then(async (url) => {
-        // const rgaaChecker = new RgaaChecker(url);
-        // return rgaaChecker.validate()
-        //     .pipe(
-        //         tap((result: A11yResult) => {
-        //             result.ruleResults.forEach(ruleResult => {
-        //                 logValidatingA11yRule(result.reference, ruleResult);
-        //                 logA11yRuleResult(result.reference, ruleResult);
-        //             });
-        //             assert.equal(result.status, A11yResultStatus.SUCCESS, "A11y validation failed");
-        //         })
-        //     )
-        //     .toPromise();
-        // switch (reference) {
-        //     case "RGAA":
-        //         await new RgaaChecker(url, a11yCypressEngine).checkCriteria();
-        //     // new AlixError(versionAlix).checkCriteria();
-        //     // new AlixWarning(versionAlix).checkCriteria();
-        //     // new AlixAdvice(versionAlix).checkCriteria();
-        //     // new AlixObsolete(versionAlix).checkCriteria();
-        //     case "WCAG-WEB":
-        //         break;
-        //     case "WCAG-ANDROID":
-        //         break;
-        //     case "WCAG-IOS":
-        //         break;
-        // }
-    // });
  });
 
 Then(
@@ -566,6 +537,13 @@ Then(
         cy.injectUvvA11y();
         cy.checkUvvA11y(A11yReferenceEnum.RGAA, JSON.parse(expectedResult));
 });
+
+Then(
+    `${key.then.a11y.rgaa.defaultWithResultContaining}`,
+    async function(expectedResult: string) {
+        cy.injectUvvA11y();
+        cy.checkUvvA11y(A11yReferenceEnum.RGAA, JSON.parse(expectedResult), true);
+    });
 
 function pressKey(context: Cypress.Chainable<JQuery<HTMLElement>>, key: string) {
   switch (key) {

@@ -221,12 +221,17 @@
  },
  {
   "key": "key.then.a11y.rgaa.default",
-  "description": "Check that the current page have no [accessibility issue](https://accessibilite.numerique.gouv.fr/methode/criteres-et-tests/) with one of reference : RGAA",
+  "description": "Check that the current page have no [accessibility issue](https://accessibilite.numerique.gouv.fr/methode/criteres-et-tests/) based on RGAA standards",
   "wording": "I should not have any rgaa accessibility issue"
  },
  {
   "key": "key.then.a11y.rgaa.defaultWithResult",
-  "description": "Check that the current page have the following [result](https://accessibilite.numerique.gouv.fr/methode/criteres-et-tests/) with one of reference : RGAA",
+  "description": "Check that the current page have the following [result](https://accessibilite.numerique.gouv.fr/methode/criteres-et-tests/) based on RGAA standard",
   "wording": "I should have the following result based on the rgaa reference"
+ },
+ {
+  "key": "key.then.a11y.rgaa.defaultWithResultContaining",
+  "description": "Check that the current page have the following partial [result](https://accessibilite.numerique.gouv.fr/methode/criteres-et-tests/) based on RGAA standard",
+  "wording": "I should have the following partial result based on the rgaa reference"
  }
 ]

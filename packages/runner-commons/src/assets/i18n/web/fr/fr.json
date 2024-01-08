@@ -221,12 +221,17 @@
   },
   {
     "key": "key.then.a11y.rgaa.default",
-    "description": "Vérifie sur la page courante qu'il n'y a aucune [erreur de conformité d'accessibilité](https://la-va11ydette.orange.com) avec un des référentiels : WCAG-WEB, RGAA et une des versions 4.1",
+    "description": "Vérifie sur la page courante qu'il n'y a aucune [erreur de conformité d'accessibilité](https://accessibilite.numerique.gouv.fr/methode/criteres-et-tests) avec un des référentiels : WCAG-WEB, RGAA et une des versions 4.1",
     "wording": "je ne dois pas avoir de problèmes d'accessibilité rgaa"
   },
   {
     "key": "key.then.a11y.rgaa.defaultWithResult",
-    "description": "Vérifie sur la page courante qu'il n'y a aucune [erreur de conformité d'accessibilité](https://la-va11ydette.orange.com)",
+    "description": "Vérifie sur la page courante qu'il n'y a aucune [erreur de conformité d'accessibilité](https://accessibilite.numerique.gouv.fr/methode/criteres-et-tests)",
     "wording": "je dois avoir les résultats suivants selon le référentiel rgaa"
+  },
+  {
+    "key": "key.then.a11y.rgaa.defaultWithResultContaining",
+    "description": "Vérifie sur la page courante a les [résultats](https://accessibilite.numerique.gouv.fr/methode/criteres-et-tests) suivants avec le référentiel RGAA",
+    "wording": "je dois avoir les résultats partiels suivants selon le référentiel rgaa"
   }
 ]
