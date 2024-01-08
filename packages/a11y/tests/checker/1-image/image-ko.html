@@ -57,6 +57,7 @@
     <input data-testid="inputimg-title" type="image" title="logo UUV" src="./warning.png" style="width: 32px; height: 32px"/>
     <span id="label1.1.3">Image</span>
     <input data-testid="inputimg-aria-labelledby" type="image" aria-labelledby="label1.1.3" src="./warning.png" style="width: 32px; height: 32px"/>
+    <input data-testid="inputimg-empty-aria-labelledby" type="image" aria-labelledby="" src="./warning.png" style="width: 32px; height: 32px"/>
     <h2>1.1.4</h2>
     <h2>1.1.5</h2>
     <svg data-testid="svg-without-role-image" height="100" width="100">
@@ -71,5 +72,18 @@
     <svg data-testid="svg-with-role-and-without-title" role="img" height="100" width="100">
       <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" />
     </svg>
+    <h2>1.1.6</h2>
+    <object data-testid="object-ok" role='img' type="image/png" title='logo UUV'></object>
+
+    <object data-testid="object-svg-ko" role="img" type="image/svg"></object>
+    <object data-testid="object-skip" role="img" type="noimage/svg"></object>
+    <object data-testid="object-svg-ko-title-empty" role="img" type="image/svg" title=''></object>
+    <object data-testid="object-svg-ko-no-aria-label" role="img" type="image/svg"></object>
+    <object data-testid="object-svg-ko-without-role" type="image/svg" title='uuv'></object>
+    <object data-testid="object-svg-ko-aria-label-empty" role="img" type="image/svg" aria-label=''></object>
+    <object data-testid="object-svg-ko-aria-labelled-empty" role="img" type="image/svg" aria-labelledby=''></object>
+    <object data-testid="object-svg-ko-aria-label-not-exist" role="img" type="image/svg" aria-labelledby='not_exist'></object>
+    <object data-testid="object-svg-ko-without-sibling" role="img" type="image/svg"></object>
+    <a nohref alt='link-without-ref'/>
   </body>
 </html>

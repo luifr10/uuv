@@ -38,6 +38,7 @@
   "dependencies": {
     "@testing-library/dom": "^9.3.3",
     "dom-accessibility-api": "^0.6.3",
+    "emulate-tab": "^1.2.1",
     "jquery": "^3.7.1",
     "lodash": "^4.17.21",
     "rxjs": "^7.8.1"

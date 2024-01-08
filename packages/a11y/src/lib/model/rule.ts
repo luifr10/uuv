@@ -2,7 +2,6 @@ import { Query } from "../query/00-query";
 
 export interface A11yRule {
     attributes: string[];
-    reference: string;
     check: RuleCheckEnum;
     criterion: string;
     wcag: string;
@@ -16,7 +15,6 @@ export interface A11yRule {
 
 export class AutoCheckA11yRule implements A11yRule {
     attributes!: string[];
-    reference!: string;
     check = RuleCheckEnum.AUTO;
     criterion!: string;
     wcag!: string;
@@ -29,7 +27,6 @@ export class AutoCheckA11yRule implements A11yRule {
 
     static from(input: {
         attributes?: string[];
-        reference: string;
         criterion: string;
         wcag: string;
         id: string;
@@ -45,7 +42,6 @@ export class AutoCheckA11yRule implements A11yRule {
 
 export class ManualCheckA11yRule implements A11yRule {
     attributes: string[] = [];
-    reference!: string;
     check = RuleCheckEnum.MANUAL;
     criterion!: string;
     wcag!: string;
@@ -58,7 +54,6 @@ export class ManualCheckA11yRule implements A11yRule {
 
     static from(input: {
         attributes?: string[];
-        reference: string;
         criterion: string;
         wcag: string;
         id: string;

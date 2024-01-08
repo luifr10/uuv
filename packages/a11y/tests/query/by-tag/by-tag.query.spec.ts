@@ -21,7 +21,7 @@ describe("Query - ByTag", () => {
             // @ts-ignore
             const byTagQuery = new uuvA11y.ByTagQuery(selectors);
             const elements = await byTagQuery.execute();
-            return elements.map(element => element.getAttribute("data-testid"));
+            return elements.map(element => element.domNode.getAttribute("data-testid"));
         }, selectors);
     }
 

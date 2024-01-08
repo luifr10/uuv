@@ -23,7 +23,7 @@ describe("Query - AccessibleName", () => {
             // @ts-ignore
             const accessibleNameQuery = new uuvA11y.AccessibleNameQuery(subQuery, shouldBeEmpty);
             const elements = await accessibleNameQuery.execute();
-            return elements.map(element => element.getAttribute("data-testid"));
+            return elements.map(element => element.domNode.getAttribute("data-testid"));
         }, roleName, shouldBeEmpty);
     }
 
@@ -34,7 +34,7 @@ describe("Query - AccessibleName", () => {
             // @ts-ignore
             const accessibleNameQuery = new uuvA11y.AccessibleNameQuery(subQuery, shouldBeEmpty);
             const elements = await accessibleNameQuery.execute();
-            return elements.map(element => element.getAttribute("data-testid"));
+            return elements.map(element => element.domNode.getAttribute("data-testid"));
         }, selectors, shouldBeEmpty);
     }
 

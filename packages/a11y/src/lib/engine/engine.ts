@@ -8,6 +8,7 @@ import {
     A11yRuleResult,
     A11yReference
 } from "../model/";
+import { QueryResult } from "../query";
 
 export class Engine {
     constructor(
@@ -25,12 +26,13 @@ export class Engine {
         });
     }
 
-    private getRuleResult(rule: AutoCheckA11yRule, foundElements: HTMLElement[]): A11yRuleResult {
+    private getRuleResult(rule: AutoCheckA11yRule, queryResults: QueryResult[]): A11yRuleResult {
         if (rule.check === RuleCheckEnum.MANUAL) {
-            return this.buildResultForManualCheck(rule as ManualCheckA11yRule, foundElements);
+            return this.buildResultForManualCheck(rule as ManualCheckA11yRule, queryResults);
         } else {
             // Then we are considering rule as RuleCheckEnum.AUTO
-            return this.buildResultForAutoCheck(rule as AutoCheckA11yRule, foundElements);
+            const domNodes = queryResults.map((element) => element.domNode);
+            return this.buildResultForAutoCheck(rule as AutoCheckA11yRule, domNodes);
         }
     }
 
@@ -67,30 +69,31 @@ export class Engine {
         return a11YRuleresult;
     }
 
-    private buildResultForManualCheck(rule: ManualCheckA11yRule, $el: HTMLElement[]): A11yRuleResult {
-        const a11YRuleresult = new A11yRuleResult(this.targetUrl, rule);
-        const validation = a11YRuleresult.getOrAddValidation(rule.criterion);
+    private buildResultForManualCheck(rule: ManualCheckA11yRule, queryResults: QueryResult[]): A11yRuleResult {
+        const a11YRuleResult = new A11yRuleResult(this.targetUrl, rule);
+        const validation = a11YRuleResult.getOrAddValidation(rule.criterion);
         validation.status = A11yResultStatus.SUCCESS;
-        for (let i = 0; i < $el.length; i++) {
-            const selector = this.getSelector($el[i]);
+        for (let i = 0; i < queryResults.length; i++) {
+            const domNode = queryResults[i].domNode;
+            const selector = this.getSelector(domNode);
             const attributesToCheck: string[] = [];
             rule.attributes.forEach((attribute) => {
-                const attributeFilledWithInformation = $el[i].getAttribute(attribute);
+                const attributeFilledWithInformation = domNode.getAttribute(attribute);
                 if (attributeFilledWithInformation) {
                     attributesToCheck.push(` ${attribute}=${attributeFilledWithInformation}`);
                 }
             });
-            const manualValidation = a11YRuleresult.getOrAddValidation(rule.criterion);
+            const manualValidation = a11YRuleResult.getOrAddValidation(rule.criterion);
             manualValidation.status = A11yResultStatus.MANUAL;
             manualValidation.nodesToCheckManually.push({
-                node: $el[i],
+                node: queryResults[i],
                 selector: selector,
                 attributes: attributesToCheck.toString(),
-                html: $el[i].outerHTML,
+                html: domNode.outerHTML,
                 help: rule.id ? `${this.reference.getRuleUrl(rule.id)}` : ""
             });
         }
-        return a11YRuleresult;
+        return a11YRuleResult;
     }
 
     private getSelector(element: any): string {

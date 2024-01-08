@@ -1,4 +1,4 @@
-import { Query } from "./00-query";
+import { Query, QueryResult } from "./00-query";
 
 export class FormQuery implements Query {
     LABEL_ATTRIBUTE = "$LABEL";
@@ -51,7 +51,7 @@ export class FormQuery implements Query {
         "title",
         "$LABEL"
     ];
-    execute(): HTMLElement[] {
+    execute(): QueryResult[] {
         // const foundElements = $(this.FORMFIELD_SELECTORS.join(","));
         // const elements: HTMLElement[] = [];
         // let counter = 0;

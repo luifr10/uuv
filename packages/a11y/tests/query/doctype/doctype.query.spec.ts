@@ -15,7 +15,7 @@ describe("Query - Doctype", () => {
             // @ts-ignore
             const doctypeQuery = new uuvA11y.DoctypeQuery();
             const elements = await doctypeQuery.execute();
-            return elements.map(element => element.getAttribute("data-testid"));
+            return elements.map(element => element.domNode.getAttribute("data-testid"));
         });
     }
 

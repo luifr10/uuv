@@ -40,7 +40,7 @@ For example :
             help: "adapt these attributes to be relevant"
        })
         ```
-   **Adding a new rule may require you to create a new query, in which case remember to write the corresponding automated tests in the `a11y/test/query/**` directory.**
+   **Adding a new rule may require you to create a new query, in which case remember to write the corresponding automated tests in the `a11y/test/query/**` directory and export it `index.ts` of same directory.**
 
 
 4. Create or enhance the automated topic test file in the directory `a11y/test/checker/**`.

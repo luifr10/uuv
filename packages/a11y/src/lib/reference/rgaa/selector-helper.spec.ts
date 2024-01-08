@@ -1,4 +1,4 @@
-import { informativeContent } from "./selector-helper";
+import { informativeContent, siblingElement } from "./selector-helper";
 
 describe("SelectorHelper", () => {
   test("buildSelectors", () => {
@@ -7,6 +7,11 @@ describe("SelectorHelper", () => {
       "img[aria-labelledby]",
       "img[aria-label]",
       "img[alt]",
+    ]);
+  });
+  test("buildSelectors with empty attributes", () => {
+    expect(siblingElement.a.buildSelectorWithAttributes()).toEqual([
+      "a[href]"
     ]);
   });
 });

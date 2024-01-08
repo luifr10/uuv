@@ -140,7 +140,7 @@ function logNodeToCheckManually(reference: A11yReference, ruleResult: A11yRuleRe
         `criteria ${ruleResult.rule.criterion} on ${nodesToCheckManually.length} nodes`,
         getConsoleDetails(reference, ruleResult, nodesToCheckManually)
     );
-    nodesToCheckManually.forEach(nodeToCheck => log.set({ $el: $(nodeToCheck.node) }).snapshot());
+    nodesToCheckManually.forEach(nodeToCheck => log.set({ $el: $(nodeToCheck.node.domNode) }).snapshot());
     log.finish();
 }
 

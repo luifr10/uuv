@@ -1,5 +1,6 @@
 import { A11yRule } from "./rule";
 import { A11yReference } from "./reference";
+import { QueryResult } from "../query";
 
 export enum A11yResultStatus {
   UNKNOWN = "unknown",
@@ -14,7 +15,7 @@ export interface NonCompliantNode {
     html?: string
 }
 export interface NodeToCheckManually {
-  node: HTMLElement;
+  node: QueryResult;
   selector: string;
   attributes: string;
   html: string;

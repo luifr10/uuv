@@ -3,7 +3,6 @@ import { FormQuery } from "../../../query";
 
 export default [
     AutoCheckA11yRule.from({
-        reference: "RGAA",
         criterion: "11.1",
         wcag: "1.3.1 A, 2.4.6 AA, 3.3.2 A, 4.1.2 A",
         id: "11.1.1",
