@@ -57,6 +57,6 @@ tests/integration/runner-playwright/
 packages/intellij-plugin/.idea/
 /packages/a11y/bundle/
 /packages/docs/docs/04-wordings/01-generated-wording-description/*
-!/packages/docs/docs/04-wordings/01-generated-wording-description/.gitkeep
+!/packages/docs/docs/04-wordings/01-generated-wording-description/_category_.json
 /packages/docs/i18n/fr/docusaurus-plugin-content-docs/current/04-wordings/01-generated-wording-description/*
-!/packages/docs/i18n/fr/docusaurus-plugin-content-docs/current/04-wordings/01-generated-wording-description/.gitkeep
+!/packages/docs/i18n/fr/docusaurus-plugin-content-docs/current/04-wordings/01-generated-wording-description/_category_.json
