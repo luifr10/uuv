@@ -28,7 +28,7 @@
   "scripts": {
     "package": "npm pack --pack-destination=\"../../dist/packages\"",
     "test": "jest",
-    "test:run": "jest"
+    "test:run": "jest --coverage"
   },
   "dependencies": {
     "@testing-library/dom": "^9.3.3",

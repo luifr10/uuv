@@ -4,5 +4,5 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
-
-rootProject.name = "intellij-plugin"
+rootProject.name = "uuv"
+include ("packages:intellij-plugin")

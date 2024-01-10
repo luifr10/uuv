@@ -4,18 +4,19 @@
   "sourceRoot": "packages/intellij-plugin/src",
   "projectType": "library",
   "targets": {
-    "build": {
-      "executor": "nx:run-commands",
+    "dev": {
+      "executor": "@jnxplus/nx-gradle:run-task",
       "options": {
-        "cwd": "packages/intellij-plugin",
-        "commands": [
-          "chmod 755 ./gradlew",
-          "./gradlew buildPlugin"
-        ]
-      },
-      "outputs": [
-        "{projectRoot}/build/distributions"
-      ]
+        "projectPath": "packages:intellij-plugin",
+        "task": "runIde"
+      }
+    },
+    "build": {
+      "executor": "@jnxplus/nx-gradle:run-task",
+      "options": {
+        "projectPath": "packages:intellij-plugin",
+        "task": "buildPlugin"
+      }
     },
     "semantic-release": {
       "executor": "@theunderscorer/nx-semantic-release:semantic-release",
@@ -49,13 +50,10 @@
       }
     },
     "publish": {
-      "executor": "nx:run-commands",
+      "executor": "@jnxplus/nx-gradle:run-task",
       "options": {
-        "cwd": "packages/intellij-plugin",
-        "commands": [
-          "chmod 755 ./gradlew",
-          "./gradlew publishPlugin"
-        ]
+        "projectPath": "packages:intellij-plugin",
+        "task": "publishPlugin"
       }
     }
   },

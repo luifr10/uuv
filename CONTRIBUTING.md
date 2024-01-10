@@ -41,6 +41,9 @@ Before creating an issue:
 
 If none of the above was met, open an issue directly in Github, select the appropriate issue template and fill-in each section when applicable.
 
+## Development environment setup
+cf. [Development environment setup](./DEV_SETUP.md)
+
 ## Submitting a code change
 
 ### Git Setup
@@ -72,8 +75,8 @@ Git commits in _UUV_ shall be:
 2. **semantic** (using [semantic-release commit message syntax](https://semantic-release.gitbook.io/semantic-release/#commit-message-format)).
 3. **pattern**
    - **SCOPE**: one of (build, chore, ci, docs, feat, fix, perf, refactor, revert, style, test, release)
-   - **PACKAGE** _(optional)_: one of (assistant, assistant-electron, docs, intellij-plugin, runner-commons, runner-cypress, runner-playwright)
+   - **PACKAGE** _(optional)_: one of (a11y, assistant, assistant-electron, docs, intellij-plugin, runner-commons, runner-cypress, runner-playwright)
    - **Pattern**: SCOPE(PACKAGE): commit message, #issue_identifier
    - ```bash
-     perf(runner-cypress): optimize bdd request, #51
+     feat(runner-cypress): optimize bdd request, #51
      ```

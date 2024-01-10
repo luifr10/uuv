@@ -36,11 +36,9 @@
     "generate:step-definitions": "ts-node generate-step-definitions.ts",
     "package": "npm pack --pack-destination=\"../../dist/packages\"",
     "postinstall": "node postinstall.js",
-    "serverTest:run": "ts-node playwright/run-test-app.ts 9002",
     "test:run": "ts-node test.ts run",
     "test:open": "ts-node test.ts open --",
     "test:alone:run": "npx playwright test",
-    "test:format": "ts-node format-cucumber-report.ts",
     "test": "npm run test:run --"
   },
   "dependencies": {

@@ -1,8 +1,3 @@
-
-
-
-
-
 <p align="center">  
 <a href="https://orange-opensource.github.io/uuv/">  
 <picture>  
@@ -54,6 +49,7 @@ we see that the sentence proposed by **UUV is the most understandable** of all
 <a href="https://orange-opensource.github.io/uuv/"><img src="https://img.shields.io/badge/documentation-black?&style=for-the-badge&logo=github&logoColor=white" alt="documentation"/></a>
 
 ## Libraries
+<a href="https://www.npmjs.com/package/@uuv/a11y"><img src="https://img.shields.io/badge/@uuv/a11y-uuv library to perform a11y checks-brown?logo=npm" alt="UUV a11y npm library"/></a>  
 <a href="https://www.npmjs.com/package/@uuv/assistant"><img src="https://img.shields.io/badge/@uuv/assistant-Help module that generates the most accessible sentences based on a DOM element selection-yellow?logo=npm" alt="UUV assistant npm library"/></a>  
 <a href="https://www.npmjs.com/package/@uuv/cypress"><img src="https://img.shields.io/badge/@uuv/cypress-Cypress engine to run uuv test-04C38E?logo=npm" alt="UUV cypress npm library"/></a>  
 <a href="https://www.npmjs.com/package/@uuv/playwright"><img src="https://img.shields.io/badge/@uuv/playwright-Playwright engine to run uuv test-1dbb68?logo=npm" alt="UUV playwright npm library"/></a>  
@@ -90,11 +86,7 @@ To answer the above issues and many others, our solution is to set up a coherent
 
 ![Ecosystème UUV](./packages/docs/static/img/docs/ecosystem-uuv.png)
 
-### Dependencies
-#### Add dependency to a project
-```shell
-npm install dependencyName --workspace=packages/runner-playwright
-```
+
 
 ## License
 

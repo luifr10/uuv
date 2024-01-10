@@ -45,6 +45,8 @@ Thumbs.db
 *.iml
 packages/runner-cypress/cypress/screenshots/
 
+.gradle
+!gradle/wrapper/gradle-wrapper.jar
 
 packages/runner-playwright/src/cucumber/step_definitions/playwright/generated/
 packages/runner-playwright/reports/

@@ -1,7 +1,3 @@
-
-
-
-
 # @uuv/assistant
 <p align="center">  
 <a href="https://orange-opensource.github.io/uuv/">  

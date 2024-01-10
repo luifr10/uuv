@@ -381,6 +381,8 @@ For each criterion of the RGAA, the following algorithm is executed :
     npx uuv e2e
     ```
 
+## Want to contribute ?
+Your help is welcome, see the [Contributors guide](https://github.com/Orange-OpenSource/uuv/blob/main/packages/a11y/CONTRIBUTING.md).
 
 ## License
 
