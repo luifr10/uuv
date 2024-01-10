@@ -17,14 +17,13 @@ For example :
        AutoCheckA11yRule.from({
             reference: "RGAA",
             criterion: "1.1",
-            wcag: "1.1.1 A",
-            id: "1.1.4",
-            elementType: "image",
-            query: new ByTagQuery([
-                "a[href]img[ismap]"
-            ]),
-            description: "The clickable zone does not have an identical mechanism, which can be used regardless of the pointing device used and provides access to the same destination",
-            help: "provide a mechanism identical to the clickable zone, which can be used regardless of the pointing device used and provides access to the same destination"
+            id: "1.1.5",
+           elementType: "svg",
+           query: new ByTagQuery([
+               "svg:not([role=img])"
+           ]),
+           description: "svg has no image role",
+           help: "set image role to svg"
         })
         ```
    - `Manual` : It must be checked manually by a human, then you can follow the example below :
