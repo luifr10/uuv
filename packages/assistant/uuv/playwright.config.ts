@@ -9,7 +9,7 @@ export default defineConfig({
   workers: 1,
   reporter: [["html", { outputFolder: "uuv/reports/html/playwright" }]],
   use: {
-    baseURL: "http://localhost:3200",
+    baseURL: "http://127.0.0.1:3200",
     trace: "on-first-retry",
   },
 

@@ -102,12 +102,22 @@ jobs:
           node-version: ${{env.NODE_VERSION}}
           runner-name: "a11y"
 
+  integration-tests-assistant:
+    runs-on: ubuntu-latest
+    needs: [ lint, unit-tests, build]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Running assistant integration tests
+        uses: ./.github/actions/nx-test-runner
+        with:
+          node-version: ${{env.NODE_VERSION}}
+          runner-name: "assistant"
 
   unit-tests-cypress:
     runs-on: ubuntu-latest
     container:
       image: cypress/browsers:node18.12.0-chrome107
-    needs: [ lint, unit-tests, build]
+    needs: [ lint, unit-tests, build ]
     steps:
       - uses: actions/checkout@v3
       - name: Running cypress unit tests
@@ -215,7 +225,7 @@ jobs:
 
   release:
     if: github.ref == 'refs/heads/main'
-    needs: [ integration-tests-cypress, integration-tests-playwright, unit-tests-a11y, unit-tests-playwright, unit-tests-cypress ]
+    needs: [ integration-tests-cypress, integration-tests-playwright, unit-tests-a11y, unit-tests-playwright, unit-tests-cypress, integration-tests-assistant ]
     runs-on: ubuntu-latest
     environment: release
     steps:
@@ -304,7 +314,7 @@ jobs:
 
   publish-docs:
     if: github.ref == 'refs/heads/main'
-    needs: [ integration-tests-cypress, integration-tests-playwright, unit-tests-a11y, unit-tests-playwright, unit-tests-cypress ]
+    needs: [ integration-tests-cypress, integration-tests-playwright, unit-tests-a11y, unit-tests-playwright, unit-tests-cypress, integration-tests-assistant ]
     permissions:
       pages: write
       id-token: write

@@ -233,7 +233,7 @@ function UuvAssistant(props: UuvAssistantProps) {
           open={!isHide}
           closable={false}
           className={["uuvAssistant"].join(" ")}
-          height={isExtended ? 250 : 50}
+          height={isExtended ? 250 : 42}
           bodyStyle={{ padding: "0px", overflowY: "hidden" }}
           mask={false}
         >
@@ -246,7 +246,7 @@ function UuvAssistant(props: UuvAssistantProps) {
               }}
               className='uuvArrowExpander'
               icon={<DoubleLeftOutlined aria-label={expander.rotate === 90 ?
-                "uvv Assistant not expanded" : "uvv Assistant expanded"}
+                "Click to expand UUV Assistant panel" : "Click to reduce UUV Assistant panel"}
                                         rotate={expander.rotate} spin={false} style={{ color: expander.color }} />}
               style={{
                 boxShadow: expander.shadow,
@@ -260,21 +260,21 @@ function UuvAssistant(props: UuvAssistantProps) {
                 <Tooltip placement='top' title='Select an element' zIndex={9999999780}>
                   <Button
                     ref={refSelectMinimized}
-                    aria-label='floating select button'
+                    aria-label='Select an html element'
                     className='pt-0 pb-1'
                     onClick={startSelect}
                     style={{
                       background: buttonConfig.background, color: buttonConfig.color,
                       marginRight: "20px", marginLeft: "20px"
                     }}
-                    disabled={currentAction === "selection"} icon={<SelectOutlined />}>
+                    disabled={currentAction === "selection"} icon={<SelectOutlined aria-hidden={true} />}>
                     Select
                   </Button>
                 </Tooltip>
                 <Tooltip placement='top' title='Copy in clipboard' zIndex={9999999780}>
                   <Button
                     ref={refCopyMinimized}
-                    aria-label='floating copy button'
+                    aria-label='Copy the resulting uuv sentence'
                     style={{
                       background: generatedScript.length > 0 ? buttonConfig.background : "grey",
                       color: buttonConfig.color,
@@ -282,14 +282,13 @@ function UuvAssistant(props: UuvAssistantProps) {
                       marginRight: "20px"
                     }}
                     onClick={copyResult}
-                    disabled={generatedScript.length === 0} icon={<CopyOutlined />}>
+                    disabled={generatedScript.length === 0} icon={<CopyOutlined aria-hidden={true}/>}>
                     Copy
                   </Button>
                 </Tooltip>
                 <span style={{ display: "inline block", marginRight: "20px" }} ref={refActionMinimized}>
               <Select
-                aria-label={"floating select list"}
-                data-testid={"floatingSelectList"}
+                aria-label={"Selected action"}
                 defaultValue={checkAction}
                 size='middle'
                 onChange={handleSelectCheckActionChange}
@@ -320,138 +319,139 @@ function UuvAssistant(props: UuvAssistantProps) {
                           style={{ cursor: "pointer", color: tourIcon.color, background: tourIcon.background }} />
                 </Tooltip>
               </Col>
-            </Row> : ""}
-          <Layout>
-            <Sider width={250} collapsible={true} collapsedWidth={0}
-                   theme={isDark ? "dark" : "light"}>
-              <Row align='middle' style={{ marginTop: 10, marginBottom: 20, marginLeft: 10 }}>
-                <Col span={6}>
-                  <Avatar
-                    ref={refDictionnary}
-                    style={{
-                      backgroundColor: isDark ?
-                        "#073a69" : "#C0C0C0", height: "50px", width: "50px"
-                    }} size='large'>
-                    <Tooltip placement='top' title='Go to steps definition'>
-                      <a href='https://orange-opensource.github.io/uuv/docs/category/description-of-sentences'>
-                        <img
-                          src={uuvLogo}
-                          width='40'
-                          height='40'
-                          alt='UUV logo'
-                        />
-                      </a>
+            </Row> :
+            <Layout>
+                <Sider width={250} collapsible={true} collapsedWidth={0}
+                       theme={isDark ? "dark" : "light"}>
+                  <Row align='middle' style={{ marginTop: 10, marginBottom: 20, marginLeft: 10 }}>
+                    <Col span={6}>
+                      <Avatar
+                          ref={refDictionnary}
+                          style={{
+                            backgroundColor: isDark ?
+                                "#073a69" : "#C0C0C0", height: "50px", width: "50px"
+                          }} size='large'>
+                        <Tooltip placement='top' title='Go to steps definition'>
+                          <a href='https://orange-opensource.github.io/uuv/docs/category/description-of-sentences'>
+                            <img
+                                src={uuvLogo}
+                                width='40'
+                                height='40'
+                                alt='UUV logo'
+                            />
+                          </a>
+                        </Tooltip>
+                      </Avatar>
+                    </Col>
+                    <Col span={18}>
+                      <Text strong>UUV Assistant</Text>
+                    </Col>
+                  </Row>
+                  <Divider />
+                  <Col>
+                    <Tooltip placement='left' title='Select an element'>
+                      <Button
+                          ref={refSelectExtended}
+                          aria-label='Select an html element'
+                          className='m-1 pt-0 pb-1 uuvActionAside' onClick={startSelect}
+                          style={{ background: buttonConfig.background, color: buttonConfig.color }}
+                          disabled={currentAction === "selection"} icon={<SelectOutlined aria-hidden={true} />}>
+                        Select
+                      </Button>
                     </Tooltip>
-                  </Avatar>
-                </Col>
-                <Col span={18}>
-                  <Text strong>UUV Assistant</Text>
-                </Col>
-              </Row>
-              <Divider />
-              <Col>
-                <Tooltip placement='left' title='Select an element'>
-                  <Button
-                    ref={refSelectExtended}
-                    aria-label='select button'
-                    className='m-1 pt-0 pb-1 uuvActionAside' onClick={startSelect}
-                    style={{ background: buttonConfig.background, color: buttonConfig.color }}
-                    disabled={currentAction === "selection"} icon={<SelectOutlined />}>
-                    Select
-                  </Button>
-                </Tooltip>
-                <Tooltip placement='left' title='Copy in clipboard'>
-                  <Button
-                    ref={refCopyExtended}
-                    aria-label='copy button' className='uuvActionAside'
-                    style={{
-                      marginTop: "10px",
-                      background: generatedScript.length > 0 ?
-                        buttonConfig.background : "grey", color: buttonConfig.color
-                    }}
-                    onClick={copyResult}
-                    disabled={generatedScript.length === 0} icon={<CopyOutlined />}>
-                    Copy
-                  </Button>
-                </Tooltip>
-                <Tooltip placement='left' title='Choose the generated action'>
+                    <Tooltip placement='left' title='Copy in clipboard'>
+                      <Button
+                          ref={refCopyExtended}
+                          aria-label='Copy the resulting uuv sentence'
+                          className='uuvActionAside'
+                          style={{
+                            marginTop: "10px",
+                            background: generatedScript.length > 0 ?
+                                buttonConfig.background : "grey", color: buttonConfig.color
+                          }}
+                          onClick={copyResult}
+                          disabled={generatedScript.length === 0} icon={<CopyOutlined aria-hidden={true} />}>
+                        Copy
+                      </Button>
+                    </Tooltip>
+                    <Tooltip placement='left' title='Choose the generated action'>
                   <span style={{ display: "inline block", marginRight: "20px" }} ref={refActionExtended}>
                     <Select
-                      aria-label='select list expanded'
-                      data-testid='selectListExpanded'
-                      defaultValue={checkAction}
-                      size='large'
-                      onChange={handleSelectCheckActionChange}
-                      style={{ marginTop: "10px" }}
-                      className='uuvActionAside'
-                      options={[
-                        {
-                          value: CheckActionEnum.EXPECT.toString(),
-                          label: CheckActionEnum.EXPECT.toString()
-                        },
-                        {
-                          value: CheckActionEnum.WITHIN.toString(),
-                          label: CheckActionEnum.WITHIN.toString()
-                        },
-                        {
-                          value: CheckActionEnum.CLICK.toString(),
-                          label: CheckActionEnum.CLICK.toString()
-                        }
-                      ]}
+                        aria-label='Selected action'
+                        defaultValue={checkAction}
+                        size='large'
+                        onChange={handleSelectCheckActionChange}
+                        style={{ marginTop: "10px" }}
+                        className='uuvActionAside'
+                        options={[
+                          {
+                            value: CheckActionEnum.EXPECT.toString(),
+                            label: CheckActionEnum.EXPECT.toString()
+                          },
+                          {
+                            value: CheckActionEnum.WITHIN.toString(),
+                            label: CheckActionEnum.WITHIN.toString()
+                          },
+                          {
+                            value: CheckActionEnum.CLICK.toString(),
+                            label: CheckActionEnum.CLICK.toString()
+                          }
+                        ]}
                     />
                   </span>
-                </Tooltip>
-              </Col>
-            </Sider>
-            <Layout style={{ padding: "20px 24px 24px", marginLeft: 25 }}>
-              <Row>
-                <Col span={22}>
-                  <Text
-                    ref={refSentence}
-                    strong underline type={isDark ? "warning" : "secondary"}>Result</Text>
-                </Col>
-                <Col span={1}>
-                  <Avatar
-                    ref={refLightMode}
-                    onClick={handleChangeLightMode}
-                    src={<img src={lightMode} alt='Light mode' />}
-                    style={{ cursor: "pointer" }} />
-                </Col>
-                <Col span={1}>
-                  <Tooltip placement='top' title='Make a tour of Uuv Assistant' zIndex={9999999780}>
-                    <Avatar onClick={() => handleGetTour()}
-                            icon={<QuestionCircleOutlined />}
-                            style={{ cursor: "pointer", color: tourIcon.color, background: tourIcon.background }} />
-                  </Tooltip>
-                </Col>
-              </Row>
-              <Content
-                aria-label={"sentences"}
-                style={{
-                  padding: 24,
-                  margin: 0,
-                  minHeight: 280
-                }}
-              >
-                {generatedScript.map((value, index) =>
-                  [<Col
-                    key={value.concat(index.toString())}> <Row align='middle'><span
-                    style={{ color: isDark ? "white" : "black" }}>{value}</span> {value.includes("selector") ?
-                    <Tooltip placement='right' title='Accessibility role and name must be defined'><Avatar key={index} style={{
-                      marginLeft: "20px",
-                      marginTop: 15
-                    }}
-                                                                                                           src={<img src={warningIcon}
-                                                                                                                     alt='logo warning'
-                                                                                                                     style={{
-                                                                                                                       height: "20px",
-                                                                                                                       width: "20px"
-                                                                                                                     }} />} />
-                    </Tooltip> : ""} </Row></Col>]
-                )}
-              </Content>
-            </Layout>
-          </Layout>
+                    </Tooltip>
+                  </Col>
+                </Sider>
+                <Layout style={{ padding: "20px 24px 24px", marginLeft: 25 }}>
+                  <Row>
+                    <Col span={22}>
+                      <Text
+                          ref={refSentence}
+                          strong underline type={isDark ? "warning" : "secondary"}>Result</Text>
+                    </Col>
+                    <Col span={1}>
+                      <Avatar
+                          ref={refLightMode}
+                          onClick={handleChangeLightMode}
+                          src={<img src={lightMode} alt='Light mode' />}
+                          style={{ cursor: "pointer" }} />
+                    </Col>
+                    <Col span={1}>
+                      <Tooltip placement='top' title='Make a tour of Uuv Assistant' zIndex={9999999780}>
+                        <Avatar onClick={() => handleGetTour()}
+                                icon={<QuestionCircleOutlined />}
+                                style={{ cursor: "pointer", color: tourIcon.color, background: tourIcon.background }} />
+                      </Tooltip>
+                    </Col>
+                  </Row>
+                  <Content
+                      aria-label={"sentences"}
+                      style={{
+                        padding: 24,
+                        margin: 0,
+                        minHeight: 280
+                      }}
+                  >
+                    {generatedScript.map((value, index) =>
+                        [<Col
+                            key={value.concat(index.toString())}> <Row align='middle'><span
+                            style={{ color: isDark ? "white" : "black" }}>{value}</span> {value.includes("selector") ?
+                            <Tooltip placement='right' title='Accessibility role and name must be defined'><Avatar key={index} style={{
+                              marginLeft: "20px",
+                              marginTop: 15
+                            }}
+                               src={<img src={warningIcon}
+                               alt='Warning : The generated sentence is not user-centric'
+                               style={{
+                                 height: "20px",
+                                 width: "20px"
+                               }} />} />
+                            </Tooltip> : ""} </Row></Col>]
+                    )}
+                  </Content>
+                </Layout>
+              </Layout>
+          }
         </Drawer>
       </ConfigProvider>
       <Tour zIndex={1000000000000} open={open} onClose={() => setOpen(false)} steps={isExtended ? [...stepsBase, ...stepsExtended] : stepsBase} /></>

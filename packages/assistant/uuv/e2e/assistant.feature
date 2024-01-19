@@ -3,45 +3,37 @@ Feature: Assistant vital features
   Scenario: All elements are displayed by default
     When I visit path "/test"
     Then I should not see a picture named "UUV logo"
-    Then I should not see a picture named "Light mode"
-    Then I should see a button named "Select"
-    Then I should see a button named "Copy" and containing "Copy" disabled
-    Then I should see a button named "uvv Assistant expanded"
-    Then I should see an element with testId "selectListExpanded"
+    And I should not see a picture named "Light mode"
+    And I should see a button named "Select an html element"
+    And I should see a button named "Copy the resulting uuv sentence" and containing "Copy" disabled
+    And I should see a button named "Click to expand UUV Assistant panel"
+    And I should see a combo box named "Selected action"
+
+  Scenario: Elements when expanded mode
+    Given I visit path "/test"
+    When I click on button named "Click to expand UUV Assistant panel"
+    Then I should see a picture named "UUV logo"
+    And I should see a picture named "Light mode"
+    And I should see a button named "Select an html element"
+    And I should see a button named "Copy the resulting uuv sentence" and containing "Copy" disabled
+    And I should see a button named "Click to reduce UUV Assistant panel"
+    And I should see a combo box named "Selected action"
 
   Scenario: Select with expected action
-    When I visit path "/test"
-    Then within a button named "select button"
-    Then I click
-    Then I reset context
-    Then within a text box named "Last name"
-    Then I click
-    Then I reset context
+    Given I visit path "/test"
+    When I click on button named "Select an html element"
+    And I click on element with role "textbox" and name "Last name"
     Then I should see an element with content "Then I should see a text box named \"Last name\" and containing \"Doe\""
-    Then I should see a button named "Copy" and containing "Copy"
+    And I should see a button named "Copy the resulting uuv sentence" and containing "Copy" enabled
 
   Scenario: Select with selector warning
-    When I visit path "/test"
-    Then within a button named "select button"
-    Then I click
-    Then I reset context
-    Then within the element with testId "sentence"
-    Then I click
-    Then I reset context
+    Given I visit path "/test"
+    When I click on button named "Select an html element"
+    And within the element with testId "sentence"
+    And I click
+    And I reset context
     Then I should see an element with content "Then I should see an element with selector \"p[data-testid=sentence]\""
-    Then I should see a picture named "logo warning"
-
-  Scenario: Expander up
-    When I visit path "/test"
-    Then within the element with testId "expanderButton"
-    Then I click
-    Then I reset context
-    Then I should see a picture named "UUV logo"
-    Then I should see a picture named "Light mode"
-    Then I should see a button named "floating select button"
-    Then I should see a button named "floating copy button" and containing "Copy" disabled
-    Then I should see an element with testId "floatingSelectList"
-
+    And I should see a picture named "Warning : The generated sentence is not user-centric"
 
 #  Scenario: Change theme
 #    When I visit path "/uuv"

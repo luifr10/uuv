@@ -14,17 +14,17 @@
 */
 
 import React from "react";
-import ReactDOM from "react-dom";
 import "./index.css";
 import UuvAssistant from "./UuvAssistant";
+import { createRoot } from "react-dom/client";
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 document.addEventListener("UUVAssistantReadyToLoad", (e: any) => {
     console.log("event listened: UUVAssistantReadyToLoad");
-    ReactDOM.render(
-        <UuvAssistant translator={e?.detail?.translator}/>,
-        document.getElementById("uvv-assistant-root") as HTMLElement
+    const container = document.getElementById("uvv-assistant-root");
+    const root = createRoot(container);
+    root.render(
+        <UuvAssistant translator={e?.detail?.translator}/>
     );
 });
-
 
