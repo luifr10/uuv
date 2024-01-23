@@ -1,6 +1,6 @@
 import {
   EmptyAttributeSpecification,
-  EmptyElementWithIdSpecification, IAttributeSpecification
+  EmptyElementWithIdSpecification, IAttributeSpecification, NotEmptyAttributeSpecification
 } from "./attribut-specification";
 
 export class CompliantSpecification {
@@ -16,6 +16,17 @@ export class AttributeChecker {
     return new CompliantSpecification(
         attributeName,
         new EmptyAttributeSpecification()
+    );
+  }
+
+  /**
+   * Check if the value of the attributeName is not empty
+   * @param attributeName : HTMLElement attributeName
+   */
+  static notEmptyAttribute(attributeName: string) {
+    return new CompliantSpecification(
+     attributeName,
+     new NotEmptyAttributeSpecification()
     );
   }
   /**

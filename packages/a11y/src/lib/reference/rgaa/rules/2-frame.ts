@@ -1,5 +1,5 @@
 import { AutoCheckA11yRule, ManualCheckA11yRule } from "../../../model";
-import { ByTagQuery } from "../../../query";
+import { AttributeChecker, ByTagQuery, CompliantAttributesQuery } from "../../../query";
 
 export default [
   AutoCheckA11yRule.from({
@@ -7,9 +7,14 @@ export default [
     wcag: "4.1.2 A",
     id: "2.1.1",
     elementType: "iframe",
-    query: new ByTagQuery([
-      "iframe:not([title]),frame:not([title])"
-    ]),
+    query: new CompliantAttributesQuery(
+     new ByTagQuery([
+       "iframe", "frame"
+     ]),
+     [
+       AttributeChecker.emptyAttribute("title"),
+     ]
+    ),
     description: "iframe has no title",
     help: "set a title to iframe"
   }),
@@ -18,10 +23,14 @@ export default [
     wcag: "4.1.2 A",
     id: "2.2.1",
     elementType: "iframe",
-    query: new ByTagQuery([
-      "iframe[title]",
-      "frame[title]"
-    ]),
+    query: new CompliantAttributesQuery(
+     new ByTagQuery([
+       "iframe", "frame"
+     ]),
+     [
+       AttributeChecker.notEmptyAttribute("title"),
+     ]
+    ),
     attributes: [
       "title"
     ],
