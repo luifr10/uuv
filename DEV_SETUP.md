@@ -30,6 +30,7 @@ A solution for automated accessibility validations
 |--------------------|--------------------------|
 | `lint`             | Execute linter           |
 | `build`            | Build project            |
+| `dev`              | Build and watch project  |
 | `test`             | Run tests                |
 | `package`          | npm packaging            |
 | `semantic-release` | execute semantic release |
