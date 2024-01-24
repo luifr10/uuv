@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IFrame</title>
+</head>
+<body>
+    <table data-testid="table">
+    </table>
+    <table data-testid="table-with-summary" summary="a summary">
+    </table>
+    <table data-testid="table-with-caption">
+        <caption>dfde</caption>
+    </table>
+    <table data-testid="table-with-caption-empty">
+        <caption></caption>
+    </table>
+    <table data-testid="table-with-aria-describedby-not-existing" aria-describedby="not-existing">
+    </table>
+    <span id="table-desc">Temp</span>
+    <table data-testid="table-with-aria-describedby-existing" aria-describedby="table-desc">
+    </table>
+    <table data-testid="table-with-aria-labelledby-existing" aria-labelledby="table-desc">
+    </table>
+    <table data-testid="table-with-aria-labelledby-not-existing" aria-labelledby="not-existing">
+    </table>
+    <table data-testid="table-with-aria-label-empty" aria-label="">
+    </table>
+    <table data-testid="table-with-aria-label" aria-label="table-desc">
+    </table>
+    <div role="table" data-testid="div-with-role-table">
+    </div>
+    <div role="table" data-testid="div-with-role-table-and-caption">
+        <caption>dfde</caption>
+    </div>
+    <div role="table" data-testid="div-with-role-table-and-caption-empty">
+        <caption></caption>
+    </div>
+    <div role="table" data-testid="div-with-aria-describedby-not-existing" aria-describedby="not-existing">
+    </div>
+    <div role="table" data-testid="div-with-aria-describedby-existing" aria-describedby="table-desc">
+    </div>
+    <div role="table" data-testid="div-with-aria-labelledby-not-existing" aria-labelledby="not-existing">
+    </div>
+    <div role="table" data-testid="div-with-aria-labelledby-existing" aria-labelledby="table-desc">
+    </div>
+    <div role="table" data-testid="div-with-aria-label-empty" aria-label="">
+    </div>
+    <div role="table" data-testid="div-with-aria-label" aria-label="table-desc">
+    </div>
+    <table data-testid="table-with-role-presentation" role="presentation">
+    </table>
+</body>
+</html>
