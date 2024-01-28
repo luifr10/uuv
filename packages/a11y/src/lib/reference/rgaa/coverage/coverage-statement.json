@@ -104,7 +104,7 @@
             "warning": "Pour les contrôles concernant les alternatives textuelles, nous utilisons la librairie [dom-accessibility-api](https://www.npmjs.com/package/dom-accessibility-api) qui implémente les [règles du W3C](https://w3c.github.io/accname/)"
         },
         "5": {
-            "warning": "Nous considérons qu'un *tableau de mise en forme* est une balise *table* possédant le rôle *presentation* \\\n Nous considérons qu'un *tableau avec header* est une balise *table* ou un rôle table possédant une balise *th* ou un élément avec un rôle *rowheader* ou un élément avec un rôle *columnheader*"
+            "warning": "Nous considérons qu'un *tableau de mise en forme* est une balise *table* possédant le rôle *presentation* \\\n Nous considérons qu'un *tableau avec header* est une balise *table* ou un rôle *table* possédant une balise *th* ou un élément avec un rôle *rowheader* ou un élément avec un rôle *columnheader*"
         }
     }
 }
