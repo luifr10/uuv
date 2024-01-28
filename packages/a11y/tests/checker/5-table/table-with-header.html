@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Complex Table</title>
+    <style>
+        table:not([role=presentation]) tr:first-child th {
+            background-color: red;
+        }
+
+        table:not([role=presentation]) tr:not(:first-child) th:first-child {
+            background-color: green;
+        }
+
+        table:not([role=presentation]) tr:not(:first-child) th:not(:first-child) {
+            background-color: pink;
+        }
+    </style>
+</head>
+<body>
+    <span id="an-id">An Id</span>
+    <table data-testid="first-table">
+        <caption>
+            Alien football stars
+        </caption>
+        <tr>
+            <th scope="col">Header 1</th>
+            <th>Header 2</th>
+            <th role="rowheader">Header 3</th>
+            <th id="colheader4">Header 4</th>
+            <th scope="row">Header 5</th>
+            <th id="an-id">Header 6</th>
+            <th role="columnheader">Header 7</th>
+        </tr>
+        <tr>
+            <th id="an-id">Td-1-1</th>
+            <td>Td-1-2</td>
+            <th>Td-1-3</th>
+            <td>Td-1-4</td>
+            <td>Td-1-5</td>
+            <td>Td-1-6</td>
+            <td>Td-1-7</td>
+        </tr>
+        <tr>
+            <th scope="row">Td-2-1</th>
+            <td>Td-2-2</td>
+            <td>Td-2-3</td>
+            <th id="an-id">Td-2-4</th>
+            <td>Td-2-5</td>
+            <td>Td-2-6</td>
+            <td>Td-2-7</td>
+        </tr>
+        <tr>
+            <th id="rowheader3">Td-3-1</th>
+            <td>Td-3-2</td>
+            <td>Td-3-3</td>
+            <td>Td-3-4</td>
+            <th role="rowheader">Td-3-5</th>
+            <td>Td-3-6</td>
+            <td>Td-3-7</td>
+        </tr>
+        <tr>
+            <th role="rowheader">Td-4-1</th>
+            <td>Td-4-2</td>
+            <td>Td-4-3</td>
+            <td>Td-4-4</td>
+            <td>Td-4-5</td>
+            <th role="columnheader">Td-4-6</th>
+            <td>Td-4-7</td>
+        </tr>
+        <tr>
+            <th role="columnheader">Td-5-1</th>
+            <td>Td-5-2</td>
+            <td>Td-5-3</td>
+            <td>Td-5-4</td>
+            <td>Td-5-5</td>
+            <td>Td-5-6</td>
+            <th id="another-id">Td-5-7</th>
+        </tr>
+        <tr>
+            <th>Td-6-1</th>
+            <td>Td-6-2</td>
+            <td>Td-6-3</td>
+            <td>Td-6-4</td>
+            <td>Td-6-5</td>
+            <td>Td-6-6</td>
+            <td>Td-6-7</td>
+        </tr>
+        <tr>
+            <th scope="col">Td-7-1</th>
+            <td>Td-7-2</td>
+            <td>Td-7-3</td>
+            <td>Td-7-4</td>
+            <th scope="col">Td-7-5</th>
+            <td>Td-7-6</td>
+            <td>Td-7-7</td>
+        </tr>
+    </table>
+    <h1> table complex</h1>
+    <table data-testid="table-complex">
+        <tr>
+            <th scope="col">Header 1</th>
+            <th scope="col">Header 2</th>
+        </tr>
+        <tr>
+            <th scope="row">Td-1-1</th>
+            <th scope="row">Td-2-1</th>
+        </tr>
+    </table>
+    <h2>complex 2</h2>
+    <table data-testid="table-complex-with-summary" summary="a summary">
+        <tr>
+            <th scope="col">Header 1</th>
+            <th scope="col">Header 2</th>
+        </tr>
+        <tr>
+            <th scope="row">Td-1-1</th>
+            <th scope="row">Td-2-1</th>
+        </tr>
+    </table>
+    <h2>complex 3</h2>
+    <table data-testid="table-complex-with-caption">
+        <caption>caption</caption>
+        <tr>
+            <th scope="col">Header 1</th>
+            <th scope="col">Header 2</th>
+        </tr>
+        <tr>
+            <th scope="row">Td-1-1</th>
+            <th scope="row">Td-2-1</th>
+        </tr>
+    </table>
+    <h2>complex 4</h2>
+    <table data-testid="table-complex-with-caption-empty">
+        <caption></caption>
+        <tr>
+            <th scope="col">Header 1</th>
+            <th scope="col">Header 2</th>
+        </tr>
+        <tr>
+            <th scope="row">Td-1-1</th>
+            <th scope="row">Td-2-1</th>
+        </tr>
+    </table>
+    <h2>complex 5</h2>
+    <table data-testid="table-complex-with-aria-describedby-not-existing" aria-describedby="not-existing">
+        <tr>
+            <th scope="col">Header 1</th>
+            <th scope="col">Header 2</th>
+        </tr>
+        <tr>
+            <th scope="row">Td-1-1</th>
+            <th scope="row">Td-2-1</th>
+        </tr>
+    </table>
+    <h2>complex 6</h2>
+    <span id="table-desc">Temp</span>
+    <table data-testid="table-complex-with-aria-describedby-existing" aria-describedby="table-desc">
+        <tr>
+            <th scope="col">Header 1</th>
+            <th scope="col">Header 2</th>
+        </tr>
+        <tr>
+            <th scope="row">Td-1-1</th>
+            <th scope="row">Td-2-1</th>
+        </tr>
+    </table>
+    <h2>complex 7</h2>
+    <table data-testid="table-complex-with-aria-labelledby-existing" aria-labelledby="table-desc">
+        <tr>
+            <th scope="col">Header 1</th>
+            <th scope="col">Header 2</th>
+        </tr>
+        <tr>
+            <th scope="row">Td-1-1</th>
+            <th scope="row">Td-2-1</th>
+        </tr>
+    </table>
+    <h2>complex 8</h2>
+    <table data-testid="table-complex-with-aria-labelledby-not-existing" aria-labelledby="not-existing">
+        <tr>
+            <th scope="col">Header 1</th>
+            <th scope="col">Header 2</th>
+        </tr>
+        <tr>
+            <th scope="row">Td-1-1</th>
+            <th scope="row">Td-2-1</th>
+        </tr>
+    </table>
+    <h2>complex 9</h2>
+    <table data-testid="table-complex-with-aria-label-empty" aria-label="">
+        <tr>
+            <th scope="col">Header 1</th>
+            <th scope="col">Header 2</th>
+        </tr>
+        <tr>
+            <th scope="row">Td-1-1</th>
+            <th scope="row">Td-2-1</th>
+        </tr>
+    </table>
+    <h2>complex 10</h2>
+    <table data-testid="table-complex-with-aria-label" aria-label="table-desc">
+        <tr>
+            <th scope="col">Header 1</th>
+            <th scope="col">Header 2</th>
+        </tr>
+        <tr>
+            <th scope="row">Td-1-1</th>
+            <th scope="row">Td-2-1</th>
+        </tr>
+    </table>
+    <h2>complex 11</h2>
+    <table data-testid="table-complex-with-summary-but-caption" summary="">
+        <caption>dfde</caption>
+        <tr>
+            <th scope="col">Header 1</th>
+            <th scope="col">Header 2</th>
+        </tr>
+        <tr>
+            <th scope="row">Td-1-1</th>
+            <th scope="row">Td-2-1</th>
+        </tr>
+    </table>
+    <h2>complex 12</h2>
+    <div role="table" data-testid="div-complex-with-role-table">
+        <div role=row>
+            <div role=columnheader scope="col">Header 1</div>
+            <div role=columnheader>Header 2</div>
+        </div>
+        <div role=row>
+            <div role=columnheader>Td-1-1</div>
+            <div role=columnheader>Td-2-1</div>
+        </div>
+    </div>
+    <h2>complex 13</h2>
+    <div role="table" data-testid="div-complex-with-role-table-and-caption">
+        <caption>dfde</caption>
+        <div role=row>
+            <div role=columnheader scope="col">Header 1</div>
+            <div role=columnheader>Header 2</div>
+        </div>
+        <div role=row>
+            <div role=columnheader>Td-1-1</div>
+            <div role=columnheader>Td-2-1</div>
+        </div>
+    </div>
+    <h2>complex 14</h2>
+    <div role="table" data-testid="div-complex-with-role-table-and-caption-empty">
+        <caption></caption>
+        <div role=row>
+            <div role=columnheader scope="col">Header 1</div>
+            <div role=columnheader>Header 2</div>
+        </div>
+        <div role=row>
+            <div role=columnheader>Td-1-1</div>
+            <div role=columnheader>Td-2-1</div>
+        </div>
+    </div>
+    <h2>complex 15</h2>
+    <div role="table" data-testid="div-complex-with-aria-describedby-not-existing" aria-describedby="not-existing">
+        <div role=row>
+            <div role=columnheader scope="col">Header 1</div>
+            <div role=columnheader>Header 2</div>
+        </div>
+        <div role=row>
+            <div role=columnheader>Td-1-1</div>
+            <div role=columnheader>Td-2-1</div>
+        </div>
+    </div>
+    <h2>complex 16</h2>
+    <div role="table" data-testid="div-complex-with-aria-describedby-existing" aria-describedby="table-desc">
+        <div role=row>
+            <div role=columnheader scope="col">Header 1</div>
+            <div role=columnheader>Header 2</div>
+        </div>
+        <div role=row>
+            <div role=columnheader>Td-1-1</div>
+            <div role=columnheader>Td-2-1</div>
+        </div>
+    </div>
+    <h2>complex 17</h2>
+    <div role="table" data-testid="div-complex-with-aria-labelledby-not-existing" aria-labelledby="not-existing">
+        <div role=row>
+            <div role=columnheader scope="col">Header 1</div>
+            <div role=columnheader>Header 2</div>
+        </div>
+        <div role=row>
+            <div role=columnheader>Td-1-1</div>
+            <div role=columnheader>Td-2-1</div>
+        </div>
+    </div>
+    <h2>complex 18</h2>
+    <div role="table" data-testid="div-complex-with-aria-labelledby-existing" aria-labelledby="table-desc">
+        <div role=row>
+            <div role=columnheader scope="col">Header 1</div>
+            <div role=columnheader>Header 2</div>
+        </div>
+        <div role=row>
+            <div role=columnheader>Td-1-1</div>
+            <div role=columnheader>Td-2-1</div>
+        </div>
+    </div>
+    <h2>complex 19</h2>
+    <div role="table" data-testid="div-complex-with-aria-label-empty" aria-label="">
+        <div role=row>
+            <div role=columnheader scope="col">Header 1</div>
+            <div role=columnheader>Header 2</div>
+        </div>
+        <div role=row>
+            <div role=columnheader>Td-1-1</div>
+            <div role=columnheader>Td-2-1</div>
+        </div>
+    </div>
+    <h2>complex 20</h2>
+    <div role="table" data-testid="div-complex-with-aria-label" aria-label="table-desc">
+        <div role=row>
+            <div role=columnheader scope="col">Header 1</div>
+            <div role=columnheader>Header 2</div>
+        </div>
+        <div role=row>
+            <div role=columnheader>Td-1-1</div>
+            <div role=columnheader>Td-2-1</div>
+        </div>
+    </div>
+    <h2>complex 21</h2>
+    <table data-testid="table-complex-with-role-presentation" role="presentation">
+        <div role=row>
+            <div role=columnheader scope="col">Header 1</div>
+            <div role=columnheader>Header 2</div>
+        </div>
+        <div role=row>
+            <div role=columnheader>Td-1-1</div>
+            <div role=columnheader>Td-2-1</div>
+        </div>
+    </table>
+</body>
+</html>

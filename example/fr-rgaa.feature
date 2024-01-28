@@ -226,6 +226,91 @@ Fonctionnalité: Référentiel RGAA
               }
             }
           },
+          "5.1": {
+              "status": "success",
+              "tests": {
+                  "5.1.1": {
+                      "status": "success"
+                  }
+              }
+          },
+          "5.2": {
+              "status": "success",
+              "tests": {
+                  "5.2.1": {
+                      "status": "success"
+                  }
+              }
+          },
+          "5.3": {
+              "status": "success",
+              "tests": {
+                  "5.3.1": {
+                      "status": "success"
+                  }
+              }
+          },
+          "5.4": {
+              "status": "success",
+              "tests": {
+                  "5.4.1": {
+                      "status": "success"
+                  }
+              }
+          },
+          "5.5": {
+              "status": "success",
+              "tests": {
+                  "5.5.1": {
+                      "status": "success"
+                  }
+              }
+          },
+          "5.6": {
+              "status": "success",
+              "tests": {
+                  "5.6.1": {
+                      "status": "success"
+                  },
+                  "5.6.2": {
+                      "status": "success"
+                  },
+                  "5.6.3": {
+                      "status": "success"
+                  },
+                  "5.6.4": {
+                      "status": "success"
+                  }
+              }
+          },
+          "5.7": {
+              "status": "success",
+              "tests": {
+                  "5.7.1": {
+                      "status": "success"
+                  },
+                  "5.7.2": {
+                      "status": "success"
+                  },
+                  "5.7.3": {
+                      "status": "success"
+                  },
+                  "5.7.4": {
+                      "status": "success"
+                  },
+                  "5.7.5": {
+                      "status": "success"
+                  }
+              }
+          },
+          "5.8": {
+              "status": "success",
+              "tests": {
+                  "5.8.1": {
+                      "status": "success"
+                  }
+              }
+          },
           "8.1": {
             "status": "error",
             "tests": {

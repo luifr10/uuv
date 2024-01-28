@@ -5,7 +5,7 @@ import {
   ByTagQuery,
   CompliantAttributesQuery, OperatorQuery
 } from "../../../query";
-import { informativeContent } from "../selector-helper";
+import { informativeContent, siblingElement } from "../selector-helper";
 import { BySiblingQuery } from "../../../query/by-sibling.query";
 
 export default [
@@ -132,7 +132,7 @@ export default [
      new BySiblingQuery(
       new ByTagQuery([`${informativeContent.object.SELECTOR}[role=img]`]),
       false,
-      ["button", "a"]
+      [siblingElement.button.SELECTOR, "a"]
      )
     ),
     description: "object has no alternative text",
@@ -151,7 +151,7 @@ export default [
      new BySiblingQuery(
       new ByTagQuery([`${informativeContent.object.SELECTOR}[role=img]`]),
       true,
-      ["button", "a"]
+      [siblingElement.button.SELECTOR, "a"]
      )
     ),
     description: "object has sibling elements to check",

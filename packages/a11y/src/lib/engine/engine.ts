@@ -73,22 +73,31 @@ export class Engine {
         const a11YRuleResult = new A11yRuleResult(this.targetUrl, rule);
         const validation = a11YRuleResult.getOrAddValidation(rule.criterion);
         validation.status = A11yResultStatus.SUCCESS;
-        for (let i = 0; i < queryResults.length; i++) {
-            const domNode = queryResults[i].domNode;
+        for (const element of queryResults) {
+            const domNode = element.domNode;
             const selector = this.getSelector(domNode);
             const attributesToCheck: string[] = [];
             rule.attributes.forEach((attribute) => {
-                const attributeFilledWithInformation = domNode.getAttribute(attribute);
-                if (attributeFilledWithInformation) {
-                    attributesToCheck.push(` ${attribute}=${attributeFilledWithInformation}`);
+                const childData = attribute.split(":");
+                if (childData.length > 1) {
+                    domNode.childNodes.forEach((childNode) => {
+                        if (childNode.nodeName === childData[1]) {
+                            attributesToCheck.push(`${attribute}=${childNode.textContent}`);
+                        }
+                    });
+                } else {
+                    const attributeFilledWithInformation = domNode.getAttribute(attribute);
+                    if (attributeFilledWithInformation) {
+                        attributesToCheck.push(`${attribute}=${attributeFilledWithInformation}`);
+                    }
                 }
             });
             const manualValidation = a11YRuleResult.getOrAddValidation(rule.criterion);
             manualValidation.status = A11yResultStatus.MANUAL;
             manualValidation.nodesToCheckManually.push({
-                node: queryResults[i],
+                node: element,
                 selector: selector,
-                attributes: attributesToCheck.toString(),
+                attributes: attributesToCheck.join(", "),
                 html: domNode.outerHTML,
                 help: rule.id ? `${this.reference.getRuleUrl(rule.id)}` : ""
             });

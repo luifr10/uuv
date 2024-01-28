@@ -64,3 +64,4 @@ packages/intellij-plugin/.idea/
 !/packages/docs/i18n/fr/docusaurus-plugin-content-docs/current/04-wordings/01-generated-wording-description/_category_.json
 /packages/assistant/uuv/.uuv-features-gen/
 /packages/runner-cypress/reports/*
+/packages/runner-cypress/reports/a11y-report.json

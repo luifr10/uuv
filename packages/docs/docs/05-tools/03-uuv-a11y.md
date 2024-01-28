@@ -23,3 +23,8 @@ toc_max_heading_level: 4
 `❌` : the rule won't be implemented
 
 :::
+
+:::caution
+Control use :has css selector available with *firefox 121* released in *2023-12-19* and *Chrome* released in *2022* [:has browser version availability](https://developer.mozilla.org/fr/docs/Web/CSS/:has "open :has selector of Mozilla website in new window")
+Please update your firefox at least at the 121 version.
+:::

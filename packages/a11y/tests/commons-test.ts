@@ -11,7 +11,9 @@ export const injectUvvA11YAndLoadUrl = async (targetUrl = path.join(__dirname, "
     // Navigate the page to a URL
     await page.goto(`file:${targetUrl}`);
     await page.addScriptTag({ path: "bundle/uuv-a11y.bundle.js" });
-
+    page.on("console", message =>
+     console.log(`${message.type().substr(0, 3).toUpperCase()} ${message.text()}`)
+    );
     return { browser, page };
 };
 

@@ -1,7 +1,6 @@
 import { Browser, Page } from "puppeteer";
 import { injectUvvA11YAndLoadUrl } from "../../commons-test";
 import * as path from "path";
-import {EmptyAttributeSpecification, EmptyElementWithIdSpecification} from "../../../src";
 
 describe("Query - CompliantAttributes", () => {
     let browser: Browser;
@@ -37,6 +36,48 @@ describe("Query - CompliantAttributes", () => {
         }, selectors);
     }
 
+    async function executeNotUniqueIdQuery(selectors: string[]) {
+        return await page.evaluate(async (selectors) => {
+            // @ts-ignore
+            const subQuery = new uuvA11y.ByTagQuery(selectors);
+            // @ts-ignore
+            const compliantAttributesQuery = new uuvA11y.CompliantAttributesQuery(subQuery, [
+                // @ts-ignore
+                new uuvA11y.CompliantSpecification("id", new uuvA11y.NotUniqueIdAttributeSpecification())
+            ]);
+            const elements = await compliantAttributesQuery.execute();
+            return elements.map(element => element.domNode.getAttribute("data-testid"));
+        }, selectors);
+    }
+
+    async function executeNotEqualsQuery(selectors: string[]) {
+        return await page.evaluate(async (selectors) => {
+            // @ts-ignore
+            const subQuery = new uuvA11y.ByTagQuery(selectors);
+            // @ts-ignore
+            const compliantAttributesQuery = new uuvA11y.CompliantAttributesQuery(subQuery, [
+                // @ts-ignore
+                new uuvA11y.CompliantSpecification("custom-attr", new uuvA11y.NotEqualsAttributeSpecification(["maybye"]))
+            ]);
+            const elements = await compliantAttributesQuery.execute();
+            return elements.map(element => element.domNode.getAttribute("data-testid"));
+        }, selectors);
+    }
+
+    async function executeEqualsQuery(selectors: string[]) {
+        return await page.evaluate(async (selectors) => {
+            // @ts-ignore
+            const subQuery = new uuvA11y.ByTagQuery(selectors);
+            // @ts-ignore
+            const compliantAttributesQuery = new uuvA11y.CompliantAttributesQuery(subQuery, [
+                // @ts-ignore
+                new uuvA11y.CompliantSpecification("custom-attr", new uuvA11y.EqualsAttributeSpecification(["maybye"]))
+            ]);
+            const elements = await compliantAttributesQuery.execute();
+            return elements.map(element => element.domNode.getAttribute("data-testid"));
+        }, selectors);
+    }
+
     it("should return elements for not empty accessible name", async () => {
         const elementDataTestId: string[] = await executeCompliantAttributesQuery(["input[type=image]"]);
         await expect(elementDataTestId).toBeTruthy();
@@ -47,6 +88,30 @@ describe("Query - CompliantAttributes", () => {
             "img-with-empty-aria-label",
             "img-with-aria-labelledby-notExist",
             "inputimg-empty-aria-labelledby",
+        ]);
+    });
+
+    it("should return elements for not unique id", async () => {
+        const elementDataTestId: string[] = await executeNotUniqueIdQuery(["[data-testid=not-unique-id], [data-testid=unique-id]"]);
+        await expect(elementDataTestId).toBeTruthy();
+        await expect(elementDataTestId).toEqual([
+            "not-unique-id",
+        ]);
+    });
+
+    it("should return elements for not equals attribute", async () => {
+        const elementDataTestId: string[] = await executeNotEqualsQuery(["[data-testid=not-unique-id], [data-testid=unique-id]"]);
+        await expect(elementDataTestId).toBeTruthy();
+        await expect(elementDataTestId).toEqual([
+            "unique-id",
+        ]);
+    });
+
+    it("should return elements for equals attribute", async () => {
+        const elementDataTestId: string[] = await executeEqualsQuery(["[data-testid=not-unique-id], [data-testid=unique-id]"]);
+        await expect(elementDataTestId).toBeTruthy();
+        await expect(elementDataTestId).toEqual([
+            "not-unique-id",
         ]);
     });
 });

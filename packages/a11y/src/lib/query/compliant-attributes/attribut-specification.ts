@@ -30,3 +30,38 @@ export class EmptyElementWithIdSpecification implements IAttributeSpecification 
     return _.isEmpty(bindingNodeId);
   }
 }
+
+export class NotUniqueIdAttributeSpecification implements IAttributeSpecification {
+  isSatisfiedBy(element: HTMLElement, attributeName: string): boolean {
+    if (_.isNull(element.id) || _.isEmpty(element.id)) {
+      return true;
+    }
+    return $(`[id=${element.id}]`).length > 1;
+  }
+}
+
+export class NotEqualsAttributeSpecification implements IAttributeSpecification {
+  constructor(private expectedValueList: string[]) {
+  }
+
+  isSatisfiedBy(element: HTMLElement, attributeName: string): boolean {
+    const attributeValue = element.getAttribute(attributeName);
+    if (_.isNull(attributeValue)) {
+      return true;
+    }
+    return !this.expectedValueList.includes(attributeValue);
+  }
+}
+
+export class EqualsAttributeSpecification implements IAttributeSpecification {
+  constructor(private expectedValueList: string[]) {
+  }
+
+  isSatisfiedBy(element: HTMLElement, attributeName: string): boolean {
+    const attributeValue = element.getAttribute(attributeName);
+    if (_.isNull(attributeValue)) {
+      return false;
+    }
+    return this.expectedValueList.includes(attributeValue);
+  }
+}
