@@ -30,7 +30,11 @@ import {
 } from "../cucumber/step_definitions/cypress/_.common";
 import { Context } from "../cucumber/step_definitions/cypress/_context";
 import "cypress-real-events";
-import { injectUvvA11y, checkUvvA11y } from "../cucumber/step_definitions/cypress/a11y-engine";
+import {
+  injectUvvA11y,
+  checkUvvA11y,
+  showUvvA11yReport
+} from "../cucumber/step_definitions/cypress/a11y-engine";
 import { A11yReferenceEnum, A11yResult } from "@uuv/a11y";
 
 declare global {
@@ -57,6 +61,8 @@ declare global {
       injectUvvA11y(): Cypress.Chainable<void>;
 
       checkUvvA11y(reference: A11yReferenceEnum, expectedResult?: any, isContainsMode?: boolean): Cypress.Chainable<A11yResult>;
+
+      showUvvA11yReport(reference: A11yReferenceEnum): Cypress.Chainable<A11yResult[]>;
     }
   }
 }
@@ -72,6 +78,7 @@ Cypress.Commands.add("uuvFindAllByRole", uuvFindAllByRole);
 Cypress.Commands.add("uuvFoundedElement", { prevSubject: true }, uuvFoundedElement);
 Cypress.Commands.add("injectUvvA11y", injectUvvA11y);
 Cypress.Commands.add("checkUvvA11y", checkUvvA11y);
+Cypress.Commands.add("showUvvA11yReport", showUvvA11yReport);
 
 const chaiSubset = require("chai-subset");
 chai.use(chaiSubset);

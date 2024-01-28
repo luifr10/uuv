@@ -26,6 +26,7 @@ import {
 import { tap } from "rxjs";
 import ObjectLike = Cypress.ObjectLike;
 import $ from "jquery";
+import { getA11yResultFilePath, shouldGenerateA11yReport } from "./_.common";
 
 export const injectUvvA11y = () => {
 
@@ -49,12 +50,27 @@ export const checkUvvA11y = (reference: A11yReferenceEnum, expectedResult?: any,
             return rgaaChecker?.validate()
                 .pipe(
                     tap((result: A11yResult) => {
+                        if (shouldGenerateA11yReport()) {
+                            storeA11yResult(result);
+                        }
                         logAllA11yRuleResult(result);
                         assertWithExpectedResult(result, expectedResult, isContainsMode);
                     })
                 )
                 .toPromise();
         });
+};
+
+export const showUvvA11yReport = (reference: A11yReferenceEnum) => {
+    const a11yReport = readA11yReport();
+    const log = buildCypressLog(
+        "a11y synthesis",
+        reference,
+        {
+            reference: reference,
+            nodes: a11yReport
+        });
+    log.finish();
 };
 
 function getA11yCheckerForReference(win: any, reference: A11yReferenceEnum, url): A11yChecker | undefined {
@@ -155,4 +171,25 @@ function getConsoleDetails(reference: A11yReference, ruleResult: A11yRuleResult,
         Help: `${ruleResult.rule.help}, ${reference.getRuleUrl(ruleResult.rule.id)}`,
         nodes: nodes
     };
+}
+
+function storeA11yResult(a11yResult: A11yResult) {
+    const resultToAdd = {
+        target: Cypress.currentTest,
+        a11yResult,
+    };
+    return readA11yReport().then((list) => {
+        list.features.push(resultToAdd);
+        writeA11yReport(list);
+    });
+}
+
+function readA11yReport() {
+    const filePath = getA11yResultFilePath();
+    return cy.readFile(filePath);
+}
+
+function writeA11yReport(data: any) {
+    const filePath = getA11yResultFilePath();
+    return cy.writeFile(filePath, data, { flag: "w" });
 }

@@ -20,11 +20,17 @@ const chalk = require("chalk");
 
 let mode = "--run";
 let command;
+const UUV_A11Y_REPORT_PATH = "./reports/a11y-report.json";
+
 command = () => {
     return cypress
         .run({
             project: ".",
-            browser: "chrome"
+            browser: "chrome",
+            env: {
+                uuvA11yReportFilePath: UUV_A11Y_REPORT_PATH,
+                generateA11yReport: true
+            }
         });
 };
 
@@ -40,12 +46,9 @@ if (process.argv.length === 2) {
 testUUV();
 
 async function testUUV() {
-    const handler = require("serve-handler");
-    const http = require("http");
     const Os = require("os");
     const isAdmin = require("is-admin");
     const chalk = require("chalk");
-    const port = 9001;
     const figlet = require("figlet");
 
     figlet.text("UUV", {
@@ -73,7 +76,11 @@ async function testUUV() {
             return cypress
                 .open({
                     project: ".",
-                    browser: "chrome"
+                    browser: "chrome",
+                    env: {
+                        uuvA11yReportFilePath: UUV_A11Y_REPORT_PATH,
+                        generateA11yReport: false
+                    }
                 });
         };
     }

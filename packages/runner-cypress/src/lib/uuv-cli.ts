@@ -27,6 +27,7 @@ import { UuvCustomFormatter } from "../cucumber/uuv-custom-formatter";
 
 
 export async function main() {
+  const REPORT_DIR = "./uuv/reports";
   const JSON_REPORT_DIR = "./uuv/reports/e2e/json";
   const HTML_REPORT_DIR = "./uuv/reports/e2e/html";
   const CUCUMBER_MESSAGES_FILE = "./uuv/cucumber-messages.ndjson";
@@ -37,6 +38,9 @@ export async function main() {
   const argv = minimist(process.argv.slice(2));
   const command = findTargetCommand(argv);
   console.info(chalk.blueBright(`Executing UUV command ${command}...`));
+  if (!fs.existsSync(REPORT_DIR)) {
+    fs.mkdirSync(REPORT_DIR);
+  }
   switch (command) {
     case "open":
       await openCypress(argv);
@@ -54,6 +58,8 @@ export async function main() {
     const browser = argv.browser ? argv.browser : "chrome";
     const env = argv.env ? JSON.parse(argv.env.replace(/'/g, "\"")) : {};
     const targetTestFile = argv.targetTestFile ? argv.targetTestFile : null;
+    env.uuvA11yReportFilePath = `${process.cwd()}/${REPORT_DIR}/a11y-report.json`;
+    env.generateA11yReport = argv.generateA11yReport;
 
     console.debug("Variables: ");
     console.debug(`  -> browser: ${browser}`);

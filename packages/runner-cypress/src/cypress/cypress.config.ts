@@ -1,5 +1,6 @@
 import * as webpack from "@cypress/webpack-preprocessor";
 import { addCucumberPreprocessorPlugin, beforeRunHandler, afterRunHandler, beforeSpecHandler, afterSpecHandler } from "@badeball/cypress-cucumber-preprocessor";
+import fs from "fs";
 
 export async function setupNodeEvents (
   on: Cypress.PluginEvents,
@@ -49,6 +50,12 @@ export async function setupNodeEvents (
 
   on("before:run", async () => {
     await beforeRunHandler(config);
+    const a11yReportFilePath = config.env["uuvA11yReportFilePath"];
+    const generateA11yReport = config.env["generateA11yReport"];
+    clearA11yReport(a11yReportFilePath);
+    if (generateA11yReport === true) {
+      initA11yReport(a11yReportFilePath);
+    }
     logTeamCity("##teamcity[progressStart 'Running UUV Tests']");
   });
 
@@ -108,6 +115,20 @@ export async function setupNodeEvents (
 
   function teamcityAddCustomField(fieldName, value) {
     return `${fieldName}='${value}'`;
+  }
+
+  function clearA11yReport(reportFilePath: string) {
+    if (fs.existsSync(reportFilePath)) {
+      fs.rmSync(reportFilePath);
+    }
+  }
+
+  function initA11yReport(reportFilePath: string) {
+    const emptyReport = {
+      date: (new Date()).toISOString(),
+      features: []
+    };
+    fs.writeFileSync(reportFilePath, JSON.stringify(emptyReport, null, 4), { flag: "w" });
   }
 
   // Make sure to return the config object as it might have been modified by the plugin.

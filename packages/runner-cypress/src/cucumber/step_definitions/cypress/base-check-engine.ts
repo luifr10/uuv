@@ -20,13 +20,13 @@ import { Method } from "cypress/types/net-stubbing";
 import { KEY_PRESS } from "@uuv/runner-commons";
 import { key } from "@uuv/runner-commons/wording/web";
 import {
-    assertTextContent,
-    findWithRoleAndName,
-    findWithRoleAndNameAndContent,
-    findWithRoleAndNameAndContentDisable,
-    findWithRoleAndNameAndContentEnable,
-    notFoundWithRoleAndName,
-    withinRoleAndName
+  assertTextContent,
+  findWithRoleAndName,
+  findWithRoleAndNameAndContent,
+  findWithRoleAndNameAndContentDisable,
+  findWithRoleAndNameAndContentEnable,
+  notFoundWithRoleAndName,
+  withinRoleAndName
 } from "./core-engine";
 import { A11yReferenceEnum } from "@uuv/a11y";
 
@@ -165,7 +165,7 @@ When(`${key.when.withinElement.selector}`, function(selector: string) {
   const foundedElement = cy.uuvGetContext().then(context => {
     const parentElement = context.focusedElement;
     if (parentElement) {
-      console.log("parentElement: ", parentElement);
+      // console.log("parentElement: ", parentElement);
       return parentElement.should("exist").within(() => {
         cy.get(selector).as("foundedChildElement");
       });
@@ -527,23 +527,23 @@ Then(
 Then(
  `${key.then.a11y.rgaa.default}`,
  async function() {
-     cy.injectUvvA11y();
-     cy.checkUvvA11y(A11yReferenceEnum.RGAA);
+   cy.injectUvvA11y();
+   cy.checkUvvA11y(A11yReferenceEnum.RGAA);
  });
 
 Then(
-    `${key.then.a11y.rgaa.defaultWithResult}`,
-    async function(expectedResult: string) {
-        cy.injectUvvA11y();
-        cy.checkUvvA11y(A11yReferenceEnum.RGAA, JSON.parse(expectedResult));
-});
+ `${key.then.a11y.rgaa.defaultWithResult}`,
+ async function(expectedResult: string) {
+   cy.injectUvvA11y();
+   cy.checkUvvA11y(A11yReferenceEnum.RGAA, JSON.parse(expectedResult));
+ });
 
 Then(
-    `${key.then.a11y.rgaa.defaultWithResultContaining}`,
-    async function(expectedResult: string) {
-        cy.injectUvvA11y();
-        cy.checkUvvA11y(A11yReferenceEnum.RGAA, JSON.parse(expectedResult), true);
-    });
+ `${key.then.a11y.rgaa.defaultWithResultContaining}`,
+ async function(expectedResult: string) {
+   cy.injectUvvA11y();
+   cy.checkUvvA11y(A11yReferenceEnum.RGAA, JSON.parse(expectedResult), true);
+ });
 
 function pressKey(context: Cypress.Chainable<JQuery<HTMLElement>>, key: string) {
   switch (key) {
