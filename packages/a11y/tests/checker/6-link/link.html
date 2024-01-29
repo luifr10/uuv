@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Link</title>
+    <script
+            src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
+            integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8="
+            crossorigin="anonymous"></script>
+</head>
+<body>
+    <a href="#" data-testid="link-text">a link</a>
+    <a href="#" data-testid="link-with-img"><img /></a>
+    <a href="#" data-testid="link-with-img-and-alt"><img alt="my image"/></a>
+    <a href="#" data-testid="link-with-role-img"><span role="img"></span></a>
+    <a href="#" data-testid="link-with-area"><area href=""></a>
+    <a href="#" data-testid="link-with-object"><object></object></a>
+    <a href="#" data-testid="link-with-canvas"><canvas></canvas></a>
+    <a href="#" data-testid="link-with-svg"><svg></svg></a>
+
+    <span role="link" data-testid="role-link-text" href="">a link</span>
+    <span role="link" data-testid="role-link-with-img"><img /></span>
+    <span role="link" data-testid="role-link-with-img-and-alt"><img alt="my image"/></span>
+    <span role="link" data-testid="role-link-with-role-img"><span role="img"></span></span>
+    <span role="link" data-testid="role-link-with-area"><area href=""></span>
+    <span role="link" data-testid="role-link-with-object"><object></object></span>
+    <span role="link" data-testid="role-link-with-canvas"><canvas></canvas></span>
+    <span role="link" data-testid="role-link-with-svg"><svg></svg></span>
+
+    <svg data-testid="svg-without-accessible-name"><a href=""></a></svg>
+
+    <svg data-testid="svg-with-link-with-href"><title>My Svg title</title><text>svg title</text><a href=""></a></svg>
+    <svg data-testid="svg-with-link-with-href-wrong-accname"><title>title</title><text>svg title</text><a href=""></a></svg>
+    <svg data-testid="svg-with-link-with-href-no-accname"><text>svg title</text><a href=""></a></svg>
+    <svg data-testid="svg-with-link-with-href-no-text"><title>title</title><a href=""></a></svg>
+    <svg data-testid="svg-with-link-with-xlink-href"><a xlink-href=""></a></svg>
+<!--     FIXME active this verification when implement issue #482-->
+    <!--    <svg data-testid="svg-with-link-with-aria-label"><a aria-label="my link" href=""></a></svg>-->
+<!--    <label id="svg">My link</label>-->
+<!--    <svg data-testid="svg-with-link-with-aria-labelledby"><a aria-labelledby="svg" href=""></a></svg>-->
+
+    <a href="#" data-testid="link-with-aria-label" aria-label="Simple">Simple link</a>
+    <a href="#" data-testid="link-empty-with-aria-label" aria-label="Simple"></a>
+    <a href="#" data-testid="link-with-aria-label-revelant" aria-label="My Simple link">Simple link</a>
+
+    <a href="#" data-testid="link-composite-text-img"><img href="icon-url">a link</a>
+    <a href="#" data-testid="link-composite-text-with-role-img"><span role="img"></span>a link</a>
+    <a href="#" data-testid="link-composite-text-with-object"><object></object>a link</a>
+    <a href="#" data-testid="link-composite-text-with-canvas"><canvas></canvas>a link</a>
+    <a href="#" data-testid="link-composite-text-with-svg"><svg></svg>a link</a>
+
+</body>
+</html>

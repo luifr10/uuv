@@ -1,9 +1,10 @@
 import {
+  AccessibleNameNotContainsVisibleTextSpecification,
   EmptyAttributeSpecification,
-  EmptyElementWithIdSpecification,
+  EmptyElementWithIdSpecification, EmptyInnerTextSpecification,
   EqualsAttributeSpecification,
   IAttributeSpecification,
-  NotEmptyAttributeSpecification,
+  NotEmptyAttributeSpecification, NotEmptyInnerTextSpecification,
   NotEqualsAttributeSpecification,
   NotUniqueIdAttributeSpecification
 } from "./attribut-specification";
@@ -73,6 +74,36 @@ export class AttributeChecker {
     return new CompliantSpecification(
         attributeName,
         new EqualsAttributeSpecification(expectedValueList)
+    );
+  }
+
+  /**
+   * Check that html element accessible name contains visible text ignoring case
+   */
+  static accessibleNameNotContainsVisibleText() {
+    return new CompliantSpecification(
+        "accessibleName",
+        new AccessibleNameNotContainsVisibleTextSpecification()
+    );
+  }
+
+  /**
+   * Check that html element have empty text
+   */
+  static emptyText() {
+    return new CompliantSpecification(
+        "text",
+        new EmptyInnerTextSpecification()
+    );
+  }
+
+  /**
+   * Check that html element have not empty text
+   */
+  static notEmptyText() {
+    return new CompliantSpecification(
+        "text",
+        new NotEmptyInnerTextSpecification()
     );
   }
 }

@@ -78,6 +78,20 @@ describe("Query - CompliantAttributes", () => {
         }, selectors);
     }
 
+    async function executeAccessibleNameNotContainsVisibleTextQuery(selectors: string[]) {
+        return await page.evaluate(async (selectors) => {
+            // @ts-ignore
+            const subQuery = new uuvA11y.ByTagQuery(selectors);
+            // @ts-ignore
+            const compliantAttributesQuery = new uuvA11y.CompliantAttributesQuery(subQuery, [
+                // @ts-ignore
+                new uuvA11y.CompliantSpecification("accessibleName", new uuvA11y.AccessibleNameNotContainsVisibleTextSpecification())
+            ]);
+            const elements = await compliantAttributesQuery.execute();
+            return elements.map(element => element.domNode.getAttribute("data-testid"));
+        }, selectors);
+    }
+
     it("should return elements for not empty accessible name", async () => {
         const elementDataTestId: string[] = await executeCompliantAttributesQuery(["input[type=image]"]);
         await expect(elementDataTestId).toBeTruthy();
@@ -112,6 +126,14 @@ describe("Query - CompliantAttributes", () => {
         await expect(elementDataTestId).toBeTruthy();
         await expect(elementDataTestId).toEqual([
             "not-unique-id",
+        ]);
+    });
+
+    it("should return elements for accessibleNameNotContainsVisibleText attribute", async () => {
+        const elementDataTestId: string[] = await executeAccessibleNameNotContainsVisibleTextQuery(["a"]);
+        await expect(elementDataTestId).toBeTruthy();
+        await expect(elementDataTestId).toEqual([
+            "link-with-aria-label-ko",
         ]);
     });
 });

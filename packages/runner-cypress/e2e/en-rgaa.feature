@@ -180,6 +180,34 @@ Feature: RGAA Reference
             }
         }
     },
+    "6.1": {
+        "status": "success",
+        "tests": {
+            "6.1.1": {
+                "status": "success"
+            },
+            "6.1.2": {
+                "status": "success"
+            },
+            "6.1.3": {
+                "status": "success"
+            },
+            "6.1.4": {
+                "status": "success"
+            },
+            "6.1.5": {
+                "status": "success"
+            }
+        }
+    },
+    "6.2": {
+        "status": "success",
+        "tests": {
+            "6.2.1": {
+                "status": "success"
+            }
+        }
+    },
     "8.1": {
         "status": "error",
         "tests": {

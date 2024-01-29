@@ -1,6 +1,7 @@
 import _ from "lodash";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const $ = require("jquery/dist/jquery.min");
+import { computeAccessibleName } from "dom-accessibility-api";
 
 export interface IAttributeSpecification {
   isSatisfiedBy(element: HTMLElement, attributeName: string): boolean;
@@ -63,5 +64,29 @@ export class EqualsAttributeSpecification implements IAttributeSpecification {
       return false;
     }
     return this.expectedValueList.includes(attributeValue);
+  }
+}
+
+export class AccessibleNameNotContainsVisibleTextSpecification implements IAttributeSpecification {
+  isSatisfiedBy(element: HTMLElement, attributeName: string): boolean {
+    const visibleText = element.textContent;
+    if (_.isNull(visibleText) || _.isEmpty(visibleText)) {
+      return false;
+    }
+    const accessibleName = computeAccessibleName(element);
+    console.debug("visibleText", visibleText, "accessibleName", accessibleName);
+    return accessibleName?.toLowerCase().indexOf(visibleText.toLowerCase()) === -1;
+  }
+}
+
+export class EmptyInnerTextSpecification implements IAttributeSpecification {
+  isSatisfiedBy(element: HTMLElement, attributeName: string): boolean {
+    return _.isEmpty(element.textContent);
+  }
+}
+
+export class NotEmptyInnerTextSpecification implements IAttributeSpecification {
+  isSatisfiedBy(element: HTMLElement, attributeName: string): boolean {
+    return !_.isEmpty(element.textContent);
   }
 }
