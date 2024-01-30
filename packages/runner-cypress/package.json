@@ -34,7 +34,6 @@
   ],
   "scripts": {
     "generate:step-definitions": "ts-node generate-step-definitions.ts",
-    "generate:step-definitions-documentation": "ts-node generate-step-definitions-documentation.ts",
     "package": "npm pack --pack-destination=\"../../dist/packages\"",
     "postinstall": "node postinstall.js",
     "test:run": "node test.js --run",

@@ -14,5 +14,4 @@
 */
 
 import { runGenerateDoc } from "@uuv/runner-commons";
-
 runGenerateDoc(`${__dirname}/../docs`);

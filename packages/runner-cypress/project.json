@@ -29,11 +29,8 @@
         "{projectRoot}/src/cucumber/step_definitions/cypress/generated"
       ],
       "options": {
-        "script": "generate:step-definitions-documentation"
-      },
-      "dependsOn": [
-        "generate:step-definitions"
-      ]
+        "script": "generate:step-definitions"
+      }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",

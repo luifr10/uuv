@@ -1,8 +1,31 @@
 {
-  // This file is not used in compilation. It is here just for a nice editor experience.
-  "extends": "@tsconfig/docusaurus/tsconfig.json",
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "baseUrl": ".",
+    "module": "commonjs",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
     "resolveJsonModule": true
+  },
+  "files": [],
+  "include": [
+    "**/*"
+  ],
+  "exclude": ["./generate-step-definitions-documentation.ts"],
+  "references": [
+    {
+      "path": "./tsconfig.docs.json"
+    },
+    {
+      "path": "./tsconfig.lib.json"
+    }
+  ],
+  "ts-node": {
+    "require": [
+      "tsconfig-paths/register"
+    ]
   }
 }

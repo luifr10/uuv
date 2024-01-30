@@ -123,6 +123,22 @@
                     }
                   ],
                   "countMatches": true
+                },
+                {
+                  "files": [
+                    "packages/docs/package.json"
+                  ],
+                  "from": "\"@uuv/runner-commons\": \".*\"",
+                  "to": "\"@uuv/runner-commons\": \"${nextRelease.version}\"",
+                  "results": [
+                    {
+                      "file": "packages/docs/package.json",
+                      "hasChanged": true,
+                      "numMatches": 1,
+                      "numReplacements": 1
+                    }
+                  ],
+                  "countMatches": true
                 }
               ]
             }
