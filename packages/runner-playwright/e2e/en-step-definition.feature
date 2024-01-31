@@ -43,7 +43,7 @@ Feature: English Test Step Definition
     Then I should see an element with role "textbox" and name "Last name" and content "Doe" not disabled
 
   Scenario: key.then.list.withNameAndContent
-    Then I should see elements of the list with name "test-list"
+    Then I should see a list named "test-list" and containing
       | a |
       | b |
       | c |

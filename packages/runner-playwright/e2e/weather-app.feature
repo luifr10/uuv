@@ -18,7 +18,7 @@ Feature: Weather App example
     # Click on <Get started> button
     When I click on button named "Get started"
     # Checks the list of available towns.
-    Then I should see elements of the list with name "Available Towns"
+    Then I should see a list named "Available Towns" and containing
       | Douala  |
       | Tunis   |
       | Limoges |
@@ -42,7 +42,7 @@ Feature: Weather App example
     # Click on <Filter> button
     And I click on button named "Filter"
     # Checks the list of available towns.
-    Then I should see elements of the list with name "Available Towns"
+    Then I should see a list named "Available Towns" and containing
       | Tunis   |
       | Limoges |
 
@@ -50,7 +50,7 @@ Feature: Weather App example
     # Click on <Get started> button
     When I click on button named "Get started"
     Then within the element with selector "body"
-    And I should see elements of the list with name "Available Towns"
+    And I should see a list named "Available Towns" and containing
       | Douala  |
       | Tunis   |
       | Limoges |

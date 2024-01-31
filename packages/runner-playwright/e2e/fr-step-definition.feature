@@ -45,7 +45,7 @@ Fonctionnalité: Dictionnaire français de phrases de base utilisant playwright
     Alors je dois voir un élément avec le rôle "textbox" et le nom "Last name" et pour contenu "Doe" actif
 
   Scénario: key.then.list.withNameAndContent
-    Alors je dois voir des elements de la liste ayant pour nom "test-list"
+    Alors je dois voir une liste nommée "test-list" et contenant
       | a |
       | b |
       | c |

@@ -56,7 +56,7 @@ Feature: Accessibility Step Definition
       And I press 2 times on "{tab}"
       And I click
       And I reset context
-      Then I should see elements of the list with name "Available Towns"
+      Then I should see a list named "Available Towns" and containing
         | Tunis   |
         | Limoges |
 

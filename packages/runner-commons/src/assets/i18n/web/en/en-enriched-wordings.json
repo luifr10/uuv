@@ -3,37 +3,44 @@
     {
       "key": "key.when.withinElement.roleAndName",
       "description": "Selects the element whose [accessible role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types) and accessible [name](https://russmaxdesign.github.io/html-elements-names/) are specified <br />⚠ remember to deselect the element with <b>[I reset context](#i-reset-context)</b> if you're no longer acting on it",
-      "wording": "within $indefiniteArticle $roleName named {string}"
+      "wording": "within $indefiniteArticle $roleName named {string}",
+      "section": "general"
     },
     {
       "key": "key.then.element.withRoleAndName",
       "description": "Checks that an Html element exists with the specified [accessible role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types) and [name](https://russmaxdesign.github.io/html-elements-names/)",
-      "wording": "I should see $indefiniteArticle $roleName named {string}"
+      "wording": "I should see $indefiniteArticle $roleName named {string}",
+      "section": "general"
     },
     {
       "key": "key.then.element.not.withRoleAndName",
       "description": "Checks that an Html element does not exists with the specified [accessible role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types) and [name](https://russmaxdesign.github.io/html-elements-names/)",
-      "wording": "I should not see $indefiniteArticle $roleName named {string}"
+      "wording": "I should not see $indefiniteArticle $roleName named {string}",
+      "section": "general"
     },
     {
       "key": "key.then.element.withRoleAndNameAndContent",
       "description": "Checks that an Html element exists with the specified [accessible role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types), [name](https://russmaxdesign.github.io/html-elements-names/) and content",
-      "wording": "I should see $indefiniteArticle $roleName named {string} and containing {string}"
+      "wording": "I should see $indefiniteArticle $roleName named {string} and containing {string}",
+      "section": "contains"
     },
     {
       "key": "key.then.element.withRoleAndNameAndContentDisabled",
       "description": "Checks that an Html element exists with the specified [accessible role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types), [name](https://russmaxdesign.github.io/html-elements-names/) and content, and with the disabled attribute set to true",
-      "wording": "I should see $indefiniteArticle $roleName named {string} and containing {string} disabled"
+      "wording": "I should see $indefiniteArticle $roleName named {string} and containing {string} disabled",
+      "section": "contains"
     },
     {
       "key": "key.then.element.withRoleAndNameAndContentEnabled",
       "description": "Checks that an Html element exists with the specified [accessible role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types), [name](https://russmaxdesign.github.io/html-elements-names/) and content, and with the disabled attribute set to false",
-      "wording": "I should see $indefiniteArticle $roleName named {string} and containing {string} enabled"
+      "wording": "I should see $indefiniteArticle $roleName named {string} and containing {string} enabled",
+      "section": "contains"
     },
     {
       "key": "key.when.type",
       "description": "Writes the sentence given as a parameter inside the specified field (useful for example to fill in a form field)",
-      "wording": "I type the sentence {string} in $definiteArticle $roleName named {string}"
+      "wording": "I type the sentence {string} in $definiteArticle $roleName named {string}",
+      "section": "type"
     }
   ]
 }

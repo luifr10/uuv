@@ -25,6 +25,8 @@ import {
 } from "./core-engine";
 import { key } from "@uuv/runner-commons/wording/web";
 
+// Begin of General Section
+
 /**
  * key.when.withinElement.roleAndName.description
  * */
@@ -49,12 +51,18 @@ Then(
     }
 );
 
+// End of General Section
+// Begin of Type Section
+
 /**
  * key.when.type.description
  * */
 When(`${key.when.type}`, function(textToType: string, name: string) {
     cy.uuvFindByRole("$roleId", { name: name }).uuvFoundedElement().type(textToType);
 });
+
+// End of Type Section
+// Begin of Content Section
 
 /**
  * key.then.element.withRoleAndNameAndContent.description
@@ -85,3 +93,5 @@ Then(
         findWithRoleAndNameAndContentEnable("$roleId", name, expectedTextContent);
     }
 );
+
+// End of Content Section

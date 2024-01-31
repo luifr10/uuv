@@ -156,8 +156,8 @@
  },
  {
   "key": "key.then.list.withNameAndContent",
-  "description": "Checks that there is a list with the specified [name](https://russmaxdesign.github.io/html-elements-names/) and content.<br/> See this <a href='https://github.com/Orange-OpenSource/uuv/blob/9e3c9914420c6d527f7ad8b0017a0f8e26250f86/example/weather-app.feature#L17'>example</a>",
-  "wording": "I should see elements of the list with name {string}"
+  "description": "Checks that there is a list with the specified [name](https://russmaxdesign.github.io/html-elements-names/) containing list items.<br/> <u>Example</u>\\n```gherkin\\nThen I should see a list named \"test-list\" and containing\\n| First element   |\\n| Second element  |\\n| Third element   |\\n```",
+  "wording": "I should see a list named {string} and containing"
  },
  {
   "key": "key.then.element.not.withContent",

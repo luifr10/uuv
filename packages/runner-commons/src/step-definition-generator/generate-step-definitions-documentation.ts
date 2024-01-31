@@ -17,6 +17,7 @@ import { LANG } from "./lang-enum";
 import fs from "fs";
 import { Common, getDefinedRoles } from "./common";
 import * as path from "path";
+import { AccessibleRole } from "./accessible-role";
 
 
 export class AutocompletionSuggestion {
@@ -151,7 +152,8 @@ export function runGenerateDoc(destDir: string) {
                 wordingsEnrichedJson.enriched,
                 "key.given",
                 undefined,
-                "####"
+                "####",
+                role
             );
             if (enrichedGiven.length > 1) {
                 rows.push(...enrichedGiven);
@@ -161,7 +163,8 @@ export function runGenerateDoc(destDir: string) {
                 wordingsEnrichedJson.enriched,
                 "key.when",
                 undefined,
-                "####"
+                "####",
+                role
             );
             if (enrichedWhen.length > 1) {
                 rows.push(...enrichedWhen);
@@ -171,7 +174,8 @@ export function runGenerateDoc(destDir: string) {
                 wordingsEnrichedJson.enriched,
                 "key.then",
                 undefined,
-                "####"
+                "####",
+                role
             );
             if (enrichedThen.length > 1) {
                 rows.push(...enrichedThen);
@@ -191,7 +195,8 @@ export function runGenerateDoc(destDir: string) {
         wordingsJson: any,
         stepKey: string,
         stepTitle: string | undefined,
-        level: string | undefined = "###"
+        level: string | undefined = "###",
+        role?: AccessibleRole
     ):{
         step: string[],
         autocompletionSuggestions: AutocompletionSuggestion[]
@@ -202,10 +207,20 @@ export function runGenerateDoc(destDir: string) {
             step.push(stepTitle);
         }
         wordingsJson.forEach((conf) => {
-            if (conf.key.startsWith(stepKey)) {
+            if (conf.key.startsWith(stepKey) && shouldGenerate(conf, role)) {
                 const wording = `${level} ${conf.wording}`;
                 step.push(wording);
-                step.push(`> ${conf.description ?? ""}\n`);
+
+                conf.description?.split("\\n").forEach((descriptionLine, index, array) => {
+                    if (index === 0) {
+                        step.push(`> ${descriptionLine ?? ""}`);
+                    } else if (index === array.length - 1) {
+                        step.push(` ${descriptionLine ?? ""}\n`);
+                    } else {
+                        step.push(` ${descriptionLine ?? ""}`);
+                    }
+                });
+
                 autocompletionSuggestion.push({
                     suggestion: conf.wording
                      .replaceAll("\\", ""),
@@ -224,6 +239,20 @@ export function runGenerateDoc(destDir: string) {
             step,
             autocompletionSuggestions: autocompletionSuggestion
         };
+    }
+
+    function shouldGenerate(wordingsConf: any, role?: AccessibleRole) {
+        if (role === undefined) {
+            return true;
+        }
+        switch (wordingsConf.section) {
+            case "contains" :
+                return role.shouldGenerateContainsSentence;
+            case "type" :
+                return role.shouldGenerateTypeSentence;
+            default :
+                return true;
+        }
     }
 
     function writeWordingFile(generatedFile, data, lang, indexOfFile) {

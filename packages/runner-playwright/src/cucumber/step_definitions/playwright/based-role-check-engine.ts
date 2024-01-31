@@ -27,6 +27,8 @@ import {
 import { World } from "../../preprocessor/run/world";
 import { expect } from "@playwright/test";
 
+// Begin of General Section
+
 When(`${key.when.withinElement.roleAndName}`, async function (this: World, name: string) {
     return await withinRoleAndName(this, "$roleId", name);
 });
@@ -42,6 +44,9 @@ Then(
     }
 );
 
+// End of General Section
+// Begin of Type Section
+
 When(`${key.when.type}`, async function(this: World, textToType: string, name: string) {
     await getPageOrElement(this).then(async (element) => {
         const byRole = await element.getByRole("$roleId", { name: name, includeHidden: true, exact: true });
@@ -51,6 +56,8 @@ When(`${key.when.type}`, async function(this: World, textToType: string, name: s
     });
 });
 
+// End of Type Section
+// Begin of Content Section
 
 Then(
     `${key.then.element.withRoleAndNameAndContent}`,
@@ -72,3 +79,5 @@ Then(
         await findWithRoleAndNameAndContentEnable(this, "$roleId", name, expectedTextContent);
     }
 );
+
+// End of Content Section

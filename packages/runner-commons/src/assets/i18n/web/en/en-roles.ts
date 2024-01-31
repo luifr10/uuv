@@ -11,19 +11,15 @@ enum INDEFINITE_ARTICLE {
 
 
 class EnAccessibleRole extends AccessibleRole {
-    definiteArticle: DEFINITE_ARTICLE = DEFINITE_ARTICLE.THE;
-    indefiniteArticle: INDEFINITE_ARTICLE = INDEFINITE_ARTICLE.A;
-
-    constructor(id: string, name: string, definiteArticle?: DEFINITE_ARTICLE, indefiniteArticle?: INDEFINITE_ARTICLE) {
+    constructor(
+        override id: string,
+        override name: string,
+        private definiteArticle: DEFINITE_ARTICLE = DEFINITE_ARTICLE.THE,
+        private indefiniteArticle: INDEFINITE_ARTICLE = INDEFINITE_ARTICLE.A,
+        override shouldGenerateTypeSentence: boolean = true,
+        override shouldGenerateContainsSentence: boolean = true
+    ) {
         super();
-        this.id = id;
-        this.name = name;
-        if (definiteArticle) {
-            this.definiteArticle = definiteArticle;
-        }
-        if (indefiniteArticle) {
-            this.indefiniteArticle = indefiniteArticle;
-        }
     }
 
     public static from(input: any) : AccessibleRole {
@@ -32,6 +28,8 @@ class EnAccessibleRole extends AccessibleRole {
             input.name,
             input.definiteArticle,
             input.indefiniteArticle,
+            input.shouldGenerateTypeSentence,
+            input.shouldGenerateContainsSentence,
         );
     }
 

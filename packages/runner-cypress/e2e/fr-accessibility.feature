@@ -57,7 +57,7 @@ Fonctionnalité: Accessibility Step Definition
       Et j'appuie 2 fois sur "{tab}"
       Et je clique
       Et je reinitialise le contexte
-      Alors je dois voir des elements de la liste ayant pour nom "Available Towns"
+      Alors je dois voir une liste nommée "Available Towns" et contenant
         | Tunis   |
         | Limoges |
 

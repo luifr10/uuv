@@ -12,15 +12,15 @@ enum FR_INDEFINITE_ARTICLE {
 }
 
 class FrAccessibleRole extends AccessibleRole {
-    definiteArticle!: FR_DEFINITE_ARTICLE;
-    indefiniteArticle!: FR_INDEFINITE_ARTICLE;
-
-    constructor(id: string, name: string, definiteArticle: FR_DEFINITE_ARTICLE, indefiniteArticle: FR_INDEFINITE_ARTICLE) {
+    constructor(
+        override id: string,
+        override name: string,
+        private definiteArticle: FR_DEFINITE_ARTICLE,
+        private indefiniteArticle: FR_INDEFINITE_ARTICLE,
+        override shouldGenerateTypeSentence: boolean = true,
+        override shouldGenerateContainsSentence: boolean = true
+    ) {
         super();
-        this.id = id;
-        this.name = name;
-        this.definiteArticle = definiteArticle;
-        this.indefiniteArticle = indefiniteArticle;
     }
 
     override getDefiniteArticle(): string {
@@ -559,4 +559,11 @@ export const FR_ROLES: AccessibleRole[] = [
         definiteArticle: FR_DEFINITE_ARTICLE.LA,
         indefiniteArticle: FR_INDEFINITE_ARTICLE.UNE
     }
-].map(role =>new FrAccessibleRole(role.id, role.name, role.definiteArticle, role.indefiniteArticle));
+].map((role: any) => new FrAccessibleRole(
+    role.id,
+    role.name,
+    role.definiteArticle,
+    role.indefiniteArticle,
+    role.shouldGenerateContainsSentence,
+    role.shouldGenerateContainsSentence
+));
