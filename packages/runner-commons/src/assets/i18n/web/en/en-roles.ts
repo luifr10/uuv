@@ -82,7 +82,7 @@ export const EN_ROLES: AccessibleRole[] = [
     { id: "input", name: "entry", indefiniteArticle: INDEFINITE_ARTICLE.AN },
     { id: "landmark", name: "landmark" },
     { id: "link", name: "link" },
-    { id: "list", name: "list" },
+    { id: "list", name: "list", shouldGenerateContainsSentence: false, shouldGenerateTypeSentence: false },
     { id: "listbox", name: "list box" },
     { id: "listitem", name: "list item" },
     { id: "log", name: "log" },

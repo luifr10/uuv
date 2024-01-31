@@ -239,7 +239,9 @@ export const FR_ROLES: AccessibleRole[] = [
         id: "list",
         name: "liste",
         definiteArticle: FR_DEFINITE_ARTICLE.LA,
-        indefiniteArticle: FR_INDEFINITE_ARTICLE.UNE
+        indefiniteArticle: FR_INDEFINITE_ARTICLE.UNE,
+        shouldGenerateContainsSentence: false,
+        shouldGenerateTypeSentence: false
     },
     {
         id: "listbox",
