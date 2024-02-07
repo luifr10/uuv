@@ -10,7 +10,6 @@ const config = {
   title: "UUV",
   tagline: "Discovering your application by usecase validation",
   favicon: "img/uuv.png",
-
   // Set the production url of your site here
   url: "https://orange-opensource.github.io/",
   // Set the /<baseUrl>/ pathname under which your site is served
@@ -19,7 +18,7 @@ const config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  projectName: "docusaurus", // Usually your repo name.
+  projectName: "UUV Documentation",
 
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
@@ -28,7 +27,9 @@ const config = {
     defaultLocale: "en",
     locales: ["fr", "en"]
   },
-
+  scripts: [
+    { src: "/uuv/script/analytics.js", async: false }
+  ],
   presets: [
     [
       "@docusaurus/preset-classic",
