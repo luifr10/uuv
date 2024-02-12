@@ -54,6 +54,7 @@ jobs:
         with:
           node-version: ${{env.NODE_VERSION}}
           target: "build"
+          exclude: "flutter-finder-usercentric,runner-flutter"
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
@@ -87,7 +88,7 @@ jobs:
         with:
           node-version: ${{env.NODE_VERSION}}
           target: "test"
-          exclude: "a11y,runner-cypress,runner-playwright"
+          exclude: "a11y,runner-cypress,runner-playwright,flutter-finder-usercentric,runner-flutter"
 
   unit-tests-a11y:
     runs-on: ubuntu-latest
@@ -167,6 +168,29 @@ jobs:
           name: Report - Unit Tests - Playwright
           path: packages/runner-playwright/reports/e2e/junit-report.xml
           reporter: jest-junit
+
+  unit-tests-flutter-finder-usercentric:
+    runs-on: ubuntu-latest
+    needs: [ lint, unit-tests, build ]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Running flutter-finder-usercentric unit tests
+        uses: ./.github/actions/nx-dart-test-runner
+        with:
+          node-version: ${{env.NODE_VERSION}}
+          runner-name: "flutter-finder-usercentric"
+
+  unit-tests-runner-flutter:
+    runs-on: ubuntu-latest
+    needs: [ lint, unit-tests, build ]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Running runner-flutter unit tests
+        uses: ./.github/actions/nx-dart-test-runner
+        with:
+          node-version: ${{env.NODE_VERSION}}
+          runner-name: "runner-flutter"
+          generate-test: "true"
 
   integration-tests-cypress:
     runs-on: ubuntu-latest
@@ -272,7 +296,7 @@ jobs:
 
   release:
     if: github.ref == 'refs/heads/main'
-    needs: [ integration-tests-cypress, integration-tests-playwright, unit-tests-a11y, unit-tests-playwright, unit-tests-cypress, integration-tests-assistant ]
+    needs: [ integration-tests-cypress, integration-tests-playwright, unit-tests-a11y, unit-tests-playwright, unit-tests-cypress, integration-tests-assistant, unit-tests-flutter-finder-usercentric, unit-tests-runner-flutter ]
     runs-on: ubuntu-latest
     environment: release
     steps:
@@ -315,10 +339,6 @@ jobs:
     needs: [ release ]
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '17'
       - name: Download Release artifact
         uses: actions/download-artifact@v4
         with:
@@ -366,7 +386,7 @@ jobs:
 
   publish-docs:
     if: github.ref == 'refs/heads/main'
-    needs: [ integration-tests-cypress, integration-tests-playwright, unit-tests-a11y, unit-tests-playwright, unit-tests-cypress, integration-tests-assistant ]
+    needs: [ integration-tests-cypress, integration-tests-playwright, unit-tests-a11y, unit-tests-playwright, unit-tests-cypress, integration-tests-assistant, unit-tests-flutter-finder-usercentric, unit-tests-runner-flutter ]
     permissions:
       pages: write
       id-token: write

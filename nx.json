@@ -24,7 +24,9 @@
   },
   "targetDefaults": {
     "build": {
-      "dependsOn": ["^build"]
+      "dependsOn": [
+        "^build"
+      ]
     },
     "lint": {
       "inputs": [
@@ -34,12 +36,19 @@
       ]
     },
     "test": {
-      "inputs": ["default", "^default", "{workspaceRoot}/jest.preset.js"]
+      "inputs": [
+        "default",
+        "^default",
+        "{workspaceRoot}/jest.preset.js"
+      ]
     }
   },
   "pluginsConfig": {
     "@nx/js": {
       "analyzeSourceFiles": true
     }
-  }
+  },
+  "plugins": [
+    "@nxrocks/nx-flutter"
+  ]
 }

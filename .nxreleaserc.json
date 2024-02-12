@@ -1,4 +1,5 @@
 {
+  "ci": true,
   "changelog": true,
   "npm": false,
   "git": true,

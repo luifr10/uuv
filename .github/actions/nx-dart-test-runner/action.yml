@@ -1,0 +1,52 @@
+name: Run Test for runners
+description: Action for run test for a runner
+inputs:
+  node-version:
+    required: true
+    description: Nodejs version
+  runner-name:
+    required: true
+    description: Targeted runner
+  generate-test:
+    required: false
+    description: Targeted runner
+    default: "false"
+runs:
+  using: "composite"
+  steps:
+    - name: Cache node modules
+      uses: actions/cache@v3
+      with:
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+        path: |
+          node_modules
+          packages/assistant/node_modules
+          packages/docs/node_modules
+          packages/a11y/node_modules
+          packages/runner-commons/node_modules
+          packages/runner-cypress/node_modules
+          packages/runner-playwright/node_modules
+    - name: Download build artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: build-artifacts
+        path: packages
+    - name: Use Node.js ${{ inputs.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ inputs.node-version }}
+    - run: npm ci
+      shell: bash
+    - uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.16.9'
+        channel: 'stable'
+    - shell: bash
+      run: cd ${{ inputs.runner-name }}
+    - if: ${{ inputs.generate-test != 'true' }}
+      name: Generate test files
+      shell: bash
+      run: dart run build_runner build
+    - name: Execute tests
+      run: npm run test
+      shell: bash
