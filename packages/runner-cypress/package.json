@@ -57,7 +57,7 @@
     "figlet": "1.7.0",
     "is-admin": "2.1.1",
     "minimist": "1.2.8",
-    "multiple-cucumber-html-reporter": "3.5.0",
+    "multiple-cucumber-html-reporter": "3.6.2",
     "path-browserify": "^1.0.1",
     "ts-node": "10.9.2",
     "typescript": "4.9.5",
