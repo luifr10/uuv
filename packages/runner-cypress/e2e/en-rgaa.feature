@@ -213,6 +213,12 @@ Feature: RGAA Reference
         "tests": {
             "8.1.1": {
                 "status": "error"
+            },
+            "8.1.2": {
+                "status": "error"
+            },
+            "8.1.3": {
+                "status": "error"
             }
         }
     },
@@ -224,11 +230,43 @@ Feature: RGAA Reference
             }
         }
     },
+    "8.4": {
+        "status": "manual",
+        "tests": {
+            "8.4.1": {
+                "status": "manual"
+            }
+        }
+    },
     "8.5": {
-        "status": "error",
+        "status": "success",
         "tests": {
             "8.5.1": {
-                "status": "error"
+                "status": "success"
+            }
+        }
+    },
+    "8.6": {
+        "status": "manual",
+        "tests": {
+            "8.6.1": {
+                "status": "manual"
+            }
+        }
+    },
+    "8.7": {
+        "status": "manual",
+        "tests": {
+            "8.7.1": {
+                "status": "manual"
+            }
+        }
+    },
+    "8.8": {
+        "status": "success",
+        "tests": {
+            "8.8.1": {
+                "status": "success"
             }
         }
     },
@@ -237,6 +275,9 @@ Feature: RGAA Reference
         "tests": {
             "8.10.1": {
                 "status": "error"
+            },
+            "8.10.2": {
+                "status": "manual"
             }
         }
     },
@@ -367,22 +408,6 @@ Feature: RGAA Reference
                 "status": "manual"
             },
             "3.1.6": {
-                "status": "manual"
-            }
-        }
-    },
-    "8.4": {
-        "status": "manual",
-        "tests": {
-            "8.4.1": {
-                "status": "manual"
-            }
-        }
-    },
-    "8.6": {
-        "status": "manual",
-        "tests": {
-            "8.6.1": {
                 "status": "manual"
             }
         }
