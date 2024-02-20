@@ -49,6 +49,5 @@
     }
   },
   "plugins": [
-    "@nxrocks/nx-flutter"
   ]
 }

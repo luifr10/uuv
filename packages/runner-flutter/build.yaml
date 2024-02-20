@@ -1,0 +1,13 @@
+targets:
+  $default:
+    builders:
+      bdd_widget_test|featureBuilder:
+        enabled: false
+builders:
+  generateTests:
+    import: "package:uuv_flutter/generate_tests.dart"
+    builder_factories: [ "generateTests" ]
+    build_extensions: { ".feature": [ ".dart" ] }
+    build_to: source
+    auto_apply: root_package
+    

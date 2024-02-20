@@ -1,0 +1,114 @@
+{
+  "name": "runner-flutter",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/runner-flutter/src",
+  "projectType": "library",
+  "targets": {
+    "analyze": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "flutter analyze",
+        "cwd": "packages/runner-flutter"
+      }
+    },
+    "clean": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "flutter clean",
+        "cwd": "packages/runner-flutter"
+      }
+    },
+    "format": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "dart format packages/runner-flutter/*",
+        "cwd": "packages/runner-flutter"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "flutter test",
+        "cwd": "packages/runner-flutter"
+      }
+    },
+    "doctor": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "flutter doctor",
+        "cwd": "packages/runner-flutter"
+      }
+    },
+    "build-aar": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "flutter build aar",
+        "cwd": "packages/runner-flutter"
+      },
+      "outputs": [
+        "{workspaceRoot}/packages/runner-flutter/build"
+      ]
+    },
+    "build-apk": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "flutter build apk",
+        "cwd": "packages/runner-flutter"
+      },
+      "outputs": [
+        "{workspaceRoot}/packages/runner-flutter/build"
+      ]
+    },
+    "build-appbundle": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "flutter build appbundle",
+        "cwd": "packages/runner-flutter"
+      },
+      "outputs": [
+        "{workspaceRoot}/packages/runner-flutter/build"
+      ]
+    },
+    "build-bundle": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "flutter build bundle",
+        "cwd": "packages/runner-flutter"
+      },
+      "outputs": [
+        "{workspaceRoot}/packages/runner-flutter/build"
+      ]
+    },
+    "build-ios": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "flutter build ios",
+        "cwd": "packages/runner-flutter"
+      },
+      "outputs": [
+        "{workspaceRoot}/packages/runner-flutter/build"
+      ]
+    },
+    "build-ios-framework": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "flutter build ios-framework",
+        "cwd": "packages/runner-flutter"
+      },
+      "outputs": [
+        "{workspaceRoot}/packages/runner-flutter/build"
+      ]
+    },
+    "build-ipa": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "flutter build ipa",
+        "cwd": "packages/runner-flutter"
+      },
+      "outputs": [
+        "{workspaceRoot}/packages/runner-flutter/build"
+      ]
+    }
+  },
+  "tags": []
+}
