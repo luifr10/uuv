@@ -31,7 +31,7 @@ runs:
           packages/runner-cypress/node_modules
           packages/runner-playwright/node_modules
     - name: Use Node.js ${{ inputs.node-version }}
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: ${{ inputs.node-version }}
     - run: npm run nx run-many -- --all --target=${{ inputs.target }} --parallel=${{ inputs.parallel }} --verbose --exclude=${{ inputs.exclude }}

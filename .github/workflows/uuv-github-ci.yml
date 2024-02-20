@@ -33,7 +33,7 @@ jobs:
             packages/runner-cypress/node_modules
             packages/runner-playwright/node_modules
       - name: Use Node.js ${{env.NODE_VERSION}}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{env.NODE_VERSION}}
       - run: npm ci
@@ -162,7 +162,7 @@ jobs:
           name: build-artifacts
           path: packages
       - name: Use Node.js ${{ inputs.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version:
             ${{env.NODE_VERSION}}
@@ -277,7 +277,7 @@ jobs:
         with:
           name: release-artifacts
       - name: Use Node.js ${{env.NODE_VERSION}}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{env.NODE_VERSION}}
           registry-url: 'https://registry.npmjs.org'
@@ -301,7 +301,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - name: Use Node.js ${{env.NODE_VERSION}}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{env.NODE_VERSION}}
           registry-url: 'https://registry.npmjs.org'
