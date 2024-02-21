@@ -49,7 +49,7 @@
     "@nx/js": "16.10.0",
     "@theunderscorer/nx-semantic-release": "^2.4.0",
     "@types/jest": "29.5.12",
-    "@types/node": "18.7.1",
+    "@types/node": "18.19.17",
     "@typescript-eslint/eslint-plugin": "5.62.0",
     "@typescript-eslint/parser": "5.62.0",
     "eslint": "8.56.0",
