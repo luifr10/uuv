@@ -7,6 +7,10 @@ inputs:
   runner-name:
     required: true
     description: Targeted runner
+  options:
+    required: false
+    description: test additional options
+    default: ""
 runs:
   using: "composite"
   steps:
@@ -33,5 +37,5 @@ runs:
         node-version: ${{ inputs.node-version }}
     - run: npm ci
       shell: bash
-    - run: cd packages/${{ inputs.runner-name }} && npm run test:run
+    - run: cd packages/${{ inputs.runner-name }} && npm run test:run -- ${{inputs.options}}
       shell: bash

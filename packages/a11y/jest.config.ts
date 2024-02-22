@@ -9,4 +9,14 @@ export default {
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory: '../../coverage/packages/a11y',
+  reporters: [
+    "default",
+    [
+      "jest-junit",
+      {
+        "outputDirectory": "./reports",
+        "outputName": "junit-report.xml",
+      }
+    ]
+  ]
 };

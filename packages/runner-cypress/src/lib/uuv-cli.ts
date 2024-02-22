@@ -21,17 +21,19 @@ import chalk from "chalk";
 import figlet from "figlet";
 import minimist from "minimist";
 import fs from "fs";
-
 import cypress from "cypress";
 import { UuvCustomFormatter } from "../cucumber/uuv-custom-formatter";
+import path from "path";
 
 
-export async function main() {
-  const REPORT_DIR = "./uuv/reports";
-  const JSON_REPORT_DIR = "./uuv/reports/e2e/json";
-  const HTML_REPORT_DIR = "./uuv/reports/e2e/html";
-  const CUCUMBER_MESSAGES_FILE = "./uuv/cucumber-messages.ndjson";
-  const PROJECT_DIR = "./uuv";
+export async function main(projectDir = "./uuv") {
+  const REPORT_DIR = path.join(projectDir, "reports");
+  const E2E_REPORT_DIR = path.join(projectDir, "reports/e2e");
+  const JSON_REPORT_DIR = path.join(projectDir, "reports/e2e/json");
+  const HTML_REPORT_DIR = path.join(projectDir, "reports/e2e/html");
+  const CYPRESS_JUNIT_REPORT = [`${projectDir}/reports/e2e/junit-report-*.xml`];
+  const JUNIT_UNIFIED_REPORT = `${projectDir}/reports/e2e/junit-report.xml`;
+  const CUCUMBER_MESSAGES_FILE = path.join(projectDir, "cucumber-messages.ndjson");
 
   printBanner(getCurrentVersion);
 
@@ -41,6 +43,11 @@ export async function main() {
   if (!fs.existsSync(REPORT_DIR)) {
     fs.mkdirSync(REPORT_DIR);
   }
+
+  if (fs.existsSync(E2E_REPORT_DIR)) {
+    deleteAllFileOfDirectory(E2E_REPORT_DIR);
+  }
+
   switch (command) {
     case "open":
       await openCypress(argv);
@@ -58,8 +65,12 @@ export async function main() {
     const browser = argv.browser ? argv.browser : "chrome";
     const env = argv.env ? JSON.parse(argv.env.replace(/'/g, "\"")) : {};
     const targetTestFile = argv.targetTestFile ? argv.targetTestFile : null;
-    env.uuvA11yReportFilePath = `${process.cwd()}/${REPORT_DIR}/a11y-report.json`;
-    env.generateA11yReport = argv.generateA11yReport;
+    if (argv.generateA11yReport) {
+      env.uuvA11yReportFilePath = `${process.cwd()}/${REPORT_DIR}/a11y-report.json`;
+      env.generateA11yReport = argv.generateA11yReport;
+    }
+    env.generateJunitReport = argv.generateJunitReport;
+    env.generateHtmlReport = argv.generateHtmlReport;
 
     console.debug("Variables: ");
     console.debug(`  -> browser: ${browser}`);
@@ -73,7 +84,7 @@ export async function main() {
   function openCypress(argv: any): Promise<any> {
     const { env } = extractArgs(argv);
     return cypress.open({
-      project: PROJECT_DIR,
+      project: projectDir,
       env,
     });
   }
@@ -81,10 +92,17 @@ export async function main() {
   function runE2ETests(argv: any): Promise<any> {
     const { browser, env, targetTestFile } = extractArgs(argv);
     const options: Partial<CypressCommandLine.CypressRunOptions> = {
-      project: PROJECT_DIR,
+      project: projectDir,
       browser,
       env
     };
+
+    if (env.generateJunitReport) {
+      options.reporter = "junit";
+      options.reporterOptions = {
+        mochaFile: "reports/e2e/junit-report-[hash].xml"
+      };
+    }
 
     if (targetTestFile) {
       options.spec = targetTestFile;
@@ -94,8 +112,11 @@ export async function main() {
     return cypress
       .run(options)
       .then(async (result) => {
-        if (argv.generateHtmlReport) {
-          console.info(chalk.blueBright("Generating Test Report..."));
+        if (env.generateJunitReport) {
+          await mergeJunitReport(CYPRESS_JUNIT_REPORT,  JUNIT_UNIFIED_REPORT);
+        }
+        if (env.generateHtmlReport) {
+          console.info(chalk.blueBright("Generating Html Test Report..."));
           await generateHtmlReport(browser, argv);
         }
         if (fs.existsSync(CUCUMBER_MESSAGES_FILE)) {
@@ -107,8 +128,11 @@ export async function main() {
         }
         process.exit();
       })
-      .catch((err: any) => {
+      .catch(async (err: any) => {
         console.error(chalk.red(err));
+        if (env.generateJunitReport) {
+          await mergeJunitReport(CYPRESS_JUNIT_REPORT, JUNIT_UNIFIED_REPORT);
+        }
         process.exit(-1);
       });
   }
@@ -177,5 +201,21 @@ export async function main() {
       encoding: "utf8", flag: "r"
     });
     return JSON.parse(pJsonStr).version;
+  }
+
+  async function mergeJunitReport(inputFiles: string[], outputFile: string) {
+    const { mergeFiles } = require("junit-report-merger");
+    console.info(chalk.blueBright("Generating Junit Test Report..."));
+    await mergeFiles(outputFile, inputFiles);
+    console.info(chalk.blueBright(`Junit Test Report generated: ${outputFile}`));
+  }
+
+  function deleteAllFileOfDirectory(dirPath) {
+    for (const file of fs.readdirSync(dirPath)) {
+      const filePath = path.join(dirPath, file);
+      if (fs.lstatSync(filePath).isFile()) {
+        fs.rmSync(filePath);
+      }
+    }
   }
 }

@@ -101,7 +101,7 @@ function translateFeatures(tempDir: string, configDir: string) {
     });
 }
 
-function runPlaywright(mode: "open" | "e2e", configDir: string, browser = "chromium", generateHtmlReport = false, env?: any, targetTestFile?: string) {
+function runPlaywright(mode: "open" | "e2e", configDir: string, browser = "chromium", generateHtmlReport = false, generateJunitReport = false, env?: any, targetTestFile?: string) {
     const configFile = `${configDir}/playwright.config.ts`;
     const reportType = generateHtmlReport ? GeneratedReportType.HTML : GeneratedReportType.CONSOLE;
     try {
@@ -117,8 +117,15 @@ function runPlaywright(mode: "open" | "e2e", configDir: string, browser = "chrom
         if (env) {
             Object.keys(env).forEach(key => process.env[key] = env[key]);
         }
+        let reporter = " --reporter=@uuv/playwright/uuv-playwright-reporter";
+        if (generateJunitReport) {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            process.env.PLAYWRIGHT_JUNIT_OUTPUT_NAME = `${configDir}/reports/e2e/junit-report.xml`;
+            reporter = `${reporter},junit`;
+        }
         // eslint-disable-next-line max-len
-        const command = `npx playwright test --project=${browser} -c ${configFile} ${mode === "open" ? "--ui" : ""}${getTargetTestFileForPlawright(targetTestFile)}`;
+        const command = `npx playwright test --project=${browser} -c ${configFile} ${mode === "open" ? "--ui" : ""}${reporter}${getTargetTestFileForPlawright(targetTestFile)}`;
         console.log(chalk.gray(`Running ${command}`));
         execSync(command, { stdio: "inherit" });
     } catch (err) {
@@ -148,7 +155,7 @@ export async function run(mode: "open" | "e2e", tempDir = "uuv/.features-gen/e2e
     if (mode === "open") {
         cp.fork(path.join(__dirname, "watch-test-files"), [tempDir, configDir, env]);
     }
-    runPlaywright(mode, configDir, browser, argv.generateHtmlReport, env, targetTestFile);
+    runPlaywright(mode, configDir, browser, argv.generateHtmlReport, argv.generateJunitReport, env, targetTestFile);
 }
 
 function extractArgs(argv: any) {

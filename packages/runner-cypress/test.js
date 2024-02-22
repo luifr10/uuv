@@ -30,6 +30,10 @@ command = () => {
             env: {
                 uuvA11yReportFilePath: UUV_A11Y_REPORT_PATH,
                 generateA11yReport: true
+            },
+            reporter: "junit",
+            reporterOptions: {
+                mochaFile: "./reports/e2e/junit-report-[hash].xml"
             }
         });
 };

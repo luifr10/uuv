@@ -101,6 +101,13 @@ jobs:
         with:
           node-version: ${{env.NODE_VERSION}}
           runner-name: "a11y"
+      - name: Test Report
+        uses: dorny/test-reporter@v1
+        if: success() || failure()
+        with:
+          name: Report - Unit Tests - A11y
+          path: packages/a11y/reports/junit-report.xml
+          reporter: jest-junit
 
   integration-tests-assistant:
     runs-on: ubuntu-latest
@@ -112,6 +119,14 @@ jobs:
         with:
           node-version: ${{env.NODE_VERSION}}
           runner-name: "assistant"
+          options: "-- --generateJunitReport"
+      - name: Test Report
+        uses: dorny/test-reporter@v1
+        if: success() || failure()
+        with:
+          name: Report - Integration Tests - Assistant
+          path: packages/assistant/uuv/reports/e2e/junit-report.xml
+          reporter: jest-junit
 
   unit-tests-cypress:
     runs-on: ubuntu-latest
@@ -125,6 +140,14 @@ jobs:
         with:
           node-version: ${{env.NODE_VERSION}}
           runner-name: "runner-cypress"
+          options: "--generateJunitReport"
+      - name: Test Report
+        uses: dorny/test-reporter@v1
+        if: success() || failure()
+        with:
+          name: Report - Unit Tests - Cypress
+          path: packages/runner-cypress/reports/e2e/junit-report.xml
+          reporter: jest-junit
 
   unit-tests-playwright:
     runs-on: ubuntu-latest
@@ -136,6 +159,14 @@ jobs:
         with:
           node-version: ${{env.NODE_VERSION}}
           runner-name: "runner-playwright"
+          options: "--generateJunitReport"
+      - name: Test Report
+        uses: dorny/test-reporter@v1
+        if: success() || failure()
+        with:
+          name: Report - Unit Tests - Playwright
+          path: packages/runner-playwright/reports/e2e/junit-report.xml
+          reporter: jest-junit
 
   integration-tests-cypress:
     runs-on: ubuntu-latest
@@ -172,11 +203,19 @@ jobs:
       - name: Running cypress integration tests
         run: cd ./tests/integration && chmod 755 ./integration-tests-runner-cypress.sh && ./integration-tests-runner-cypress.sh
       - name: Upload uuv test artifact
+        if: success() || failure()
         uses: actions/upload-artifact@v3
         with:
           name: integration-tests-cypress-artifacts
           path: |
             tests/integration/runner-cypress/uuv/reports
+      - name: Test Report
+        uses: dorny/test-reporter@v1
+        if: success() || failure()
+        with:
+          name: Report - Integration Tests - Cypress
+          path: tests/integration/runner-cypress/uuv/reports/e2e/junit-report.xml
+          reporter: jest-junit
 
   integration-tests-playwright:
     runs-on: ubuntu-latest
@@ -207,10 +246,18 @@ jobs:
         run: cd ./tests/integration && chmod 755 ./integration-tests-runner-playwright.sh && ./integration-tests-runner-playwright.sh
       - name: Upload uuv test artifact
         uses: actions/upload-artifact@v3
+        if: success() || failure()
         with:
           name: integration-tests-playwright-artifacts
           path: |
             tests/integration/runner-playwright/uuv/reports
+      - name: Test Report
+        uses: dorny/test-reporter@v1
+        if: success() || failure()
+        with:
+          name: Report - Integration Tests - Playwright
+          path: tests/integration/runner-playwright/uuv/reports/e2e/junit-report.xml
+          reporter: jest-junit
 
   lint:
     runs-on: ubuntu-latest
