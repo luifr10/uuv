@@ -36,8 +36,8 @@
     "generate:step-definitions": "ts-node generate-step-definitions.ts",
     "package": "npm pack --pack-destination=\"../../dist/packages\"",
     "postinstall": "node postinstall.js",
-    "test:run": "node test.js --run",
-    "test:open": "node test.js --open",
+    "test:run": "node test.js e2e",
+    "test:open": "node test.js open",
     "test": "npm run test:run",
     "lint": "eslint -c .eslintrc.json"
   },
@@ -56,6 +56,7 @@
     "cypress-real-events": "^1.10.0",
     "figlet": "1.7.0",
     "is-admin": "2.1.1",
+    "junit-report-merger": "^6.0.3",
     "minimist": "1.2.8",
     "multiple-cucumber-html-reporter": "3.6.2",
     "path-browserify": "^1.0.1",
