@@ -1,4 +1,4 @@
-import { FullConfig, FullResult, Suite, TestCase, TestResult, Location, TestStatus } from "@playwright/test/reporter";
+import { FullConfig, FullResult, Suite, TestCase, TestStep, TestResult, Location, TestStatus } from "@playwright/test/reporter";
 import { generateMessages } from "@cucumber/gherkin";
 import { Query } from "@cucumber/gherkin-utils";
 import { Envelope, IdGenerator, parseEnvelope, SourceMediaType, AttachmentContentEncoding } from "@cucumber/messages";
@@ -6,7 +6,6 @@ import fs from "fs";
 import { UUVPlaywrightCucumberMapFile, UUVPlaywrightCucumberMapItem } from "../lib/runner-playwright";
 import report from "multiple-cucumber-html-reporter";
 import { nanoid } from "nanoid";
-import { TestStep } from "@playwright/test/types/testReporter";
 import chalk from "chalk";
 import chalkTable from "chalk-table";
 import { UuvCustomFormatter } from "./uuv-custom-formatter";

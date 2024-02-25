@@ -1,5 +1,4 @@
-import { FullConfig, FullResult, Reporter, Suite, TestCase, TestResult } from "@playwright/test/reporter";
-import { TestError, TestStep } from "@playwright/test/types/testReporter";
+import { FullConfig, FullResult, Reporter, Suite, TestCase, TestError, TestResult, TestStep } from "@playwright/test/reporter";
 import UuvPlaywrightReporterHelper, { GeneratedReportType } from "./uuv-playwright-reporter-helper";
 import chalk from "chalk";
 
