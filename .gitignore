@@ -65,3 +65,4 @@ packages/intellij-plugin/.idea/
 /packages/assistant/uuv/.uuv-features-gen/
 /packages/runner-cypress/reports/*
 /packages/runner-cypress/reports/a11y-report.json
+packages/assistant/uuv/reports/

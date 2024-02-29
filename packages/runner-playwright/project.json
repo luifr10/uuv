@@ -71,6 +71,29 @@
                 }
               ]
             }
+          ],
+          [
+            "@google/semantic-release-replace-plugin",
+            {
+              "replacements": [
+                {
+                  "files": [
+                    "packages/assistant/package.json"
+                  ],
+                  "from": "\"@uuv/playwright\": \".*\"",
+                  "to": "\"@uuv/playwright\": \"${nextRelease.version}\"",
+                  "results": [
+                    {
+                      "file": "packages/assistant/package.json",
+                      "hasChanged": true,
+                      "numMatches": 1,
+                      "numReplacements": 1
+                    }
+                  ],
+                  "countMatches": true
+                }
+              ]
+            }
           ]
         ]
       }
