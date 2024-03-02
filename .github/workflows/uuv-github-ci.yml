@@ -55,7 +55,7 @@ jobs:
           node-version: ${{env.NODE_VERSION}}
           target: "build"
       - name: Upload build artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: build-artifacts
           path: |
@@ -188,7 +188,7 @@ jobs:
             packages/runner-cypress/node_modules
             packages/runner-playwright/node_modules
       - name: Download build artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: build-artifacts
           path: packages
@@ -204,7 +204,7 @@ jobs:
         run: cd ./tests/integration && chmod 755 ./integration-tests-runner-cypress.sh && ./integration-tests-runner-cypress.sh
       - name: Upload uuv test artifact
         if: success() || failure()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: integration-tests-cypress-artifacts
           path: |
@@ -235,7 +235,7 @@ jobs:
             packages/runner-cypress/node_modules
             packages/runner-playwright/node_modules
       - name: Download build artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: build-artifacts
           path:
@@ -245,7 +245,7 @@ jobs:
       - name: Running playwright integration tests
         run: cd ./tests/integration && chmod 755 ./integration-tests-runner-playwright.sh && ./integration-tests-runner-playwright.sh
       - name: Upload uuv test artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: success() || failure()
         with:
           name: integration-tests-playwright-artifacts
@@ -280,7 +280,7 @@ jobs:
         with:
           token: ${{ secrets.GH_TOKEN }}
       - name: Download build artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: build-artifacts
           path: packages
@@ -302,7 +302,7 @@ jobs:
           commit_user_name: UUV Bot
           file_pattern: "package-lock.json"
       - name: Upload Release artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: release-artifacts
           path: |
@@ -320,7 +320,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - name: Download Release artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: release-artifacts
       - name: Use Node.js ${{env.NODE_VERSION}}
@@ -353,7 +353,7 @@ jobs:
           node-version: ${{env.NODE_VERSION}}
           registry-url: 'https://registry.npmjs.org'
       - name: Download Release artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: release-artifacts
       - name: Publishing Intellij plugin
