@@ -4,11 +4,12 @@ import 'package:flutter_finder_usercentric/finder.dart';
 import '_common.dart';
 
 /// Usage: I should see a title named {'First title'}
-Future<void> iShouldSeeATitleNamed(WidgetTester tester, String accessibleName) async {
+Future<void> iShouldSeeATitleNamed(
+    WidgetTester tester, String accessibleName) async {
   PatrolTester $ = getPatrolTester(tester);
 
   expect(
-      $(find.byAccessibleRoleAndName(tester, AccessibleRole.header, accessibleName)),
-      findsOneWidget
-  );
+      $(find.byAccessibleRoleAndName(
+          tester, AccessibleRole.header, accessibleName)),
+      findsOneWidget);
 }

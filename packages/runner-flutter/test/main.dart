@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class TodoList extends StatefulWidget {
   const TodoList({super.key});
 
@@ -29,8 +28,7 @@ class _TodoListState extends State<TodoList> {
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'New task name',
-                )
-            ),
+                )),
             Expanded(
               child: ListView.builder(
                 itemCount: todos.length,

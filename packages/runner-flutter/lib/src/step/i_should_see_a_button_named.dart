@@ -4,11 +4,12 @@ import 'package:flutter_finder_usercentric/finder.dart';
 import '_common.dart';
 
 /// Usage: I should see a button named {'My button'}
-Future<void> iShouldSeeAButtonNamed(WidgetTester tester, String accessibleName) async {
+Future<void> iShouldSeeAButtonNamed(
+    WidgetTester tester, String accessibleName) async {
   PatrolTester $ = getPatrolTester(tester);
 
   expect(
-    $(find.byAccessibleRoleAndName(tester, AccessibleRole.button, accessibleName)),
-    findsOneWidget
-  );
+      $(find.byAccessibleRoleAndName(
+          tester, AccessibleRole.button, accessibleName)),
+      findsOneWidget);
 }

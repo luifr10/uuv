@@ -1,7 +1,8 @@
 name: uuv_flutter
 description: "An accessibility driven solution to facilitate the writing and execution of E2E tests understandable by any human being using cucumber(BDD) and flutter"
-version: 0.0.1-beta
-homepage: https://github.com/Orange-OpenSource/uuv.git
+version: 0.0.1-beta.2
+homepage: https://orange-opensource.github.io/uuv/
+repository: https://github.com/Orange-OpenSource/uuv.git
 
 environment:
   sdk: '>=3.2.3 <4.0.0'
@@ -14,14 +15,14 @@ dependencies:
     sdk: flutter
   flutter_finder_usercentric:
     path: ../flutter-finder-usercentric
-  patrol_finders: 2.0.1+1
   patrol_finders: ^2.0.1+1
   bdd_widget_test: ^1.6.4
   flutter_test:
     sdk: flutter
 
 dev_dependencies:
-  flutter_lints: ^2.0.0
+  flutter_lints: ^3.0.1
+  lints: ^3.0.0
   build_runner: ^2.4.6
 
 # For information on the generic Dart part of this file, see the
