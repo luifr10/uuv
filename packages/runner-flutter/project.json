@@ -32,6 +32,13 @@
         "cwd": "packages/runner-flutter"
       }
     },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "flutter analyze",
+        "cwd": "packages/runner-flutter"
+      }
+    },
     "doctor": {
       "executor": "nx:run-commands",
       "options": {

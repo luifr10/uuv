@@ -25,6 +25,13 @@
         "cwd": "packages/flutter-finder-usercentric"
       }
     },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "flutter analyze",
+        "cwd": "packages/flutter-finder-usercentric"
+      }
+    },
     "test": {
       "executor": "nx:run-commands",
       "options": {
