@@ -19,4 +19,4 @@ Flutter finder to find element based on their semantic role(button, textfield, e
   });
 ```
 
-For more example [there](./test/test_app.dart).
+For more example [there](./packages/flutter-finder-usercentric/test/test_app.dart).

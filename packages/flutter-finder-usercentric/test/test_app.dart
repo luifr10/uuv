@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class TestApp extends StatelessWidget {
-  TestApp({super.key}) {
-  }
+  TestApp({super.key});
   final controller = TextEditingController();
   final double _currentSliderValue = 20;
 
@@ -17,7 +15,7 @@ class TestApp extends StatelessWidget {
            TextField(
               key: const Key('SimpleTextFieldKey'),
               controller: controller,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                  border: OutlineInputBorder(),
                  hintText: 'Simple TextField',
               )
@@ -25,8 +23,8 @@ class TestApp extends StatelessWidget {
            TextField(
                key: const Key('AnotherSimpleTextFieldKey'),
                controller: controller,
-               decoration: InputDecoration(
-                 border: const OutlineInputBorder(),
+               decoration: const InputDecoration(
+                 border: OutlineInputBorder(),
                  hintText: 'Another Simple TextField',
                )
            ),

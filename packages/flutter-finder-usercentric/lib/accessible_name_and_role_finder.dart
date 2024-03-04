@@ -1,5 +1,6 @@
-part of flutter_finder_usercentric;
+part of 'finder.dart';
 
+/// Find widget by accessible role and accessible name
 Finder finderByAccessibleRoleAndName(WidgetTester tester, AccessibleRole accessibleRole, String accessibleName) {
   return find.or(
       find.ancestor(
@@ -23,6 +24,7 @@ Finder finderByAccessibleRoleAndName(WidgetTester tester, AccessibleRole accessi
   );
 }
 
+/// Returns True if input widget have the specified semantic role, else False
 bool doesWidgetHaveAccessibleRole(WidgetTester tester, Semantics widget, AccessibleRole accessibleRole) {
   switch(accessibleRole) {
     case AccessibleRole.button:
@@ -43,6 +45,7 @@ bool doesWidgetHaveAccessibleRole(WidgetTester tester, Semantics widget, Accessi
   }
 }
 
+/// List of available accessible role
 enum AccessibleRole {
   button,
   link,

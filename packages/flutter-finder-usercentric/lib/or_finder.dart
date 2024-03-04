@@ -1,6 +1,6 @@
-part of flutter_finder_usercentric;
+part of 'finder.dart';
 
-Finder finderOr(Finder finder1, Finder finder2, String? description) {
+Finder finderOr(Finder finder1, Finder finder2, String description) {
   return OrFinderLink(
     finder1: finder1,
     finder2: finder2,
@@ -12,19 +12,13 @@ class OrFinderLink extends ChainedFinder {
   OrFinderLink({
     required this.finder1,
     required this.finder2,
-    description
-  }) : super(find.byWidgetPredicate((widget) => true)) {
-    // TODO: implement OrFinderLink
-    this._description = description;
-  }
+    required this.description
+  }) : super(find.byWidgetPredicate((widget) => true));
 
   final Finder finder1;
   final Finder finder2;
-  String? _description;
-
   @override
-  String get description => _description != null ? _description! : 'Or [ ${finder1.description}, ${finder2.description} ]';
-
+  final String description;
 
   @override
   Iterable<Element> filter(Iterable<Element> parentCandidates) {
