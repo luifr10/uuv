@@ -54,7 +54,7 @@ jobs:
         with:
           node-version: ${{env.NODE_VERSION}}
           target: "build"
-          exclude: "flutter-finder-usercentric,runner-flutter"
+          exclude: "runner-flutter"
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
@@ -88,7 +88,7 @@ jobs:
         with:
           node-version: ${{env.NODE_VERSION}}
           target: "test"
-          exclude: "a11y,runner-cypress,runner-playwright,flutter-finder-usercentric,runner-flutter"
+          exclude: "a11y,runner-cypress,runner-playwright,runner-flutter"
 
   unit-tests-a11y:
     runs-on: ubuntu-latest
@@ -168,17 +168,6 @@ jobs:
           name: Report - Unit Tests - Playwright
           path: packages/runner-playwright/reports/e2e/junit-report.xml
           reporter: jest-junit
-
-  unit-tests-flutter-finder-usercentric:
-    runs-on: ubuntu-latest
-    needs: [ lint, unit-tests, build ]
-    steps:
-      - uses: actions/checkout@v3
-      - name: Running flutter-finder-usercentric unit tests
-        uses: ./.github/actions/nx-dart-test-runner
-        with:
-          node-version: ${{env.NODE_VERSION}}
-          runner-name: "flutter-finder-usercentric"
 
   unit-tests-runner-flutter:
     runs-on: ubuntu-latest
@@ -300,7 +289,7 @@ jobs:
 
   release:
     if: github.ref == 'refs/heads/main'
-    needs: [ integration-tests-cypress, integration-tests-playwright, unit-tests-a11y, unit-tests-playwright, unit-tests-cypress, integration-tests-assistant, unit-tests-flutter-finder-usercentric, unit-tests-runner-flutter ]
+    needs: [ integration-tests-cypress, integration-tests-playwright, unit-tests-a11y, unit-tests-playwright, unit-tests-cypress, integration-tests-assistant, unit-tests-runner-flutter ]
     runs-on: ubuntu-latest
     environment: release
     steps:
@@ -390,7 +379,7 @@ jobs:
 
   publish-docs:
     if: github.ref == 'refs/heads/main'
-    needs: [ integration-tests-cypress, integration-tests-playwright, unit-tests-a11y, unit-tests-playwright, unit-tests-cypress, integration-tests-assistant, unit-tests-flutter-finder-usercentric, unit-tests-runner-flutter ]
+    needs: [ integration-tests-cypress, integration-tests-playwright, unit-tests-a11y, unit-tests-playwright, unit-tests-cypress, integration-tests-assistant, unit-tests-runner-flutter ]
     permissions:
       pages: write
       id-token: write

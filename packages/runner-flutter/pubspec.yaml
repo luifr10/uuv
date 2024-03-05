@@ -13,7 +13,7 @@ dependencies:
   build_config: ^1.0.0
   flutter:
     sdk: flutter
-  flutter_finder_usercentric: ^0.0.1-beta.1
+  flutter_finder_usercentric: ^1.0.0-beta.1
   patrol_finders: ^2.0.1+1
   bdd_widget_test: ^1.6.4
   flutter_test:
