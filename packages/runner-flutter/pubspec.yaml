@@ -1,6 +1,6 @@
 name: uuv_flutter
 description: "An accessibility driven solution to facilitate the writing and execution of E2E tests understandable by any human being using cucumber(BDD) and flutter"
-version: 0.0.1-beta.2
+version: 0.0.1-beta.3
 homepage: https://orange-opensource.github.io/uuv/
 repository: https://github.com/Orange-OpenSource/uuv.git
 

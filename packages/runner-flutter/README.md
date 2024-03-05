@@ -36,6 +36,25 @@ Feature: Panoramax mobile App
 		And I should see a button named {'Create a new sequence with captured pictures'}  
 ```  
 
+## Available sentences
+### `I see {'text'} text`
+Checks that the specified text is present
+
+### `I should see a button named {'My button'}`
+Checks that a button exists with the specified [accessible name](https://pub.dev/packages/flutter_finder_usercentric)
+
+### `I should not see a button named {'My button'}`
+Checks that a button does not exist with the specified [accessible name](https://pub.dev/packages/flutter_finder_usercentric)
+
+### `I tap on a button named {'My button'}`
+Tap on a button with the specified [accessible name](https://pub.dev/packages/flutter_finder_usercentric)
+
+### `I should see a text field named {'a TextField'}`
+Checks that a text field exists with the specified [accessible name](https://pub.dev/packages/flutter_finder_usercentric)
+
+### `I should see a title named {'First title'}`
+Checks that a title exists with the specified [accessible name](https://pub.dev/packages/flutter_finder_usercentric)
+
 ## Generate test files from feature files
 ### One shot
 ```shell  
