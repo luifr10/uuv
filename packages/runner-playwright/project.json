@@ -26,7 +26,7 @@
     "generate": {
       "executor": "nx:run-script",
       "outputs": [
-        "{projectRoot}/src/cucumber/step_definitions/cypress/generated"
+        "{projectRoot}/src/cucumber/step_definitions/playwright/generated"
       ],
       "options": {
         "script": "generate:step-definitions"
