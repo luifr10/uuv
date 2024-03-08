@@ -36,30 +36,46 @@ export async function main(projectDir = "./uuv") {
   const CUCUMBER_MESSAGES_FILE = path.join(projectDir, "cucumber-messages.ndjson");
 
   printBanner(getCurrentVersion);
-
+  setBaseUrl();
   const argv = minimist(process.argv.slice(2));
   const command = findTargetCommand(argv);
   console.info(chalk.blueBright(`Executing UUV command ${command}...`));
-  if (!fs.existsSync(REPORT_DIR)) {
-    fs.mkdirSync(REPORT_DIR);
-  }
-
-  if (fs.existsSync(E2E_REPORT_DIR)) {
-    deleteAllFileOfDirectory(E2E_REPORT_DIR);
-  }
-
-  switch (command) {
-    case "open":
-      await openCypress(argv);
-      break;
-    case "e2e":
-      await runE2ETests(argv);
-      break;
-    default:
-      console.error(chalk.red("Unknown command"));
-      process.exit(1);
-  }
+  createReportDirectories();
+  await executeCommand();
   console.info(`UUV command ${command} executed`);
+
+  function setBaseUrl() {
+    // eslint-disable-next-line dot-notation
+    const baseUrl = process.env["UUV_BASE_URL"];
+    if (baseUrl) {
+      // eslint-disable-next-line dot-notation
+      process.env["CYPRESS_BASE_URL"] = process.env["UUV_BASE_URL"];
+    }
+  }
+
+  function createReportDirectories() {
+    if (!fs.existsSync(REPORT_DIR)) {
+      fs.mkdirSync(REPORT_DIR);
+    }
+
+    if (fs.existsSync(E2E_REPORT_DIR)) {
+      deleteAllFileOfDirectory(E2E_REPORT_DIR);
+    }
+  }
+
+  async function executeCommand() {
+    switch (command) {
+      case "open":
+        await openCypress(argv);
+        break;
+      case "e2e":
+        await runE2ETests(argv);
+        break;
+      default:
+        console.error(chalk.red("Unknown command"));
+        process.exit(1);
+    }
+  }
 
   function extractArgs(argv: any) {
     const browser = argv.browser ? argv.browser : "chrome";
@@ -73,6 +89,11 @@ export async function main(projectDir = "./uuv") {
     env.generateHtmlReport = argv.generateHtmlReport;
 
     console.debug("Variables: ");
+    // eslint-disable-next-line dot-notation
+    const baseUrl = process.env["CYPRESS_BASE_URL"];
+    if (baseUrl) {
+      console.debug(`  -> baseUrl: ${baseUrl}`);
+    }
     console.debug(`  -> browser: ${browser}`);
     console.debug(`  -> env: ${JSON.stringify(env)}`);
     if (targetTestFile) {

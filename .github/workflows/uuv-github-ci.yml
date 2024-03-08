@@ -10,6 +10,7 @@ on:
 env:
   NODE_VERSION: 18.14.0
   NPM_PACKAGE_SCOPE: uuv
+  UUV_BASE_URL: https://e2e-test-quest.github.io
 
 jobs:
   install:
@@ -137,6 +138,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Running cypress unit tests
+        env:
+          UUV_BASE_URL: ${{env.UUV_BASE_URL}}
         uses: ./.github/actions/nx-test-runner
         with:
           node-version: ${{env.NODE_VERSION}}
@@ -156,6 +159,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Running playwright unit tests
+        env:
+          UUV_BASE_URL: ${{env.UUV_BASE_URL}}
         uses: ./.github/actions/nx-test-runner
         with:
           node-version: ${{env.NODE_VERSION}}
@@ -214,6 +219,8 @@ jobs:
       - name: Package runner-cypress
         run: mkdir -p ./dist/packages && npm run nx package a11y && npm run nx package runner-commons && npm run nx package runner-cypress
       - name: Running cypress integration tests
+        env:
+          UUV_BASE_URL: ${{env.UUV_BASE_URL}}
         run: cd ./tests/integration && chmod 755 ./integration-tests-runner-cypress.sh && ./integration-tests-runner-cypress.sh
       - name: Upload uuv test artifact
         if: success() || failure()
@@ -256,6 +263,8 @@ jobs:
       - name: Package runner-playwright
         run: mkdir -p ./dist/packages && npm run nx package a11y && npm run nx package runner-commons && npm run nx package runner-playwright
       - name: Running playwright integration tests
+        env:
+          UUV_BASE_URL: ${{env.UUV_BASE_URL}}
         run: cd ./tests/integration && chmod 755 ./integration-tests-runner-playwright.sh && ./integration-tests-runner-playwright.sh
       - name: Upload uuv test artifact
         uses: actions/upload-artifact@v4

@@ -115,6 +115,11 @@ function extractArgs(argv: any) {
     const targetTestFile = argv.targetTestFile ? argv.targetTestFile : null;
 
     console.debug("Variables: ");
+    // eslint-disable-next-line dot-notation
+    const baseUrl = process.env["UUV_BASE_URL"];
+    if (baseUrl) {
+        console.debug(`  -> baseUrl: ${baseUrl}`);
+    }
     console.debug(`  -> browser: ${browser}`);
     console.debug(`  -> env: ${JSON.stringify(env)}`);
     if (targetTestFile) {

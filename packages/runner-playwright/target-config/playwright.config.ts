@@ -10,7 +10,7 @@ export default defineConfig({
   workers: 1,
   reporter: "@uuv/playwright/uuv-playwright-reporter",
   use: {
-    baseURL: "http://localhost:4200",
+    baseURL: process.env.UUV_BASE_URL ? process.env.UUV_BASE_URL : "http://localhost:4200",
     trace: "on-first-retry",
     screenshot: "only-on-failure"
   },

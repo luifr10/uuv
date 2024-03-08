@@ -78,9 +78,6 @@ yarn uuv e2e --browser=edge --env="{'TAGS':'@mobile'}" --generateHtmlReport --ta
 
 ### Arguments
 
-<Tabs>
-<TabItem value="cypress" label="Cypress">
-
 :::tip
 Pour modifier la BASE_URL en mode E2E, il suffit de positionner la variable d'environnement :
 
@@ -88,19 +85,22 @@ Pour modifier la BASE_URL en mode E2E, il suffit de positionner la variable d'en
 <TabItem value="Windows" label="Windows">
 
 ```shell
-set CYPRESS_BASE_URL=http://localhost:4200
+set UUV_BASE_URL=http://localhost:4200
 ```
 
 </TabItem>
 <TabItem value="Shell" label="Shell">
 
 ```shell
-export CYPRESS_BASE_URL=http://localhost:4200
+export UUV_BASE_URL=http://localhost:4200
 ```
 
 </TabItem>
 </Tabs>
 :::
+
+<Tabs>
+<TabItem value="cypress" label="Cypress">
 
 | Nom                  | Description                                                                                                                                                                                               | Valeur                                                                                                                                                                                                                                                                               |
 |----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -113,10 +113,6 @@ export CYPRESS_BASE_URL=http://localhost:4200
 
 </TabItem>
 <TabItem value="playwright" label="Playwright">
-
-:::tip
-Pour modifier la BASE_URL en mode E2E, il suffit de positionner la variable d'environnement :
-:::
 
 | Nom                 | Description                                                                                                                                                                                          | Valeur                                                                                                                                                   |
 |---------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|

@@ -27,7 +27,8 @@ export default defineConfig({
   outputDir: "reports/playwright",
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: "http://127.0.0.1:9002",
+    // eslint-disable-next-line dot-notation
+    baseURL: process.env["UUV_BASE_URL"] ? process.env["UUV_BASE_URL"] : "http://localhost:4200",
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on-first-retry",
