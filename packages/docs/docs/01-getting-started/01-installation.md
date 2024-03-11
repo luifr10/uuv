@@ -3,21 +3,24 @@ import TabItem from '@theme/TabItem';
 
 # Installation
 
-:::info
-First of all you have to choose your runners among the following :
-- [Cypress](#cypress)
-- [Playwright](#playwright)
+:::warning[System requirements]
+- Node.js 18+ ([See here how to install Node.js and Npm](https://kinsta.com/blog/how-to-install-node-js/#how-to-install-nodejs-and-npm))
+- Npm/Yarn will need access to the internet when installing the library
+- One of these OS :
+  - Windows 10+, Windows Server 2016+ or Windows Subsystem for Linux (WSL).
+  - MacOS 12 Monterey, MacOS 13 Ventura, or MacOS 14 Sonoma.
+  - Debian 11, Debian 12, Ubuntu 20.04 or Ubuntu 22.04, with x86-64 or arm64 architecture.
+:::
+
+## Introduction
+
+You can choose among the following runners :
+- [@uuv/cypress](#installing-uuvcypress)
+- [@uuv/playwright](#installing-uuvplaywright)
 
 When your tests are written you can change the runner by replacing the npm dependency without having to modify them.
-:::
 
-## Cypress
-
-:::caution
-
-Npm/Yarn will need access to the internet when installing the Cypress library.
-
-:::
+## Installing @uuv/cypress
 
 Run the following command :
 
@@ -38,13 +41,7 @@ yarn add -D @uuv/cypress
 </TabItem>
 </Tabs>
 
-## Playwright
-
-:::caution
-
-Npm/Yarn will need access to the internet when installing the Playwright library.
-
-:::
+## Installing @uuv/playwright
 
 Run the following command :
 
