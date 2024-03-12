@@ -66,7 +66,7 @@ We can use the playwright engine(`@uuv/playwright`) to run test or cypress with 
 
 ## Benefits
 - If used correctly, integrates accessibility from the development stage
-- A living documentation is possible because we propose an unified language for developers and non-developers with a [rich dictionary](category/step-definition) of ready-to-use sentences
+- A living documentation is possible because we propose an unified language for developers and non-developers with a [rich dictionary](https://orange-opensource.github.io/uuv/docs/category/step-definition) of ready-to-use sentences
 - [@uuv/assistant](https://www.npmjs.com/package/@uuv/assistant) that facilitates the writing of tests by suggesting the most accessible sentences
 - [JetBrains Plugin](https://orange-opensource.github.io/uuv/docs/tools/uuv-jetbrains-plugin) that helps you to write and execute your UUV E2E tests from JetBrains IDEs
 - Integrates several runtime engines: Cypress / Playwright
