@@ -309,7 +309,7 @@ Then(`${key.then.element.not.withAriaLabel}`, async function(this: World, expect
 Then(`${key.then.element.withAriaLabelAndContent}`, async function(this: World, expectedAriaLabel: string, expectedTextContent: string) {
   expectedAriaLabel = encodeURIComponent(expectedAriaLabel);
   await getPageOrElement(this).then(async (element) => {
-    const byLabel = await element.getByLabel(expectedAriaLabel, { exact: true });
+    const byLabel = element.getByLabel(expectedAriaLabel, { exact: true });
     await expect(byLabel).toHaveCount(1);
     await expect(byLabel.filter({ hasText: expectedTextContent })).toHaveCount(1);
   });
@@ -339,7 +339,7 @@ Then(
        const attributeName = expectedAttribute[0];
        const attributeValue = expectedAttribute[1];
        // await showAttributesInLocator(element);
-       expect(await element.getAttribute(attributeName)).toEqual(attributeValue);
+       await expect(element).toHaveAttribute(attributeName, attributeValue);
      }
    });
  }
@@ -394,7 +394,7 @@ async function pressKey(world: World, element: Locator, key: string) {
 
 async function click(world: World, role: any, name: string) {
   await getPageOrElement(world).then(async (element) => {
-      const byRole = await element.getByRole(role, { name: name, includeHidden: true, exact: true });
+      const byRole = element.getByRole(role, { name: name, includeHidden: true, exact: true });
       await expect(byRole).toHaveCount(1);
       await byRole.click({ timeout: DEFAULT_TIMEOUT });
       await world.context.clearCookies();
