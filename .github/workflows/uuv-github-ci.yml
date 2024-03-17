@@ -321,7 +321,7 @@ jobs:
           parallel: "false"
       - name: Update package-lock.json
         run: npm install
-      - uses: stefanzweifel/git-auto-commit-action@v4
+      - uses: stefanzweifel/git-auto-commit-action@v5
         name: Push the brand-new package-lock.json
         with:
           commit_message: "release: update package-lock.json [skip ci]"
