@@ -50,7 +50,9 @@ export async function setupNodeEvents (
 
   on("before:run", async () => {
     await beforeRunHandler(config);
+    // eslint-disable-next-line dot-notation
     const a11yReportFilePath = config.env["uuvA11yReportFilePath"];
+    // eslint-disable-next-line dot-notation
     const generateA11yReport = config.env["generateA11yReport"];
     clearA11yReport(a11yReportFilePath);
     if (generateA11yReport === true) {
@@ -92,6 +94,7 @@ export async function setupNodeEvents (
   });
 
   function logTeamCity(line) {
+    // eslint-disable-next-line dot-notation
     if (config.env["enableTeamcityLogging"]) {
       console.log(line);
     }

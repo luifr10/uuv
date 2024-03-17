@@ -26,7 +26,7 @@ export const shouldGenerateA11yReport = (): boolean => {
 
 export const getA11yResultFilePath = (): string => {
     return Cypress.env("uuvA11yReportFilePath");
-}
+};
 
 export const uuvGetContext = (): Chainable<Context> => {
   return cy.get<Context>("@context");

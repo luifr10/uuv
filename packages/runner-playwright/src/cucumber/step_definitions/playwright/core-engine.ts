@@ -199,7 +199,7 @@ export async function checkTextContentLocator(locator: Locator, expectedTextCont
     } catch (err) {
         console.error("No value found for locator: ", locator);
         try {
-            await expect(await locator.getAttribute("value")).toBe(expectedTextContent);
+            await expect(locator).toHaveAttribute("value", expectedTextContent);
         } catch (err) {
             console.error("No attribute value found for locator: ", locator);
             try {
