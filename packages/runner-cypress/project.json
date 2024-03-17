@@ -41,7 +41,7 @@
         "lintFilePatterns": [
           "packages/runner-cypress/src/**/*.{ts,js,feature}"
         ],
-        "fix": true,
+        "fix": false,
         "eslintConfig": "packages/runner-cypress/.eslintrc.json"
       }
     },
