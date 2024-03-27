@@ -80,7 +80,7 @@
     "@testing-library/user-event": "14.5.2",
     "@types/jest": "29.5.12",
     "@types/jquery": "3.5.29",
-    "@types/node": "16.18.68",
+    "@types/node": "20.11.30",
     "@types/react": "17.0.76",
     "@types/react-dom": "17.0.25",
     "@types/styled-components": "5.1.34",
