@@ -17,6 +17,6 @@ import { IContext } from "@uuv/runner-commons";
 import { Locator } from "@playwright/test";
 
 export class Context implements IContext {
-  public focusedElement ?: Locator;
+  public withinFocusedElement ?: Locator;
   public timeout : number | null = DEFAULT_TIMEOUT;
 }

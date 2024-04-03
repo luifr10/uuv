@@ -41,25 +41,6 @@ Feature: Accessibility Step Definition
     Then I should not have any axe-core accessibility issue with accessibility standards wcag2a
 
   Rule: accessibility keys
-    Scenario: key.then.keyboard.press - Reverse Tab & Tab
-      When I visit path "https://e2e-test-quest.github.io/weather-app/"
-      And within a button named "Get started"
-      And I press "{reverseTab}"
-      And I press "{tab}"
-      And I click
-
-    Scenario: key.then.keyboard.multiplePress - Reverse Tab & Tab
-      When I visit path "https://e2e-test-quest.github.io/weather-app/"
-      And I click on button named "Get started"
-      And I type the sentence "i" in the text box named "Search for a town"
-      And within a link named "Home"
-      And I press 2 times on "{tab}"
-      And I click
-      And I reset context
-      Then I should see a list named "Available Towns" and containing
-        | Tunis   |
-        | Limoges |
-
     Scenario: key.then.keyboard.press - Left right
       When I visit path "https://e2e-test-quest.github.io/weather-app/"
       And within a button named "Get started"

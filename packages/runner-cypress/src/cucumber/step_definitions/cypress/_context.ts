@@ -12,11 +12,10 @@
  * understanding English or French.
  */
 
-import { IContext } from "@uuv/runner-commons";
-import { DEFAULT_TIMEOUT } from "@uuv/runner-commons";
+import { DEFAULT_TIMEOUT, IContext } from "@uuv/runner-commons";
 
 
 export class Context implements IContext {
-  public focusedElement ?: Cypress.Chainable<JQuery<HTMLElement>>;
+  public withinFocusedElement : Cypress.Chainable<JQuery<HTMLElement>> | undefined;
   public timeout : number | null = DEFAULT_TIMEOUT;
 }

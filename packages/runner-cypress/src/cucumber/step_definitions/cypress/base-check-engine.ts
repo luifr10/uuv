@@ -19,13 +19,14 @@ import { Method } from "cypress/types/net-stubbing";
 import { KEY_PRESS } from "@uuv/runner-commons";
 import { key } from "@uuv/runner-commons/wording/web";
 import {
-  assertTextContent,
-  findWithRoleAndName,
-  findWithRoleAndNameAndContent,
-  findWithRoleAndNameAndContentDisable,
-  findWithRoleAndNameAndContentEnable,
-  notFoundWithRoleAndName,
-  withinRoleAndName
+    assertTextContent,
+    findWithRoleAndName,
+    findWithRoleAndNameAndContent,
+    findWithRoleAndNameAndContentDisable,
+    findWithRoleAndNameAndContentEnable,
+    findWithRoleAndNameFocused,
+    notFoundWithRoleAndName,
+    withinRoleAndName
 } from "./core-engine";
 import { A11yReferenceEnum } from "@uuv/a11y";
 
@@ -43,9 +44,13 @@ When(`${key.when.visit}`, function(siteUrl: string) {
  * key.when.click.withContext.description
  * */
 When(`${key.when.click.withContext}`, function() {
-  cy.uuvCheckContextFocusedElement().then(context => {
-    context.focusedElement!.click();
-  });
+    if (haveKeyBoardFocused()) {
+        cy.focused().click();
+    } else {
+        cy.uuvCheckContextWithinFocusedElement().then(context => {
+            context.withinFocusedElement!.click();
+        });
+    }
 });
 
 /**
@@ -66,10 +71,14 @@ When(`${key.when.click.withRole}`, function(role: string, name: string) {
  * key.when.type.description
  * */
 When(`${key.when.type}`, function(textToType: string) {
-  cy.uuvCheckContextFocusedElement().then((context) => {
-    context.focusedElement!.focus();
-    context.focusedElement!.type(textToType);
-  });
+    if (haveKeyBoardFocused()) {
+        cy.focused().type(textToType);
+    } else {
+        cy.uuvCheckContextWithinFocusedElement().then((context) => {
+            context.withinFocusedElement!.focus();
+            context.withinFocusedElement!.type(textToType);
+        });
+    }
 });
 
 /**
@@ -77,10 +86,7 @@ When(`${key.when.type}`, function(textToType: string) {
  * */
 When(`${key.when.keyboard.multiplePress}`, function(nbTimes: number, key: string) {
   for (let i = 1; i <= nbTimes; i++) {
-    cy.uuvCheckContextFocusedElement().then((context) => {
-      context.focusedElement!.focus();
-      pressKey(context.focusedElement!, key);
-    });
+    pressKey(key);
   }
 });
 
@@ -88,10 +94,21 @@ When(`${key.when.keyboard.multiplePress}`, function(nbTimes: number, key: string
  * key.when.keyboard.press.description
  * */
 When(`${key.when.keyboard.press}`, function(key: string) {
-  cy.uuvCheckContextFocusedElement().then((context) => {
-    context.focusedElement!.focus();
-    pressKey(context.focusedElement!, key);
-  });
+  pressKey(key);
+});
+
+/**
+ * key.when.keyboard.previousElement.description
+ * */
+When(`${key.when.keyboard.previousElement}`, function() {
+  pressKey("{reverseTab}");
+});
+
+/**
+ * key.when.keyboard.nextElement.description
+ * */
+When(`${key.when.keyboard.nextElement}`, function() {
+  pressKey("{tab}");
 });
 
 ////////////////////////////////////////////
@@ -112,6 +129,17 @@ Given(
  `${key.given.viewport.withWidthAndHeight}`,
  function(width: number, height: number) {
    return cy.viewport(width, height);
+ }
+);
+
+/**
+ * key.given.keyboard.startNavigationFromTheTop.description
+ * */
+Given(
+ `${key.given.keyboard.startNavigationFromTheTop}`,
+ function() {
+     cy.get("body").last().realClick({ x: 0.5, y: 0.5 });
+     cy.realPress("Tab");
  }
 );
 
@@ -140,7 +168,7 @@ When(`${key.when.withinElement.ariaLabel}`, function(expectedAriaLabel: string) 
    .should("exist");
 
   return cy.uuvPatchContext({
-    focusedElement: foundedElement
+    withinFocusedElement: foundedElement
   });
 });
 
@@ -153,7 +181,7 @@ When(`${key.when.withinElement.testId}`, function(testId: string) {
    .should("exist");
 
   return cy.uuvPatchContext({
-    focusedElement: foundedElement
+    withinFocusedElement: foundedElement
   });
 });
 
@@ -162,7 +190,7 @@ When(`${key.when.withinElement.testId}`, function(testId: string) {
  * */
 When(`${key.when.withinElement.selector}`, function(selector: string) {
   const foundedElement = cy.uuvGetContext().then(context => {
-    const parentElement = context.focusedElement;
+    const parentElement = context.withinFocusedElement;
     if (parentElement) {
       // console.log("parentElement: ", parentElement);
       return parentElement.should("exist").within(() => {
@@ -175,7 +203,7 @@ When(`${key.when.withinElement.selector}`, function(selector: string) {
    .should("exist");
 
   return cy.uuvPatchContext({
-    focusedElement: foundedElement
+    withinFocusedElement: foundedElement
   });
 });
 
@@ -183,7 +211,7 @@ When(`${key.when.withinElement.selector}`, function(selector: string) {
  * key.when.resetContext.description
  * */
 When(`${key.when.resetContext}`, function() {
-  return cy.wrap(new Context()).as("context");
+    return cy.wrap(new Context()).as("context");
 });
 
 /**
@@ -326,6 +354,16 @@ Then(
 );
 
 /**
+ * key.then.element.withRoleAndNameFocused.description
+ * */
+Then(
+ `${key.then.element.withRoleAndNameFocused}`,
+ async function(expectedRole: string, name: string) {
+     findWithRoleAndNameFocused(expectedRole, name);
+ }
+);
+
+/**
  * key.then.element.withRoleAndNameAndContentDisabled.description
  * */
 Then(
@@ -424,8 +462,8 @@ Then(
 Then(
  `${key.then.attributes.withValues}`,
  async function(expectedAttributeList: DataTable) {
-   cy.uuvCheckContextFocusedElement().then((context) => {
-     const elementToSelect = context.focusedElement!;
+   cy.uuvCheckContextWithinFocusedElement().then((context) => {
+     const elementToSelect = context.withinFocusedElement!;
      for (const currentIndex in expectedAttributeList.raw()) {
        const attributeName = expectedAttributeList.raw()[currentIndex][0];
        const attributeValue = expectedAttributeList.raw()[currentIndex][1];
@@ -544,38 +582,35 @@ Then(
    cy.checkUvvA11y(A11yReferenceEnum.RGAA, JSON.parse(expectedResult), true);
  });
 
-function pressKey(context: Cypress.Chainable<JQuery<HTMLElement>>, key: string) {
-  switch (key) {
-    case KEY_PRESS.TAB:
-      context.realPress("Tab");
-      break;
-    case KEY_PRESS.REVERSE_TAB:
-      context.realPress(["ShiftLeft", "Tab"]);
-      break;
-    case KEY_PRESS.UP:
-      context.realPress("ArrowUp");
-      break;
-    case KEY_PRESS.DOWN:
-      context.realPress("ArrowDown");
-      break;
-    case KEY_PRESS.LEFT:
-      context.realPress("ArrowLeft");
-      break;
-    case KEY_PRESS.RIGHT:
-      context.realPress("ArrowRight");
-      break;
-    default:
-      console.error("the command" + key + " is unrecognized.");
-      break;
-  }
-  cy.uuvPatchContext({
-    focusedElement: cy.focused()
-  });
+function pressKey(key: string) {
+    switch (key) {
+        case KEY_PRESS.TAB:
+            cy.realPress("Tab");
+            break;
+        case KEY_PRESS.REVERSE_TAB:
+            cy.realPress(["ShiftLeft", "Tab"]);
+            break;
+        case KEY_PRESS.UP:
+            cy.realPress("ArrowUp");
+            break;
+        case KEY_PRESS.DOWN:
+            cy.realPress("ArrowDown");
+            break;
+        case KEY_PRESS.LEFT:
+            cy.realPress("ArrowLeft");
+            break;
+        case KEY_PRESS.RIGHT:
+            cy.realPress("ArrowRight");
+            break;
+        default:
+            console.error("the command" + key + " is unrecognized.");
+            break;
+    }
 }
 
 function click(role: string, name: string) {
   cy.uuvGetContext().then(context => {
-    const parentElement = context.focusedElement;
+    const parentElement = context.withinFocusedElement;
     if (parentElement) {
       cy.uuvFindByRole(role, { name: name }).uuvFoundedElement().click();
       cy.wrap(new Context()).as("context");
@@ -585,3 +620,6 @@ function click(role: string, name: string) {
   });
 }
 
+function haveKeyBoardFocused() {
+    return Cypress.$(":focus").length > 0;
+}

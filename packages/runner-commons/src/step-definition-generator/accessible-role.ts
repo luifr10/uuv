@@ -3,6 +3,7 @@ export abstract class AccessibleRole {
     name!: string;
     shouldGenerateTypeSentence!: boolean;
     shouldGenerateContainsSentence!: boolean;
+    shouldGenerateKeyboardSentence = false;
 
     abstract getDefiniteArticle(): string;
 

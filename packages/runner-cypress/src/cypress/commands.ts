@@ -17,7 +17,7 @@ import "@testing-library/cypress/add-commands";
 import "cypress-axe";
 import { ByRoleOptions } from "@testing-library/cypress";
 import {
-  uuvCheckContextFocusedElement,
+  uuvCheckContextWithinFocusedElement,
   uuvFindAllByRole,
   uuvFindByLabelText,
   uuvFindByRole,
@@ -39,11 +39,13 @@ import { A11yReferenceEnum, A11yResult } from "@uuv/a11y";
 declare global {
   namespace Cypress {
     interface Chainable {
-      uuvGetContext(): Cypress.Chainable<Context>;
+      uuvGetContext(contextName?: string): Cypress.Chainable<Context>;
 
-      uuvCheckContextFocusedElement(): Cypress.Chainable<Context>;
+      uuvCheckContextWithinFocusedElement(): Cypress.Chainable<Context>;
 
-      uuvPatchContext(partOfContext: any): Chainable<Context>;
+      uuvCheckContextKeyboardFocusedElement(): Cypress.Chainable<Context>;
+
+      uuvPatchContext(partOfContext: any, contextName?: string): Chainable<Context>;
 
       uuvFindByText(textToSearch: string, roleOptions: ByRoleOptions): Cypress.Chainable<JQuery<HTMLElement>>;
 
@@ -67,7 +69,7 @@ declare global {
 }
 
 Cypress.Commands.add("uuvGetContext", uuvGetContext);
-Cypress.Commands.add("uuvCheckContextFocusedElement", uuvCheckContextFocusedElement);
+Cypress.Commands.add("uuvCheckContextWithinFocusedElement", uuvCheckContextWithinFocusedElement);
 Cypress.Commands.add("uuvPatchContext", uuvPatchContext);
 Cypress.Commands.add("uuvFindByText", uuvFindByText);
 Cypress.Commands.add("uuvFindByTestId", uuvFindByTestId);

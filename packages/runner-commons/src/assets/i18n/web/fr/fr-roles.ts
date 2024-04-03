@@ -18,7 +18,8 @@ class FrAccessibleRole extends AccessibleRole {
         private definiteArticle: FR_DEFINITE_ARTICLE,
         private indefiniteArticle: FR_INDEFINITE_ARTICLE,
         override shouldGenerateTypeSentence: boolean = true,
-        override shouldGenerateContainsSentence: boolean = true
+        override shouldGenerateContainsSentence: boolean = true,
+        override shouldGenerateKeyboardSentence: boolean = false
     ) {
         super();
     }
@@ -83,7 +84,8 @@ export const FR_ROLES: AccessibleRole[] = [
         id: "button",
         name: "bouton",
         definiteArticle: FR_DEFINITE_ARTICLE.LE,
-        indefiniteArticle: FR_INDEFINITE_ARTICLE.UN
+        indefiniteArticle: FR_INDEFINITE_ARTICLE.UN,
+        shouldGenerateKeyboardSentence: true
     },
     {
         id: "cell",
@@ -95,7 +97,8 @@ export const FR_ROLES: AccessibleRole[] = [
         id: "checkbox",
         name: "case à cocher",
         definiteArticle: FR_DEFINITE_ARTICLE.LA,
-        indefiniteArticle: FR_INDEFINITE_ARTICLE.UNE
+        indefiniteArticle: FR_INDEFINITE_ARTICLE.UNE,
+        shouldGenerateKeyboardSentence: true
     },
     {
         id: "columnheader",
@@ -107,7 +110,8 @@ export const FR_ROLES: AccessibleRole[] = [
         id: "combobox",
         name: "boîte à choix",
         definiteArticle: FR_DEFINITE_ARTICLE.LA,
-        indefiniteArticle: FR_INDEFINITE_ARTICLE.UNE
+        indefiniteArticle: FR_INDEFINITE_ARTICLE.UNE,
+        shouldGenerateKeyboardSentence: true
     },
     {
         id: "command",
@@ -218,12 +222,6 @@ export const FR_ROLES: AccessibleRole[] = [
         indefiniteArticle: FR_INDEFINITE_ARTICLE.UNE
     },
     {
-        id: "input",
-        name: "entrée",
-        definiteArticle: FR_DEFINITE_ARTICLE.L,
-        indefiniteArticle: FR_INDEFINITE_ARTICLE.UN
-    },
-    {
         id: "landmark",
         name: "point de repère",
         definiteArticle: FR_DEFINITE_ARTICLE.LE,
@@ -233,7 +231,8 @@ export const FR_ROLES: AccessibleRole[] = [
         id: "link",
         name: "lien",
         definiteArticle: FR_DEFINITE_ARTICLE.LE,
-        indefiniteArticle: FR_INDEFINITE_ARTICLE.UN
+        indefiniteArticle: FR_INDEFINITE_ARTICLE.UN,
+        shouldGenerateKeyboardSentence: true
     },
     {
         id: "list",
@@ -247,7 +246,8 @@ export const FR_ROLES: AccessibleRole[] = [
         id: "listbox",
         name: "boîte à liste",
         definiteArticle: FR_DEFINITE_ARTICLE.LA,
-        indefiniteArticle: FR_INDEFINITE_ARTICLE.UNE
+        indefiniteArticle: FR_INDEFINITE_ARTICLE.UNE,
+        shouldGenerateKeyboardSentence: true
     },
     {
         id: "listitem",
@@ -295,19 +295,22 @@ export const FR_ROLES: AccessibleRole[] = [
         id: "menuitem",
         name: "élément de menu",
         definiteArticle: FR_DEFINITE_ARTICLE.L,
-        indefiniteArticle: FR_INDEFINITE_ARTICLE.UN
+        indefiniteArticle: FR_INDEFINITE_ARTICLE.UN,
+        shouldGenerateKeyboardSentence: true
     },
     {
         id: "menuitemcheckbox",
         name: "menu d'élément de boîte à choix",
         definiteArticle: FR_DEFINITE_ARTICLE.LE,
-        indefiniteArticle: FR_INDEFINITE_ARTICLE.UN
+        indefiniteArticle: FR_INDEFINITE_ARTICLE.UN,
+        shouldGenerateKeyboardSentence: true
     },
     {
         id: "menuitemradio",
         name: "menu d'élement de bouton radio",
         definiteArticle: FR_DEFINITE_ARTICLE.LE,
-        indefiniteArticle: FR_INDEFINITE_ARTICLE.UN
+        indefiniteArticle: FR_INDEFINITE_ARTICLE.UN,
+        shouldGenerateKeyboardSentence: true
     },
     {
         id: "meter",
@@ -355,7 +358,8 @@ export const FR_ROLES: AccessibleRole[] = [
         id: "radio",
         name: "bouton radio",
         definiteArticle: FR_DEFINITE_ARTICLE.LE,
-        indefiniteArticle: FR_INDEFINITE_ARTICLE.UN
+        indefiniteArticle: FR_INDEFINITE_ARTICLE.UN,
+        shouldGenerateKeyboardSentence: true
     },
     {
         id: "radiogroup",
@@ -409,13 +413,15 @@ export const FR_ROLES: AccessibleRole[] = [
         id: "search",
         name: "recherche",
         definiteArticle: FR_DEFINITE_ARTICLE.LA,
-        indefiniteArticle: FR_INDEFINITE_ARTICLE.UNE
+        indefiniteArticle: FR_INDEFINITE_ARTICLE.UNE,
+        shouldGenerateKeyboardSentence: true
     },
     {
         id: "searchbox",
         name: "boîte de recherche",
         definiteArticle: FR_DEFINITE_ARTICLE.LA,
-        indefiniteArticle: FR_INDEFINITE_ARTICLE.UNE
+        indefiniteArticle: FR_INDEFINITE_ARTICLE.UNE,
+        shouldGenerateKeyboardSentence: true
     },
     {
         id: "section",
@@ -433,7 +439,8 @@ export const FR_ROLES: AccessibleRole[] = [
         id: "select",
         name: "sélecteur",
         definiteArticle: FR_DEFINITE_ARTICLE.LE,
-        indefiniteArticle: FR_INDEFINITE_ARTICLE.UN
+        indefiniteArticle: FR_INDEFINITE_ARTICLE.UN,
+        shouldGenerateKeyboardSentence: true
     },
     {
         id: "separator",
@@ -445,13 +452,15 @@ export const FR_ROLES: AccessibleRole[] = [
         id: "slider",
         name: "curseur",
         definiteArticle: FR_DEFINITE_ARTICLE.LE,
-        indefiniteArticle: FR_INDEFINITE_ARTICLE.UN
+        indefiniteArticle: FR_INDEFINITE_ARTICLE.UN,
+        shouldGenerateKeyboardSentence: true
     },
     {
         id: "spinbutton",
         name: "bouton rotatif",
         definiteArticle: FR_DEFINITE_ARTICLE.LE,
-        indefiniteArticle: FR_INDEFINITE_ARTICLE.UN
+        indefiniteArticle: FR_INDEFINITE_ARTICLE.UN,
+        shouldGenerateKeyboardSentence: true
     },
     {
         id: "status",
@@ -475,13 +484,15 @@ export const FR_ROLES: AccessibleRole[] = [
         id: "switch",
         name: "interrupteur",
         definiteArticle: FR_DEFINITE_ARTICLE.L,
-        indefiniteArticle: FR_INDEFINITE_ARTICLE.UN
+        indefiniteArticle: FR_INDEFINITE_ARTICLE.UN,
+        shouldGenerateKeyboardSentence: true
     },
     {
         id: "tab",
         name: "onglet",
         definiteArticle: FR_DEFINITE_ARTICLE.L,
-        indefiniteArticle: FR_INDEFINITE_ARTICLE.UN
+        indefiniteArticle: FR_INDEFINITE_ARTICLE.UN,
+        shouldGenerateKeyboardSentence: true
     },
     {
         id: "table",
@@ -511,7 +522,8 @@ export const FR_ROLES: AccessibleRole[] = [
         id: "textbox",
         name: "boîte à texte",
         definiteArticle: FR_DEFINITE_ARTICLE.LA,
-        indefiniteArticle: FR_INDEFINITE_ARTICLE.UNE
+        indefiniteArticle: FR_INDEFINITE_ARTICLE.UNE,
+        shouldGenerateKeyboardSentence: true
     },
     {
         id: "timer",
@@ -553,7 +565,8 @@ export const FR_ROLES: AccessibleRole[] = [
         id: "widget",
         name: "widget",
         definiteArticle: FR_DEFINITE_ARTICLE.LE,
-        indefiniteArticle: FR_INDEFINITE_ARTICLE.UN
+        indefiniteArticle: FR_INDEFINITE_ARTICLE.UN,
+        shouldGenerateKeyboardSentence: true
     },
     {
         id: "window",
@@ -567,5 +580,6 @@ export const FR_ROLES: AccessibleRole[] = [
     role.definiteArticle,
     role.indefiniteArticle,
     role.shouldGenerateContainsSentence,
-    role.shouldGenerateContainsSentence
+    role.shouldGenerateContainsSentence,
+    role.shouldGenerateKeyboardSentence
 ));

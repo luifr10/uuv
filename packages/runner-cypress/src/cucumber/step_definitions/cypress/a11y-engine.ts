@@ -12,7 +12,6 @@
  * understanding English or French.
  */
 
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import {
     A11yChecker,
     A11yReference, A11yReferenceEnum,

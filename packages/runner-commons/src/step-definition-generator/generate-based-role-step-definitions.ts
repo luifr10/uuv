@@ -85,6 +85,11 @@ export class BasedRoleStepDefinition extends GenerateFileProcessing {
                 dataUpdated = dataUpdated.replace(/\/\/ Begin of Type Section[\s\S]*?\/\/ End of Type Section/, "");
             }
 
+            // Exclude Role based Keyboard sentence if specified
+            if (!role.shouldGenerateKeyboardSentence) {
+                dataUpdated = dataUpdated.replace(/\/\/ Begin of Keyboard Section[\s\S]*?\/\/ End of Keyboard Section/, "");
+            }
+
             const generatedFilename = generatedFile.replace("$roleId", role.id);
             // console.debug(">>> data", dataUpdated)
             // console.debug(">>> generatedFilename", generatedFilename)

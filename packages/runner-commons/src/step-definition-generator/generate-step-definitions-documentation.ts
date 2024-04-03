@@ -249,6 +249,8 @@ export function runGenerateDoc(destDir: string) {
                 return role.shouldGenerateContainsSentence;
             case "type" :
                 return role.shouldGenerateTypeSentence;
+            case "keyboard" :
+                return role.shouldGenerateKeyboardSentence;
             default :
                 return true;
         }
@@ -256,10 +258,11 @@ export function runGenerateDoc(destDir: string) {
 
     function writeWordingFile(generatedFile, data, lang, indexOfFile) {
         fs.writeFileSync(generatedFile, data);
-            console.log(
-                `[WRITE] ${indexOfFile}-${lang}-generated-wording-description.md written successfully`
-            );
-        }
+        console.log(
+            `[WRITE] ${indexOfFile}-${lang}-generated-wording-description.md written successfully`
+        );
+    }
+
     function normalizedMdxData(data) {
         return data.replaceAll("{string}", "\\\\{string\\\\}")
          .replaceAll("{}", "\\\\{\\\\}")

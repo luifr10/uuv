@@ -55,6 +55,16 @@
   "wording": "I press {int} times on {string}"
  },
  {
+  "key": "key.when.keyboard.nextElement",
+  "description": "Move to the next html element that can be reached with Tab",
+  "wording": "I go to next keyboard element"
+ },
+ {
+  "key": "key.when.keyboard.previousElement",
+  "description": "Move to the previous html element that can be reached with back Tab",
+  "wording": "I go to previous keyboard element"
+ },
+ {
   "key": "key.when.visit",
   "description": "Navigate to the Uri passed as a argument (full url consisting of the BASE_URL + Uri) or navigate to Url if begin with http:// or https://",
   "wording": "I visit path {string}"
@@ -105,6 +115,11 @@
   "wording": "I set viewport with width {int} and height {int}"
  },
  {
+  "key": "key.given.keyboard.startNavigationFromTheTop",
+  "description": "Start a keyboard navigation session from the top of the page",
+  "wording": "I start a keyboard navigation from the top of the page"
+ },
+ {
   "key": "key.then.attributes.withValues",
   "description": "Checks Html attributes of the selected element",
   "wording": "I should see these attributes with values"
@@ -143,6 +158,11 @@
   "key": "key.then.element.withRoleAndNameAndContent",
   "description": "Checks that an Html element exists with the specified [accessible role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types), [name](https://russmaxdesign.github.io/html-elements-names/) and content",
   "wording": "I should see an element with role {string} and name {string} and content {string}"
+ },
+ {
+  "key": "key.then.element.withRoleAndNameFocused",
+  "description": "Checks that the Html element with the specified [accessible role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types) and [name](https://russmaxdesign.github.io/html-elements-names/) is focused",
+  "wording": "the element with role {string} and name {string} should be keyboard focused"
  },
  {
   "key": "key.then.element.withRoleAndName",

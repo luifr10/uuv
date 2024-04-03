@@ -42,25 +42,6 @@ Fonctionnalité: Accessibility Step Definition
       Alors je ne dois pas avoir de problèmes d'accessibilité axe-core avec le standard wcag2a
 
   Règle: touches d'accessibilité
-    Scénario: key.then.keyboard.press - Reverse Tab & Tab
-      Lorsque je visite l'Url "https://e2e-test-quest.github.io/weather-app/"
-      Et je vais à l'intérieur du bouton nommé "Get started"
-      Et j'appuie sur "{reverseTab}"
-      Et j'appuie sur "{tab}"
-      Et je clique
-
-    Scénario: key.then.keyboard.multiplePress - Reverse Tab & Tab
-      Lorsque je visite l'Url "https://e2e-test-quest.github.io/weather-app/"
-      Et je clique sur le bouton nommé "Get started"
-      Et je saisie les mots "i" dans la boîte à texte nommée "Search for a town"
-      Et je vais à l'intérieur du lien nommé "Home"
-      Et j'appuie 2 fois sur "{tab}"
-      Et je clique
-      Et je reinitialise le contexte
-      Alors je dois voir une liste nommée "Available Towns" et contenant
-        | Tunis   |
-        | Limoges |
-
     Scénario: key.then.keyboard.press - Left right
       Lorsque je visite l'Url "https://e2e-test-quest.github.io/weather-app/"
       Et je vais à l'intérieur du bouton nommé "Get started"

@@ -13,6 +13,12 @@
       "section": "general"
     },
     {
+      "key": "key.then.element.withRoleAndNameFocused",
+      "description": "Vérifie que l'élément Html avec le [rôle accessible](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types) et le [nom accessible](https://russmaxdesign.github.io/html-elements-names/) est focus",
+      "wording": "je dois voir $indefiniteArticle $roleName $namedAdjective {string} avoir le focus clavier",
+      "section": "keyboard"
+    },
+    {
       "key": "key.then.element.not.withRoleAndName",
       "description": "Vérifie l'inexistence d'un élément Html ayant le rôle $roleId et le [nom accessible](https://russmaxdesign.github.io/html-elements-names/) spécifiés",
       "wording": "je ne dois pas voir $indefiniteArticle $roleName $namedAdjective {string}",

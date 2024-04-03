@@ -41,9 +41,16 @@ export function assertTextContent<Subject>(
 }
 
 export function findWithRoleAndName(role: string, name: string) {
-    cy.uuvFindByRole(role, { name })
-        .uuvFoundedElement()
-        .should("exist");
+    findByRoleAndName(role, name);
+}
+
+export function findWithRoleAndNameFocused(role: string, name: string) {
+    findByRoleAndName(role, name)
+        .then(foundElement => {
+            cy.focused().then(focusedElement => {
+                expect(foundElement?.get(0)).eq(focusedElement?.get(0));
+            });
+        });
 }
 
 export function withinRoleAndName(role: string, name: string) {
@@ -52,7 +59,7 @@ export function withinRoleAndName(role: string, name: string) {
         .should("exist");
 
     return cy.uuvPatchContext({
-        focusedElement: foundedElement
+        withinFocusedElement: foundedElement
     });
 }
 
@@ -93,4 +100,10 @@ export function findWithRoleAndNameAndContentEnable(expectedRole: string, name: 
         })
         .invoke("attr", "disabled")
         .should("eq", undefined);
+}
+
+function findByRoleAndName(role: string, name: string) {
+  return cy.uuvFindByRole(role, { name })
+   .uuvFoundedElement()
+   .should("exist");
 }

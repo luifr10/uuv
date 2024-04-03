@@ -17,7 +17,7 @@ import { expect, Locator as LocatorTest } from "@playwright/test";
 import { Cookie, Locator, Page } from "playwright";
 
 export enum COOKIE_NAME {
-    SELECTED_ELEMENT="selectedElement",
+    SELECTED_ELEMENT="withinFocusedElement",
     MOCK_URL="mockUrl"
 }
 export enum COOKIE_VALUE {
@@ -149,12 +149,21 @@ export async function notFoundWithRoleAndName(world: World, role: string, name: 
 export async function findWithRoleAndNameAndContent(world: World, expectedRole: string, name: string, expectedTextContent: string | undefined = undefined): Promise<any> {
     expectedRole = encodeURIComponent(expectedRole);
     await getPageOrElement(world).then(async (element) => {
-           // console.log("final:",expectedRole,name)
            const byRole = await element.getByRole(expectedRole, { name: name, includeHidden: true, exact: true });
            await expect(byRole).toHaveCount(1);
         if (expectedTextContent !== undefined) {
              await checkTextContentLocator(byRole, expectedTextContent);
         }
+    });
+}
+
+export async function findWithRoleAndNameFocused(world: World, expectedRole: string, name: string): Promise<any> {
+    expectedRole = encodeURIComponent(expectedRole);
+    await getPageOrElement(world).then(async (element) => {
+        // console.log("final:",expectedRole,name)
+        const byRole = await element.getByRole(expectedRole, { name: name, includeHidden: true, exact: true });
+        await expect(byRole).toHaveCount(1);
+        await expect(byRole).toBeFocused();
     });
 }
 

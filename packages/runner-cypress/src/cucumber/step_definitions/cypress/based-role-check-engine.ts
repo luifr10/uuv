@@ -19,6 +19,7 @@ import {
     findWithRoleAndNameAndContent,
     findWithRoleAndNameAndContentDisable,
     findWithRoleAndNameAndContentEnable,
+    findWithRoleAndNameFocused,
     notFoundWithRoleAndName,
     withinRoleAndName
 } from "./core-engine";
@@ -94,3 +95,17 @@ Then(
 );
 
 // End of Content Section
+
+// Begin of Keyboard Section
+
+/**
+ * key.then.element.withRoleAndNameFocused.description
+ * */
+Then(
+    `${key.then.element.withRoleAndNameFocused}`,
+    async function(name: string) {
+        findWithRoleAndNameFocused("$roleId", name);
+    }
+);
+
+// End of Keyboard Section

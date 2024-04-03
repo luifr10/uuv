@@ -55,6 +55,16 @@
     "wording": "j'appuie {int} fois sur {string}"
   },
   {
+    "key": "key.when.keyboard.nextElement",
+    "description": "se déplace au prochain élément HTML atteignable avec la tabulation",
+    "wording": "je vais au prochain élément au clavier"
+  },
+  {
+    "key": "key.when.keyboard.previousElement",
+    "description": "se déplace au précédent élément HTML atteignable avec la tabulation retour",
+    "wording": "je vais au précédent élément au clavier"
+  },
+  {
     "key": "key.when.visit",
     "description": "Navigue vers l'Uri passé en paramètre (url complète étant constituée de la BASE_URL + Uri) ou navigue vers l'Url si ça commence par http:// ou https://",
     "wording": "je visite l'Url {string}"
@@ -105,6 +115,11 @@
     "wording": "je redimensionne la fenêtre avec une largeur de {int} px et une longueur de {int} px"
   },
   {
+    "key": "key.given.keyboard.startNavigationFromTheTop",
+    "description": "Démarre une session de navigation au clavier à partir du haut de la page",
+    "wording": "je commence une navigation au clavier depuis le haut de la page"
+  },
+  {
     "key": "key.then.attributes.withValues",
     "description": "Vérifie des attributs Html de l'élément sélectionné",
     "wording": "je dois voir les attributs avec valeurs suivantes"
@@ -143,6 +158,11 @@
     "key": "key.then.element.withRoleAndNameAndContent",
     "description": "Vérifie qu'un élément Html existe avec le [rôle accessible](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types), le [nom accessible](https://russmaxdesign.github.io/html-elements-names/) et le contenu spécifiés",
     "wording": "je dois voir un élément avec le rôle {string} et le nom {string} et pour contenu {string}"
+  },
+  {
+    "key": "key.then.element.withRoleAndNameFocused",
+    "description": "Vérifie que l'élément Html avec le [rôle accessible](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types) et le [nom accessible](https://russmaxdesign.github.io/html-elements-names/) est focus",
+    "wording": "l'élément avec le rôle {string} et le nom {string} doit avoir le focus clavier"
   },
   {
     "key": "key.then.element.withRoleAndName",

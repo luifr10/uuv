@@ -9,7 +9,9 @@
     "type": "",
     "keyboard": {
       "multiplePress": "",
-      "press": ""
+      "press": "",
+      "previousElement": "",
+      "nextElement": ""
     },
     "timeout": "",
     "withinElement": {
@@ -33,6 +35,9 @@
     "viewport": {
       "preset": "",
       "withWidthAndHeight": ""
+    },
+    "keyboard": {
+      "startNavigationFromTheTop": ""
     }
   },
   "then": {
@@ -41,6 +46,7 @@
       "withRoleAndName": "",
       "withTestId": "",
       "withRoleAndNameAndContent": "",
+      "withRoleAndNameFocused": "",
       "withRoleAndNameAndContentDisabled": "",
       "withRoleAndNameAndContentEnabled": "",
       "withAriaLabel": "",

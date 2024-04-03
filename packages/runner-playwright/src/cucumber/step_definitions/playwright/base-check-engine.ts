@@ -19,19 +19,20 @@ import { devices, expect } from "@playwright/test";
 import { Page, Locator } from "playwright";
 import { DataTable } from "@cucumber/cucumber";
 import {
-  addCookieWhenValueIsList,
-  COOKIE_NAME, deleteCookieByName,
-  deleteCookieByValue,
-  FILTER_TYPE,
-  findWithRoleAndName,
-  findWithRoleAndNameAndContent,
-  findWithRoleAndNameAndContentDisable,
-  findWithRoleAndNameAndContentEnable,
-  getCookie,
-  getPageOrElement,
-  MockType,
-  notFoundWithRoleAndName,
-  withinRoleAndName
+    addCookieWhenValueIsList,
+    COOKIE_NAME, deleteCookieByName,
+    deleteCookieByValue,
+    FILTER_TYPE,
+    findWithRoleAndName,
+    findWithRoleAndNameAndContent,
+    findWithRoleAndNameAndContentDisable,
+    findWithRoleAndNameAndContentEnable,
+    findWithRoleAndNameFocused,
+    getCookie,
+    getPageOrElement,
+    MockType,
+    notFoundWithRoleAndName,
+    withinRoleAndName
 } from "./core-engine";
 
 import { Given, When, Then } from "@cucumber/cucumber";
@@ -39,10 +40,16 @@ import { World } from "../../preprocessor/run/world";
 import { ContextObject, RunOptions } from "axe-core";
 import path from "path";
 
+/**
+ * key.given.viewport.preset.description
+ * */
 Given(`${key.given.viewport.preset}`, async function(this: World, viewportPreset: string) {
   await this.page.setViewportSize(devices[viewportPreset].viewport);
 });
 
+/**
+ * key.given.viewport.withWidthAndHeight.description
+ * */
 Given(
  `${key.given.viewport.withWidthAndHeight}`, async function
  (this: World, width: number, height: number) {
@@ -50,79 +57,148 @@ Given(
  }
 );
 
+/**
+ * key.given.keyboard.startNavigationFromTheTop.description
+ * */
+Given(
+    `${key.given.keyboard.startNavigationFromTheTop}`,
+    async function(this: World) {
+        await this.page.mouse.click(0.5, 0.5);
+        await this.page.keyboard.press("Tab");
+    }
+);
+
+/**
+ * key.when.visit.description
+ * */
 Given(`${key.when.visit}`, { timeout: 60 * 1000 }, async function(this: World, siteUrl: string) {
   await deleteCookieByName(this, COOKIE_NAME.SELECTED_ELEMENT);
   await this.page.goto(`${siteUrl}`);
 });
 
+/**
+ * key.when.click.withContext.description
+ * */
 When(`${key.when.click.withContext}`, async function(this: World) {
-  await getPageOrElement(this).then((element: Locator) => element.click({ timeout: DEFAULT_TIMEOUT }));
+    const keyBoardFocusTargetObj = keyBoardFocusTarget(this);
+    if ((await keyBoardFocusTargetObj.count()) === 1) {
+        await keyBoardFocusTargetObj.click({ timeout: DEFAULT_TIMEOUT });
+    } else {
+        await getPageOrElement(this).then((element: Locator) => element.click({ timeout: DEFAULT_TIMEOUT }));
+    }
 });
 
-
+/**
+ * key.when.click.button.description
+ * */
 When(`${key.when.click.button}`, async function(this: World, name: string) {
   await click(this, "button", name);
 });
 
+/**
+ * key.when.click.withRole.description
+ * */
 When(`${key.when.click.withRole}`, async function(this: World, role: string, name: string) {
   await click(this, role, name);
 });
 
 // TODO : permet de gérer les label accessibles donc pas que les aria : https://playwright.dev/docs/api/class-locator#locator-get-by-label
+/**
+ * key.when.withinElement.ariaLabel.description
+ * */
 When(`${key.when.withinElement.ariaLabel}`, async function(this: World, expectedAriaLabel: string) {
   const sanitizedExpectedAriaLabel = encodeURIComponent(expectedAriaLabel).replaceAll("%20", " ");
   await getPageOrElement(this).then((element) => expect(element.getByLabel(sanitizedExpectedAriaLabel, { exact: true })).toHaveCount(1));
   await addCookieWhenValueIsList(this, COOKIE_NAME.SELECTED_ELEMENT, { name: FILTER_TYPE.ARIA_LABEL, value: sanitizedExpectedAriaLabel });
 });
+
+/**
+ * key.when.resetContext.description
+ * */
 When(`${key.when.resetContext}`, async function(this: World) {
   await this.context.clearCookies();
 });
 
+/**
+ * key.when.withinElement.selector.description
+ * */
 When(`${key.when.withinElement.selector}`, async function(this: World, selector: string) {
   await getPageOrElement(this).then((element) => expect(element.locator(selector)).toHaveCount(1));
   await addCookieWhenValueIsList(this, COOKIE_NAME.SELECTED_ELEMENT, { name: FILTER_TYPE.SELECTOR, value: selector });
 });
 
+/**
+ * key.when.type.description
+ * */
 When(`${key.when.type}`, async function(this: World, textToType: string) {
-  await getPageOrElement(this).then(async (element: Locator) => {
-    await element.focus({ timeout: 10000 });
-    await element.type(textToType);
-    // console.debug(await showAttributesInLocator(element));
-  });
+    const keyBoardFocusTargetObj = keyBoardFocusTarget(this);
+    if ((await keyBoardFocusTargetObj.count()) === 1) {
+        await keyBoardFocusTargetObj.type(textToType);
+    } else {
+        await getPageOrElement(this).then(async (element: Locator) => {
+            // console.debug(element);
+            await element.focus({ timeout: 10000 });
+            await element.type(textToType);
+        });
+    }
 });
 
-
+/**
+ * key.when.keyboard.multiplePress.description
+ * */
 When(`${key.when.keyboard.multiplePress}`, async function(this: World, nbTimes: number, key: string) {
   for (let i = 1; i <= nbTimes; i++) {
-    await getPageOrElement(this).then(async (element: Locator) => {
-      await element.focus({ timeout: 10000 });
-      await pressKey(this, element, key);
-    });
+    await pressKey(this, key);
   }
 });
 
+/**
+ * key.when.keyboard.press.description
+ * */
 When(`${key.when.keyboard.press}`, async function(this: World, key: string) {
-  await getPageOrElement(this).then(async (element: Locator) => {
-    await element.focus({ timeout: 10000 });
-    await pressKey(this, element, key);
-  });
+    await pressKey(this, key);
 });
+
+/**
+ * key.when.keyboard.previousElement.description
+ * */
+When(`${key.when.keyboard.previousElement}`, async function(this: World) {
+    await this.page.keyboard.press("ShiftLeft+Tab");
+});
+
+/**
+ * key.when.keyboard.nextElement.description
+ * */
+When(`${key.when.keyboard.nextElement}`, async function(this: World) {
+    await this.page.keyboard.press("Tab");
+});
+
+/**
+ * key.when.timeout.description
+ * */
 When(`${key.when.timeout}`, async function(this: World, newTimeout: number) {
   await this.testInfo.setTimeout(newTimeout);
 });
 
-
+/**
+ * key.when.withinElement.roleAndName.description
+ * */
 When(`${key.when.withinElement.roleAndName}`, async function(this: World, role: string, name: string) {
   await withinRoleAndName(this, role, name);
 });
 
+/**
+ * key.when.withinElement.testId.description
+ * */
 When(`${key.when.withinElement.testId}`, async function(this: World, testId: string) {
   testId = encodeURIComponent(testId);
   await getPageOrElement(this).then(async (element) => await expect(element.getByTestId(testId)).toHaveCount(1));
   await addCookieWhenValueIsList(this, COOKIE_NAME.SELECTED_ELEMENT, { name: FILTER_TYPE.TEST_ID, value: testId });
 });
 
-
+/**
+ * key.when.mock.withBody.description
+ * */
 When(
  `${key.when.mock.withBody}`,
  async function(this: World, verb: string, url: string, name: string, body: any) {
@@ -134,6 +210,9 @@ When(
  }
 );
 
+/**
+ * key.when.mock.withStatusCode.description
+ * */
 When(
  `${key.when.mock.withStatusCode}`,
  async function(this: World, verb: string, url: string, name: string, statusCode: number) {
@@ -144,6 +223,9 @@ When(
  }
 );
 
+/**
+ * key.when.mock.withFixture.description
+ * */
 When(
  `${key.when.mock.withFixture}`,
  async function(this: World, verb: string, url: string, name: string, fixture: any) {
@@ -155,10 +237,16 @@ When(
  }
 );
 
+/**
+ * key.then.element.withSelector.description
+ * */
 Then(`${key.then.element.withSelector}`, async function(this: World, selector: string) {
   await getPageOrElement(this).then((element) => expect(element.locator(selector)).toHaveCount(1));
 });
 
+/**
+ * key.when.headers.forUriAndMethod.description
+ * */
 When(
  `${key.when.headers.forUriAndMethod}`,
  async function(this: World, url: string, method: string, headersToSet: DataTable) {
@@ -169,6 +257,9 @@ When(
  }
 );
 
+/**
+ * key.when.headers.forUri.description
+ * */
 When(
  `${key.when.headers.forUri}`,
  async function(this: World, url: string, headersToSet: DataTable) {
@@ -179,29 +270,47 @@ When(
  }
 );
 
+/**
+ * key.then.element.withRoleAndName.description
+ * */
 Then(`${key.then.element.withRoleAndName}`, async function(this: World, role: string, name: string) {
   await findWithRoleAndName(this, role, name);
 });
 
+/**
+ * key.then.element.withContent.description
+ * */
 Then(`${key.then.element.withContent}`, async function(this: World, textContent: string) {
   // TODO partie pris de faire en exactitude. A voir si on doit faire 2 phrases https://playwright.dev/docs/api/class-locator#locator-get-by-text
   await getPageOrElement(this).then((element) => expect(element.getByText(textContent, { exact: true })).toHaveCount(1));
 });
 
+/**
+ * key.then.element.not.withContent.description
+ * */
 Then(`${key.then.element.not.withContent}`, async function(this: World, textContent: string) {
   await getPageOrElement(this).then((element) => expect(element.getByText(textContent, { exact: true })).toHaveCount(0));
 });
 
+/**
+ * key.then.element.withTestId.description
+ * */
 Then(`${key.then.element.withTestId}`, async function(this: World, testId: string) {
   testId = encodeURIComponent(testId);
   await getPageOrElement(this).then((element) => expect(element.getByTestId(testId, { exact: true })).toHaveCount(1));
 });
 
+/**
+ * key.then.element.not.withTestId.description
+ * */
 Then(`${key.then.element.not.withTestId}`, async function(this: World, testId: string) {
   testId = encodeURIComponent(testId);
   await getPageOrElement(this).then((element) => expect(element.getByTestId(testId, { exact: true })).toHaveCount(0));
 });
 
+/**
+ * key.then.a11y.axecore.default.description
+ * */
 Then(
  `${key.then.a11y.axecore.default}`,
  async function(this: World) {
@@ -209,6 +318,9 @@ Then(
    await checkA11y(this.page as Page);
  });
 
+/**
+ * key.then.a11y.axecore.withFixtureOption.description
+ * */
 Then(
      `${key.then.a11y.axecore.withFixtureOption}`,
  async function(this: World, option: any) {
@@ -225,6 +337,9 @@ function getConfigDir(): string {
     return process.env["CONFIG_DIR"] ? process.env["CONFIG_DIR"] : "";
 }
 
+/**
+ * key.then.a11y.axecore.withFixtureContextAndFixtureOption.description
+ * */
 Then(
  `${key.then.a11y.axecore.withFixtureContextAndFixtureOption}`,
  async function(this: World, context: any, option: any) {
@@ -237,6 +352,9 @@ Then(
    });
  });
 
+/**
+ * key.then.a11y.axecore.onlyCritical.description
+ * */
 Then(
  `${key.then.a11y.axecore.onlyCritical}`,
  async function(this: World) {
@@ -246,6 +364,9 @@ Then(
    });
  });
 
+/**
+ * key.then.a11y.axecore.withImpacts.description
+ * */
 Then(
  `${key.then.a11y.axecore.withImpacts}`,
  async function(this: World, impacts: any) {
@@ -254,6 +375,10 @@ Then(
      includedImpacts: [impacts]
    });
  });
+
+/**
+ * key.then.a11y.axecore.withTags.description
+ * */
 Then(
  `${key.then.a11y.axecore.withTags}`,
  async function(this: World, tags: any) {
@@ -268,12 +393,19 @@ Then(
    });
  });
 
+/**
+ * key.then.element.not.withRoleAndName.description
+ * */
 Then(
  `${key.then.element.not.withRoleAndName}`,
  async function(this: World, role: string, name: string) {
    await notFoundWithRoleAndName(this, role, name);
  }
 );
+
+/**
+ * key.then.element.withRoleAndNameAndContent.description
+ * */
 Then(
  `${key.then.element.withRoleAndNameAndContent}`,
  async function(this: World, expectedRole: string, name: string, expectedTextContent: string) {
@@ -281,6 +413,19 @@ Then(
  }
 );
 
+/**
+ * key.then.element.withRoleAndNameFocused.description
+ * */
+Then(
+    `${key.then.element.withRoleAndNameFocused}`,
+    async function(this: World, expectedRole: string, name: string) {
+        await findWithRoleAndNameFocused(this, expectedRole, name);
+    }
+);
+
+/**
+ * key.then.element.withRoleAndNameAndContentDisabled.description
+ * */
 Then(
  `${key.then.element.withRoleAndNameAndContentDisabled}`,
  async function(this: World, expectedRole: string, name: string, expectedTextContent: string) {
@@ -288,6 +433,9 @@ Then(
  }
 );
 
+/**
+ * key.then.element.withRoleAndNameAndContentEnabled.description
+ * */
 Then(
  `${key.then.element.withRoleAndNameAndContentEnabled}`,
  async function(this: World, expectedRole: string, name: string, expectedTextContent: string) {
@@ -295,16 +443,25 @@ Then(
  }
 );
 
+/**
+ * key.then.element.withAriaLabel.description
+ * */
 Then(`${key.then.element.withAriaLabel}`, async function(this: World, expectedAriaLabel: string) {
   expectedAriaLabel = encodeURIComponent(expectedAriaLabel);
   await getPageOrElement(this).then((element) => expect(element.getByLabel(expectedAriaLabel, { exact: true })).toHaveCount(1));
 });
 
+/**
+ * key.then.element.not.withAriaLabel.description
+ * */
 Then(`${key.then.element.not.withAriaLabel}`, async function(this: World, expectedAriaLabel: string) {
   expectedAriaLabel = encodeURIComponent(expectedAriaLabel);
   await getPageOrElement(this).then((element) => expect(element.getByLabel(expectedAriaLabel, { exact: true })).toHaveCount(0));
 });
 
+/**
+ * key.then.element.withAriaLabelAndContent.description
+ * */
 Then(`${key.then.element.withAriaLabelAndContent}`, async function(this: World, expectedAriaLabel: string, expectedTextContent: string) {
   expectedAriaLabel = encodeURIComponent(expectedAriaLabel);
   await getPageOrElement(this).then(async (element) => {
@@ -314,6 +471,9 @@ Then(`${key.then.element.withAriaLabelAndContent}`, async function(this: World, 
   });
 });
 
+/**
+ * key.then.wait.mock.description
+ * */
 Then(`${key.then.wait.mock}`, async function(this: World, name: string) {
   const cookie = await getCookie(this, COOKIE_NAME.MOCK_URL);
   const mockUrls: MockType[] = JSON.parse(cookie.value);
@@ -324,11 +484,17 @@ Then(`${key.then.wait.mock}`, async function(this: World, name: string) {
   await deleteCookieByValue(this, COOKIE_NAME.MOCK_URL, mockUrl);
   // console.debug("request: ", request);
 });
-//
+
+/**
+ * key.then.wait.milliSeconds.description
+ * */
 Then(`${key.then.wait.milliSeconds}`, async function(this: World, ms: number) {
   await this.page.waitForTimeout(ms);
 });
 
+/**
+ * key.then.attributes.withValues.description
+ * */
 Then(
  `${key.then.attributes.withValues}`,
  async function(this: World, expectedAttributeList: DataTable) {
@@ -344,6 +510,9 @@ Then(
  }
 );
 
+/**
+ * key.then.list.withNameAndContent.description
+ * */
 Then(
  `${key.then.list.withNameAndContent}`,
  async function(this: World, expectedListName: string, expectedElementsOfList: DataTable) {
@@ -363,32 +532,32 @@ Then(
  }
 );
 
-async function pressKey(world: World, element: Locator, key: string) {
-  switch (key) {
-    case KEY_PRESS.TAB:
-      await element.press("Tab");
-      break;
-    case KEY_PRESS.REVERSE_TAB:
-      await element.press("ShiftLeft+Tab");
-      break;
-    case KEY_PRESS.UP:
-      await element.press("ArrowUp");
-      break;
-    case KEY_PRESS.DOWN:
-      await element.press("ArrowDown");
-      break;
-    case KEY_PRESS.LEFT:
-      await element.press("ArrowLeft");
-      break;
-    case KEY_PRESS.RIGHT:
-      await element.press("ArrowRight");
-      break;
-    default:
-      console.error("the command" + key + " is unrecognized.");
-      break;
-  }
-  await deleteCookieByName(world, COOKIE_NAME.SELECTED_ELEMENT);
-  await addCookieWhenValueIsList(world, COOKIE_NAME.SELECTED_ELEMENT, { name: FILTER_TYPE.SELECTOR_PARENT, value: "*:focus" });
+async function pressKey(world: World, key: string) {
+    switch (key) {
+        case KEY_PRESS.TAB:
+            await world.page.keyboard.press("Tab");
+            break;
+        case KEY_PRESS.REVERSE_TAB:
+            await world.page.keyboard.press("ShiftLeft+Tab");
+            break;
+        case KEY_PRESS.UP:
+            await world.page.keyboard.press("ArrowUp");
+            break;
+        case KEY_PRESS.DOWN:
+            await world.page.keyboard.press("ArrowDown");
+            break;
+        case KEY_PRESS.LEFT:
+            await world.page.keyboard.press("ArrowLeft");
+            break;
+        case KEY_PRESS.RIGHT:
+            await world.page.keyboard.press("ArrowRight");
+            break;
+        default:
+            console.error("the command" + key + " is unrecognized.");
+            break;
+    }
+    await deleteCookieByName(world, COOKIE_NAME.SELECTED_ELEMENT);
+    await addCookieWhenValueIsList(world, COOKIE_NAME.SELECTED_ELEMENT, { name: FILTER_TYPE.SELECTOR_PARENT, value: "*:focus" });
 }
 
 async function click(world: World, role: any, name: string) {
@@ -400,4 +569,6 @@ async function click(world: World, role: any, name: string) {
   });
 }
 
-
+function keyBoardFocusTarget(world: World) {
+    return world.page.locator(":focus");
+}
