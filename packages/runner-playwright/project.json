@@ -1,11 +1,12 @@
 {
   "name": "runner-playwright",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "root": "packages/runner-playwright",
   "sourceRoot": "packages/runner-playwright/src",
   "projectType": "library",
   "targets": {
     "build": {
-      "executor": "@nrwl/js:tsc",
+      "executor": "@nx/js:tsc",
       "outputs": [
         "{options.outputPath}"
       ],

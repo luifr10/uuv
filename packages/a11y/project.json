@@ -2,10 +2,11 @@
   "name": "a11y",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/a11y/src",
+  "root": "packages/a11y",
   "projectType": "library",
   "targets": {
     "build:tsc": {
-      "executor": "@nrwl/js:tsc",
+      "executor": "@nx/js:tsc",
       "outputs": [
         "{options.outputPath}"
       ],

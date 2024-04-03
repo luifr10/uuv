@@ -2,6 +2,7 @@
   "name": "runner-flutter",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/runner-flutter/src",
+  "root": "packages/runner-flutter",
   "projectType": "library",
   "targets": {
     "analyze": {

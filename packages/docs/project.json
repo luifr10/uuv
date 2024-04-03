@@ -2,6 +2,7 @@
   "name": "docs",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/docs/src",
+  "root": "packages/docs",
   "projectType": "application",
   "implicitDependencies": [
     "a11y",

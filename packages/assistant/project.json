@@ -2,10 +2,11 @@
   "name": "assistant",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/assistant/src",
+  "root": "packages/assistant",
   "projectType": "library",
   "targets": {
     "build:tsc": {
-      "executor": "@nrwl/js:tsc",
+      "executor": "@nx/js:tsc",
       "inputs": [
         "{projectRoot}/launcher/*"
       ],
@@ -82,7 +83,7 @@
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": [
         "{workspaceRoot}/coverage/{projectRoot}"
       ],

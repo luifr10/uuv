@@ -67,3 +67,5 @@ packages/intellij-plugin/.idea/
 /packages/runner-cypress/reports/a11y-report.json
 packages/assistant/uuv/reports/
 packages/runner-flutter/test/*_test.dart
+
+.nx

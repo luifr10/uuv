@@ -2,10 +2,11 @@
   "name": "runner-cypress",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/runner-cypress/src",
+  "root": "packages/runner-cypress",
   "projectType": "library",
   "targets": {
     "build": {
-      "executor": "@nrwl/js:tsc",
+      "executor": "@nx/js:tsc",
       "outputs": [
         "{options.outputPath}"
       ],
