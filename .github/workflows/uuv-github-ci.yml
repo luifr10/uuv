@@ -104,7 +104,7 @@ jobs:
           node-version: ${{env.NODE_VERSION}}
           runner-name: "a11y"
       - name: Test Report
-        uses: dorny/test-reporter@v1
+        uses: dorny/test-reporter@v1.9.0
         if: success() || failure()
         with:
           name: Report - Unit Tests - A11y
@@ -123,7 +123,7 @@ jobs:
           runner-name: "assistant"
           options: "-- --generateJunitReport"
       - name: Test Report
-        uses: dorny/test-reporter@v1
+        uses: dorny/test-reporter@v1.9.0
         if: success() || failure()
         with:
           name: Report - Integration Tests - Assistant
@@ -146,7 +146,7 @@ jobs:
           runner-name: "runner-cypress"
           options: "--generateJunitReport"
       - name: Test Report
-        uses: dorny/test-reporter@v1
+        uses: dorny/test-reporter@v1.9.0
         if: success() || failure()
         with:
           name: Report - Unit Tests - Cypress
@@ -167,7 +167,7 @@ jobs:
           runner-name: "runner-playwright"
           options: "--generateJunitReport"
       - name: Test Report
-        uses: dorny/test-reporter@v1
+        uses: dorny/test-reporter@v1.9.0
         if: success() || failure()
         with:
           name: Report - Unit Tests - Playwright
@@ -230,7 +230,7 @@ jobs:
           path: |
             tests/integration/runner-cypress/uuv/reports
       - name: Test Report
-        uses: dorny/test-reporter@v1
+        uses: dorny/test-reporter@v1.9.0
         if: success() || failure()
         with:
           name: Report - Integration Tests - Cypress
@@ -274,7 +274,7 @@ jobs:
           path: |
             tests/integration/runner-playwright/uuv/reports
       - name: Test Report
-        uses: dorny/test-reporter@v1
+        uses: dorny/test-reporter@v1.9.0
         if: success() || failure()
         with:
           name: Report - Integration Tests - Playwright
