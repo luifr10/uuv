@@ -57,7 +57,7 @@
     "@ant-design/icons": "^5.0.1",
     "@cucumber/cucumber": "9.6.0",
     "@uuv/runner-commons": "2.9.1",
-    "antd": "^5.4.6",
+    "antd": "^5.16.1",
     "figlet": "1.7.0",
     "inspector-dom": "0.1.1",
     "playwright-chromium": "1.42.1"
