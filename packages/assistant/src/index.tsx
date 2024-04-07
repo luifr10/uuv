@@ -21,9 +21,11 @@ import { createRoot } from "react-dom/client";
 document.addEventListener("UUVAssistantReadyToLoad", (e: any) => {
     console.log("event listened: UUVAssistantReadyToLoad");
     const container = document.getElementById("uvv-assistant-root");
-    const root = createRoot(container);
-    root.render(
-        <UuvAssistant translator={e?.detail?.translator}/>
-    );
+    if (container) {
+        const root = createRoot(container);
+        root.render(
+            <UuvAssistant translator={e?.detail?.translator}/>
+        );
+    }
 });
 
