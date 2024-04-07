@@ -4,7 +4,7 @@ import * as path from "path";
 export const injectUvvA11YAndLoadUrl = async (targetUrl = path.join(__dirname, "test-rgaa.html") ) => {
     // Launch the browser and open a new blank page
     const browser: Browser = await puppeteer.launch({
-        headless: "new"
+        headless: true
     });
     const page: Page = await browser.newPage();
 
