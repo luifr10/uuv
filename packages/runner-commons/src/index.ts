@@ -7,3 +7,4 @@ import key from "./assets/i18n/web/template.json";
 export { key };
 export { AccessibleRole } from "./step-definition-generator/accessible-role";
 export * from "./assets/i18n/web/en";
+export * from "./cli";

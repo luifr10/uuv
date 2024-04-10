@@ -69,3 +69,4 @@ packages/assistant/uuv/reports/
 packages/runner-flutter/test/*_test.dart
 
 .nx
+.history/

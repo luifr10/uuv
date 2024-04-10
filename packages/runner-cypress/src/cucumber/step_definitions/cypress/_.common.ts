@@ -16,18 +16,16 @@ import { ByRoleOptions } from "@testing-library/cypress";
 import { Context } from "./_context";
 import Chainable = Cypress.Chainable;
 
-const ENV_GENERATE_A11_REPORT = "generateA11yReport";
-
 const contextAlias = "context";
 const foundedChildElementAlias = "foundedChildElement";
 
 export const shouldGenerateA11yReport = (): boolean => {
-    const generateA11yReport = Cypress.env(ENV_GENERATE_A11_REPORT);
+    const generateA11yReport = Cypress.env("uuvOptions").report.a11y.enabled;
     return generateA11yReport === true;
 };
 
 export const getA11yResultFilePath = (): string => {
-    return Cypress.env("uuvA11yReportFilePath");
+    return Cypress.env("uuvOptions").report.a11y.outputFile;
 };
 
 export const uuvGetContext = (): Chainable<Context> => {

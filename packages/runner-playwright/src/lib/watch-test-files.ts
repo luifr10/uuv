@@ -20,30 +20,30 @@ import chokidar from "chokidar";
 import chalk from "chalk";
 
 const tempDir = process.argv[2];
-const configDir = process.argv[3];
-const env = process.argv[4];
+const projectDir = process.argv[3];
+const tags = process.argv[4];
 
-if (!tempDir || !configDir) {
+if (!tempDir || !projectDir) {
   console.log(chalk.redBright("An error occurred during test files watching"));
   process.exit(-1);
 }
 
-chokidar.watch(`${configDir}/e2e/**/*.feature`, {
+chokidar.watch(`${projectDir}/e2e/**/*.feature`, {
   ignoreInitial: true
 })
  .on("change", async (event, path) => {
    console.log(chalk.yellowBright("\nRefreshing test files..."));
-   await executePreprocessor(tempDir, configDir, env);
+   await executePreprocessor(tempDir, tags);
    console.log(chalk.yellowBright("Test files refreshed\n"));
  })
  .on("add", async path => {
    console.log(chalk.yellowBright(`\nFile ${path} has been added`));
-   await executePreprocessor(tempDir, configDir, env);
+   await executePreprocessor(tempDir, tags);
    console.log(chalk.yellowBright("Test files refreshed\n"));
  })
  .on("unlink", async path => {
    console.log(chalk.yellowBright(`\nFile ${path} has been removed`));
-   await executePreprocessor(tempDir, configDir, env);
+   await executePreprocessor(tempDir, tags);
    console.log(chalk.yellowBright("Test files refreshed\n"));
  });
 

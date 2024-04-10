@@ -114,5 +114,14 @@ export class Common {
           `[WRITE] ${generatedFile} written successfully`
         );
     }
+
+    static deleteAllFileOfDirectory(dirPath) {
+        for (const file of fs.readdirSync(dirPath)) {
+            const filePath = path.join(dirPath, file);
+            if (fs.lstatSync(filePath).isFile()) {
+                fs.rmSync(filePath);
+            }
+        }
+    }
 }
 

@@ -1,2 +1,3 @@
 /cypress/videos/
 /src/cucumber/step_definitions/cypress/generated/
+/cucumber-messages.ndjson

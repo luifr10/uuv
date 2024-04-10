@@ -51,9 +51,9 @@ export async function setupNodeEvents (
   on("before:run", async () => {
     await beforeRunHandler(config);
     // eslint-disable-next-line dot-notation
-    const a11yReportFilePath = config.env["uuvA11yReportFilePath"];
+    const a11yReportFilePath = config.env["uuvOptions"].report.a11y.outputFile;
     // eslint-disable-next-line dot-notation
-    const generateA11yReport = config.env["generateA11yReport"];
+    const generateA11yReport = config.env["uuvOptions"].report.a11y.enabled;
     clearA11yReport(a11yReportFilePath);
     if (generateA11yReport === true) {
       initA11yReport(a11yReportFilePath);

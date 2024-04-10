@@ -12,15 +12,14 @@
  * understanding English or French.
  */
 
-"use strict";
-
-import chalk from "chalk";
-import { generateTestFiles } from "../cucumber/preprocessor/gen";
+import { UUVCliOptions, UUVCliRunner } from "@uuv/runner-commons";
 import fs from "fs";
-import cp, { execSync } from "child_process";
+import { generateTestFiles } from "../cucumber/preprocessor/gen";
 import { GherkinDocument } from "@cucumber/messages/dist/esm/src";
+import chalk from "chalk";
 import { GeneratedReportType } from "../reporter/uuv-playwright-reporter-helper";
 import path from "path";
+import cp, { execSync } from "child_process";
 
 export interface UUVPlaywrightCucumberMapItem {
     originalFile: string;
@@ -29,11 +28,104 @@ export interface UUVPlaywrightCucumberMapItem {
 
 export const UUVPlaywrightCucumberMapFile = ".uuv-playwright-cucumber-map.json";
 
-async function bddGen(tempDir: string, env: any) {
+export class UUVCliPlaywrightRunner implements UUVCliRunner {
+    name = "Playwright";
+    defaultBrowser = "chromium";
+
+    constructor(public projectDir, private tempDir) {}
+
+    getCurrentVersion(): string {
+        const pJsonStr = fs.readFileSync(`${__dirname}/../../package.json`, {
+            encoding: "utf8", flag: "r"
+        });
+        return JSON.parse(pJsonStr).version;
+    }
+
+    async prepare(options: Partial<UUVCliOptions>) {
+        await executePreprocessor(this.tempDir, options.extraArgs.TAGS);
+        this.setEnvironmentVariables(options);
+    }
+
+    private setEnvironmentVariables(options: Partial<UUVCliOptions>) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        process.env.REPORT_TYPE = options.report?.html.enabled ? GeneratedReportType.HTML : GeneratedReportType.CONSOLE;
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        process.env.CONFIG_DIR = this.projectDir;
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        process.env.browser = options.browser;
+        if (options.extraArgs) {
+            Object.keys(options.extraArgs).forEach(key => process.env[key] = options.extraArgs[key]);
+        }
+    }
+
+    executeE2eCommand(options: Partial<UUVCliOptions>) {
+        this.runPlaywright(options);
+    }
+
+    executeOpenCommand(options: Partial<UUVCliOptions>) {
+        cp.fork(path.join(__dirname, "watch-test-files"), [this.tempDir, this.projectDir, options.extraArgs.TAGS]);
+        this.runPlaywright(options);
+    }
+
+    private getTargetTestFileForPlawright(targetTestFile?: string): string {
+        if (!targetTestFile) {
+            return "";
+        }
+        return `${targetTestFile
+            .replaceAll("uuv/e2e/", ".uuv-features-gen/uuv/e2e/")
+            .replaceAll(".feature", ".feature.spec.js")}`;
+    }
+
+    private runPlaywright(options: Partial<UUVCliOptions>) {
+        const configFile = `${this.projectDir}/playwright.config.ts`;
+        try {
+
+            let reporter = "--reporter=@uuv/playwright/uuv-playwright-reporter";
+            if (options.report?.junit.enabled) {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                process.env.PLAYWRIGHT_JUNIT_OUTPUT_NAME = options.report?.junit.outputFile;
+                reporter = `${reporter},junit`;
+            }
+
+            const command = this.buildCommand(options, configFile, reporter);
+
+            console.log(chalk.gray(`Running command: ${command}`));
+            execSync(command, { stdio: "inherit" });
+        } catch (err) {
+            process.exit(-1);
+        }
+    }
+
+    private buildCommand(options: Partial<UUVCliOptions>, configFile: string, reporter: string): string {
+        return [
+            "npx",
+            "playwright",
+            "test",
+            `--project=${options.browser}`,
+            "-c",
+            configFile,
+            options.command === "open" ? "--ui" : "",
+            reporter,
+            this.getTargetTestFileForPlawright(options.targetTestFile)
+        ].join(" ");
+    }
+}
+
+export async function executePreprocessor(tempDir: string, tags: string) {
+    console.log("running preprocessor...");
+    await bddGen(tempDir, tags);
+    console.log("preprocessor executed\n");
+}
+
+async function bddGen(tempDir: string, tags: string) {
     try {
         const mapOfFile = await generateTestFiles({
             outputDir: tempDir,
-            tags: env.TAGS
+            tags
         });
         const content: UUVPlaywrightCucumberMapItem[] = [];
         mapOfFile.forEach((value: GherkinDocument, key: string) => {
@@ -50,79 +142,4 @@ async function bddGen(tempDir: string, env: any) {
         console.dir(err);
         process.exit(-1);
     }
-}
-
-function runPlaywright(mode: "open" | "e2e", configDir: string, browser = "chromium", generateHtmlReport = false, generateJunitReport = false, env?: any, targetTestFile?: string) {
-    const configFile = `${configDir}/playwright.config.ts`;
-    const reportType = generateHtmlReport ? GeneratedReportType.HTML : GeneratedReportType.CONSOLE;
-    try {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        process.env.REPORT_TYPE = reportType;
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        process.env.CONFIG_DIR = configDir;
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        process.env.browser = browser;
-        if (env) {
-            Object.keys(env).forEach(key => process.env[key] = env[key]);
-        }
-        let reporter = " --reporter=@uuv/playwright/uuv-playwright-reporter";
-        if (generateJunitReport) {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            process.env.PLAYWRIGHT_JUNIT_OUTPUT_NAME = `${configDir}/reports/e2e/junit-report.xml`;
-            reporter = `${reporter},junit`;
-        }
-        // eslint-disable-next-line max-len
-        const command = `npx playwright test --project=${browser} -c ${configFile} ${mode === "open" ? "--ui" : ""}${reporter}${getTargetTestFileForPlawright(targetTestFile)}`;
-        console.log(chalk.gray(`Running ${command}`));
-        execSync(command, { stdio: "inherit" });
-    } catch (err) {
-        process.exit(-1);
-    }
-}
-
-function getTargetTestFileForPlawright(targetTestFile?: string): string {
-    if (!targetTestFile) {
-        return "";
-    }
-    return ` ${targetTestFile
-        .replaceAll("uuv/e2e/", ".uuv-features-gen/uuv/e2e/")
-        .replaceAll(".feature", ".feature.spec.js")}`;
-}
-
-export async function executePreprocessor(tempDir: string, configDir: string, env: any) {
-    console.log("running preprocessor...");
-    await bddGen(tempDir, env);
-    console.log("preprocessor executed");
-}
-
-export async function run(mode: "open" | "e2e", tempDir = "uuv/.features-gen/e2e", configDir = "uuv", argv: any) {
-    const { browser, env, targetTestFile } = extractArgs(argv);
-    await executePreprocessor(tempDir, configDir, env);
-    if (mode === "open") {
-        cp.fork(path.join(__dirname, "watch-test-files"), [tempDir, configDir, env]);
-    }
-    runPlaywright(mode, configDir, browser, argv.generateHtmlReport, argv.generateJunitReport, env, targetTestFile);
-}
-
-function extractArgs(argv: any) {
-    const browser = argv.browser;
-    const env = argv.env ? JSON.parse(argv.env.replace(/'/g, "\"")) : {};
-    const targetTestFile = argv.targetTestFile ? argv.targetTestFile : null;
-
-    console.debug("Variables: ");
-    // eslint-disable-next-line dot-notation
-    const baseUrl = process.env["UUV_BASE_URL"];
-    if (baseUrl) {
-        console.debug(`  -> baseUrl: ${baseUrl}`);
-    }
-    console.debug(`  -> browser: ${browser}`);
-    console.debug(`  -> env: ${JSON.stringify(env)}`);
-    if (targetTestFile) {
-        console.debug(`  -> targetTestFile: ${targetTestFile}`);
-    }
-    return { browser, env, targetTestFile };
 }

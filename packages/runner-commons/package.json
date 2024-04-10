@@ -47,6 +47,7 @@
     "dist/assets/**/*",
     "src/assets/i18n/*/*/*.json",
     "dist/runner/**/*",
+    "dist/cli/**/*",
     "*.md"
   ],
   "exports": {
@@ -65,5 +66,11 @@
       "require": "./dist/assets/i18n/web/en/index.js",
       "types": "./dist/assets/i18n/web/en/index.d.ts"
     }
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "figlet": "1.7.0",
+    "lodash": "^4.17.21",
+    "minimist": "1.2.8"
   }
 }
