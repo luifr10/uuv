@@ -88,8 +88,8 @@ jobs:
         uses: ./.github/actions/nx-run-many
         with:
           node-version: ${{env.NODE_VERSION}}
-          target: "test"
-          exclude: "a11y,runner-cypress,runner-playwright,runner-flutter"
+          target: "unit-tests"
+          exclude: "a11y,runner-flutter"
 
   unit-tests-a11y:
     runs-on: ubuntu-latest
@@ -99,7 +99,7 @@ jobs:
       - uses: browser-actions/setup-chrome@v1
       - run: chrome --version
       - name: Running A11y unit tests with Puppeteer
-        uses: ./.github/actions/nx-test-runner
+        uses: ./.github/actions/nx-e2e-test-runner
         with:
           node-version: ${{env.NODE_VERSION}}
           runner-name: "a11y"
@@ -117,11 +117,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Running assistant integration tests
-        uses: ./.github/actions/nx-test-runner
+        uses: ./.github/actions/nx-e2e-test-runner
         with:
           node-version: ${{env.NODE_VERSION}}
           runner-name: "assistant"
-          options: "-- --generateJunitReport"
+          options: "--generateJunitReport"
       - name: Test Report
         uses: dorny/test-reporter@v1.9.0
         if: success() || failure()
@@ -140,7 +140,7 @@ jobs:
       - name: Running cypress unit tests
         env:
           UUV_BASE_URL: ${{env.UUV_BASE_URL}}
-        uses: ./.github/actions/nx-test-runner
+        uses: ./.github/actions/nx-e2e-test-runner
         with:
           node-version: ${{env.NODE_VERSION}}
           runner-name: "runner-cypress"
@@ -161,7 +161,7 @@ jobs:
       - name: Running playwright unit tests
         env:
           UUV_BASE_URL: ${{env.UUV_BASE_URL}}
-        uses: ./.github/actions/nx-test-runner
+        uses: ./.github/actions/nx-e2e-test-runner
         with:
           node-version: ${{env.NODE_VERSION}}
           runner-name: "runner-playwright"

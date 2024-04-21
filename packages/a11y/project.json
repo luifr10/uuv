@@ -5,7 +5,7 @@
   "root": "packages/a11y",
   "projectType": "library",
   "targets": {
-    "build:tsc": {
+    "build-tsc": {
       "executor": "@nx/js:tsc",
       "outputs": [
         "{options.outputPath}"
@@ -30,7 +30,7 @@
         "webpackConfig": "packages/a11y/webpack.config.js"
       },
       "dependsOn": [
-        "build:tsc"
+        "build-tsc"
       ]
     },
     "lint": {

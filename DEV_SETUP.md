@@ -26,14 +26,15 @@ A solution for automated accessibility validations
 
 #### Main targets
 
-| Target             | Description              |
-|--------------------|--------------------------|
-| `lint`             | Execute linter           |
-| `build`            | Build project            |
-| `dev`              | Build and watch project  |
-| `test`             | Run tests                |
-| `package`          | npm packaging            |
-| `semantic-release` | execute semantic release |
+| Target             | Description                    |
+|--------------------|--------------------------------|
+| `lint`             | Execute linter                 |
+| `build`            | Build project                  |
+| `dev`              | Build and watch project        |
+| `test`             | Run all tests                  |
+| `e2e-test:run`     | Run E2E tests in headless mode |
+| `package`          | npm packaging                  |
+| `semantic-release` | execute semantic release       |
 
 ### assistant
 
@@ -47,7 +48,10 @@ Tools that generate cucumber sentences for uuv tests scenarios
 | `launch`           | Launch assistant from cli                  |
 | `launch:custom`    | Launch assistant from cli with custom conf |
 | `build`            | Build project                              |
-| `test`             | Run tests                                  |
+| `test`             | Run all tests                              |
+| `e2e-test:run`     | Run E2E tests in headless mode             |
+| `e2e-test:open`    | Run E2E tests in headful mode              |
+| `unit-tests`       | Run unit tests                             |
 | `package`          | npm packaging                              |
 | `semantic-release` | execute semantic release                   |
 
@@ -100,7 +104,8 @@ Components common to all runners, such as sentences and generators
 |--------------------|--------------------------|
 | `lint`             | Execute linter           |
 | `build`            | Build project            |
-| `test`             | Run tests                |
+| `test`             | Run all tests            |
+| `unit-tests`       | Run unit tests           |
 | `package`          | npm packaging            |
 | `semantic-release` | execute semantic release |
 
@@ -110,15 +115,16 @@ Cypress engine to execute UUV E2E Tests
 
 #### Main targets
 
-| Target             | Description                |
-|--------------------|----------------------------|
-| `lint`             | Execute linter             |
-| `build`            | Build project              |
-| `test`             | Run tests in headless mode |
-| `test:open`        | Run tests in headful mode  |
-| `test:run`         | Run tests in headless mode |
-| `package`          | npm packaging              |
-| `semantic-release` | execute semantic release   |
+| Target             | Description                    |
+|--------------------|--------------------------------|
+| `lint`             | Execute linter                 |
+| `build`            | Build project                  |
+| `test`             | Run all tests                  |
+| `e2e-test:run`     | Run E2E tests in headless mode |
+| `e2e-test:open`    | Run E2E tests in headful mode  |
+| `unit-tests`       | Run unit tests                 |
+| `package`          | npm packaging                  |
+| `semantic-release` | execute semantic release       |
 
 ### runner-playwright
 
@@ -126,15 +132,16 @@ Playwright engine to execute UUV E2E Tests
 
 #### Main targets
 
-| Target             | Description                |
-|--------------------|----------------------------|
-| `lint`             | Execute linter             |
-| `build`            | Build project              |
-| `test`             | Run tests in headless mode |
-| `test:open`        | Run tests in headful mode  |
-| `test:run`         | Run tests in headless mode |
-| `package`          | npm packaging              |
-| `semantic-release` | execute semantic release   |
+| Target             | Description                    |
+|--------------------|--------------------------------|
+| `lint`             | Execute linter                 |
+| `build`            | Build project                  |
+| `test`             | Run all tests                  |
+| `e2e-test:run`     | Run E2E tests in headless mode |
+| `e2e-test:open`    | Run E2E tests in headful mode  |
+| `unit-tests`       | Run unit tests                 |
+| `package`          | npm packaging                  |
+| `semantic-release` | execute semantic release       |
 
 ## Useful information
 

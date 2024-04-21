@@ -32,8 +32,8 @@
   ],
   "scripts": {
     "package": "npm pack --pack-destination=\"../../dist/packages\"",
-    "test": "jest",
-    "test:run": "jest --coverage",
+    "test": "npm run e2e-test:run --",
+    "e2e-test:run": "jest --coverage",
     "dev": "ts-node watch.ts"
   },
   "dependencies": {

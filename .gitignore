@@ -70,3 +70,4 @@ packages/runner-flutter/test/*_test.dart
 
 .nx
 .history/
+packages/assistant/uuv/.features-gen/

@@ -1,4 +1,4 @@
-import { UUVCliHelper, UUVCliOptions, UUVCliRunner } from "@uuv/runner-commons";
+import { UUVCliHelper, UUVCliOptions, UUVCliRunner, Common } from "@uuv/runner-commons";
 import fs from "fs";
 import path from "path";
 import chalk from "chalk";
@@ -39,6 +39,7 @@ export class UUVCliCypressRunner implements UUVCliRunner {
             this.createReportDirectories({ report: options.report });
         }
     }
+
     executeE2eCommand(options: Partial<UUVCliOptions>) {
         const cypressOptions: Partial<CypressCommandLine.CypressRunOptions> = {
             project: this.projectDir,
@@ -49,7 +50,7 @@ export class UUVCliCypressRunner implements UUVCliRunner {
             }
         };
 
-        if (options.report?.junit) {
+        if (options.report?.junit.enabled) {
             cypressOptions.reporter = "junit";
             cypressOptions.reporterOptions = {
                 mochaFile: "reports/e2e/junit-report-[hash].xml"
@@ -61,7 +62,7 @@ export class UUVCliCypressRunner implements UUVCliRunner {
         }
 
         // Running Tests
-        return cypress
+        return this.getCypress()
             .run(cypressOptions)
             .then(async (result) => {
                 if (options.report?.junit.enabled) {
@@ -75,21 +76,21 @@ export class UUVCliCypressRunner implements UUVCliRunner {
                 }
                 if ("totalFailed" in result) {
                     console.log(`Status ${result.totalFailed ? chalk.red("failed") : chalk.green("success")}`);
-                    process.exit(result.totalFailed);
+                    this.terminateProcess(result.totalFailed === 0 ? 0 : 2);
                 }
-                process.exit();
+                this.terminateProcess(0);
             })
             .catch(async (err) => {
                 console.error(chalk.red(err));
                 if (options.report?.junit.enabled) {
                     await this.mergeJunitReport(this.CYPRESS_JUNIT_REPORT, options.report.junit.outputFile);
                 }
-                process.exit(-1);
+                this.terminateProcess(2);
             });
     }
 
     executeOpenCommand(options: Partial<UUVCliOptions>) {
-        return cypress.open({
+        return this.getCypress().open({
             project: this.projectDir,
             env: options.extraArgs,
         });
@@ -109,6 +110,10 @@ export class UUVCliCypressRunner implements UUVCliRunner {
         if (!fs.existsSync(this.JSON_REPORT_DIR)) {
             fs.mkdirSync(this.JSON_REPORT_DIR, { recursive: true });
         }
+    }
+
+    private terminateProcess(exitCode) {
+        process.exit(exitCode);
     }
 
     private async mergeJunitReport(inputFiles: string[], outputFile: string) {
@@ -146,5 +151,9 @@ export class UUVCliCypressRunner implements UUVCliRunner {
                 },
             },
         });
+    }
+
+    private getCypress() {
+        return cypress;
     }
 }

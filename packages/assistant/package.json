@@ -43,9 +43,10 @@
     "build:bundle": "node bundle-script.js",
     "package": "npm pack --pack-destination=\"../../dist/packages\"",
     "lint": "eslint -c .eslintrc.json",
-    "test": "jest",
-    "test:run": "npm run uuv e2e",
-    "test:open": "npm run uuv open",
+    "test": "npm run unit-test && npm run e2e-test:run",
+    "unit-test": "jest --coverage",
+    "e2e-test:run": "npm run uuv e2e --",
+    "e2e-test:open": "npm run uuv open --",
     "uuv": "node ../../node_modules/@uuv/playwright/bin/uuv"
   },
   "browser": {

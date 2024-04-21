@@ -36,9 +36,10 @@
     "generate:step-definitions": "ts-node generate-step-definitions.ts",
     "package": "npm pack --pack-destination=\"../../dist/packages\"",
     "postinstall": "node postinstall.js",
-    "test:run": "node test.js e2e",
-    "test:open": "node test.js open",
-    "test": "npm run test:run",
+    "unit-test": "jest --runInBand --coverage --config=./jest.config.ts",
+    "e2e-test:run": "node test.js e2e",
+    "e2e-test:open": "node test.js open --",
+    "test": "npm run unit-test && npm run e2e-test:run",
     "lint": "eslint -c .eslintrc.json"
   },
   "dependencies": {
@@ -100,6 +101,7 @@
   "devDependencies": {
     "@types/minimist": "1.2.5",
     "@types/node": "20.11.30",
+    "chalk": "^4.1.2",
     "cross-env": "7.0.3",
     "eslint-plugin-cypress": "2.15.1",
     "ts-loader": "9.4.2",

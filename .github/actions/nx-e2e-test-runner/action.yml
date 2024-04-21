@@ -37,5 +37,5 @@ runs:
         node-version: ${{ inputs.node-version }}
     - run: npm ci
       shell: bash
-    - run: cd packages/${{ inputs.runner-name }} && npm run test:run -- ${{inputs.options}}
+    - run: npx nx e2e-test:run ${{inputs.runner-name}} --verbose -- ${{inputs.options}}
       shell: bash

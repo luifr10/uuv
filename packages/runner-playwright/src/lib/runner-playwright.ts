@@ -20,6 +20,7 @@ import chalk from "chalk";
 import { GeneratedReportType } from "../reporter/uuv-playwright-reporter-helper";
 import path from "path";
 import cp, { execSync } from "child_process";
+import _ from "lodash";
 
 export interface UUVPlaywrightCucumberMapItem {
     originalFile: string;
@@ -70,7 +71,7 @@ export class UUVCliPlaywrightRunner implements UUVCliRunner {
         this.runPlaywright(options);
     }
 
-    private getTargetTestFileForPlawright(targetTestFile?: string): string {
+    private getTargetTestFileForPlaywright(targetTestFile?: string): string {
         if (!targetTestFile) {
             return "";
         }
@@ -93,25 +94,33 @@ export class UUVCliPlaywrightRunner implements UUVCliRunner {
 
             const command = this.buildCommand(options, configFile, reporter);
 
-            console.log(chalk.gray(`Running command: ${command}`));
-            execSync(command, { stdio: "inherit" });
+            this.executeSystemCommand(command);
         } catch (err) {
-            process.exit(-1);
+            process.exit(2);
         }
     }
 
+    private executeSystemCommand(command: string) {
+        console.log(chalk.gray(`Running command: ${command}`));
+        execSync(command, { stdio: "inherit" });
+    }
+
     private buildCommand(options: Partial<UUVCliOptions>, configFile: string, reporter: string): string {
-        return [
-            "npx",
-            "playwright",
-            "test",
-            `--project=${options.browser}`,
-            "-c",
-            configFile,
-            options.command === "open" ? "--ui" : "",
-            reporter,
-            this.getTargetTestFileForPlawright(options.targetTestFile)
-        ].join(" ");
+        return _.trimEnd(
+            [
+                "npx",
+                "playwright",
+                "test",
+                `--project=${options.browser}`,
+                "-c",
+                configFile,
+                _.trimStart([
+                    options.command === "open" ? "--ui" : "",
+                    reporter].join(" ")
+                ),
+                this.getTargetTestFileForPlaywright(options.targetTestFile)
+            ].join(" ")
+        );
     }
 }
 
@@ -140,6 +149,6 @@ async function bddGen(tempDir: string, tags: string) {
     } catch (err) {
         console.error(chalk.red("Something went wrong..."));
         console.dir(err);
-        process.exit(-1);
+        process.exit(2);
     }
 }
