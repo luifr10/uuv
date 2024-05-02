@@ -18,7 +18,8 @@
         {
             "files": ["**/base-check-engine.ts", "**/based-role-check-engine.ts"],
             "rules": {
-                "cucumber/expression-type": "off"
+                "cucumber/expression-type": "off",
+                "playwright/no-standalone-expect": "off"
             }
         }
     ],
