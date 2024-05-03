@@ -44,6 +44,13 @@ class _TodoListState extends State<TodoList> {
                 },
               ),
             ),
+            OrientationBuilder(builder: (context, orientation) {
+              return Text(
+                orientation == Orientation.portrait ?
+                "Orientation: Portrait Mode" :
+                "Orientation: Landscape Mode"
+              );
+            })
           ],
         ),
         floatingActionButton: FloatingActionButton(

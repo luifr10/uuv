@@ -38,6 +38,12 @@ Feature: Panoramax mobile App
 
 ## Available sentences
 ### `I see {'text'} text`
+### `I put the device in portrait mode`
+Turns device into portrait orientation
+
+### `I put the device in landscape mode`
+Turns device into landscape orientation
+
 Checks that the specified text is present
 
 ### `I should see a button named {'My button'}`
