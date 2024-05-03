@@ -18,7 +18,7 @@ Feature: General
 
   Scenario: Find app title
     Given the app is running
-    Then I should see a title named {'Todo List'}
+    Then I should see a title named {'Todo List'}  
 
   Scenario: Find existing button
     Given the app is running

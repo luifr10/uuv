@@ -37,14 +37,17 @@ Feature: Panoramax mobile App
 ```  
 
 ## Available sentences
-### `I see {'text'} text`
 ### `I put the device in portrait mode`
 Turns device into portrait orientation
 
 ### `I put the device in landscape mode`
 Turns device into landscape orientation
 
+### `I should see the text {'text'}`
 Checks that the specified text is present
+
+### `I should not see the text {'text'}`
+Checks that the specified text is not present
 
 ### `I should see a button named {'My button'}`
 Checks that a button exists with the specified [accessible name](https://pub.dev/packages/flutter_finder_usercentric)

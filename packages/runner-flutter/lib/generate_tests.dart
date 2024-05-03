@@ -19,9 +19,10 @@ class GenerateTestsBuilder implements Builder {
       'testerName': '\$',
       'testerType': 'PatrolIntegrationTester',
       'externalSteps': [
-        'package:uuv_flutter/src/step/i_see_text.dart',
         'package:uuv_flutter/src/step/i_put_the_device_in_landscape_mode.dart',
         'package:uuv_flutter/src/step/i_put_the_device_in_portrait_mode.dart',
+        'package:uuv_flutter/src/step/i_should_see_the_text.dart',
+        'package:uuv_flutter/src/step/i_should_not_see_the_text.dart',
         'package:uuv_flutter/src/step/i_should_see_a_button_named.dart',
         'package:uuv_flutter/src/step/i_should_not_see_a_button_named.dart',
         'package:uuv_flutter/src/step/i_should_see_a_text_field_named.dart',
