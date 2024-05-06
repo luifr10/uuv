@@ -84,7 +84,7 @@ export class UUVCliPlaywrightRunner implements UUVCliRunner {
         const configFile = `${this.projectDir}/playwright.config.ts`;
         try {
 
-            let reporter = "--reporter=@uuv/playwright/uuv-playwright-reporter";
+            let reporter = options.command === "e2e" ? "--reporter=@uuv/playwright/uuv-playwright-reporter" : "";
             if (options.report?.junit.enabled) {
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore

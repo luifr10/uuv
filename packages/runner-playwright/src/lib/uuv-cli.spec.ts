@@ -47,7 +47,7 @@ describe("UUV Cli Playwright", () => {
     setProcessArguments(["open"]);
     await getMockedRunner(projectDir);
     expect(mockExecCommand).toHaveBeenCalledWith(
-      `npx playwright test --project=chromium -c ${projectDir}/playwright.config.ts --ui --reporter=@uuv/playwright/uuv-playwright-reporter`
+      `npx playwright test --project=chromium -c ${projectDir}/playwright.config.ts --ui`
     );
   });
 
@@ -55,7 +55,7 @@ describe("UUV Cli Playwright", () => {
     setProcessArguments(["open", "--env={'a': 'valueA', 'b': 'valueB'}"]);
     await getMockedRunner(projectDir);
     expect(mockExecCommand).toHaveBeenCalledWith(
-      `npx playwright test --project=chromium -c ${projectDir}/playwright.config.ts --ui --reporter=@uuv/playwright/uuv-playwright-reporter`
+      `npx playwright test --project=chromium -c ${projectDir}/playwright.config.ts --ui`
     );
     // eslint-disable-next-line dot-notation
     expect(process.env["a"]).toEqual("valueA");
