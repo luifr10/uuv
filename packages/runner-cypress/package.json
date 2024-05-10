@@ -48,7 +48,7 @@
     "@testing-library/cypress": "10.0.1",
     "@uuv/a11y": "1.0.0-beta.24",
     "@uuv/runner-commons": "2.12.0",
-    "axe-core": "4.9.0",
+    "axe-core": "4.9.1",
     "chai-subset": "^1.6.0",
     "cucumber-json-report-formatter": "0.1.4",
     "cypress": "12.17.4",
