@@ -31,13 +31,13 @@ import { key } from "@uuv/runner-commons/wording/web";
  * key.when.withinElement.roleAndName.description
  * */
 When(`${key.when.withinElement.roleAndName}`, function(name: string) {
-    return withinRoleAndName("$roleId", name);
+    withinRoleAndName("$roleId", name);
 });
 
 /**
  * key.then.element.withRoleAndName.description
  * */
-Then(`${key.then.element.withRoleAndName}`, async function(name: string) {
+Then(`${key.then.element.withRoleAndName}`, function(name: string) {
     findWithRoleAndName("$roleId", name);
 });
 
@@ -46,7 +46,7 @@ Then(`${key.then.element.withRoleAndName}`, async function(name: string) {
  * */
 Then(
     `${key.then.element.not.withRoleAndName}`,
-    async function(name: string) {
+    function(name: string) {
         notFoundWithRoleAndName("$roleId", name);
     }
 );
@@ -69,7 +69,7 @@ When(`${key.when.type}`, function(textToType: string, name: string) {
  * */
 Then(
     `${key.then.element.withRoleAndNameAndContent}`,
-    async function(name: string, expectedTextContent: string) {
+    function(name: string, expectedTextContent: string) {
         findWithRoleAndNameAndContent("$roleId", name, expectedTextContent);
     }
 );
@@ -79,7 +79,7 @@ Then(
  * */
 Then(
     `${key.then.element.withRoleAndNameAndContentDisabled}`,
-    async function(name: string, expectedTextContent: string) {
+    function(name: string, expectedTextContent: string) {
         findWithRoleAndNameAndContentDisable("$roleId", name, expectedTextContent);
     }
 );
@@ -89,7 +89,7 @@ Then(
  * */
 Then(
     `${key.then.element.withRoleAndNameAndContentEnabled}`,
-    async function(name: string, expectedTextContent: string) {
+    function(name: string, expectedTextContent: string) {
         findWithRoleAndNameAndContentEnable("$roleId", name, expectedTextContent);
     }
 );
@@ -103,7 +103,7 @@ Then(
  * */
 Then(
     `${key.then.element.withRoleAndNameFocused}`,
-    async function(name: string) {
+    function(name: string) {
         findWithRoleAndNameFocused("$roleId", name);
     }
 );

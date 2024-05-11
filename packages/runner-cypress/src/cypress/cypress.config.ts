@@ -68,7 +68,7 @@ export async function setupNodeEvents (
 
   on("before:spec", async (spec: any) => {
     if (!startedFile.includes(spec.absolute)) {
-      await beforeSpecHandler(config);
+      await beforeSpecHandler(config, spec);
       logTeamCity(`##teamcity[testSuiteStarted ${teamcityAddName(spec.baseName)} ${teamcityFlowId(spec.baseName)}  ${teamcityAddCustomField("locationHint", "test://" + spec.absolute)} ]`);
       startedFile.push(spec.absolute);
     }

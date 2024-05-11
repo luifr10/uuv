@@ -6,3 +6,7 @@ For `@uuv/cypress 2.6.0 -> 2.7.0` and `@uuv/playwright 2.5.0 -> 2.6.0`
   - `I should see a list named {string} and containing {string} disabled`
   - `I should see a list named {string} and containing {string} enabled`
 - The sentence `I should see elements of the list with name {string}` has been transformed into `I should see a list named {string} and containing`
+
+## Update dependency badeball-cypress-cucumber from v16 to v20
+For `@uuv/cypress 2.18.0 -> 2.19.0`
+- Move file `.cypress-cucumber-preprocessorrc.json` to `uuv` folder

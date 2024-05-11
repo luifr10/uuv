@@ -35,9 +35,10 @@ import { A11yReferenceEnum } from "@uuv/a11y";
  * */
 When(`${key.when.visit}`, function(siteUrl: string) {
   if (siteUrl.match("^http:\\/\\/|https:\\/\\/")) {
-    return cy.visit(`${siteUrl}`);
+    cy.visit(`${siteUrl}`);
+  } else {
+    cy.visit(`${Cypress.config().baseUrl}${siteUrl}`);
   }
-  return cy.visit(`${Cypress.config().baseUrl}${siteUrl}`);
 });
 
 /**
@@ -119,7 +120,7 @@ When(`${key.when.keyboard.nextElement}`, function() {
  * key.given.viewport.preset.description
  * */
 Given(`${key.given.viewport.preset}`, function(viewportPreset: string) {
-  return cy.viewport(viewportPreset as Cypress.ViewportPreset);
+  cy.viewport(viewportPreset as Cypress.ViewportPreset);
 });
 
 /**
@@ -128,7 +129,7 @@ Given(`${key.given.viewport.preset}`, function(viewportPreset: string) {
 Given(
  `${key.given.viewport.withWidthAndHeight}`,
  function(width: number, height: number) {
-   return cy.viewport(width, height);
+   cy.viewport(width, height);
  }
 );
 
@@ -147,7 +148,7 @@ Given(
  * key.when.timeout.description
  * */
 When(`${key.when.timeout}`, function(newTimeout: number) {
-  return cy.uuvPatchContext({
+  cy.uuvPatchContext({
     timeout: newTimeout
   });
 });
@@ -156,7 +157,7 @@ When(`${key.when.timeout}`, function(newTimeout: number) {
  * key.when.withinElement.description
  * */
 When(`${key.when.withinElement.roleAndName}`, function(role: string, name: string) {
-  return withinRoleAndName(role, name);
+  withinRoleAndName(role, name);
 });
 
 /**
@@ -167,7 +168,7 @@ When(`${key.when.withinElement.ariaLabel}`, function(expectedAriaLabel: string) 
    .uuvFoundedElement()
    .should("exist");
 
-  return cy.uuvPatchContext({
+  cy.uuvPatchContext({
     withinFocusedElement: foundedElement
   });
 });
@@ -180,7 +181,7 @@ When(`${key.when.withinElement.testId}`, function(testId: string) {
    .uuvFoundedElement()
    .should("exist");
 
-  return cy.uuvPatchContext({
+  cy.uuvPatchContext({
     withinFocusedElement: foundedElement
   });
 });
@@ -202,7 +203,7 @@ When(`${key.when.withinElement.selector}`, function(selector: string) {
   }).uuvFoundedElement()
    .should("exist");
 
-  return cy.uuvPatchContext({
+  cy.uuvPatchContext({
     withinFocusedElement: foundedElement
   });
 });
@@ -211,7 +212,7 @@ When(`${key.when.withinElement.selector}`, function(selector: string) {
  * key.when.resetContext.description
  * */
 When(`${key.when.resetContext}`, function() {
-    return cy.wrap(new Context()).as("context");
+    cy.wrap(new Context()).as("context");
 });
 
 /**
@@ -220,7 +221,7 @@ When(`${key.when.resetContext}`, function() {
 When(
  `${key.when.mock.withBody}`,
  function(verb: Method, uri: string, name: string, body: any) {
-   return cy
+   cy
     .intercept(verb, uri, {
       body: body
     })
@@ -234,7 +235,7 @@ When(
 When(
  `${key.when.mock.withStatusCode}`,
  function(verb: Method, uri: string, name: string, statusCode: number) {
-   return cy
+   cy
     .intercept(verb, uri, {
       statusCode: statusCode
     })
@@ -248,7 +249,7 @@ When(
 When(
  `${key.when.mock.withFixture}`,
  function(verb: Method, uri: string, name: string, fixture: any) {
-   return cy
+   cy
     .intercept(verb, uri, {
       fixture: fixture
     })
@@ -295,7 +296,7 @@ When(`${key.when.headers.forUri}`, function(url: string, headersToSet: DataTable
 /**
  * key.then.element.withContent.description
  * */
-Then(`${key.then.element.withContent}`, async function(textContent: string) {
+Then(`${key.then.element.withContent}`, function(textContent: string) {
   cy.uuvFindByText(textContent, {})
    .uuvFoundedElement()
    .should("exist");
@@ -304,7 +305,7 @@ Then(`${key.then.element.withContent}`, async function(textContent: string) {
 /**
  * key.then.element.not.withContent.description
  * */
-Then(`${key.then.element.not.withContent}`, async function(textContent: string) {
+Then(`${key.then.element.not.withContent}`, function(textContent: string) {
   cy.uuvFindByText(textContent, {})
    .should("not.exist");
 });
@@ -312,7 +313,7 @@ Then(`${key.then.element.not.withContent}`, async function(textContent: string) 
 /**
  * key.then.element.withTestId.description
  * */
-Then(`${key.then.element.withTestId}`, async function(testId: string) {
+Then(`${key.then.element.withTestId}`, function(testId: string) {
   cy.uuvFindByTestId(testId)
    .uuvFoundedElement()
    .should("exist");
@@ -321,7 +322,7 @@ Then(`${key.then.element.withTestId}`, async function(testId: string) {
 /**
  * key.then.element.not.withTestId.description
  * */
-Then(`${key.then.element.not.withTestId}`, async function(testId: string) {
+Then(`${key.then.element.not.withTestId}`, function(testId: string) {
   cy.uuvFindByTestId(testId)
    .should("not.exist");
 });
@@ -329,7 +330,7 @@ Then(`${key.then.element.not.withTestId}`, async function(testId: string) {
 /**
  * key.then.element.withRoleAndName.description
  * */
-Then(`${key.then.element.withRoleAndName}`, async function(role: string, name: string) {
+Then(`${key.then.element.withRoleAndName}`, function(role: string, name: string) {
   findWithRoleAndName(role, name);
 });
 
@@ -338,7 +339,7 @@ Then(`${key.then.element.withRoleAndName}`, async function(role: string, name: s
  * */
 Then(
  `${key.then.element.not.withRoleAndName}`,
- async function(role: string, name: string) {
+  function(role: string, name: string) {
    notFoundWithRoleAndName(role, name);
  }
 );
@@ -348,7 +349,7 @@ Then(
  * */
 Then(
  `${key.then.element.withRoleAndNameAndContent}`,
- async function(expectedRole: string, name: string, expectedTextContent: string) {
+  function(expectedRole: string, name: string, expectedTextContent: string) {
    findWithRoleAndNameAndContent(expectedRole, name, expectedTextContent);
  }
 );
@@ -358,8 +359,8 @@ Then(
  * */
 Then(
  `${key.then.element.withRoleAndNameFocused}`,
- async function(expectedRole: string, name: string) {
-     findWithRoleAndNameFocused(expectedRole, name);
+  function(expectedRole: string, name: string) {
+    findWithRoleAndNameFocused(expectedRole, name);
  }
 );
 
@@ -368,7 +369,7 @@ Then(
  * */
 Then(
  `${key.then.element.withRoleAndNameAndContentDisabled}`,
- async function(expectedRole: string, name: string, expectedTextContent: string) {
+  function(expectedRole: string, name: string, expectedTextContent: string) {
    findWithRoleAndNameAndContentDisable(expectedRole, name, expectedTextContent);
  }
 );
@@ -378,7 +379,7 @@ Then(
  * */
 Then(
  `${key.then.element.withRoleAndNameAndContentEnabled}`,
- async function(expectedRole: string, name: string, expectedTextContent: string) {
+  function(expectedRole: string, name: string, expectedTextContent: string) {
    findWithRoleAndNameAndContentEnable(expectedRole, name, expectedTextContent);
  }
 );
@@ -386,7 +387,7 @@ Then(
 /**
  * key.then.element.withAriaLabel.description
  * */
-Then(`${key.then.element.withAriaLabel}`, async function(expectedAriaLabel: string) {
+Then(`${key.then.element.withAriaLabel}`, function(expectedAriaLabel: string) {
   cy.uuvFindByLabelText(expectedAriaLabel, {})
    .uuvFoundedElement()
    .should("exist");
@@ -395,9 +396,9 @@ Then(`${key.then.element.withAriaLabel}`, async function(expectedAriaLabel: stri
 /**
  * key.then.element.not.withAriaLabel.description
  * */
-Then(`${key.then.element.not.withAriaLabel}`, async function(expectedAriaLabel: string) {
+Then(`${key.then.element.not.withAriaLabel}`, function(expectedAriaLabel: string) {
   cy.uuvFindByLabelText(expectedAriaLabel, {})
-   .should("not.exist");
+    .should("not.exist");
 });
 
 /**
@@ -405,7 +406,7 @@ Then(`${key.then.element.not.withAriaLabel}`, async function(expectedAriaLabel: 
  * */
 Then(
  `${key.then.element.withAriaLabelAndContent}`,
- async function(expectedAriaLabel: string, expectedTextContent: string) {
+  function(expectedAriaLabel: string, expectedTextContent: string) {
    cy.uuvFindByLabelText(expectedAriaLabel, {})
     .uuvFoundedElement()
     .should("exist")
@@ -419,14 +420,14 @@ Then(
 /**
  * key.then.wait.mock.description
  * */
-Then(`${key.then.wait.mock}`, async function(name: string) {
+Then(`${key.then.wait.mock}`, function(name: string) {
   cy.wait([`@${name}`]);
 });
 
 /**
  * key.when.click.withContext.description
  * */
-Then(`${key.then.wait.milliSeconds}`, async function(ms: number) {
+Then(`${key.then.wait.milliSeconds}`, function(ms: number) {
   cy.wait(ms);
 });
 
@@ -435,7 +436,7 @@ Then(`${key.then.wait.milliSeconds}`, async function(ms: number) {
  * */
 Then(
  `${key.then.list.withNameAndContent}`,
- async function(expectedListName: string, expectedElementsOfList: DataTable) {
+  function(expectedListName: string, expectedElementsOfList: DataTable) {
    cy.uuvFindByRole("list", { name: expectedListName })
     .uuvFoundedElement()
     .should("exist")
@@ -461,7 +462,7 @@ Then(
  * */
 Then(
  `${key.then.attributes.withValues}`,
- async function(expectedAttributeList: DataTable) {
+  function(expectedAttributeList: DataTable) {
    cy.uuvCheckContextWithinFocusedElement().then((context) => {
      const elementToSelect = context.withinFocusedElement!;
      for (const currentIndex in expectedAttributeList.raw()) {
@@ -478,7 +479,7 @@ Then(
 /**
  * key.then.element.withSelector.description
  * */
-Then(`${key.then.element.withSelector}`, async function(selector: string) {
+Then(`${key.then.element.withSelector}`, function(selector: string) {
   cy.get(selector).should("exist");
 });
 
@@ -487,7 +488,7 @@ Then(`${key.then.element.withSelector}`, async function(selector: string) {
  * */
 Then(
  `${key.then.a11y.axecore.default}`,
- async function() {
+  function() {
    cy.injectAxe();
    cy.checkA11y();
  });
@@ -497,7 +498,7 @@ Then(
  * */
 Then(
  `${key.then.a11y.axecore.onlyCritical}`,
- async function() {
+  function() {
    cy.injectAxe();
    cy.checkA11y(undefined, {
      includedImpacts: ["critical"]
@@ -509,7 +510,7 @@ Then(
  * */
 Then(
  `${key.then.a11y.axecore.withImpacts}`,
- async function(impacts: any) {
+  function(impacts: any) {
    cy.injectAxe();
    cy.checkA11y(undefined, {
      includedImpacts: [impacts]
@@ -521,7 +522,7 @@ Then(
  * */
 Then(
  `${key.then.a11y.axecore.withTags}`,
- async function(tags: any) {
+  function(tags: any) {
    cy.injectAxe();
    cy.checkA11y(undefined, {
      runOnly: {
@@ -536,7 +537,7 @@ Then(
  * */
 Then(
  `${key.then.a11y.axecore.withFixtureContextAndFixtureOption}`,
- async function(context: any, option: any) {
+  function(context: any, option: any) {
    cy.injectAxe();
    cy.fixture(context).then(context => {
      cy.fixture(option).then(option => {
@@ -550,7 +551,7 @@ Then(
  * */
 Then(
  `${key.then.a11y.axecore.withFixtureOption}`,
- async function(option: any) {
+  function(option: any) {
    cy.injectAxe();
    cy.fixture(option).then(data => {
      cy.checkA11y(undefined, data);
@@ -563,21 +564,21 @@ Then(
  * */
 Then(
  `${key.then.a11y.rgaa.default}`,
- async function() {
+  function() {
    cy.injectUvvA11y();
    cy.checkUvvA11y(A11yReferenceEnum.RGAA);
  });
 
 Then(
  `${key.then.a11y.rgaa.defaultWithResult}`,
- async function(expectedResult: string) {
+  function(expectedResult: string) {
    cy.injectUvvA11y();
    cy.checkUvvA11y(A11yReferenceEnum.RGAA, JSON.parse(expectedResult));
  });
 
 Then(
  `${key.then.a11y.rgaa.defaultWithResultContaining}`,
- async function(expectedResult: string) {
+  function(expectedResult: string) {
    cy.injectUvvA11y();
    cy.checkUvvA11y(A11yReferenceEnum.RGAA, JSON.parse(expectedResult), true);
  });
@@ -621,5 +622,5 @@ function click(role: string, name: string) {
 }
 
 function haveKeyBoardFocused() {
-    return Cypress.$(":focus").length > 0;
+  return Cypress.$(":focus").length > 0;
 }

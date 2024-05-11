@@ -22,7 +22,7 @@ beforeEach(function () {
 
 after(function () {
     if (shouldGenerateA11yReport()) {
-        return cy.showUvvA11yReport(A11yReferenceEnum.RGAA);
+        cy.showUvvA11yReport(A11yReferenceEnum.RGAA);
     }
     return null;
 });
@@ -58,7 +58,7 @@ export function withinRoleAndName(role: string, name: string) {
         .uuvFoundedElement()
         .should("exist");
 
-    return cy.uuvPatchContext({
+    cy.uuvPatchContext({
         withinFocusedElement: foundedElement
     });
 }

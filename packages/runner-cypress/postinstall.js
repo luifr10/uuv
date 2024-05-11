@@ -42,7 +42,7 @@ function main () {
         //copyFile('uuv-cli.js', `${CLI_DIR}`, `${PROJECT_DIR}`);
         copyFileIfMissing("cypress.config.ts", `${TARGET_CONFIG_DIR}`, `${PROJECT_DIR}/uuv`);
         copyFileIfMissing("command.ts", `${TARGET_CONFIG_DIR}`, `${PROJECT_DIR}/uuv/cypress/support`);
-        copyFileIfMissing(".cypress-cucumber-preprocessorrc.json", `${TARGET_CONFIG_DIR}`, `${PROJECT_DIR}`);
+        copyFileIfMissing(".cypress-cucumber-preprocessorrc.json", `${TARGET_CONFIG_DIR}`, `${PROJECT_DIR}/uuv`);
     } else {
         console.log("postinstall - Nothing to copy");
     }

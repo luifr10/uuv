@@ -24,7 +24,7 @@ export class NotEmptyAttributeSpecification implements IAttributeSpecification {
 export class EmptyElementWithIdSpecification implements IAttributeSpecification {
   isSatisfiedBy(element: HTMLElement, attributeName: string): boolean {
     const attributeValue = element.getAttribute(attributeName);
-    if (_.isEmpty(attributeValue) || _.isNull(attributeValue)) {
+    if (attributeValue === null || _.isEmpty(attributeValue)) {
       return true;
     }
     const bindingNodeId = $(`#${attributeValue.replaceAll(".", "\\.")}`).text();
@@ -47,7 +47,7 @@ export class NotEqualsAttributeSpecification implements IAttributeSpecification 
 
   isSatisfiedBy(element: HTMLElement, attributeName: string): boolean {
     const attributeValue = element.getAttribute(attributeName);
-    if (_.isNull(attributeValue)) {
+    if (attributeValue === null) {
       return true;
     }
     return !this.expectedValueList.includes(attributeValue);
@@ -60,7 +60,7 @@ export class EqualsAttributeSpecification implements IAttributeSpecification {
 
   isSatisfiedBy(element: HTMLElement, attributeName: string): boolean {
     const attributeValue = element.getAttribute(attributeName);
-    if (_.isNull(attributeValue)) {
+    if (attributeValue === null) {
       return false;
     }
     return this.expectedValueList.includes(attributeValue);
@@ -70,7 +70,7 @@ export class EqualsAttributeSpecification implements IAttributeSpecification {
 export class AccessibleNameNotContainsVisibleTextSpecification implements IAttributeSpecification {
   isSatisfiedBy(element: HTMLElement, attributeName: string): boolean {
     const visibleText = element.textContent;
-    if (_.isNull(visibleText) || _.isEmpty(visibleText)) {
+    if (visibleText === null || _.isEmpty(visibleText)) {
       return false;
     }
     const accessibleName = computeAccessibleName(element);
