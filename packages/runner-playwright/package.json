@@ -44,7 +44,7 @@
   "dependencies": {
     "@cucumber/cucumber": "9.6.0",
     "@cucumber/tag-expressions": "^6.0.0",
-    "@playwright/test": "1.44.0",
+    "@playwright/test": "1.44.1",
     "@uuv/runner-commons": "2.14.0",
     "axe-core": "4.9.1",
     "axe-playwright": "2.0.1",
