@@ -67,7 +67,7 @@ export class UUVCliPlaywrightRunner implements UUVCliRunner {
     }
 
     executeOpenCommand(options: Partial<UUVCliOptions>) {
-        cp.fork(path.join(__dirname, "watch-test-files"), [this.tempDir, this.projectDir, options.extraArgs.TAGS]);
+        cp.fork(path.join(__dirname, "watch-test-files"), [this.tempDir, this.projectDir]);
         this.runPlaywright(options);
     }
 
