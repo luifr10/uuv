@@ -5,7 +5,7 @@
   "root": "packages/assistant",
   "projectType": "library",
   "targets": {
-    "build:tsc": {
+    "build-tsc": {
       "executor": "@nx/js:tsc",
       "inputs": [
         "{projectRoot}/launcher/*"
@@ -33,13 +33,13 @@
         "{projectRoot}/dist/uuv-assistant-resources.bundle.js"
       ],
       "options": {
-        "script": "build:bundle"
+        "script": "build-bundle"
       },
       "dependsOn": [
-        "build:conf"
+        "build-conf"
       ]
     },
-    "build:conf": {
+    "build-conf": {
       "executor": "nx:run-script",
       "inputs": [
         "{projectRoot}/compute-conf.js",
@@ -50,14 +50,14 @@
         "{projectRoot}/launcher/conf.json"
       ],
       "options": {
-        "script": "build:conf"
+        "script": "build-conf"
       },
       "dependsOn": [
-        "build:react",
-        "build:tsc"
+        "build-react",
+        "build-tsc"
       ]
     },
-    "build:react": {
+    "build-react": {
       "executor": "nx:run-script",
       "inputs": [
         "{projectRoot}/src/*"
@@ -66,7 +66,7 @@
         "{projectRoot}/build"
       ],
       "options": {
-        "script": "build:react"
+        "script": "build-react"
       }
     },
     "lint": {

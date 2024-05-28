@@ -16,15 +16,33 @@ import React from "react";
 import "./index.css";
 import UuvAssistant from "./UuvAssistant";
 import { createRoot } from "react-dom/client";
+// eslint-disable-next-line import/no-webpack-loader-syntax
+import css from "!!css-loader!./UuvAssistant.css";
+import { UUV_ASSISTANT_BAR_WIDTH } from "./Commons";
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 document.addEventListener("UUVAssistantReadyToLoad", (e: any) => {
     console.log("event listened: UUVAssistantReadyToLoad");
-    const container = document.getElementById("uvv-assistant-root");
-    if (container) {
-        const root = createRoot(container);
+    document.body.style.marginRight = `${parseInt(window.getComputedStyle(document.body).marginRight) + UUV_ASSISTANT_BAR_WIDTH}px`;
+    const assistantRoot = document.getElementById("uvv-assistant-root");
+    const assistantAdditionalLayersRoot = document.getElementById("uvv-assistant-keyboard-layer");
+    if (assistantRoot && assistantAdditionalLayersRoot) {
+        assistantRoot.classList.add("react-container");
+        const shadowAssistantRoot = assistantRoot.attachShadow({ mode: "open" });
+        const root = createRoot(shadowAssistantRoot);
+
+        const shadowAdditionalLayersRoot = assistantAdditionalLayersRoot.attachShadow({ mode: "open" });
+
         root.render(
-            <UuvAssistant translator={e?.detail?.translator}/>
+            <>
+                <style>{css.toString()}</style>
+                <div>
+                    <UuvAssistant
+                        translator={e?.detail?.translator}
+                        assistantRoot={shadowAssistantRoot}
+                        assistantAdditionalLayersRoot={shadowAdditionalLayersRoot}/>
+                </div>
+            </>
         );
     }
 });

@@ -14,7 +14,18 @@
 
 
 import { computeAccessibleName, getRole } from "dom-accessibility-api";
-import { EN_ROLES, enSentences, enBasedRoleSentences } from "@uuv/runner-commons/wording/web/en";
+import { EN_ROLES, enBasedRoleSentences, enSentences } from "@uuv/runner-commons/wording/web/en";
+import { FocusableElement } from "tabbable";
+import { ActionEnum } from "../Commons";
+
+export class Suggestion {
+  constructor(
+      public accessibleAttribute: string = "",
+      public accessibleValue = "",
+      public code = "",
+      public sentenceAfterCorrection: string[] = []
+  ) {}
+}
 
 export type BaseSentence = {
   key: string;
@@ -35,14 +46,17 @@ export type EnrichedSentence = {
   wording: string;
 }
 
-export enum CheckActionEnum {
-  WITHIN = "Within", EXPECT = "Expect", CLICK = "Click"
-}
-
 export enum StepCaseEnum {
-  WHEN = "When ", THEN = "Then ", GIVEN = "Given "
+  WHEN = "When ",
+  THEN = "Then ",
+  GIVEN = "Given ",
+  AND = "And "
 }
 
+export type TranslateSentences = {
+  suggestion: Suggestion | undefined,
+  sentences: string[]
+}
 
 export class TranslateHelper {
   /* eslint-disable  @typescript-eslint/no-explicit-any */
@@ -78,40 +92,49 @@ export class TranslateHelper {
   }
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
-  public static translateEngine(htmlElem: HTMLElement, checkAction: string, isDisabled: boolean): string[] {
+  public static async translateEngine(htmlElem: FocusableElement, checkAction: string, isDisabled: boolean): Promise<TranslateSentences> {
     const jsonBase: BaseSentence[] = enSentences;
-    let sentenceList: string[] = [];
     let computedKey = "";
     let stepCase = "";
-    if (checkAction === CheckActionEnum.EXPECT) {
+    const response: TranslateSentences = {
+      suggestion: undefined,
+      sentences: []
+    };
+    if (checkAction === ActionEnum.EXPECT) {
       computedKey = "key.then.element.withSelector";
       stepCase = StepCaseEnum.THEN;
-    } else if (checkAction === CheckActionEnum.WITHIN || checkAction === CheckActionEnum.CLICK ) {
+    } else if (checkAction === ActionEnum.WITHIN || checkAction === ActionEnum.CLICK ) {
       computedKey = "key.when.withinElement.selector";
       stepCase = StepCaseEnum.WHEN;
+    } else if (checkAction === ActionEnum.KEYBOARD_GLOBAL_NAVIGATION) {
+      computedKey = "key.then.element.withSelectorFocused";
+      stepCase = StepCaseEnum.THEN;
     }
     const sentence = jsonBase
       .filter((el: BaseSentence) => el.key === computedKey)
       .map((el: BaseSentence) =>
         el.wording.replace("{string}", `"${this.getSelector(htmlElem)}"`)
       )[0];
-    if (checkAction === CheckActionEnum.CLICK) {
+    if (checkAction === ActionEnum.CLICK) {
       const clickSentence: BaseSentence = jsonBase.filter((el: BaseSentence) => el.key === "key.when.click.withContext")[0];
-      sentenceList = [stepCase + sentence, StepCaseEnum.THEN + clickSentence.wording];
+      response.sentences = [stepCase + sentence, StepCaseEnum.THEN + clickSentence.wording];
     } else {
-      sentenceList = [stepCase + sentence];
+      response.sentences = [stepCase + sentence];
     }
     const accessibleRole = getRole(htmlElem);
     const accessibleName = computeAccessibleName(htmlElem);
     const content = htmlElem.getAttribute("value") ?? htmlElem.firstChild?.textContent?.trim();
     if (accessibleRole && accessibleName) {
       const jsonEnriched: EnrichedSentenceWrapper = enBasedRoleSentences;
-      if (checkAction === CheckActionEnum.EXPECT) {
+      if (checkAction === ActionEnum.EXPECT) {
         computedKey = "key.then.element.withRoleAndName";
         stepCase = StepCaseEnum.THEN;
-      } else if (checkAction === CheckActionEnum.WITHIN  || checkAction === CheckActionEnum.CLICK) {
+      } else if (checkAction === ActionEnum.WITHIN || checkAction === ActionEnum.CLICK) {
         computedKey = "key.when.withinElement.roleAndName";
         stepCase = StepCaseEnum.WHEN;
+      } else if (checkAction === ActionEnum.KEYBOARD_GLOBAL_NAVIGATION) {
+        computedKey = "key.then.element.withRoleAndNameFocused";
+        stepCase = StepCaseEnum.THEN;
       }
       const sentence = jsonEnriched.enriched.filter((value: EnrichedSentence) => value.key === computedKey).map((enriched: EnrichedSentence) => {
         const sentenceAvailable = enriched.wording;
@@ -125,9 +148,9 @@ export class TranslateHelper {
           .replaceAll("$ofDefiniteArticle", role?.getOfDefiniteArticle())
           .replace("{string}", `"${accessibleName}"`);
       })[0];
-      sentenceList = this.getSentenceList(checkAction, jsonBase, accessibleRole, stepCase, accessibleName, sentence);
+      response.sentences = this.getSentenceList(checkAction, jsonBase, accessibleRole, stepCase, accessibleName, sentence);
       if (content) {
-        if (checkAction === CheckActionEnum.EXPECT) {
+        if (checkAction === ActionEnum.EXPECT) {
           if (isDisabled) {
             computedKey = "key.then.element.withRoleAndNameAndContentDisabled";
             stepCase = StepCaseEnum.THEN;
@@ -135,7 +158,7 @@ export class TranslateHelper {
             computedKey = "key.then.element.withRoleAndNameAndContent";
             stepCase = StepCaseEnum.THEN;
           }
-        } else if (checkAction === CheckActionEnum.WITHIN) {
+        } else if (checkAction === ActionEnum.WITHIN) {
           computedKey = "key.when.withinElement.roleAndName";
           stepCase = StepCaseEnum.WHEN;
         }
@@ -152,11 +175,12 @@ export class TranslateHelper {
             .replace("{string}", `"${accessibleName}"`)
             .replace("{string}", `"${content}"`);
         })[0];
-
-        sentenceList = this.getSentenceList(checkAction, jsonBase, accessibleRole, stepCase, accessibleName, sentence);
+        response.sentences = this.getSentenceList(checkAction, jsonBase, accessibleRole, stepCase, accessibleName, sentence);
       }
+    } else {
+      response.suggestion = new Suggestion();
     }
-    return sentenceList;
+    return response;
   }
 
   private static getSentenceList(
@@ -167,7 +191,7 @@ export class TranslateHelper {
       accessibleName: string,
       sentence: string
   ) {
-    if (checkAction === CheckActionEnum.CLICK) {
+    if (checkAction === ActionEnum.CLICK) {
       if (accessibleRole === "button") {
         const clickSentence: BaseSentence = jsonBase.filter(
             (el: BaseSentence) => (accessibleRole === "button" && el.key === "key.when.click.button")

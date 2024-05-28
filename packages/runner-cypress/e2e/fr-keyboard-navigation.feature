@@ -87,7 +87,7 @@ Fonctionnalité: Navigation au clavier
      Et je saisie les mots "123"
      Et je vais au prochain élément au clavier
 
-     Et je dois voir une boîte à texte nommée "Description" avoir le focus clavier
+     Et l'élément avec le sélecteur "#new-town-description" doit avoir le focus clavier
      Et je saisie les mots "Simple Description"
      Et je vais au prochain élément au clavier
 

@@ -71,3 +71,5 @@ packages/runner-flutter/test/*_test.dart
 .nx
 .history/
 packages/assistant/uuv/.features-gen/
+packages/assistant/test-results/
+packages/assistant/uuv/uuv/reports/

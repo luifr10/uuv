@@ -365,6 +365,20 @@ Then(
 );
 
 /**
+ * key.then.element.withSelectorFocused.description
+ * */
+Then(
+ `${key.then.element.withSelectorFocused}`,
+ function(selector: string) {
+   cy.get(selector).then(foundElement => {
+     cy.focused().then(focusedElement => {
+       expect(foundElement?.get(0)).eq(focusedElement?.get(0));
+     });
+   });
+ }
+);
+
+/**
  * key.then.element.withRoleAndNameAndContentDisabled.description
  * */
 Then(

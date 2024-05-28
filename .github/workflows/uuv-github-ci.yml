@@ -84,7 +84,7 @@ jobs:
     needs: install
     steps:
       - uses: actions/checkout@v4
-      - name: Running playwright tests except cypress and playwright
+      - name: Running units tests except a11y and runner-flutter
         uses: ./.github/actions/nx-run-many
         with:
           node-version: ${{env.NODE_VERSION}}

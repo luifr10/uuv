@@ -160,6 +160,11 @@
     "wording": "je dois voir un élément avec le rôle {string} et le nom {string} et pour contenu {string}"
   },
   {
+    "key": "key.then.element.withSelectorFocused",
+    "description": "Vérifie que l'élément Html avec le sélecteur est focus",
+    "wording": "l'élément avec le sélecteur {string} doit avoir le focus clavier"
+  },
+  {
     "key": "key.then.element.withRoleAndNameFocused",
     "description": "Vérifie que l'élément Html avec le [rôle accessible](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types) et le [nom accessible](https://russmaxdesign.github.io/html-elements-names/) est focus",
     "wording": "l'élément avec le rôle {string} et le nom {string} doit avoir le focus clavier"

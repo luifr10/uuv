@@ -86,7 +86,7 @@ Feature: Keyboard Navigation
      And I type the sentence "123"
      And I go to next keyboard element
 
-     And I should see a text box named "Description" keyboard focused
+     And the element with selector "#new-town-description" should be keyboard focused
      And I type the sentence "Simple Description"
      And I go to next keyboard element
 

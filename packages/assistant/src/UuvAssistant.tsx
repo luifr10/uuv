@@ -12,62 +12,94 @@
  * understanding English or French.
  */
 
-import React, { useEffect, useRef, useState } from "react";
-import "./UuvAssistant.css";
+import React, { useEffect, useState } from "react";
 import uuvLogoJson from "./assets/uuvLogo.json";
-import warningIconJson from "./assets/warningIcon.json";
-import moonJson from "./assets/moon.json";
-import sunJson from "./assets/sun.json";
+import mouseIcon from "./assets/mouse.json";
+import keyboardIcon from "./assets/keyboard.json";
 
-import { CheckActionEnum, TranslateHelper } from "./helper/TranslateHelper";
+import { BaseSentence, StepCaseEnum, TranslateHelper, TranslateSentences } from "./helper/TranslateHelper";
 import {
   Avatar,
   Button,
-  Col,
   ConfigProvider,
   Divider,
-  Drawer,
+  Flex,
   Layout,
-  notification,
-  Row,
-  Select,
+  Menu,
+  MenuProps,
+  message,
+  RadioChangeEvent,
+  Spin,
   theme,
   Tooltip,
-  Tour,
-  TourProps,
   Typography
 } from "antd";
-import { CopyOutlined, DoubleLeftOutlined, QuestionCircleOutlined, SelectOutlined } from "@ant-design/icons";
+import { CloseOutlined, CopyOutlined, DoubleLeftOutlined, DoubleRightOutlined } from "@ant-design/icons";
+import { StyleProvider } from "@ant-design/cssinjs";
 import { CssHelper } from "./helper/CssHelper";
+import { FocusableElement, tabbable } from "tabbable";
+
+import CodeMirror, { EditorView, Extension, gutter } from "@uiw/react-codemirror";
+import { StreamLanguage } from "@codemirror/language";
+import { gherkin } from "@codemirror/legacy-modes/mode/gherkin";
+import { githubDark } from "@uiw/codemirror-theme-github";
+
+import { enSentences } from "@uuv/runner-commons/wording/web/en";
+import { KeyboardNavigationHelper } from "./helper/KeyboardNavigationHelper";
+import { buildResultingScript, buildUuvGutter } from "./helper/ResultScriptHelper";
+import { ActionEnum, AdditionalLayerEnum, KeyboardNavigationModeEnum, ResultSentence, Suggestion, VisibilityEnum } from "./Commons";
+
+const { Sider } = Layout;
+const { Text } = Typography;
+type MenuItem = Required<MenuProps>["items"][number];
 
 type UuvAssistantProps = {
-  translator?: (el: HTMLElement) => string;
+  translator?: (el: FocusableElement) => string;
+  assistantRoot: ShadowRoot;
+  assistantAdditionalLayersRoot: ShadowRoot;
 }
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 function UuvAssistant(props: UuvAssistantProps) {
-  const [open, setOpen] = useState<boolean>(false);
-  const [generatedScript, setGeneratedScript] = useState<string[]>([]);
-  const [currentAction, setCurrentAction] = useState("none");
-  const [, setResultCopied] = useState(false);
-  const [checkAction, setCheckAction] = useState(CheckActionEnum.EXPECT);
+  const [generatedScript, setGeneratedScript] = useState<string>("");
   const [disabledElement, setDisabledElement] = useState("");
-  const [isExtended, setIsExtended] = useState(false);
+  const [selectedAction, setSelectedAction] = useState(ActionEnum.NONE);
+  const [displayedResult, setDisplayedResult] = useState(ActionEnum.NONE);
+  const [visibility, setVisibility] = useState(VisibilityEnum.WITHOUT_RESULT);
   const [isDark, setIsDark] = useState(true);
-  const [isHide, setIsHide] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [uuvGutter, setUuvGutter] = useState<Extension>(gutter({}));
+  const [currentKeyboardNavigation, setCurrentKeyboardNavigation] = useState<FocusableElement[]>([]);
+  const [expectedKeyboardNavigation, setExpectedKeyboardNavigation] = useState<FocusableElement[]>([]);
+  const [displayedKeyboardNavigation, setDisplayedKeyboardNavigation] = useState<KeyboardNavigationModeEnum>(KeyboardNavigationModeEnum.NONE);
 
+  const jsonBase: BaseSentence[] = enSentences;
   const Inspector = require("inspector-dom");
   const inspector = Inspector({
     root: "body",
-    excluded: ["#uvv-assistant-root"],
     outlineStyle: "2px solid red",
     onClick: (el: HTMLElement) => {
-      const sentences = translate(el);
-      setGeneratedScript(sentences);
-      setCurrentAction("none");
-      setIsHide(false);
-      setIsExtended(true);
-      inspector.cancel();
+      console.log("value", selectedAction);
+      translate(el, selectedAction).then((translateSentences) => {
+        setVisibility(VisibilityEnum.WITH_RESULT);
+        const data = translateSentences.sentences.map((elem, key) => {
+          return {
+            key: key as React.Key,
+            result: elem
+          } as ResultSentence;
+        });
+        setGeneratedScript(
+         buildResultingScript(
+          "Your amazing feature name",
+          `Action - ${selectedAction}`,
+          data.map(sentence => sentence.result)
+         )
+        );
+        inspector.cancel();
+        setDisplayedResult(selectedAction);
+        setSelectedAction(ActionEnum.NONE);
+        endLoading();
+      });
     }
   });
 
@@ -78,77 +110,76 @@ function UuvAssistant(props: UuvAssistantProps) {
     };
   }, []);
 
-  const refResize: React.MutableRefObject<any> = useRef(null);
-  const refSelectMinimized: React.MutableRefObject<any> = useRef(null);
-  const refCopyMinimized: React.MutableRefObject<any> = useRef(null);
-  const refActionMinimized: React.MutableRefObject<any> = useRef(null);
-  const refSentence: React.MutableRefObject<any> = useRef(null);
-  const refSelectExtended: React.MutableRefObject<any> = useRef(null);
-  const refCopyExtended: React.MutableRefObject<any> = useRef(null);
-  const refActionExtended: React.MutableRefObject<any> = useRef(null);
-  const refLightMode: React.MutableRefObject<any> = useRef(null);
-  const refDictionnary: React.MutableRefObject<any> = useRef(null);
-  const stepsBase: TourProps["steps"] = [
-    {
-      title: "Resize uuv assistant",
-      description: "Change the size of uuv assistant for more comfort",
-      target: () => refResize.current
-    },
-    {
-      title: "Select button",
-      description: "Selects a dom element and generates a uuv sentence",
-      target: () => isExtended ? refSelectExtended.current : refSelectMinimized.current
-    },
-    {
-      title: "Copy button",
-      description: "Copies the generated uuv sentence to the clipboard",
-      target: () => isExtended ? refCopyExtended.current : refCopyMinimized.current
-    },
-    {
-      title: "Action button",
-      description: "Selects a test action that contextualizes the generated uuv sentence, such as verification or click",
-      target: () => isExtended ? refActionExtended.current : refActionMinimized.current
+  useEffect(() => {
+    setUuvGutter(
+     buildUuvGutter()
+    );
+  }, [generatedScript]);
+
+  useEffect(() => {
+    KeyboardNavigationHelper.removeLayerToShadowDom(props.assistantAdditionalLayersRoot, AdditionalLayerEnum.CURRENT_NAVIGATION);
+    KeyboardNavigationHelper.removeLayerToShadowDom(props.assistantAdditionalLayersRoot, AdditionalLayerEnum.EXPECTED_NAVIGATION);
+    switch (selectedAction) {
+      case ActionEnum.WITHIN:
+      case ActionEnum.EXPECT:
+      case ActionEnum.CLICK:
+        startSelect();
+        break;
+      case ActionEnum.KEYBOARD_GLOBAL_NAVIGATION:
+        setDisplayedKeyboardNavigation(KeyboardNavigationModeEnum.NONE);
+        keyboardNavigation().then(currentKeyboardFocusableElements => {
+          if (currentKeyboardFocusableElements) {
+            setDisplayedKeyboardNavigation(KeyboardNavigationModeEnum.CURRENT_NAVIGATION);
+            setVisibility(VisibilityEnum.WITH_RESULT);
+            setDisplayedResult(ActionEnum.KEYBOARD_GLOBAL_NAVIGATION);
+            setSelectedAction(ActionEnum.NONE);
+          }
+        });
+        break;
+      case ActionEnum.NONE:
+      default:
+        break;
     }
-  ];
-  const stepsExtended: TourProps["steps"] = [
-    {
-      title: "Generated sentence",
-      description: "Displays the generated uuv sentence",
-      target: () => refSentence.current
-    },
-    {
-      title: "Dark mode",
-      description: "Change the dark mode",
-      target: () => refLightMode.current
-    },
-    {
-      title: "Sentences Dictionnary",
-      description: "Go to sentences dictionnary",
-      target: () => refDictionnary.current
+  }, [selectedAction]);
+
+  useEffect(() => {
+    if (displayedKeyboardNavigation !== KeyboardNavigationModeEnum.NONE) {
+      let keyboardNavigationElement;
+      if (displayedKeyboardNavigation === KeyboardNavigationModeEnum.CURRENT_NAVIGATION) {
+        KeyboardNavigationHelper.switchKeyboardLayer(props.assistantAdditionalLayersRoot, AdditionalLayerEnum.CURRENT_NAVIGATION, currentKeyboardNavigation);
+        keyboardNavigationElement = currentKeyboardNavigation;
+      } else {
+        KeyboardNavigationHelper.switchKeyboardLayer(props.assistantAdditionalLayersRoot, AdditionalLayerEnum.EXPECTED_NAVIGATION, expectedKeyboardNavigation);
+        keyboardNavigationElement = expectedKeyboardNavigation
+      }
+      buildKeyboardNavigationResultSentence(keyboardNavigationElement).then(resultSentences => {
+        setGeneratedScript(
+            buildResultingScript(
+                "Your amazing feature name",
+                "Keyboard Navigation",
+                resultSentences.map(sentence => sentence.result)
+            )
+        );
+        endLoading();
+      });
     }
-  ];
+  }, [displayedKeyboardNavigation]);
 
   function reset() {
     inspector.cancel();
-    setCurrentAction("none");
-    setCheckAction(CheckActionEnum.EXPECT);
+    setDisplayedResult(selectedAction);
+    setSelectedAction(ActionEnum.NONE);
     setDisabledElement("");
-    setIsExtended(false);
     setIsDark(true);
+    setVisibility(VisibilityEnum.WITHOUT_RESULT);
+    endLoading();
   }
-
-  const setShowResultCopiedToast = (resultCopied: boolean) => {
-    setResultCopied(resultCopied);
-  };
 
   const copyResult = () => {
     if (generatedScript.length > 0) {
-      navigator.clipboard.writeText(generatedScript.join("\n"));
-      setShowResultCopiedToast(true);
-      notification.success({
-        message: "Message",
-        description:
-          "Result copied to the clipboard"
+      navigator.clipboard.writeText(generatedScript);
+      message.success({
+        content: "Result copied to the clipboard"
       });
     }
   };
@@ -156,17 +187,20 @@ function UuvAssistant(props: UuvAssistantProps) {
   function startSelect() {
     const removeDisableHandler = clickOnDisabledElementFeature();
     document.addEventListener("mouseover", removeDisableHandler);
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        reset();
+      }
+    });
     inspector.enable();
-    setCurrentAction("selection");
-    setIsHide(true);
   }
 
   function clickOnDisabledElementFeature() {
-    const removeDisableHandler = (e: MouseEvent): void => {
+    return (e: MouseEvent): void => {
       e.preventDefault();
       const element = document.elementFromPoint(e.clientX, e.clientY);
       let internalDisabledElement = disabledElement;
-      if (currentAction === "selection" && element && element.hasAttribute("disabled")) {
+      if (selectedAction !== ActionEnum.NONE && element && element.hasAttribute("disabled")) {
         internalDisabledElement = TranslateHelper.getSelector(element);
         element.removeAttribute("disabled");
         element.setAttribute("readonly", "true");
@@ -177,47 +211,172 @@ function UuvAssistant(props: UuvAssistantProps) {
           querySelector?.setAttribute("disabled", "true");
           querySelector?.removeAttribute("readonly");
           setDisabledElement("");
-          console.log("querySelector", disabledElement);
         }
       }
     };
-    return removeDisableHandler;
   }
 
-  function translate(el: HTMLElement): string[] {
-    console.debug("translator,", props.translator);
-    return props.translator
-      ? [props.translator(el)]
-      : TranslateHelper.translateEngine(el, checkAction, disabledElement !== "");
-  }
-
-  const handleSelectCheckActionChange = (newValue: CheckActionEnum) => {
-    setCheckAction(() => newValue);
-  };
-
-  const handleChangeLightMode = () => {
-    setIsDark((isDark) => !isDark);
-  };
-
-  const { Content, Sider } = Layout;
-  const { Text } = Typography;
-  const expander = CssHelper.expanderConfig(isDark, isExtended);
-  const buttonConfig = CssHelper.buttonConfig(isDark);
-  const lightMode = isDark ? CssHelper.getBase64File(sunJson) : CssHelper.getBase64File(moonJson);
-  const warningIcon = CssHelper.getBase64File(warningIconJson);
-  const uuvLogo = CssHelper.getBase64File(uuvLogoJson);
-  const tourIcon = CssHelper.iconConfig(isDark);
-
-  function handleGetTour() {
-    if (isExtended) {
-      setGeneratedScript([]);
+  async function buildKeyboardNavigationResultSentence(focusableElements: FocusableElement[]) {
+    const sentences: string[] = [];
+    const startKeyboardNavigationSentence = jsonBase.find((el: BaseSentence) => el.key === "key.given.keyboard.startNavigationFromTheTop");
+    if (startKeyboardNavigationSentence) {
+      sentences.push(StepCaseEnum.AND + startKeyboardNavigationSentence.wording);
     }
-    setOpen(true);
+    const promises = focusableElements.map(async (node, index, focusableElements) => {
+      const focusBySelectorControlSentence = jsonBase
+          .find((el: BaseSentence) => el.key === "key.then.element.withSelectorFocused");
+      const focusByRoleAndNameControlSentence = jsonBase
+          .find((el: BaseSentence) => el.key === "key.then.element.withRoleAndNameFocused");
+      const nextFocusedElementSentence = jsonBase
+          .find((el: BaseSentence) => el.key === "key.when.keyboard.nextElement");
+
+      if (focusBySelectorControlSentence && focusByRoleAndNameControlSentence && nextFocusedElementSentence) {
+        const result = await translate(node, ActionEnum.KEYBOARD_GLOBAL_NAVIGATION);
+        result.sentences.forEach((element) => {
+          sentences.push(element);
+          if (node !== focusableElements[focusableElements.length - 1]) {
+            sentences.push(StepCaseEnum.AND + nextFocusedElementSentence.wording);
+          }
+        });
+      } else {
+        console.error("sentences next focus element or check focused element is undefined");
+      }
+      return Promise.resolve("");
+    });
+    await Promise.all(promises);
+    return sentences.map((elem, key) => {
+      return {
+        key: key as React.Key,
+        result: elem
+      } as ResultSentence;
+    });
+  }
+
+  function extractExpectedKeyboardNavigation(currentKeyboardFocusableElements: FocusableElement[]) {
+    return [...currentKeyboardFocusableElements].sort((a: FocusableElement, b: FocusableElement) => {
+      const leftRect = a.getBoundingClientRect();
+      const rightRect = b.getBoundingClientRect();
+      if (leftRect.y < rightRect.y) {
+        return -1;
+      }
+      if (leftRect.y === rightRect.y && leftRect.x < rightRect.x) {
+        return -1;
+      }
+      return 1;
+    });
+  }
+
+  async function keyboardNavigation() {
+    const currentKeyboardFocusableElements = tabbable(document.body, {});
+    setCurrentKeyboardNavigation(currentKeyboardFocusableElements);
+    const expectedKeyboardFocusableElements = extractExpectedKeyboardNavigation(currentKeyboardFocusableElements);
+    setExpectedKeyboardNavigation(expectedKeyboardFocusableElements);
+    return currentKeyboardFocusableElements;
+  }
+
+  async function translate(el: FocusableElement, action: string): Promise<TranslateSentences> {
+    console.debug("translator,", props.translator);
+    if (props.translator) {
+      return Promise.resolve({ sentences: [props.translator(el)] } as TranslateSentences);
+    }
+    const translate = await TranslateHelper.translateEngine(el, action, disabledElement !== "");
+    const result: TranslateSentences = { suggestion: new Suggestion() } as TranslateSentences;
+    result.sentences = translate.sentences;
+    return Promise.resolve(result);
+  }
+
+  const handleMouseNavigationChoice = (newValue: ActionEnum) => {
+    setVisibility(VisibilityEnum.HIDE);
+    setIsLoading(true);
+    setSelectedAction(newValue);
+  };
+
+  function handleKeyboardNavigationChoice() {
+    setIsLoading(true);
+    setDisplayedKeyboardNavigation(KeyboardNavigationModeEnum.NONE);
+    setSelectedAction(ActionEnum.KEYBOARD_GLOBAL_NAVIGATION);
+  }
+
+  function getItem(
+   label: React.ReactNode,
+   key: React.Key,
+   disabled: boolean,
+   onClick?: Function,
+   icon?: React.ReactNode,
+   children?: MenuItem[]
+  ): MenuItem {
+    return {
+      key,
+      icon,
+      disabled,
+      children,
+      label,
+      onClick
+    } as MenuItem;
+  }
+
+  function getAsideParentInHierarchy(triggerNode: HTMLElement) {
+    let parent = triggerNode.parentElement;
+    while (parent !== null) {
+      if (parent.id === "uuvAssistantMenu") {
+        return parent;
+      }
+      parent = parent.parentElement;
+    }
+    return document.body;
+  }
+
+  const actionMenuItems: MenuItem[] = [
+    getItem(
+      "Mouse actions",
+      "mouse-actions",
+      false,
+      () => {},
+        <div className={"menu-custom-svg-container"}><img src={CssHelper.getBase64File(mouseIcon)} aria-hidden={true} alt="" className={"menu-custom-svg-from-black-to-white"}/></div>,
+      [
+        getItem(ActionEnum.EXPECT.toString(), ActionEnum.EXPECT, false, () => {
+          handleMouseNavigationChoice(ActionEnum.EXPECT);
+        }),
+        getItem(ActionEnum.CLICK.toString(), ActionEnum.CLICK, false, () => {
+          handleMouseNavigationChoice(ActionEnum.CLICK);
+        }),
+        getItem(ActionEnum.WITHIN.toString(), ActionEnum.WITHIN, false, () => {
+          handleMouseNavigationChoice(ActionEnum.WITHIN);
+        })
+      ]
+    ),
+    getItem(
+      "Keyboard actions",
+      "keyboard-actions",
+      false,
+      () => {},
+      <div className={"menu-custom-svg-container"}><img src={CssHelper.getBase64File(keyboardIcon)} aria-hidden={true} alt="" className={"menu-custom-svg-from-black-to-white"}/></div>,
+      [
+        getItem("Keyboard navigation", "KeybNav", false, () => {
+          handleKeyboardNavigationChoice();
+        })
+      ]
+    )
+  ];
+
+  function endLoading() {
+    setTimeout(() => setIsLoading(false), 100);
+  }
+
+  function switchKeyboardNavigationMode({ target: { value } }: RadioChangeEvent): void {
+    setIsLoading(true);
+    setGeneratedScript("");
+    setTimeout(() => setDisplayedKeyboardNavigation(value as KeyboardNavigationModeEnum));
+  }
+
+  function getBottomButtonLabel() {
+    return visibility === VisibilityEnum.WITH_RESULT ? "Close result view" : "Open result view";
   }
 
   return (
-    <>
-      <ConfigProvider
+   <div id='uuvAssistantMenu'>
+     <StyleProvider container={props.assistantRoot}>
+       <ConfigProvider
         theme={{
           algorithm: isDark ? theme.darkAlgorithm : theme.defaultAlgorithm,
           token: {
@@ -226,234 +385,121 @@ function UuvAssistant(props: UuvAssistantProps) {
             zIndexPopupBase: 9999999999
           }
         }}
-      >
-        <Drawer
-          placement='bottom'
-          open={!isHide}
-          closable={false}
-          className={["uuvAssistant"].join(" ")}
-          height={isExtended ? 250 : 42}
-          bodyStyle={{ padding: "0px", overflowY: "hidden" }}
-          mask={false}
-        >
-          <Tooltip placement='top' title='Resize the Uuv assistant' zIndex={9999999780}>
-            <Button
-              ref={refResize}
-              data-testid={"expanderButton"}
-              onClick={() => {
-                setIsExtended((isExtended) => !isExtended);
-              }}
-              className='uuvArrowExpander'
-              icon={<DoubleLeftOutlined aria-label={expander.rotate === 90 ?
-                "Click to expand UUV Assistant panel" : "Click to reduce UUV Assistant panel"}
-                                        rotate={expander.rotate} spin={false} style={{ color: expander.color }} />}
-              style={{
-                boxShadow: expander.shadow,
-                backgroundColor: expander.background
-              }}>
-            </Button>
-          </Tooltip>
-          {!isExtended ?
-            <Row style={{ marginTop: "5px", marginBottom: "5px" }}>
-              <Col span={23}>
-                <Tooltip placement='top' title='Select an element' zIndex={9999999780}>
-                  <Button
-                    ref={refSelectMinimized}
-                    aria-label='Select an html element'
-                    className='pt-0 pb-1'
-                    onClick={startSelect}
-                    style={{
-                      background: buttonConfig.background, color: buttonConfig.color,
-                      marginRight: "20px", marginLeft: "20px"
-                    }}
-                    disabled={currentAction === "selection"} icon={<SelectOutlined aria-hidden={true} />}>
-                    Select
-                  </Button>
+       >
+       {visibility === VisibilityEnum.WITH_RESULT ?
+          <Flex id='uuvAssistantResultZone' vertical={true}>
+            <header>
+              <Flex justify={"space-between"} align={"center"}>
+                <Typography.Title level={2}>Result of <span className={"secondary"}>{displayedResult.toString()}</span></Typography.Title>
+                <Tooltip placement='bottom' title='Close' getPopupContainer={(triggerNode) => getAsideParentInHierarchy(triggerNode)}>
+                  <Button type='link' shape='circle' icon={<CloseOutlined />} className='primary' onClick={() => {
+                    KeyboardNavigationHelper.removeLayerToShadowDom(props.assistantAdditionalLayersRoot, AdditionalLayerEnum.CURRENT_NAVIGATION);
+                    KeyboardNavigationHelper.removeLayerToShadowDom(props.assistantAdditionalLayersRoot, AdditionalLayerEnum.EXPECTED_NAVIGATION);
+                    setVisibility(VisibilityEnum.WITHOUT_RESULT);
+                  }} />
                 </Tooltip>
-                <Tooltip placement='top' title='Copy in clipboard' zIndex={9999999780}>
-                  <Button
-                    ref={refCopyMinimized}
-                    aria-label='Copy the resulting uuv sentence'
-                    style={{
-                      background: generatedScript.length > 0 ? buttonConfig.background : "grey",
-                      color: buttonConfig.color,
-                      cursor: generatedScript.length > 0 ? "pointer" : "not-allowed",
-                      marginRight: "20px"
-                    }}
-                    onClick={copyResult}
-                    disabled={generatedScript.length === 0} icon={<CopyOutlined aria-hidden={true}/>}>
-                    Copy
-                  </Button>
+              </Flex>
+            </header>
+            <div id={"toolbar"}>
+              <Flex justify={"space-between"} align={"center"}>
+                <Tooltip placement='bottom' title='Copy' getPopupContainer={(triggerNode) => getAsideParentInHierarchy(triggerNode)}>
+                  <Button type='link' shape='circle' icon={<CopyOutlined />} className='primary' disabled={generatedScript.length === 0} onClick={copyResult} />
                 </Tooltip>
-                <span style={{ display: "inline block", marginRight: "20px" }} ref={refActionMinimized}>
-              <Select
-                aria-label={"Selected action"}
-                defaultValue={checkAction}
-                size='middle'
-                onChange={handleSelectCheckActionChange}
-                style={{
-                  width: "120px"
-                }}
-                options={[
-                  {
-                    value: CheckActionEnum.EXPECT,
-                    label: CheckActionEnum.EXPECT.toString()
-                  },
-                  {
-                    value: CheckActionEnum.WITHIN,
-                    label: CheckActionEnum.WITHIN.toString()
-                  },
-                  {
-                    value: CheckActionEnum.CLICK,
-                    label: CheckActionEnum.CLICK.toString()
-                  }
-                ]}
-              />
-              </span>
-              </Col>
-              <Col span={1}>
-                <Tooltip placement='top' title='Make a tour of Uuv Assistant' zIndex={9999999780}>
-                  <Avatar onClick={() => handleGetTour()}
-                          icon={<QuestionCircleOutlined />}
-                          style={{ cursor: "pointer", color: tourIcon.color, background: tourIcon.background }} />
-                </Tooltip>
-              </Col>
-            </Row> :
-            <Layout>
-                <Sider width={250} collapsible={true} collapsedWidth={0}
-                       theme={isDark ? "dark" : "light"}>
-                  <Row align='middle' style={{ marginTop: 10, marginBottom: 20, marginLeft: 10 }}>
-                    <Col span={6}>
-                      <Avatar
-                          ref={refDictionnary}
-                          style={{
-                            backgroundColor: isDark ?
-                                "#073a69" : "#C0C0C0", height: "50px", width: "50px"
-                          }} size='large'>
-                        <Tooltip placement='top' title='Go to steps definition'>
-                          <a href='https://orange-opensource.github.io/uuv/docs/category/description-of-sentences'>
-                            <img
-                                src={uuvLogo}
-                                width='40'
-                                height='40'
-                                alt='UUV logo'
-                            />
-                          </a>
-                        </Tooltip>
-                      </Avatar>
-                    </Col>
-                    <Col span={18}>
-                      <Text strong>UUV Assistant</Text>
-                    </Col>
-                  </Row>
-                  <Divider />
-                  <Col>
-                    <Tooltip placement='left' title='Select an element'>
-                      <Button
-                          ref={refSelectExtended}
-                          aria-label='Select an html element'
-                          className='m-1 pt-0 pb-1 uuvActionAside' onClick={startSelect}
-                          style={{ background: buttonConfig.background, color: buttonConfig.color }}
-                          disabled={currentAction === "selection"} icon={<SelectOutlined aria-hidden={true} />}>
-                        Select
-                      </Button>
-                    </Tooltip>
-                    <Tooltip placement='left' title='Copy in clipboard'>
-                      <Button
-                          ref={refCopyExtended}
-                          aria-label='Copy the resulting uuv sentence'
-                          className='uuvActionAside'
-                          style={{
-                            marginTop: "10px",
-                            background: generatedScript.length > 0 ?
-                                buttonConfig.background : "grey", color: buttonConfig.color
-                          }}
-                          onClick={copyResult}
-                          disabled={generatedScript.length === 0} icon={<CopyOutlined aria-hidden={true} />}>
-                        Copy
-                      </Button>
-                    </Tooltip>
-                    <Tooltip placement='left' title='Choose the generated action'>
-                  <span style={{ display: "inline block", marginRight: "20px" }} ref={refActionExtended}>
-                    <Select
-                        aria-label='Selected action'
-                        defaultValue={checkAction}
-                        size='large'
-                        onChange={handleSelectCheckActionChange}
-                        style={{ marginTop: "10px" }}
-                        className='uuvActionAside'
-                        options={[
-                          {
-                            value: CheckActionEnum.EXPECT.toString(),
-                            label: CheckActionEnum.EXPECT.toString()
-                          },
-                          {
-                            value: CheckActionEnum.WITHIN.toString(),
-                            label: CheckActionEnum.WITHIN.toString()
-                          },
-                          {
-                            value: CheckActionEnum.CLICK.toString(),
-                            label: CheckActionEnum.CLICK.toString()
-                          }
-                        ]}
-                    />
-                  </span>
-                    </Tooltip>
-                  </Col>
-                </Sider>
-                <Layout style={{ padding: "20px 24px 24px", marginLeft: 25 }}>
-                  <Row>
-                    <Col span={22}>
-                      <Text
-                          ref={refSentence}
-                          strong underline type={isDark ? "warning" : "secondary"}>Result</Text>
-                    </Col>
-                    <Col span={1}>
-                      <Avatar
-                          ref={refLightMode}
-                          onClick={handleChangeLightMode}
-                          src={<img src={lightMode} alt='Light mode' />}
-                          style={{ cursor: "pointer" }} />
-                    </Col>
-                    <Col span={1}>
-                      <Tooltip placement='top' title='Make a tour of Uuv Assistant' zIndex={9999999780}>
-                        <Avatar onClick={() => handleGetTour()}
-                                icon={<QuestionCircleOutlined />}
-                                style={{ cursor: "pointer", color: tourIcon.color, background: tourIcon.background }} />
+                {/*{displayedResult === ActionEnum.KEYBOARD_GLOBAL_NAVIGATION ?*/}
+                {/*  <Radio.Group*/}
+                {/*     options={[*/}
+                {/*       { label: 'Current', title: "Current navigation", value: KeyboardNavigationModeEnum.CURRENT_NAVIGATION },*/}
+                {/*       { label: 'Expected', title: "Navigation based on element position", value: KeyboardNavigationModeEnum.EXPECTED_NAVIGATION }*/}
+                {/*     ]}*/}
+                {/*     optionType="button"*/}
+                {/*     buttonStyle="solid"*/}
+                {/*     value={displayedKeyboardNavigation}*/}
+                {/*     onChange={switchKeyboardNavigationMode}*/}
+                {/*  />*/}
+                {/*  : ""}*/}
+              </Flex>
+            </div>
+            <CodeMirror
+             readOnly={true}
+             indentWithTab={true}
+             value={generatedScript}
+             height='100%'
+             extensions={[
+               StreamLanguage.define(gherkin),
+               EditorView.lineWrapping,
+               uuvGutter,
+               EditorView.contentAttributes.of({ "aria-label": "Generated UUV Script" })
+             ]}
+             theme={githubDark}
+             aria-label={"tot"}
+            />
+          </Flex>
+          : ""}
+         {visibility !== VisibilityEnum.HIDE ?
+          <Sider
+           reverseArrow={true}
+           defaultCollapsed={true}
+           id={"uuvAssistantMainBar"}
+           onCollapse={(value) => {
+             if (value) {
+             setVisibility(VisibilityEnum.WITHOUT_RESULT)
+             } else {
+               setVisibility(VisibilityEnum.WITH_RESULT)
+             }
+           }}>
+            <Flex align={"center"} vertical={true}>
+              <Flex align={"center"} vertical={true} className={"uuvAssistantAvatarContainer"}>
+                <Avatar className={"uuvAssistantAvatar"} size='large'>
+                  <Tooltip placement='top' title='Go to steps definition'
+                           getPopupContainer={(triggerNode) => getAsideParentInHierarchy(triggerNode)}>
+                    <a href='https://orange-opensource.github.io/uuv/docs/category/description-of-sentences'>
+                      <img
+                       src={CssHelper.getBase64File(uuvLogoJson)}
+                       alt='UUV logo'
+                       className={"uuvAssistantIcon"}
+                      />
+                    </a>
+                  </Tooltip>
+                </Avatar>
+                <Text className='uuvAssistantTitle'>UUV</Text>
+              </Flex>
+              <Divider />
+                {!isLoading ?
+                    <React.Fragment>
+                      <Menu
+                        mode="inline"
+                        items={actionMenuItems}
+                        getPopupContainer={(triggerNode) => getAsideParentInHierarchy(triggerNode)}
+                      />
+                      <Divider/>
+                      <Tooltip placement="left" title={getBottomButtonLabel()}
+                               getPopupContainer={(triggerNode) => getAsideParentInHierarchy(triggerNode)}>
+                        <Button
+                            size={"large"}
+                            type={"link"}
+                            block={true}
+                            style={{ background: "#001529", bottom: 0 }}
+                            icon={
+                              visibility === VisibilityEnum.WITH_RESULT
+                                ? <DoubleRightOutlined aria-hidden={true}/>
+                                : <DoubleLeftOutlined aria-hidden={true}/>
+                            }
+                            onClick={() => setVisibility(
+                                visibility === VisibilityEnum.WITH_RESULT ?
+                                    VisibilityEnum.WITHOUT_RESULT :
+                                    VisibilityEnum.WITH_RESULT
+                            )}
+                            aria-label={getBottomButtonLabel()}
+                        />
                       </Tooltip>
-                    </Col>
-                  </Row>
-                  <Content
-                      aria-label={"sentences"}
-                      style={{
-                        padding: 24,
-                        margin: 0,
-                        minHeight: 280
-                      }}
-                  >
-                    {generatedScript.map((value, index) =>
-                        [<Col
-                            key={value.concat(index.toString())}> <Row align='middle'><span
-                            style={{ color: isDark ? "white" : "black" }}>{value}</span> {value.includes("selector") ?
-                            <Tooltip placement='right' title='Accessibility role and name must be defined'><Avatar key={index} style={{
-                              marginLeft: "20px",
-                              marginTop: 15
-                            }}
-                               src={<img src={warningIcon}
-                               alt='Warning : The generated sentence is not user-centric'
-                               style={{
-                                 height: "20px",
-                                 width: "20px"
-                               }} />} />
-                            </Tooltip> : ""} </Row></Col>]
-                    )}
-                  </Content>
-                </Layout>
-              </Layout>
-          }
-        </Drawer>
-      </ConfigProvider>
-      <Tour zIndex={1000000000000} open={open} onClose={() => setOpen(false)} steps={isExtended ? [...stepsBase, ...stepsExtended] : stepsBase} /></>
+                    </React.Fragment>
+                : <Spin tip='Loading' size='large' spinning={isLoading} /> }
+            </Flex>
+          </Sider>
+          : ""}
+       </ConfigProvider>
+     </StyleProvider>
+   </div>
   );
 }
 

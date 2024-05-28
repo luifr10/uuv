@@ -34,17 +34,17 @@
   },
   "scripts": {
     "react:start": "react-scripts start",
-    "build:react": "react-scripts build",
+    "build-react": "react-scripts build",
     "react:test": "react-scripts test",
     "react:eject": "react-scripts eject",
     "launch": "ts-node launcher/uuv-assistant-launcher.ts",
     "launch:custom": "ts-node tests/uuv-assistant-custom-launcher.ts",
-    "build:conf": "node compute-conf.js",
-    "build:bundle": "node bundle-script.js",
+    "build-conf": "node compute-conf.js",
+    "build-bundle": "node bundle-script.js",
     "package": "npm pack --pack-destination=\"../../dist/packages\"",
     "lint": "eslint -c .eslintrc.json",
     "test": "npm run unit-test && npm run e2e-test:run",
-    "unit-test": "jest --coverage",
+    "unit-tests": "jest --coverage",
     "e2e-test:run": "npm run uuv e2e --",
     "e2e-test:open": "npm run uuv open --",
     "uuv": "node ../../node_modules/@uuv/playwright/bin/uuv"
@@ -56,12 +56,17 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5.0.1",
+    "@codemirror/legacy-modes": "^6.4.0",
+    "@codemirror/view": "^6.26.3",
     "@cucumber/cucumber": "9.6.0",
+    "@uiw/codemirror-theme-github": "^4.22.1",
+    "@uiw/react-codemirror": "^4.22.1",
     "@uuv/runner-commons": "2.15.0",
-    "antd": "^5.16.1",
+    "antd": "5.17.2",
     "figlet": "1.7.0",
     "inspector-dom": "0.1.1",
-    "playwright-chromium": "1.44.1"
+    "playwright-chromium": "1.44.1",
+    "tabbable": "6.2.0"
   },
   "browserslist": {
     "production": [

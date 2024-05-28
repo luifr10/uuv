@@ -424,6 +424,20 @@ Then(
 );
 
 /**
+ * key.then.element.withSelectorFocused.description
+ * */
+Then(
+ `${key.then.element.withSelectorFocused}`,
+ async function(this: World, selector: string) {
+   await getPageOrElement(this).then( async(element) => {
+     const locator = element.locator(selector);
+     await locator.focus({ timeout: 10000 });
+     await expect(locator).toHaveCount(1);
+     await expect(locator).toBeFocused();
+   });
+ });
+
+/**
  * key.then.element.withRoleAndNameAndContentDisabled.description
  * */
 Then(

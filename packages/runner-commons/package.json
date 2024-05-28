@@ -33,7 +33,7 @@
     "package": "npm pack --pack-destination=\"../../dist/packages\"",
     "lint": "npx eslint . --ext .js,.ts,.feature --fix",
     "test": "npm run unit-test --",
-    "unit-test": "jest --coverage"
+    "unit-tests": "jest --coverage"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "5.62.0",
