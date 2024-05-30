@@ -7,5 +7,15 @@ export default {
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
   modulePathIgnorePatterns: ["uuv/.uuv-features-gen"],
-  coverageDirectory: '../../coverage/packages/assistant'
+  coverageDirectory: '../../coverage/packages/assistant',
+  reporters: [
+    "default",
+    [
+      "jest-junit",
+      {
+        "outputDirectory": "./reports",
+        "outputName": "junit-report.xml",
+      }
+    ]
+  ]
 };

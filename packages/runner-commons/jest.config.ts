@@ -7,4 +7,14 @@ export default {
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory: '../../coverage/packages/runner-commons',
+  reporters: [
+    "default",
+    [
+      "jest-junit",
+      {
+        "outputDirectory": "./reports",
+        "outputName": "junit-report.xml",
+      }
+    ]
+  ]
 };

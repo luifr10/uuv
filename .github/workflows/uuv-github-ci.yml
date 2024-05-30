@@ -90,6 +90,13 @@ jobs:
           node-version: ${{env.NODE_VERSION}}
           target: "unit-tests"
           exclude: "a11y,runner-flutter"
+      - name: Test Report
+        uses: dorny/test-reporter@v1.9.1
+        if: success() || failure()
+        with:
+          name: Report - Unit Tests - General
+          path: packages/**/reports/junit-report.xml
+          reporter: jest-junit
 
   unit-tests-a11y:
     runs-on: ubuntu-latest

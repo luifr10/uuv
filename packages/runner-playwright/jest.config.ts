@@ -13,4 +13,14 @@ export default {
     "@uuv/runner-commons": "<rootDir>/../runner-commons/src/index.ts"
   },
   coverageDirectory: '../../coverage/packages/runner-playwright',
+  reporters: [
+    "default",
+    [
+      "jest-junit",
+      {
+        "outputDirectory": "./reports",
+        "outputName": "junit-report.xml",
+      }
+    ]
+  ]
 };

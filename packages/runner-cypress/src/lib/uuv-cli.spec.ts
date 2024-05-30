@@ -94,7 +94,7 @@ describe("UUV Cli Cypress", () => {
               },
               junit: {
                   enabled: undefined,
-                  outputFile: "reports\\e2e\\junit-report.xml"
+                  outputFile: "reports/e2e/junit-report.xml"
               }
             },
             targetTestFile: null
@@ -134,7 +134,7 @@ describe("UUV Cli Cypress", () => {
               },
               junit: {
                   enabled: undefined,
-                  outputFile: "reports\\e2e\\junit-report.xml"
+                  outputFile: "reports/e2e/junit-report.xml"
               }
             },
             targetTestFile: null
@@ -171,7 +171,7 @@ describe("UUV Cli Cypress", () => {
               },
               junit: {
                   enabled: undefined,
-                  outputFile: "reports\\e2e\\junit-report.xml"
+                  outputFile: "reports/e2e/junit-report.xml"
               }
             },
             targetTestFile: null
@@ -208,7 +208,7 @@ describe("UUV Cli Cypress", () => {
               },
               junit: {
                   enabled: true,
-                  outputFile: "reports\\e2e\\junit-report.xml"
+                  outputFile: "reports/e2e/junit-report.xml"
               }
             },
             targetTestFile: null
@@ -249,7 +249,7 @@ describe("UUV Cli Cypress", () => {
               },
               junit: {
                   enabled: undefined,
-                  outputFile: "reports\\e2e\\junit-report.xml"
+                  outputFile: "reports/e2e/junit-report.xml"
               }
             },
             targetTestFile: null
@@ -287,7 +287,7 @@ describe("UUV Cli Cypress", () => {
               },
               junit: {
                   enabled: undefined,
-                  outputFile: "reports\\e2e\\junit-report.xml"
+                  outputFile: "reports/e2e/junit-report.xml"
               }
             },
             targetTestFile: null
@@ -326,7 +326,7 @@ describe("UUV Cli Cypress", () => {
               },
               junit: {
                   enabled: undefined,
-                  outputFile: "reports\\e2e\\junit-report.xml"
+                  outputFile: "reports/e2e/junit-report.xml"
               }
             },
             targetTestFile: targetTestFile
@@ -367,7 +367,7 @@ describe("UUV Cli Cypress", () => {
               },
               junit: {
                   enabled: undefined,
-                  outputFile: "reports\\e2e\\junit-report.xml"
+                  outputFile: "reports/e2e/junit-report.xml"
               }
             },
             targetTestFile: null
