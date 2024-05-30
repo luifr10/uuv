@@ -205,6 +205,18 @@
   "wording": "I should not see an element with aria-label {string}"
  },
  {
+  "key": "key.then.element.nextWithRoleAndNameFocused",
+  "description": "Move to the next html element that can be reached with Tab and checks that the Html element with the specified [accessible role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types) and [name](https://russmaxdesign.github.io/html-elements-names/) is focused",
+  "wording": "the next keyboard element focused should have name {string} and role {string}",
+  "section": "keyboard"
+ },
+ {
+  "key": "key.then.element.previousWithRoleAndNameFocused",
+  "description": "Move to the previous html element that can be reached with Tab and checks that the Html element with the specified [accessible role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types) and [name](https://russmaxdesign.github.io/html-elements-names/) is focused",
+  "wording": "the previous keyboard element focused should have name {string} and role {string}",
+  "section": "keyboard"
+ },
+ {
   "key": "key.then.wait.mock",
   "description": "Wait that a named mock has been consumed until timeout",
   "wording": "I should consume a mock named {string}"

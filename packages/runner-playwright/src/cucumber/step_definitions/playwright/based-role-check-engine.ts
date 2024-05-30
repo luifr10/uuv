@@ -114,4 +114,25 @@ Then(
     }
 );
 
+/**
+ * key.then.element.previousWithRoleAndNameFocused.description
+ * */
+Then(
+    `${key.then.element.previousWithRoleAndNameFocused}`,
+    async function (this: World, name: string)  {
+        await this.page.keyboard.press("ShiftLeft+Tab");
+        await findWithRoleAndNameFocused(this, "$roleId", name);
+    }
+);
+
+/**
+ * key.then.element.nextWithRoleAndNameFocused.description
+ * */
+Then(
+    `${key.then.element.nextWithRoleAndNameFocused}`,
+    async function (this: World, name: string)  {
+        await this.page.keyboard.press("Tab");
+        await findWithRoleAndNameFocused(this, "$roleId", name);
+    }
+);
 // End of Keyboard Section

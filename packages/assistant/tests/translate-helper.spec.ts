@@ -142,7 +142,11 @@ describe("translateEngine - keyboard", () => {
   const { selectorWithNth, buttonWithRoleName } = dom();
   test("translateEngine - focus - with selector", async () => {
     expect(await TranslateHelper.translateEngine(selectorWithNth, ActionEnum.KEYBOARD_GLOBAL_NAVIGATION, false)).toEqual(
-        { "sentences": ["Then the element with selector \"div#myDiv > span:nth-of-type(3)\" should be keyboard focused"],
+        {
+          "sentences": [
+              "Then I go to next keyboard element",
+              "And the element with selector \"div#myDiv > span:nth-of-type(3)\" should be keyboard focused"
+          ],
           suggestion: {
             accessibleAttribute: "",
             accessibleValue: "",
@@ -154,6 +158,6 @@ describe("translateEngine - keyboard", () => {
 
   test("translateEngine - focus - with role and name", async () => {
     expect(await TranslateHelper.translateEngine(buttonWithRoleName, ActionEnum.KEYBOARD_GLOBAL_NAVIGATION, false)).toEqual(
-        { "sentences": ["Then I should see a button named \"myButton\" keyboard focused"] });
+        { "sentences": ["Then the next keyboard element focused should be a button named \"myButton\""] });
   });
 });

@@ -94,52 +94,93 @@ export class TranslateHelper {
 /* eslint-disable  @typescript-eslint/no-explicit-any */
   public static async translateEngine(htmlElem: FocusableElement, checkAction: string, isDisabled: boolean): Promise<TranslateSentences> {
     const jsonBase: BaseSentence[] = enSentences;
-    let computedKey = "";
-    let stepCase = "";
+    let response = this.getSentenceFromDomSelector(checkAction, jsonBase, htmlElem);
+    const accessibleRole = getRole(htmlElem);
+    const accessibleName = computeAccessibleName(htmlElem);
+    const content = htmlElem.getAttribute("value") ?? htmlElem.firstChild?.textContent?.trim();
+    if (accessibleRole && accessibleName) {
+      response = this.getSentenceFromAccessibleRoleAndNameAndContent(
+          checkAction,
+          accessibleRole,
+          accessibleName,
+          jsonBase,
+          content,
+          isDisabled
+      );
+    } else {
+      response.suggestion = new Suggestion();
+    }
+    return response;
+  }
+
+  private static getSentenceFromDomSelector(checkAction: string, jsonBase: BaseSentence[], htmlElem: HTMLElement | SVGElement) {
     const response: TranslateSentences = {
       suggestion: undefined,
       sentences: []
     };
+    let computedKey = "";
+    let stepCase = StepCaseEnum.THEN;
+    let nextFocusedElementSentence;
     if (checkAction === ActionEnum.EXPECT) {
       computedKey = "key.then.element.withSelector";
       stepCase = StepCaseEnum.THEN;
-    } else if (checkAction === ActionEnum.WITHIN || checkAction === ActionEnum.CLICK ) {
+    } else if (checkAction === ActionEnum.WITHIN || checkAction === ActionEnum.CLICK) {
       computedKey = "key.when.withinElement.selector";
       stepCase = StepCaseEnum.WHEN;
     } else if (checkAction === ActionEnum.KEYBOARD_GLOBAL_NAVIGATION) {
       computedKey = "key.then.element.withSelectorFocused";
       stepCase = StepCaseEnum.THEN;
+      nextFocusedElementSentence = jsonBase
+          .find((el: BaseSentence) => el.key === "key.when.keyboard.nextElement");
     }
     const sentence = jsonBase
-      .filter((el: BaseSentence) => el.key === computedKey)
-      .map((el: BaseSentence) =>
-        el.wording.replace("{string}", `"${this.getSelector(htmlElem)}"`)
-      )[0];
+        .filter((el: BaseSentence) => el.key === computedKey)
+        .map((el: BaseSentence) =>
+            el.wording.replace("{string}", `"${this.getSelector(htmlElem)}"`)
+        )[0];
     if (checkAction === ActionEnum.CLICK) {
       const clickSentence: BaseSentence = jsonBase.filter((el: BaseSentence) => el.key === "key.when.click.withContext")[0];
       response.sentences = [stepCase + sentence, StepCaseEnum.THEN + clickSentence.wording];
+    } else if (computedKey === "key.then.element.withSelectorFocused" && nextFocusedElementSentence) {
+      response.sentences = [
+        stepCase + nextFocusedElementSentence.wording,
+        StepCaseEnum.AND + sentence
+      ];
     } else {
       response.sentences = [stepCase + sentence];
     }
-    const accessibleRole = getRole(htmlElem);
-    const accessibleName = computeAccessibleName(htmlElem);
-    const content = htmlElem.getAttribute("value") ?? htmlElem.firstChild?.textContent?.trim();
-    if (accessibleRole && accessibleName) {
-      const jsonEnriched: EnrichedSentenceWrapper = enBasedRoleSentences;
-      if (checkAction === ActionEnum.EXPECT) {
-        computedKey = "key.then.element.withRoleAndName";
-        stepCase = StepCaseEnum.THEN;
-      } else if (checkAction === ActionEnum.WITHIN || checkAction === ActionEnum.CLICK) {
-        computedKey = "key.when.withinElement.roleAndName";
-        stepCase = StepCaseEnum.WHEN;
-      } else if (checkAction === ActionEnum.KEYBOARD_GLOBAL_NAVIGATION) {
-        computedKey = "key.then.element.withRoleAndNameFocused";
-        stepCase = StepCaseEnum.THEN;
-      }
-      const sentence = jsonEnriched.enriched.filter((value: EnrichedSentence) => value.key === computedKey).map((enriched: EnrichedSentence) => {
-        const sentenceAvailable = enriched.wording;
-        const role = EN_ROLES.filter((role: EnrichedSentenceRole) => role.id === accessibleRole)[0];
-        return sentenceAvailable
+    return response;
+  }
+
+  private static getSentenceFromAccessibleRoleAndNameAndContent(
+      checkAction: string,
+      accessibleRole: string,
+      accessibleName: string,
+      jsonBase: BaseSentence[],
+      content: string | undefined,
+      isDisabled: boolean
+  ) {
+    const response: TranslateSentences = {
+      suggestion: undefined,
+      sentences: []
+    };
+    let computedKey: string;
+    let stepCase = StepCaseEnum.THEN;
+    const jsonEnriched: EnrichedSentenceWrapper = enBasedRoleSentences;
+    if (checkAction === ActionEnum.EXPECT) {
+      computedKey = "key.then.element.withRoleAndName";
+      stepCase = StepCaseEnum.THEN;
+    } else if (checkAction === ActionEnum.WITHIN || checkAction === ActionEnum.CLICK) {
+      computedKey = "key.when.withinElement.roleAndName";
+      stepCase = StepCaseEnum.WHEN;
+    } else if (checkAction === ActionEnum.KEYBOARD_GLOBAL_NAVIGATION) {
+      computedKey = "key.then.element.nextWithRoleAndNameFocused";
+      stepCase = StepCaseEnum.THEN;
+    }
+    const sentence = jsonEnriched.enriched.filter((value: EnrichedSentence) => value.key === computedKey).map((enriched: EnrichedSentence) => {
+      const sentenceAvailable = enriched.wording;
+      const role = EN_ROLES.filter((role: EnrichedSentenceRole) => role.id === accessibleRole)[0];
+      return sentenceAvailable
           .replaceAll("(n)", "")
           .replaceAll("$roleName", role?.name ?? accessibleRole)
           .replaceAll("$definiteArticle", role?.getDefiniteArticle())
@@ -147,25 +188,25 @@ export class TranslateHelper {
           .replaceAll("$namedAdjective", role?.namedAdjective())
           .replaceAll("$ofDefiniteArticle", role?.getOfDefiniteArticle())
           .replace("{string}", `"${accessibleName}"`);
-      })[0];
-      response.sentences = this.getSentenceList(checkAction, jsonBase, accessibleRole, stepCase, accessibleName, sentence);
-      if (content) {
-        if (checkAction === ActionEnum.EXPECT) {
-          if (isDisabled) {
-            computedKey = "key.then.element.withRoleAndNameAndContentDisabled";
-            stepCase = StepCaseEnum.THEN;
-          } else {
-            computedKey = "key.then.element.withRoleAndNameAndContent";
-            stepCase = StepCaseEnum.THEN;
-          }
-        } else if (checkAction === ActionEnum.WITHIN) {
-          computedKey = "key.when.withinElement.roleAndName";
-          stepCase = StepCaseEnum.WHEN;
+    })[0];
+    response.sentences = this.getSentenceList(checkAction, jsonBase, accessibleRole, stepCase, accessibleName, sentence);
+    if (content) {
+      if (checkAction === ActionEnum.EXPECT) {
+        if (isDisabled) {
+          computedKey = "key.then.element.withRoleAndNameAndContentDisabled";
+          stepCase = StepCaseEnum.THEN;
+        } else {
+          computedKey = "key.then.element.withRoleAndNameAndContent";
+          stepCase = StepCaseEnum.THEN;
         }
-        const sentence = jsonEnriched.enriched.filter((value: EnrichedSentence) => value.key === computedKey).map((enriched: EnrichedSentence) => {
-          const sentenceAvailable = enriched.wording;
-          const role = EN_ROLES.filter((role: EnrichedSentenceRole) => role.id === accessibleRole)[0];
-          return sentenceAvailable
+      } else if (checkAction === ActionEnum.WITHIN) {
+        computedKey = "key.when.withinElement.roleAndName";
+        stepCase = StepCaseEnum.WHEN;
+      }
+      const sentence = jsonEnriched.enriched.filter((value: EnrichedSentence) => value.key === computedKey).map((enriched: EnrichedSentence) => {
+        const sentenceAvailable = enriched.wording;
+        const role = EN_ROLES.filter((role: EnrichedSentenceRole) => role.id === accessibleRole)[0];
+        return sentenceAvailable
             .replaceAll("(n)", "")
             .replaceAll("$roleName", role?.name ?? accessibleRole)
             .replaceAll("$definiteArticle", role?.getDefiniteArticle())
@@ -174,11 +215,8 @@ export class TranslateHelper {
             .replaceAll("$ofDefiniteArticle", role?.getOfDefiniteArticle())
             .replace("{string}", `"${accessibleName}"`)
             .replace("{string}", `"${content}"`);
-        })[0];
-        response.sentences = this.getSentenceList(checkAction, jsonBase, accessibleRole, stepCase, accessibleName, sentence);
-      }
-    } else {
-      response.suggestion = new Suggestion();
+      })[0];
+      response.sentences = this.getSentenceList(checkAction, jsonBase, accessibleRole, stepCase, accessibleName, sentence);
     }
     return response;
   }

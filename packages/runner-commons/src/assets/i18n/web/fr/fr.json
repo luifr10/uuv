@@ -205,6 +205,18 @@
     "wording": "je ne dois pas voir un élément ayant pour aria-label {string}"
   },
   {
+    "key": "key.then.element.nextWithRoleAndNameFocused",
+    "description": "Se déplace au prochain élément HTML atteignable avec la tabulation et vérifie que l'élément Html avec le [rôle accessible](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types) et le [nom accessible](https://russmaxdesign.github.io/html-elements-names/) a le focus clavier",
+    "wording": "le prochain élément avec le focus clavier doit avoir le role {string} et le nom {string}",
+    "section": "keyboard"
+  },
+  {
+    "key": "key.then.element.previousWithRoleAndNameFocused",
+    "description": "Se déplace au précédent élément HTML atteignable avec la tabulation et vérifie que l'élément Html avec le [rôle accessible](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types) et le [nom accessible](https://russmaxdesign.github.io/html-elements-names/) a le focus clavier",
+    "wording": "le précédent élément avec le focus clavier doit avoir le role {string} et le nom {string}",
+    "section": "keyboard"
+  },
+  {
     "key": "key.then.wait.mock",
     "description": "Vérifie qu'un bouchon nommé ait bien été consommé",
     "wording": "je dois consommer le bouchon nommé {string}"

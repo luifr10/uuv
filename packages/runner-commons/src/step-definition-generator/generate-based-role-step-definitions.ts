@@ -60,7 +60,8 @@ export class BasedRoleStepDefinition extends GenerateFileProcessing {
                 .replace("import { key } from \"@uuv/runner-commons/wording/web\";", "")
                 .replace("import {key} from \"@uuv/runner-commons/wording/web\";", "")
                 .replace("./core-engine", "../../../core-engine")
-                .replace("../../preprocessor/run/world", "../../../../../preprocessor/run/world");
+                .replace("../../preprocessor/run/world", "../../../../../preprocessor/run/world")
+                .replace("./_.common", "../../../_.common");
             wordingsJson.enriched.forEach((conf) => {
                 // console.debug(">> conf", conf)
                 // console.debug("${" + conf.key + "}");

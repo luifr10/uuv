@@ -16,7 +16,6 @@ import { DataTable, Given, Then, When } from "@badeball/cypress-cucumber-preproc
 import { Context } from "./_context";
 import "../../../cypress/commands";
 import { Method } from "cypress/types/net-stubbing";
-import { KEY_PRESS } from "@uuv/runner-commons";
 import { key } from "@uuv/runner-commons/wording/web";
 import {
     assertTextContent,
@@ -29,6 +28,7 @@ import {
     withinRoleAndName
 } from "./core-engine";
 import { A11yReferenceEnum } from "@uuv/a11y";
+import { pressKey } from "./_.common";
 
 /**
  * key.when.visit.description
@@ -140,7 +140,6 @@ Given(
  `${key.given.keyboard.startNavigationFromTheTop}`,
  function() {
      cy.get("body").last().realClick({ x: 0.5, y: 0.5 });
-     cy.realPress("Tab");
  }
 );
 
@@ -432,6 +431,22 @@ Then(
 );
 
 /**
+ * key.then.element.previousWithRoleAndNameFocused.description
+ * */
+When(`${key.then.element.previousWithRoleAndNameFocused}`, function(expectedRole: string, name: string) {
+    pressKey("{reverseTab}");
+    findWithRoleAndNameFocused(expectedRole, name);
+});
+
+/**
+ * "key.then.element.nextWithRoleAndNameFocused.description
+ * */
+When(`${key.then.element.nextWithRoleAndNameFocused}`, function(expectedRole: string, name: string) {
+    pressKey("{tab}");
+    findWithRoleAndNameFocused(expectedRole, name);
+});
+
+/**
  * key.then.wait.mock.description
  * */
 Then(`${key.then.wait.mock}`, function(name: string) {
@@ -596,32 +611,6 @@ Then(
    cy.injectUvvA11y();
    cy.checkUvvA11y(A11yReferenceEnum.RGAA, JSON.parse(expectedResult), true);
  });
-
-function pressKey(key: string) {
-    switch (key) {
-        case KEY_PRESS.TAB:
-            cy.realPress("Tab");
-            break;
-        case KEY_PRESS.REVERSE_TAB:
-            cy.realPress(["ShiftLeft", "Tab"]);
-            break;
-        case KEY_PRESS.UP:
-            cy.realPress("ArrowUp");
-            break;
-        case KEY_PRESS.DOWN:
-            cy.realPress("ArrowDown");
-            break;
-        case KEY_PRESS.LEFT:
-            cy.realPress("ArrowLeft");
-            break;
-        case KEY_PRESS.RIGHT:
-            cy.realPress("ArrowRight");
-            break;
-        default:
-            console.error("the command" + key + " is unrecognized.");
-            break;
-    }
-}
 
 function click(role: string, name: string) {
   cy.uuvGetContext().then(context => {

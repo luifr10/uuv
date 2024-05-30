@@ -15,6 +15,7 @@
 import { ByRoleOptions } from "@testing-library/cypress";
 import { Context } from "./_context";
 import Chainable = Cypress.Chainable;
+import { KEY_PRESS } from "@uuv/runner-commons";
 
 const contextAlias = "context";
 const foundedChildElementAlias = "foundedChildElement";
@@ -132,3 +133,28 @@ export function uuvFoundedElement(subject) : Cypress.Chainable<JQuery<HTMLElemen
         });
 }
 
+export function pressKey(key: string) {
+    switch (key) {
+        case KEY_PRESS.TAB:
+            cy.realPress("Tab");
+            break;
+        case KEY_PRESS.REVERSE_TAB:
+            cy.realPress(["ShiftLeft", "Tab"]);
+            break;
+        case KEY_PRESS.UP:
+            cy.realPress("ArrowUp");
+            break;
+        case KEY_PRESS.DOWN:
+            cy.realPress("ArrowDown");
+            break;
+        case KEY_PRESS.LEFT:
+            cy.realPress("ArrowLeft");
+            break;
+        case KEY_PRESS.RIGHT:
+            cy.realPress("ArrowRight");
+            break;
+        default:
+            console.error("the command" + key + " is unrecognized.");
+            break;
+    }
+}

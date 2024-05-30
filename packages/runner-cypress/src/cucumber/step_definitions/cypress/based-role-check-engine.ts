@@ -24,6 +24,7 @@ import {
     withinRoleAndName
 } from "./core-engine";
 import { key } from "@uuv/runner-commons/wording/web";
+import { pressKey } from "./_.common";
 
 // Begin of General Section
 
@@ -104,6 +105,28 @@ Then(
 Then(
     `${key.then.element.withRoleAndNameFocused}`,
     function(name: string) {
+        findWithRoleAndNameFocused("$roleId", name);
+    }
+);
+
+/**
+ * key.then.element.previousWithRoleAndNameFocused.description
+ * */
+Then(
+    `${key.then.element.previousWithRoleAndNameFocused}`,
+    function(name: string) {
+        pressKey("{reverseTab}");
+        findWithRoleAndNameFocused("$roleId", name);
+    }
+);
+
+/**
+ * key.then.element.nextWithRoleAndNameFocused.description
+ * */
+Then(
+    `${key.then.element.nextWithRoleAndNameFocused}`,
+    function(name: string) {
+        pressKey("{tab}");
         findWithRoleAndNameFocused("$roleId", name);
     }
 );

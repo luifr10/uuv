@@ -47,6 +47,8 @@
       "withTestId": "",
       "withRoleAndNameAndContent": "",
       "withRoleAndNameFocused": "",
+      "nextWithRoleAndNameFocused": "",
+      "previousWithRoleAndNameFocused": "",
       "withRoleAndNameAndContentDisabled": "",
       "withRoleAndNameAndContentEnabled": "",
       "withAriaLabel": "",

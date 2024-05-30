@@ -55,7 +55,7 @@ Feature: UUV Assistant vital features
     When I click on element with role "menuitem" and name "Keyboard actions"
     And I click on element with role "menuitem" and name "Keyboard navigation"
     Then I should see a title named "Result of Keyboard Navigation"
-    And I should see a text box named "Generated UUV Script" and containing "Feature: Your amazing feature name Scenario: Keyboard Navigation Given I visit path \"http://127.0.0.1:3200/\" And I start a keyboard navigation from the top of the page Then I should see a text box named \"Last name\" keyboard focused And I go to next keyboard element And I should see a button named \"Submit\" keyboard focused And I go to next keyboard element And I should see a button named \"Reset\" keyboard focused And I go to next keyboard element And I should see a button named \"Submit\" keyboard focused"
 #    And I should see a radio named "Current"
 #    And I should see a radio named "Expected"
+    And I should see a text box named "Generated UUV Script" and containing "Feature: Your amazing feature name Scenario: Keyboard Navigation Given I visit path \"http://127.0.0.1:3200/\" And I start a keyboard navigation from the top of the page Then the next keyboard element focused should be a text box named \"Last name\" And the next keyboard element focused should be a button named \"Submit\" And the next keyboard element focused should be a button named \"Reset\" And the next keyboard element focused should be a button named \"Submit\""
 

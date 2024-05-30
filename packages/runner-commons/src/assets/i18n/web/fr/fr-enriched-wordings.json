@@ -14,8 +14,20 @@
     },
     {
       "key": "key.then.element.withRoleAndNameFocused",
-      "description": "Vérifie que l'élément Html avec le [rôle accessible](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types) et le [nom accessible](https://russmaxdesign.github.io/html-elements-names/) est focus",
+      "description": "Vérifie que l'élément Html avec le [rôle accessible](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types) et le [nom accessible](https://russmaxdesign.github.io/html-elements-names/) a le focus clavier",
       "wording": "je dois voir $indefiniteArticle $roleName $namedAdjective {string} avoir le focus clavier",
+      "section": "keyboard"
+    },
+    {
+      "key": "key.then.element.nextWithRoleAndNameFocused",
+      "description": "Se déplace au prochain élément HTML atteignable avec la tabulation et vérifie que l'élément Html avec le [rôle accessible](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types) et le [nom accessible](https://russmaxdesign.github.io/html-elements-names/) a le focus clavier",
+      "wording": "le prochain élément avec le focus clavier doit être $indefiniteArticle $roleName $namedAdjective {string}",
+      "section": "keyboard"
+    },
+    {
+      "key": "key.then.element.previousWithRoleAndNameFocused",
+      "description": "Se déplace au précédent élément HTML atteignable avec la tabulation et vérifie que l'élément Html avec le [rôle accessible](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types) et le [nom accessible](https://russmaxdesign.github.io/html-elements-names/) a le focus clavier",
+      "wording": "le précédent élément avec le focus clavier doit être $indefiniteArticle $roleName $namedAdjective {string}",
       "section": "keyboard"
     },
     {

@@ -64,7 +64,6 @@ Given(
     `${key.given.keyboard.startNavigationFromTheTop}`,
     async function(this: World) {
         await this.page.mouse.click(0.5, 0.5);
-        await this.page.keyboard.press("Tab");
     }
 );
 
@@ -484,6 +483,23 @@ Then(`${key.then.element.withAriaLabelAndContent}`, async function(this: World, 
     await expect(byLabel.filter({ hasText: expectedTextContent })).toHaveCount(1);
   });
 });
+
+/**
+ * key.then.element.previousWithRoleAndNameFocused.description
+ * */
+When(`${key.then.element.previousWithRoleAndNameFocused}`, async function(this: World, expectedRole: string, name: string) {
+    await this.page.keyboard.press("ShiftLeft+Tab");
+    await findWithRoleAndNameFocused(this, expectedRole, name);
+});
+
+/**
+ * "key.then.element.nextWithRoleAndNameFocused.description
+ * */
+When(`${key.then.element.nextWithRoleAndNameFocused}`, async function(this: World, expectedRole: string, name: string) {
+    await this.page.keyboard.press("Tab");
+    await findWithRoleAndNameFocused(this, expectedRole, name);
+});
+
 
 /**
  * key.then.wait.mock.description

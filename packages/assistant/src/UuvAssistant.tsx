@@ -227,16 +227,11 @@ function UuvAssistant(props: UuvAssistantProps) {
           .find((el: BaseSentence) => el.key === "key.then.element.withSelectorFocused");
       const focusByRoleAndNameControlSentence = jsonBase
           .find((el: BaseSentence) => el.key === "key.then.element.withRoleAndNameFocused");
-      const nextFocusedElementSentence = jsonBase
-          .find((el: BaseSentence) => el.key === "key.when.keyboard.nextElement");
 
-      if (focusBySelectorControlSentence && focusByRoleAndNameControlSentence && nextFocusedElementSentence) {
+      if (focusBySelectorControlSentence && focusByRoleAndNameControlSentence) {
         const result = await translate(node, ActionEnum.KEYBOARD_GLOBAL_NAVIGATION);
         result.sentences.forEach((element) => {
           sentences.push(element);
-          if (node !== focusableElements[focusableElements.length - 1]) {
-            sentences.push(StepCaseEnum.AND + nextFocusedElementSentence.wording);
-          }
         });
       } else {
         console.error("sentences next focus element or check focused element is undefined");
