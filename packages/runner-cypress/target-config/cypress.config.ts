@@ -11,7 +11,6 @@ export default defineConfig({
         specPattern: "e2e/**/*.{cy.ts,feature}",
         supportFile: false,
         setupNodeEvents,
-        viewportWidth: 1536,
-        videoUploadOnPasses: false
+        viewportWidth: 1536
     }
 });

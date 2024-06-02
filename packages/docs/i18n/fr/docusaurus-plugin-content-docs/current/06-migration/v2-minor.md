@@ -11,7 +11,7 @@ Pour `@uuv/cypress 2.6.0 -> 2.7.0` et `@uuv/playwright 2.5.0 -> 2.6.0`
 Pour `@uuv/cypress 2.18.0 -> 2.19.0`
 - Déplacer le fichier`.cypress-cucumber-preprocessorrc.json` dans le dossier `uuv`
 
-## Fix report issue
+## Correction de bug sur le rapport html et suppression d'un paramètre obsolète
 Pour `@uuv/cypress 2.21.0 -> 2.21.1`
 - Modifier le contenu du fichier `uuv/.cypress-cucumber-preprocessorrc.json` :
   ```json
@@ -29,3 +29,4 @@ Pour `@uuv/cypress 2.21.0 -> 2.21.1`
     }
   }
   ```
+- Supprimer le paramètre `e2e.videoUploadOnPasses` dans le fichier `uuv/cypress.config.ts`
