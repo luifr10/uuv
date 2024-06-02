@@ -10,3 +10,22 @@ Pour `@uuv/cypress 2.6.0 -> 2.7.0` et `@uuv/playwright 2.5.0 -> 2.6.0`
 ## Mise à jour de la dépendance badeball-cypress-cucumber de v16 à v20
 Pour `@uuv/cypress 2.18.0 -> 2.19.0`
 - Déplacer le fichier`.cypress-cucumber-preprocessorrc.json` dans le dossier `uuv`
+
+## Fix report issue
+Pour `@uuv/cypress 2.21.0 -> 2.21.1`
+- Modifier le contenu du fichier `uuv/.cypress-cucumber-preprocessorrc.json` :
+  ```json
+  {
+    "stepDefinitions": [
+      "cucumber/step_definitions/**/*.{js,ts}",
+      "../node_modules/@uuv/cypress/dist/cucumber/step_definitions/cypress/{generated,unsafe}/**/*.{js,ts}"
+    ],
+    "messages": {
+      "enabled": true
+    },
+    "json": {
+      "enabled": true,
+      "output": "reports/e2e/json/cucumber-report.json"
+    }
+  }
+  ```

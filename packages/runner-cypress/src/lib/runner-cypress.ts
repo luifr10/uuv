@@ -1,9 +1,8 @@
-import { UUVCliHelper, UUVCliOptions, UUVCliRunner, Common } from "@uuv/runner-commons";
+import { UUVCliOptions, UUVCliRunner, Common } from "@uuv/runner-commons";
 import fs from "fs";
 import path from "path";
 import chalk from "chalk";
 import { mergeFiles } from "junit-report-merger";
-import { UuvCustomFormatter } from "../cucumber/uuv-custom-formatter";
 import report from "multiple-cucumber-html-reporter";
 import cypress from "cypress";
 
@@ -124,14 +123,7 @@ export class UUVCliCypressRunner implements UUVCliRunner {
 
     private async generateHtmlReport(options: Partial<UUVCliOptions>, reportDir: string) {
         console.info(chalk.blueBright("Generating Html Test Report..."));
-        await this.formatCucumberMessageFile(this.JSON_REPORT_DIR, this.CUCUMBER_MESSAGES_FILE);
         this.generateHtmlReportFromJson(options, this.JSON_REPORT_DIR, reportDir);
-    }
-
-    private async formatCucumberMessageFile(jsonReportDir: string, cucumberMessageFile: string) {
-        const formatter = new UuvCustomFormatter();
-        const outputFile = `${jsonReportDir}/cucumber-report.json`;
-        await formatter.parseCucumberJson(cucumberMessageFile, outputFile);
     }
 
     private generateHtmlReportFromJson(options: Partial<UUVCliOptions>, jsonReportDir: string, htmlReportDir: string) {

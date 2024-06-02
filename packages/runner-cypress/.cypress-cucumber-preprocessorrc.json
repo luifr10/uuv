@@ -5,5 +5,9 @@
   ],
   "messages": {
     "enabled": true
+  },
+  "json": {
+    "enabled": true,
+    "output": "reports/e2e/json/cucumber-report.json"
   }
 }
