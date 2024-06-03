@@ -4,8 +4,9 @@ set -o pipefail
 set -o errexit
 
 source functions.sh
-WORKING_DIR='runner-cypress'
-RUNNER_DIR='../../../packages/runner-cypress'
+RUNNER_NAME='cypress'
+WORKING_DIR="runner-${RUNNER_NAME}"
+RUNNER_DIR="../../../packages/runner-${RUNNER_NAME}"
 NPM_PACKAGE_COMMONS=$(ls ../../dist/packages/uuv-runner-commons-*)
 NPM_PACKAGE_A11Y=$(ls ../../dist/packages/uuv-a11y-*)
 NPM_PACKAGE_CYPRESS=$(ls ../../dist/packages/uuv-cypress-*)
@@ -15,16 +16,21 @@ if [ -d "$WORKING_DIR" ]; then rm -Rf $WORKING_DIR; fi
 
 log "I" "Creating directory"
 mkdir -p "$WORKING_DIR"
+cp "tsconfig.${RUNNER_NAME}.json" "$WORKING_DIR/tsconfig.json"
+cp "tsconfig.${RUNNER_NAME}.e2e.json" "$WORKING_DIR/tsconfig.e2e.json"
+mkdir -p "$WORKING_DIR/uuv/cucumber/step_definitions"
+cp "my-custom-step-definitions.${RUNNER_NAME}.ts" "$WORKING_DIR/uuv/cucumber/step_definitions/my-custom-step-definitions.ts"
 cd "$WORKING_DIR"
 
 log "I" "Creating new npm project"
 npm init -y
 
 log "I" "Installing npm dependencies"
-npm install -D "../$NPM_PACKAGE_COMMONS" "../$NPM_PACKAGE_A11Y" "../$NPM_PACKAGE_CYPRESS"
+npm install -D "../$NPM_PACKAGE_COMMONS" "../$NPM_PACKAGE_A11Y" "../$NPM_PACKAGE_CYPRESS" ts-loader
 
 log "I" "Copying test files and dependencies"
 cp -R "${RUNNER_DIR}/e2e/" ./uuv
+cp "../custom-step-definition.feature" ./uuv/e2e
 mkdir -p ./uuv/cypress/fixtures
 cp -R "${RUNNER_DIR}/cypress/fixtures/" ./uuv/cypress
 

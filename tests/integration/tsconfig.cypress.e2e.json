@@ -1,0 +1,17 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/app",
+    "types": [
+      "cypress",
+      "@testing-library/cypress",
+      "@uuv/cypress"
+    ]
+  },
+  "files": [
+    "uuv/cypress.config.ts"
+  ],
+  "include": [
+    "src/**/*.cy.ts"
+  ]
+}
