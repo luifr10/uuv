@@ -60,13 +60,15 @@ Voici un exemple :
 import {Given, When, Then} from "@badeball/cypress-cucumber-preprocessor";
 
 Given('My first custom step definition', () => {
-  const myVar = 'foo';
+    const myVar = 'foo';
+    expect(myVar).to.eq('a foo');
 });
 
 Then('My second custom step definition', () => {
-  // Your verification
-  expect(true).toBeTruthy();
+    // Your verification
+    expect(true).to.eq(true);
 });
+
 ```
 Pour plus d'informations sur la mise en place de phrases cucumber, consulter cette [documentation](https://cucumber.io/docs/cucumber/step-definitions/?sbsearch=step+definition&lang=javascript)
 
@@ -119,28 +121,17 @@ Lors de la rédaction de vos propres phrases, vous pouvez utiliser :
 ##### `uuvFoundedElement(): Cypress.Chainable<JQuery<HTMLElement>>`
 > Retourne l'élément trouvé lorsqu'une recherche a été effectuée 
 
+### Utilisation de vos propres phrases
+```gherkin title='uuv/e2e/first-test.feature'
+Feature: Hello World
+
+  Scenario: Search - Successful case
+    When I visit path "https://e2e-test-quest.github.io/weather-app/"
+    Then I should see a title named "Welcome to Weather App"
+    And My second custom step definition
+```
+
 ## Playwright
-### Installation des dépendances
-
-Depuis powershell ou un terminal cmd :
-
-<Tabs>
-<TabItem value="npm" label="Npm">
-
-```shell
-npm install --save-dev ts-node
-```
-
-</TabItem>
-<TabItem value="Yarn" label="Yarn">
-
-```shell
-yarn add -D ts-node
-```
-
-</TabItem>
-</Tabs>
-
 ### Ajout des types Typescripts
 
 :::info
@@ -169,14 +160,27 @@ Voici un exemple :
 ```typescript title='uuv/cucumber/step_definitions/my-custom-step-definitions.ts'
 import {Given, When, Then} from "@cucumber/cucumber";
 import { expect } from "@playwright/test";
+import { World } from "@uuv/playwright";
 
-Given('My first custom step definition', () => {
+Given('My first custom step definition', async function () {
     const myVar = 'foo';
+    expect(myVar).toBe('a foo');
 });
 
-Then('My second custom step definition', (this: any) => {
+Then('My second custom step definition', async function (this: World) {
     // Your verification
     expect(this.page.getByRole('heading', { name: 'Mon titre de page' })).toBeVisible();
 });
+
 ```
 Pour plus d'informations sur la mise en place de phrases cucumber, consulter cette [documentation](https://cucumber.io/docs/cucumber/step-definitions/?sbsearch=step+definition&lang=javascript)
+
+### Utilisation de vos propres phrases
+```gherkin title='uuv/e2e/first-test.feature'
+Feature: Hello World
+
+  Scenario: Search - Successful case
+    When I visit path "https://e2e-test-quest.github.io/weather-app/"
+    Then I should see a title named "Welcome to Weather App"
+    And My second custom step definition
+```

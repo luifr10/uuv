@@ -30,3 +30,18 @@ For `@uuv/cypress 2.21.0 -> 2.21.1`
   }
   ```
 - Remove parameter `e2e.videoUploadOnPasses` in file `uuv/cypress.config.ts`  
+
+## Fix bad documentation on custom step definition
+For `@uuv/playwright 2.17.1 -> 2.17.2`
+- Update the content of `cucumber.cjs` file :
+  ```javascript
+  module.exports = {
+    default: {
+        paths: [ 'uuv/e2e/*.feature' ],
+        import: [
+            'uuv/cucumber/step_definitions/**/*.{js,ts}',
+            'node_modules/@uuv/playwright/dist/cucumber/step_definitions/playwright/**/*.js'
+        ]
+    },
+  };
+  ```

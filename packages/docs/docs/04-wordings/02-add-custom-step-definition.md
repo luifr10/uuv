@@ -58,13 +58,15 @@ Here is an example :
 import {Given, When, Then} from "@badeball/cypress-cucumber-preprocessor";
 
 Given('My first custom step definition', () => {
-  const myVar = 'foo';
+    const myVar = 'foo';
+    expect(myVar).to.eq('a foo');
 });
 
 Then('My second custom step definition', () => {
-  // Your verification
-  expect(true).toBeTruthy();
+    // Your verification
+    expect(true).to.eq(true);
 });
+
 ```
 For more information on setting up custom step definition, see this [documentation](https://cucumber.io/docs/cucumber/step-definitions/?sbsearch=step+definition&lang=javascript)
 
@@ -117,27 +119,17 @@ When writing your own sentences, you can use :
 ##### `uuvFoundedElement(): Cypress.Chainable<JQuery<HTMLElement>>`
 > Returns the item found when a query has been performed
 
+### Use your custom step definition
+```gherkin title='uuv/e2e/first-test.feature'
+Feature: Hello World
+
+  Scenario: Search - Successful case
+    When I visit path "https://e2e-test-quest.github.io/weather-app/"
+    Then I should see a title named "Welcome to Weather App"
+    And My second custom step definition
+```
+
 ## Playwright
-### Install dependencies
-
-From powershell or cmd terminal :
-
-<Tabs>
-<TabItem value="npm" label="Npm">
-
-```shell
-npm install --save-dev ts-node
-```
-
-</TabItem>
-<TabItem value="Yarn" label="Yarn">
-
-```shell
-yarn add -D ts-node
-```
-
-</TabItem>
-</Tabs>
 
 ### Add Typescript types
 :::warning
@@ -166,14 +158,26 @@ Here is an example :
 ```typescript title='uuv/cucumber/step_definitions/my-custom-step-definitions.ts'
 import {Given, When, Then} from "@cucumber/cucumber";
 import { expect } from "@playwright/test";
+import { World } from "@uuv/playwright";
 
-Given('My first custom step definition', () => {
-  const myVar = 'foo';
+Given('My first custom step definition', async function () {
+    const myVar = 'foo';
+    expect(myVar).toBe('a foo');
 });
 
-Then('My second custom step definition', (this: any) => {
-  // Your verification
-  expect(this.page.getByRole('heading', { name: 'Mon titre de page' })).toBeVisible();
+Then('My second custom step definition', async function (this: World) {
+    // Your verification
+    expect(this.page.getByRole('heading', { name: 'Mon titre de page' })).toBeVisible();
 });
 ```
 For more information on setting up custom step definition, see this [documentation](https://cucumber.io/docs/cucumber/step-definitions/?sbsearch=step+definition&lang=javascript)
+
+### Use your custom step definition
+```gherkin title='uuv/e2e/first-test.feature'
+Feature: Hello World
+
+  Scenario: Search - Successful case
+    When I visit path "https://e2e-test-quest.github.io/weather-app/"
+    Then I should see a title named "Welcome to Weather App"
+    And My second custom step definition
+```

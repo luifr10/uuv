@@ -30,3 +30,18 @@ Pour `@uuv/cypress 2.21.0 -> 2.21.1`
   }
   ```
 - Supprimer le paramètre `e2e.videoUploadOnPasses` dans le fichier `uuv/cypress.config.ts`
+
+## Correction de la mauvaise documentation sur les phrases personalisées
+Pour `@uuv/playwright 2.17.1 -> 2.17.2`
+- Modifier le contenu du fichier `cucumber.cjs` :
+  ```javascript
+  module.exports = {
+    default: {
+        paths: [ 'uuv/e2e/*.feature' ],
+        import: [
+            'uuv/cucumber/step_definitions/**/*.{js,ts}',
+            'node_modules/@uuv/playwright/dist/cucumber/step_definitions/playwright/**/*.js'
+        ]
+    },
+  };
+  ```
