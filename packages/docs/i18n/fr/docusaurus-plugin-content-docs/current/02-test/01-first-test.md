@@ -10,8 +10,8 @@ Pour écrire votre premier test, créer à la racine du projet le fichier `uuv/e
 Feature: Hello World
 
   Scenario: Search - Successful case
-    When I visit path "/"
-    Then I should see an element with role "heading" and name "My app title"
+    When I visit path "https://e2e-test-quest.github.io/weather-app/"
+    Then I should see a title named "Welcome to Weather App"
 ```
 Vous pouvez trouver d'autres exemples de test ici :
 - [weather-app.feature](https://github.com/Orange-OpenSource/uuv/blob/main/example/weather-app.feature)
