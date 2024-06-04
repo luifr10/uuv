@@ -3,7 +3,16 @@
 Pour améliorer l'accessibilité de vos applications, nous vous recommandons :
 - Ecrire vos scénarios en respectant les [recommandations](/docs/recommendations/writing-good-e2e-tests)
 - Tester la navigation au clavier, voici un exemple :
-    <iframe src="https://carbon.now.sh/embed?bg=rgba%280%2C0%2C0%2C1%29&t=seti&wt=sharp&l=gherkin&width=795&ds=true&dsyoff=0px&dsblur=0px&wc=true&wa=true&pv=0px&ph=0px&ln=true&fl=1&fm=Hack&fs=14px&lh=133%25&si=false&es=2x&wm=false&code=%2523language%253A%2520fr%250AFonctionnalit%25C3%25A9%253A%2520Navigation%2520au%2520clavier%250A%250A%2520%2520Sc%25C3%25A9nario%253A%2520Focus%2520on%2520app%2520link%2520with%2520back%2520nav%250A%2520%2520%2520%2520Etant%2520donn%25C3%25A9%2520que%2520je%2520visite%2520l%27Url%2520%2522https%253A%252F%252Fe2e-test-quest.github.io%252Fweather-app%252F%2522%250A%2520%2520%2520%2520Quand%2520je%2520commence%2520une%2520navigation%2520au%2520clavier%2520depuis%2520le%2520haut%2520de%2520la%2520page%250A%2520%2520%2520%2520Alors%2520le%2520prochain%2520%25C3%25A9l%25C3%25A9ment%2520avec%2520le%2520focus%2520clavier%2520doit%2520%25C3%25AAtre%2520un%2520lien%2520nomm%25C3%25A9%2520%2522Weather%2520App%27s%2520Logo%2522%250A%2520%2520%2520%2520%2520Et%2520le%2520prochain%2520%25C3%25A9l%25C3%25A9ment%2520avec%2520le%2520focus%2520clavier%2520doit%2520%25C3%25AAtre%2520un%2520lien%2520nomm%25C3%25A9%2520%2522Home%2522%250A%2520%2520%2520%2520%2520Et%2520le%2520prochain%2520%25C3%25A9l%25C3%25A9ment%2520avec%2520le%2520focus%2520clavier%2520doit%2520%25C3%25AAtre%2520un%2520bouton%2520nomm%25C3%25A9%2520%2522Get%2520started%2522%250A%2520%2520%2520%2520%2520Et%2520le%2520pr%25C3%25A9c%25C3%25A9dent%2520%25C3%25A9l%25C3%25A9ment%2520avec%2520le%2520focus%2520clavier%2520doit%2520%25C3%25AAtre%2520un%2520lien%2520nomm%25C3%25A9%2520%2522Home%2522" style={{ margin: '20px 0 0 0', width: '800px', maxWidth: '100%', height: '100%', minHeight: '295px', border: '0', transform: 'scale(1)', overflow:'hidden'}} sandbox="allow-scripts allow-same-origin"></iframe>
+  ```gherkin
+    #language: fr
+    Fonctionnalité: Navigation au clavier
+      Scénario: Focus on app link with back nav
+        Etant donné que je visite l'Url "https://www.google.fr/"
+        Quand je commence une navigation au clavier depuis le haut de la page
+        Alors le prochain élément avec le focus clavier doit être un lien nommé "Gmail"
+        Et le prochain élément avec le focus clavier doit être un lien nommé "Rechercher des images"
+        Et le prochain élément avec le focus clavier doit être un bouton nommé "Applications Google"
+  ```
 - Utiliser les phrases pour effectuer des vérification d'accessibilité. les outis suivants sont disponibles :
   - [axe-core](/docs/wordings/generated-wording-description/fr-generated-wording-description#je-ne-dois-pas-avoir-de-probl%C3%A8mes-daccessibilit%C3%A9-axe-core) : pour effectuer des vérifications Axe-Core
   - [@uuv/a11y](/docs/wordings/generated-wording-description/fr-generated-wording-description#je-ne-dois-pas-avoir-de-probl%C3%A8mes-daccessibilit%C3%A9-rgaa) : pour effectuer des vérifications RGAA

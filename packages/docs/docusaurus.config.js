@@ -115,7 +115,8 @@ const config = {
       },
       prism: {
         theme: lightCodeTheme,
-        darkTheme: darkCodeTheme
+        darkTheme: darkCodeTheme,
+        additionalLanguages: ["json", "gherkin"]
       },
       colorMode: {
         defaultMode: "dark"

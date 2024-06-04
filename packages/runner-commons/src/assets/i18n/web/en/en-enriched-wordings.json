@@ -14,19 +14,19 @@
     },
     {
       "key": "key.then.element.withRoleAndNameFocused",
-      "description": "Checks that the Html element with the specified [accessible role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types) and [name](https://russmaxdesign.github.io/html-elements-names/) is focused",
+      "description": "Checks that the Html element with the specified [accessible role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types) and [name](https://russmaxdesign.github.io/html-elements-names/) is focused<br/><a target='_blank' href='https://github.com/Orange-OpenSource/uuv/blob/main/example/en-keyboard.feature'>Examples</a>",
       "wording": "I should see $indefiniteArticle $roleName named {string} keyboard focused",
       "section": "keyboard"
     },
     {
       "key": "key.then.element.nextWithRoleAndNameFocused",
-      "description": "Move to the next html element that can be reached with Tab and checks that the Html element with the specified [accessible role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types) and [name](https://russmaxdesign.github.io/html-elements-names/) is focused",
+      "description": "Move to the next html element that can be reached with Tab and checks that the Html element with the specified [accessible role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types) and [name](https://russmaxdesign.github.io/html-elements-names/) is focused<br/><a target='_blank' href='https://github.com/Orange-OpenSource/uuv/blob/main/example/en-keyboard.feature'>Examples</a>",
       "wording": "the next keyboard element focused should be $indefiniteArticle $roleName named {string}",
       "section": "keyboard"
     },
     {
       "key": "key.then.element.previousWithRoleAndNameFocused",
-      "description": "Move to the previous html element that can be reached with Tab and checks that the Html element with the specified [accessible role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types) and [name](https://russmaxdesign.github.io/html-elements-names/) is focused",
+      "description": "Move to the previous html element that can be reached with Tab and checks that the Html element with the specified [accessible role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types) and [name](https://russmaxdesign.github.io/html-elements-names/) is focused<br/><a target='_blank' href='https://github.com/Orange-OpenSource/uuv/blob/main/example/en-keyboard.feature'>Examples</a>",
       "wording": "the previous keyboard element focused should be $indefiniteArticle $roleName named {string}",
       "section": "keyboard"
     },

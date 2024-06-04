@@ -56,12 +56,12 @@
   },
   {
     "key": "key.when.keyboard.nextElement",
-    "description": "se déplace au prochain élément HTML atteignable avec la tabulation",
+    "description": "se déplace au prochain élément HTML atteignable avec la tabulation<br/><a target='_blank' href='https://github.com/Orange-OpenSource/uuv/blob/main/example/fr-keyboard.feature'>Exemples</a>",
     "wording": "je vais au prochain élément au clavier"
   },
   {
     "key": "key.when.keyboard.previousElement",
-    "description": "se déplace au précédent élément HTML atteignable avec la tabulation retour",
+    "description": "se déplace au précédent élément HTML atteignable avec la tabulation retour<br/><a target='_blank' href='https://github.com/Orange-OpenSource/uuv/blob/main/example/fr-keyboard.feature'>Exemples</a>",
     "wording": "je vais au précédent élément au clavier"
   },
   {
@@ -116,7 +116,7 @@
   },
   {
     "key": "key.given.keyboard.startNavigationFromTheTop",
-    "description": "Démarre une session de navigation au clavier à partir du haut de la page",
+    "description": "Démarre une session de navigation au clavier à partir du haut de la page<br/><a target='_blank' href='https://github.com/Orange-OpenSource/uuv/blob/main/example/fr-keyboard.feature'>Exemples</a>",
     "wording": "je commence une navigation au clavier depuis le haut de la page"
   },
   {
@@ -161,12 +161,12 @@
   },
   {
     "key": "key.then.element.withSelectorFocused",
-    "description": "Vérifie que l'élément Html avec le sélecteur est focus",
+    "description": "Vérifie que l'élément Html avec le sélecteur est focus<br/><a target='_blank' href='https://github.com/Orange-OpenSource/uuv/blob/main/example/fr-keyboard.feature'>Exemples</a>",
     "wording": "l'élément avec le sélecteur {string} doit avoir le focus clavier"
   },
   {
     "key": "key.then.element.withRoleAndNameFocused",
-    "description": "Vérifie que l'élément Html avec le [rôle accessible](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types) et le [nom accessible](https://russmaxdesign.github.io/html-elements-names/) est focus",
+    "description": "Vérifie que l'élément Html avec le [rôle accessible](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types) et le [nom accessible](https://russmaxdesign.github.io/html-elements-names/) est focus<br/><a target='_blank' href='https://github.com/Orange-OpenSource/uuv/blob/main/example/fr-keyboard.feature'>Exemples</a>",
     "wording": "l'élément avec le rôle {string} et le nom {string} doit avoir le focus clavier"
   },
   {
@@ -206,13 +206,13 @@
   },
   {
     "key": "key.then.element.nextWithRoleAndNameFocused",
-    "description": "Se déplace au prochain élément HTML atteignable avec la tabulation et vérifie que l'élément Html avec le [rôle accessible](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types) et le [nom accessible](https://russmaxdesign.github.io/html-elements-names/) a le focus clavier",
+    "description": "Se déplace au prochain élément HTML atteignable avec la tabulation et vérifie que l'élément Html avec le [rôle accessible](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types) et le [nom accessible](https://russmaxdesign.github.io/html-elements-names/) a le focus clavier<br/><a target='_blank' href='https://github.com/Orange-OpenSource/uuv/blob/main/example/fr-keyboard.feature'>Exemples</a>",
     "wording": "le prochain élément avec le focus clavier doit avoir le role {string} et le nom {string}",
     "section": "keyboard"
   },
   {
     "key": "key.then.element.previousWithRoleAndNameFocused",
-    "description": "Se déplace au précédent élément HTML atteignable avec la tabulation et vérifie que l'élément Html avec le [rôle accessible](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types) et le [nom accessible](https://russmaxdesign.github.io/html-elements-names/) a le focus clavier",
+    "description": "Se déplace au précédent élément HTML atteignable avec la tabulation et vérifie que l'élément Html avec le [rôle accessible](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types) et le [nom accessible](https://russmaxdesign.github.io/html-elements-names/) a le focus clavier<br/><a target='_blank' href='https://github.com/Orange-OpenSource/uuv/blob/main/example/fr-keyboard.feature'>Exemples</a>",
     "wording": "le précédent élément avec le focus clavier doit avoir le role {string} et le nom {string}",
     "section": "keyboard"
   },
