@@ -3,9 +3,21 @@ import TabItem from '@theme/TabItem';
 
 # UUV Assistant
 
-## Screenshots
+## Fonctionnalités
 
-![Assistant screenshots](@site/static/img/assistant/screenshots.gif)
+### Navigation à la souris
+![screenshots de navigation à la souris](@site/static/img/assistant/mouse.gif)
+L'assistant permet de générer des phrases UUV pour des comportements à la souris.
+
+Les phrases permettent de vérifier la présence d'élements dans le DOM HTML, de faire des actions de types click à la souris, ou encore de mettre le focus souris sur un élément.
+
+Si les phrases n'ont ni un nom ou role accessible, une alerte est remontée dans la gouttière de résultat.
+
+### Navigation au clavier
+![screenshots de navigation au clavier](@site/static/img/assistant/keyboard.gif)
+L'assistant permet de générer des phrases UUV pour des comportements au clavier.
+
+Les phrases permettent de vérifier l'ordre réel de navigation au clavier et génère les phrases de vérifications en conséquence.
 
 ## Démo en ligne
 

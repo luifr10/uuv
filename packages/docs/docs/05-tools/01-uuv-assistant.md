@@ -3,9 +3,21 @@ import TabItem from '@theme/TabItem';
 
 # UUV Assistant
 
-## Screenshots
+## Functionalities
 
-![Assistant screenshots](@site/static/img/assistant/screenshots.gif)
+### Mouse navigation
+![screenshots of mouse navigation](@site/static/img/assistant/mouse.gif)
+The UUV assistant can be used to generate UUV phrases for mouse behaviour.
+
+Sentences can be used to check the presence of elements in the HTML DOM, to perform mouse click actions, or to put a mouse focus on an element.
+
+If the sentences have neither a name nor an accessible role, an alert is raised in the results gutter.
+
+### Navigation au clavier
+![screenshots of keyboard navigation](@site/static/img/assistant/keyboard.gif)
+The UUV assistant can be used to generate UUV phrases for keyboard behaviour.
+
+The sentences are used to check the actual order of keyboard navigation and generate checks sentences accordingly.
 
 ## Online demo
 
