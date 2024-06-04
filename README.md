@@ -21,7 +21,7 @@ Make test writing fast, understandable by any human understanding English or Fre
 - [@uuv/assistant](https://orange-opensource.github.io/uuv/docs/tools/uuv-assistant) that facilitates the writing of tests by suggesting the most accessible sentences
 - [JetBrains Plugin](https://orange-opensource.github.io/uuv/docs/tools/uuv-jetbrains-plugin) that helps you to write and execute your UUV E2E tests from JetBrains IDEs
 - Integrates several runtime engines: Cypress / Playwright
-- User friendly and standardized execution report([example](https://e2e-test-quest.github.io/kata-e2e-uuv/5-go-further/))
+- User friendly and standardized execution report([example](https://e2e-test-quest.github.io/kata-e2e-uuv/06-go-further/))
   ### <u>Comparison</u>
 | Criteria | Cypress | Playwright | Testing library | UUV |  
 |:-: |:-: |:-: |:-: |:-: |  

@@ -13,7 +13,7 @@ Sentences can be used to check the presence of elements in the HTML DOM, to perf
 
 If the sentences have neither a name nor an accessible role, an alert is raised in the results gutter.
 
-### Navigation au clavier
+### Keyboard navigation
 ![screenshots of keyboard navigation](@site/static/img/assistant/keyboard.gif)
 The UUV assistant can be used to generate UUV phrases for keyboard behaviour.
 
