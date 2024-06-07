@@ -106,7 +106,7 @@ jobs:
       - uses: browser-actions/setup-chrome@v1
       - run: chrome --version
       - name: Running A11y unit tests with Puppeteer
-        uses: ./.github/actions/nx-e2e-test-runner
+        uses: ./.github/actions/nx-test-web-runner
         with:
           node-version: ${{env.NODE_VERSION}}
           runner-name: "a11y"
@@ -124,7 +124,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Running assistant integration tests
-        uses: ./.github/actions/nx-e2e-test-runner
+        uses: ./.github/actions/nx-test-web-runner
         with:
           node-version: ${{env.NODE_VERSION}}
           runner-name: "assistant"
@@ -147,7 +147,7 @@ jobs:
       - name: Running cypress unit tests
         env:
           UUV_BASE_URL: ${{env.UUV_BASE_URL}}
-        uses: ./.github/actions/nx-e2e-test-runner
+        uses: ./.github/actions/nx-test-web-runner
         with:
           node-version: ${{env.NODE_VERSION}}
           runner-name: "runner-cypress"
@@ -168,7 +168,7 @@ jobs:
       - name: Running playwright unit tests
         env:
           UUV_BASE_URL: ${{env.UUV_BASE_URL}}
-        uses: ./.github/actions/nx-e2e-test-runner
+        uses: ./.github/actions/nx-test-web-runner
         with:
           node-version: ${{env.NODE_VERSION}}
           runner-name: "runner-playwright"
@@ -187,7 +187,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Running runner-flutter unit tests
-        uses: ./.github/actions/nx-dart-test-runner
+        uses: ./.github/actions/nx-test-flutter-runner
         with:
           node-version: ${{env.NODE_VERSION}}
           runner-name: "runner-flutter"

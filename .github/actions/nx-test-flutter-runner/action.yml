@@ -1,5 +1,5 @@
-name: Run Test for runners
-description: Action for run test for a runner
+name: Run tests for flutter runner
+description: Action for run flutter test for runner uuv_flutter
 inputs:
   node-version:
     required: true

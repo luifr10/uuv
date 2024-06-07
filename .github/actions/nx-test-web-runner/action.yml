@@ -1,5 +1,5 @@
-name: Run Test for runners
-description: Action for run test for a runner
+name: Run tests for web runners
+description: Action for run flutter test for web runners(@uuv/cypress, @uuv/playwright, etc)
 inputs:
   node-version:
     required: true
