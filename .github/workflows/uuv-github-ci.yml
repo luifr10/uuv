@@ -20,7 +20,7 @@ jobs:
       - name: Cache node modules
         uses: actions/cache@v4
         with:
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('./package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
@@ -91,7 +91,7 @@ jobs:
           target: "unit-tests"
           exclude: "a11y,runner-flutter"
       - name: Test Report
-        uses: dorny/test-reporter@v1.9.1
+        uses: MichaelVoelkel/test-reporter@main
         if: success() || failure()
         with:
           name: Report - Unit Tests - General
@@ -111,7 +111,7 @@ jobs:
           node-version: ${{env.NODE_VERSION}}
           runner-name: "a11y"
       - name: Test Report
-        uses: dorny/test-reporter@v1.9.1
+        uses: MichaelVoelkel/test-reporter@main
         if: success() || failure()
         with:
           name: Report - Unit Tests - A11y
@@ -130,7 +130,7 @@ jobs:
           runner-name: "assistant"
           options: "--generateJunitReport"
       - name: Test Report
-        uses: dorny/test-reporter@v1.9.1
+        uses: MichaelVoelkel/test-reporter@main
         if: success() || failure()
         with:
           name: Report - Integration Tests - Assistant
@@ -153,7 +153,7 @@ jobs:
           runner-name: "runner-cypress"
           options: "--generateJunitReport --generateHtmlReport --generateA11yReport"
       - name: Test Report
-        uses: dorny/test-reporter@v1.9.1
+        uses: MichaelVoelkel/test-reporter@main
         if: success() || failure()
         with:
           name: Report - Unit Tests - Cypress
@@ -174,7 +174,7 @@ jobs:
           runner-name: "runner-playwright"
           options: "--generateJunitReport --generateHtmlReport --generateA11yReport"
       - name: Test Report
-        uses: dorny/test-reporter@v1.9.1
+        uses: MichaelVoelkel/test-reporter@main
         if: success() || failure()
         with:
           name: Report - Unit Tests - Playwright
@@ -196,14 +196,14 @@ jobs:
   integration-tests-cypress:
     runs-on: ubuntu-latest
     container:
-      image: cypress/browsers:node18.12.0-chrome107
+      image: e2etesting/uuv
     needs: [ lint, unit-tests, build ]
     steps:
       - uses: actions/checkout@v4
       - name: Cache node modules
         uses: actions/cache@v4
         with:
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('./package-lock.json') }}
           path: |
             node_modules
             packages/assistant/node_modules
@@ -237,7 +237,7 @@ jobs:
           path: |
             tests/integration/runner-cypress/uuv/reports
       - name: Test Report
-        uses: dorny/test-reporter@v1.9.1
+        uses: MichaelVoelkel/test-reporter@main
         if: success() || failure()
         with:
           name: Report - Integration Tests - Cypress
@@ -246,13 +246,15 @@ jobs:
 
   integration-tests-playwright:
     runs-on: ubuntu-latest
+    container:
+      image: e2etesting/uuv
     needs: [ lint, unit-tests, build ]
     steps:
       - uses: actions/checkout@v4
       - name: Cache node modules
         uses: actions/cache@v4
         with:
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('./package-lock.json') }}
           path: |
             node_modules
             packages/assistant/node_modules
@@ -281,7 +283,7 @@ jobs:
           path: |
             tests/integration/runner-playwright/uuv/reports
       - name: Test Report
-        uses: dorny/test-reporter@v1.9.1
+        uses: MichaelVoelkel/test-reporter@main
         if: success() || failure()
         with:
           name: Report - Integration Tests - Playwright

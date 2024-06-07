@@ -1,0 +1,10 @@
+{
+  "name": "docker-images",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/docker-images",
+  "root": "packages/docker-images",
+  "projectType": "library",
+  "targets": {
+  },
+  "tags": []
+}

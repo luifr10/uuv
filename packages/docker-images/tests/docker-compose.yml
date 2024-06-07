@@ -1,0 +1,31 @@
+services:
+  uuv-e2e-testspace:
+    image: e2etesting/uuv
+    command: sleep infinity
+    environment:
+      DISPLAY: ":14"
+      LIBGL_ALWAYS_INDIRECT: 0
+    volumes:
+      - ./tests:/workspace
+      - cypress-cache:/root/.cache/Cypress/
+    volumes_from:
+      - x11-bridge:rw
+    depends_on:
+      - x11-bridge
+
+  x11-bridge:
+    image: jare/x11-bridge
+    volumes:
+      - "/tmp/.X11-unix:/tmp/.X11-unix:rw"
+    ports:
+      - "8080:8080"
+    restart: always
+    environment:
+      MODE: tcp
+      XPRA_HTML: "yes"
+      DISPLAY: ":14"
+      XPRA_TCP_PORT: "8080"
+      XPRA_PASSWORD: uuv
+
+volumes:
+  cypress-cache:
