@@ -1,7 +1,14 @@
 import { defineConfig, devices } from "@playwright/test";
+import { buildConfig } from "@uuv/playwright";
 
 export default defineConfig({
-  testDir: ".uuv-features-gen",
+  testDir: buildConfig(
+      ["e2e/*.feature"],
+      [
+        "cucumber/step_definitions/**/*.{js,ts}",
+        "../../../node_modules/@uuv/playwright/dist/cucumber/step_definitions/playwright/**/*.js"
+      ]
+  ),
   testMatch: ["**/*.spec.ts", "**/*.{ts,js}"],
   fullyParallel: true,
   forbidOnly: !!process.env.CI,

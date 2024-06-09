@@ -31,19 +31,19 @@ if (!tempDir || !projectDir) {
 chokidar.watch(`${projectDir}/e2e/**/*.feature`, {
   ignoreInitial: true
 })
- .on("change", async (event, path) => {
+ .on("change", () => {
    console.log(chalk.yellowBright("\nRefreshing test files..."));
-   await executePreprocessor(tempDir, tags);
+   executePreprocessor();
    console.log(chalk.yellowBright("Test files refreshed\n"));
  })
- .on("add", async path => {
+ .on("add", path => {
    console.log(chalk.yellowBright(`\nFile ${path} has been added`));
-   await executePreprocessor(tempDir, tags);
+   executePreprocessor();
    console.log(chalk.yellowBright("Test files refreshed\n"));
  })
- .on("unlink", async path => {
+ .on("unlink", path => {
    console.log(chalk.yellowBright(`\nFile ${path} has been removed`));
-   await executePreprocessor(tempDir, tags);
+   executePreprocessor();
    console.log(chalk.yellowBright("Test files refreshed\n"));
  });
 

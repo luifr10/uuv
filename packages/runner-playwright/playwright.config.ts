@@ -1,4 +1,5 @@
 import { defineConfig, devices } from "@playwright/test";
+import { buildConfig } from "./src/lib/config";
 
 /**
  * Read environment variables from file.
@@ -10,7 +11,11 @@ import { defineConfig, devices } from "@playwright/test";
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  testDir: "tests/.features-gen",
+  testDir: buildConfig(
+      ["e2e/*.feature"],
+      [ "src/cucumber/step_definitions/playwright/**/*.{ts,js}" ],
+      "tests/.features-gen"
+  ),
   testMatch: ["**/*.spec.ts", "**/*.{ts,js}"],
   /* Run tests in files in parallel */
   fullyParallel: false,

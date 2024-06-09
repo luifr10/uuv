@@ -14,20 +14,11 @@
 
 import { UUVCliOptions, UUVCliRunner } from "@uuv/runner-commons";
 import fs from "fs";
-import { generateTestFiles } from "../cucumber/preprocessor/gen";
-import { GherkinDocument } from "@cucumber/messages/dist/esm/src";
 import chalk from "chalk";
 import { GeneratedReportType } from "../reporter/uuv-playwright-reporter-helper";
 import path from "path";
 import cp, { execSync } from "child_process";
 import _ from "lodash";
-
-export interface UUVPlaywrightCucumberMapItem {
-    originalFile: string;
-    generatedFile: string;
-}
-
-export const UUVPlaywrightCucumberMapFile = ".uuv-playwright-cucumber-map.json";
 
 export class UUVCliPlaywrightRunner implements UUVCliRunner {
     name = "Playwright";
@@ -43,7 +34,9 @@ export class UUVCliPlaywrightRunner implements UUVCliRunner {
     }
 
     async prepare(options: Partial<UUVCliOptions>) {
-        await executePreprocessor(this.tempDir, options.extraArgs.TAGS);
+        console.log("running preprocessor...");
+        this.executeSystemCommand(`npx bddgen -c ${this.projectDir}/playwright.config.ts`);
+        console.log("preprocessor executed\n");
         this.setEnvironmentVariables(options);
     }
 
@@ -76,7 +69,7 @@ export class UUVCliPlaywrightRunner implements UUVCliRunner {
             return "";
         }
         return `${targetTestFile
-            .replaceAll("uuv/e2e/", ".uuv-features-gen/uuv/e2e/")
+            .replaceAll("uuv/e2e/", ".uuv-features-gen/")
             .replaceAll(".feature", ".feature.spec.js")}`;
     }
 
@@ -100,11 +93,6 @@ export class UUVCliPlaywrightRunner implements UUVCliRunner {
         }
     }
 
-    private executeSystemCommand(command: string) {
-        console.log(chalk.gray(`Running command: ${command}`));
-        execSync(command, { stdio: "inherit" });
-    }
-
     private buildCommand(options: Partial<UUVCliOptions>, configFile: string, reporter: string): string {
         return _.trimEnd(
             [
@@ -118,37 +106,26 @@ export class UUVCliPlaywrightRunner implements UUVCliRunner {
                     options.command === "open" ? "--ui" : "",
                     reporter].join(" ")
                 ),
-                this.getTargetTestFileForPlaywright(options.targetTestFile)
+                _.trimStart([
+                    this.getTargetTestFileForPlaywright(options.targetTestFile),
+                    options.extraArgs.TAGS ? `--grep ${options.extraArgs.TAGS}` : ""
+                ].join(" "))
             ].join(" ")
         );
     }
-}
 
-export async function executePreprocessor(tempDir: string, tags: string) {
-    console.log("running preprocessor...");
-    await bddGen(tempDir, tags);
-    console.log("preprocessor executed\n");
-}
-
-async function bddGen(tempDir: string, tags: string) {
-    try {
-        const mapOfFile = await generateTestFiles({
-            outputDir: tempDir,
-            tags
-        });
-        const content: UUVPlaywrightCucumberMapItem[] = [];
-        mapOfFile.forEach((value: GherkinDocument, key: string) => {
-            if (value.uri) {
-                content.push({
-                    originalFile: value.uri,
-                    generatedFile: key
-                });
-            }
-        });
-        fs.writeFileSync(`${tempDir}/${UUVPlaywrightCucumberMapFile}`, JSON.stringify(content, null, 4), { encoding: "utf8" });
-    } catch (err) {
-        console.error(chalk.red("Something went wrong..."));
-        console.dir(err);
-        process.exit(2);
+    private executeSystemCommand(command: string) {
+        executeSystemCommandHelper(command);
     }
+}
+
+function executeSystemCommandHelper(command: string) {
+    console.log(chalk.gray(`Running command: ${command}`));
+    execSync(command, { stdio: "inherit" });
+}
+
+export function executePreprocessor() {
+    console.log("running preprocessor...");
+    executeSystemCommandHelper("npx bddgen");
+    console.log("preprocessor executed\n");
 }

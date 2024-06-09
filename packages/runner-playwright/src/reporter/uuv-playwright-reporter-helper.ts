@@ -3,13 +3,13 @@ import { generateMessages } from "@cucumber/gherkin";
 import { Query } from "@cucumber/gherkin-utils";
 import { Envelope, IdGenerator, parseEnvelope, SourceMediaType, AttachmentContentEncoding } from "@cucumber/messages";
 import fs from "fs";
-import { UUVPlaywrightCucumberMapFile, UUVPlaywrightCucumberMapItem } from "../lib/runner-playwright";
 import report from "multiple-cucumber-html-reporter";
 import { nanoid } from "nanoid";
 import chalk from "chalk";
 import chalkTable from "chalk-table";
 import { UuvCustomFormatter } from "./uuv-custom-formatter";
 import parseTagsExpression from "@cucumber/tag-expressions";
+import path from "path";
 
 
 const NANOS_IN_SECOND = 1000000000;
@@ -41,7 +41,6 @@ interface TestError {
 }
 
 class UuvPlaywrightReporterHelper {
-    private UUVPlaywrightCucumberMap: UUVPlaywrightCucumberMapItem[] = [];
     testDir!: string;
     private queries: Map<string, Query> = new Map<string, Query>();
     envelopes: Envelope[] = [];
@@ -56,7 +55,6 @@ class UuvPlaywrightReporterHelper {
 
     public createTestRunStartedEnvelope(config: FullConfig, suite: Suite, startTimestamp: { seconds: number; nanos: number }) {
         this.testDir = config.projects[0].testDir;
-        this.loadUUVPlaywrightCucumberMap();
         const featureFiles = this.getFeatureFiles(suite);
         this.initializeCucumberReportNdJson(suite, featureFiles);
         this.envelopes.push(
@@ -332,8 +330,27 @@ class UuvPlaywrightReporterHelper {
         };
     }
 
-    public getOriginalFeatureFile(generateFile: string): string | undefined {
-        return this.UUVPlaywrightCucumberMap.find(item => item.generatedFile === generateFile)?.originalFile;
+    public getOriginalFeatureFile(generatedFile: string): string | undefined {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        const bddgenConfAsString = process.env.PLAYWRIGHT_BDD_CONFIGS;
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        const projectDir = process.env.CONFIG_DIR;
+        if (bddgenConfAsString && projectDir) {
+            const bddgenConf = JSON.parse(bddgenConfAsString);
+            const foundPath = Object.keys(bddgenConf).find(key => generatedFile.startsWith(key));
+            if (foundPath) {
+                const foundConf = bddgenConf[foundPath];
+                return path.relative(
+                    process.cwd(),
+                    generatedFile
+                        .replaceAll(foundConf.outputDir, foundConf.featuresRoot)
+                        .replaceAll(".feature.spec.js", ".feature")
+                );
+            }
+        }
+        return;
     }
 
     public getCurrentRunningScenario(test: TestCase, featureFile: string) {
@@ -374,15 +391,6 @@ class UuvPlaywrightReporterHelper {
         } catch (err) {
             console.log(err);
         }
-    }
-
-    private loadUUVPlaywrightCucumberMap() {
-        this.UUVPlaywrightCucumberMap = JSON.parse(
-            fs.readFileSync(
-                `${this.testDir}/${UUVPlaywrightCucumberMapFile}`,
-                { encoding: "utf8" }
-            )
-        );
     }
 
     private initializeCucumberReportNdJson(suite: Suite, featureFiles: string[]) {
