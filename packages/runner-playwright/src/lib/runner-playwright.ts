@@ -22,7 +22,7 @@ import _ from "lodash";
 
 export class UUVCliPlaywrightRunner implements UUVCliRunner {
     name = "Playwright";
-    defaultBrowser = "chromium";
+    defaultBrowser = "chrome";
 
     constructor(public projectDir, private tempDir) {}
 
@@ -99,7 +99,7 @@ export class UUVCliPlaywrightRunner implements UUVCliRunner {
                 "npx",
                 "playwright",
                 "test",
-                `--project=${options.browser}`,
+                `--project="${options.browser}"`,
                 "-c",
                 configFile,
                 _.trimStart([

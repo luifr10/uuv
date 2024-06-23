@@ -49,7 +49,7 @@ describe("UUV Cli Playwright", () => {
     expect(mockExecCommand).toHaveBeenNthCalledWith(1, `npx bddgen -c ${projectDir}/playwright.config.ts`);
     expect(mockExecCommand).toHaveBeenNthCalledWith(
       2,
-      `npx playwright test --project=chromium -c ${projectDir}/playwright.config.ts --ui`
+      `npx playwright test --project="chrome" -c ${projectDir}/playwright.config.ts --ui`
     );
   });
 
@@ -59,7 +59,7 @@ describe("UUV Cli Playwright", () => {
     expect(mockExecCommand).toHaveBeenNthCalledWith(1, `npx bddgen -c ${projectDir}/playwright.config.ts`);
     expect(mockExecCommand).toHaveBeenNthCalledWith(
         2,
-        `npx playwright test --project=chromium -c ${projectDir}/playwright.config.ts --ui`
+        `npx playwright test --project="chrome" -c ${projectDir}/playwright.config.ts --ui`
     );
     // eslint-disable-next-line dot-notation
     expect(process.env["a"]).toEqual("valueA");
@@ -73,7 +73,7 @@ describe("UUV Cli Playwright", () => {
     expect(mockExecCommand).toHaveBeenNthCalledWith(1, `npx bddgen -c ${projectDir}/playwright.config.ts`);
     expect(mockExecCommand).toHaveBeenNthCalledWith(
         2,
-        `npx playwright test --project=chromium -c ${projectDir}/playwright.config.ts --reporter=@uuv/playwright/uuv-playwright-reporter`
+        `npx playwright test --project="chrome" -c ${projectDir}/playwright.config.ts --reporter=@uuv/playwright/uuv-playwright-reporter`
     );
     // eslint-disable-next-line dot-notation
     expect(process.env["REPORT_TYPE"]).toEqual("console");
@@ -88,7 +88,7 @@ describe("UUV Cli Playwright", () => {
     expect(mockExecCommand).toHaveBeenNthCalledWith(1, `npx bddgen -c ${projectDir}/playwright.config.ts`);
     expect(mockExecCommand).toHaveBeenNthCalledWith(
         2,
-        `npx playwright test --project=chromium -c ${projectDir}/playwright.config.ts --reporter=@uuv/playwright/uuv-playwright-reporter`
+        `npx playwright test --project="chrome" -c ${projectDir}/playwright.config.ts --reporter=@uuv/playwright/uuv-playwright-reporter`
     );
     // eslint-disable-next-line dot-notation
     expect(process.env["UUV_BASE_URL"]).toEqual(targetUrl);
@@ -100,7 +100,7 @@ describe("UUV Cli Playwright", () => {
     expect(mockExecCommand).toHaveBeenNthCalledWith(1, `npx bddgen -c ${projectDir}/playwright.config.ts`);
     expect(mockExecCommand).toHaveBeenNthCalledWith(
         2,
-        `npx playwright test --project=chromium -c ${projectDir}/playwright.config.ts --reporter=@uuv/playwright/uuv-playwright-reporter`
+        `npx playwright test --project="chrome" -c ${projectDir}/playwright.config.ts --reporter=@uuv/playwright/uuv-playwright-reporter`
     );
     // eslint-disable-next-line dot-notation
     expect(process.env["REPORT_TYPE"]).toEqual("html");
@@ -112,7 +112,7 @@ describe("UUV Cli Playwright", () => {
     expect(mockExecCommand).toHaveBeenNthCalledWith(1, `npx bddgen -c ${projectDir}/playwright.config.ts`);
     expect(mockExecCommand).toHaveBeenNthCalledWith(
         2,
-        `npx playwright test --project=chromium -c ${projectDir}/playwright.config.ts --reporter=@uuv/playwright/uuv-playwright-reporter,junit`
+        `npx playwright test --project="chrome" -c ${projectDir}/playwright.config.ts --reporter=@uuv/playwright/uuv-playwright-reporter,junit`
     );
     // eslint-disable-next-line dot-notation
     expect(process.env["REPORT_TYPE"]).toEqual("console");
@@ -124,7 +124,7 @@ describe("UUV Cli Playwright", () => {
     expect(mockExecCommand).toHaveBeenNthCalledWith(1, `npx bddgen -c ${projectDir}/playwright.config.ts`);
     expect(mockExecCommand).toHaveBeenNthCalledWith(
         2,
-        `npx playwright test --project=chromium -c ${projectDir}/playwright.config.ts --reporter=@uuv/playwright/uuv-playwright-reporter`
+        `npx playwright test --project="chrome" -c ${projectDir}/playwright.config.ts --reporter=@uuv/playwright/uuv-playwright-reporter`
     );
     //TODO : update this test when A11y is implemented for playwright
     // eslint-disable-next-line dot-notation
@@ -138,7 +138,7 @@ describe("UUV Cli Playwright", () => {
     expect(mockExecCommand).toHaveBeenNthCalledWith(1, `npx bddgen -c ${projectDir}/playwright.config.ts`);
     expect(mockExecCommand).toHaveBeenNthCalledWith(
         2,
-        `npx playwright test --project=${browser} -c ${projectDir}/playwright.config.ts --reporter=@uuv/playwright/uuv-playwright-reporter`
+        `npx playwright test --project="${browser}" -c ${projectDir}/playwright.config.ts --reporter=@uuv/playwright/uuv-playwright-reporter`
     );
   });
 
@@ -149,7 +149,7 @@ describe("UUV Cli Playwright", () => {
     expect(mockExecCommand).toHaveBeenNthCalledWith(1, `npx bddgen -c ${projectDir}/playwright.config.ts`);
     expect(mockExecCommand).toHaveBeenNthCalledWith(
         2,
-        `npx playwright test --project=chromium -c ${projectDir}/playwright.config.ts --reporter=@uuv/playwright/uuv-playwright-reporter .uuv-features-gen/custom.*.feature.spec.js`
+        `npx playwright test --project="chrome" -c ${projectDir}/playwright.config.ts --reporter=@uuv/playwright/uuv-playwright-reporter .uuv-features-gen/custom.*.feature.spec.js`
     );
   });
 
@@ -160,7 +160,7 @@ describe("UUV Cli Playwright", () => {
     expect(mockExecCommand).toHaveBeenNthCalledWith(1, `npx bddgen -c ${projectDir}/playwright.config.ts`);
     expect(mockExecCommand).toHaveBeenNthCalledWith(
         2,
-        `npx playwright test --project=chromium -c ${projectDir}/playwright.config.ts --reporter=@uuv/playwright/uuv-playwright-reporter --grep @aTag`
+        `npx playwright test --project="chrome" -c ${projectDir}/playwright.config.ts --reporter=@uuv/playwright/uuv-playwright-reporter --grep @aTag`
     );
     // eslint-disable-next-line dot-notation
     expect(process.env["a"]).toEqual("aValue");
