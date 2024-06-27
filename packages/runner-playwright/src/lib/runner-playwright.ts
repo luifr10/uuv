@@ -124,8 +124,8 @@ function executeSystemCommandHelper(command: string) {
     execSync(command, { stdio: "inherit" });
 }
 
-export function executePreprocessor() {
+export function executePreprocessor(projectDir: string) {
     console.log("running preprocessor...");
-    executeSystemCommandHelper("npx bddgen");
+    executeSystemCommandHelper(`npx bddgen -c ${projectDir}/playwright.config.ts`);
     console.log("preprocessor executed\n");
 }
