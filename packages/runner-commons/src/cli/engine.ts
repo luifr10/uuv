@@ -5,10 +5,10 @@ import chalk from "chalk";
 export class UUVCliEngine {
     constructor(
         private runner: UUVCliRunner
-    ) {
-    }
+    ) {}
 
     async execute() {
+        let ipcServerProcess;
         try {
             UUVCliHelper.printBanner(this.runner.name, this.runner.getCurrentVersion());
 
@@ -17,6 +17,8 @@ export class UUVCliEngine {
             const options = UUVCliHelper.extractArgs(this.runner.projectDir, this.runner.defaultBrowser);
 
             UUVCliHelper.printVariables(options);
+
+            ipcServerProcess = UUVCliHelper.startIpcServer();
 
             await this.runner.prepare(options);
 
@@ -37,6 +39,10 @@ export class UUVCliEngine {
         } catch (e) {
             console.error(chalk.red(e));
             process.exit(1);
+        } finally {
+            if (ipcServerProcess) {
+                UUVCliHelper.stopIpcServer(ipcServerProcess);
+            }
         }
     }
 

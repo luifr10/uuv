@@ -10,6 +10,7 @@ import chalkTable from "chalk-table";
 import { UuvCustomFormatter } from "./uuv-custom-formatter";
 import parseTagsExpression from "@cucumber/tag-expressions";
 import path from "path";
+import { UUVEventEmitter } from "@uuv/runner-commons";
 
 
 const NANOS_IN_SECOND = 1000000000;
@@ -99,7 +100,11 @@ class UuvPlaywrightReporterHelper {
             this.testCasesAndTestCasesStartedIdMap.set(test.id, testCaseStartedId);
             this.initConsoleReportIfNotExists(featureFile);
         }
-        this.logTeamCity(`##teamcity[testStarted ${this.teamcityAddName(test.title)} ${this.teamcityFlowIdAndParentFlowId(test.title, featureFile)} ${this.teamcityAddCustomField("locationHint", "test://" + featureFile)} ]`);
+        UUVEventEmitter.getInstance().emitTestStarted({
+            testName: test.title,
+            testSuiteName: featureFile,
+            testSuitelocation: featureFile
+        });
     }
 
     public createTestStepStartedEnvelope(test: TestCase, step: TestStep, featureFile: string, startTimestamp: { seconds: number; nanos: number }) {
@@ -206,7 +211,7 @@ class UuvPlaywrightReporterHelper {
     }
 
     public createTestCaseFinishedEnvelope(test: TestCase, result: TestResult, featureFile: string, endTimestamp) {
-        this.logTeamcityTestEnd(result, test, featureFile);
+        this.handleTestEnd(result, test, featureFile);
         this.updateTestcaseStatus(featureFile, test.id, "done");
         const currentQuery = this.queries.get(featureFile);
         if (currentQuery) {
@@ -227,28 +232,40 @@ class UuvPlaywrightReporterHelper {
             this.addResultErrors(result, test, featureFile);
             this.createTestCaseErrorAttachmentsEnvelope(testCaseStartedId, result);
         }
-        this.logTeamcitySuiteFinishedIfNeeded(featureFile);
+        this.handleTestSuiteFinishedIfNeeded(featureFile);
     }
 
-    private logTeamcityTestEnd(result: TestResult, test: TestCase, featureFile: string) {
+    private handleTestEnd(result: TestResult, test: TestCase, featureFile: string) {
         switch (result.status) {
             case "passed":
-                this.logTeamCity(`##teamcity[testFinished ${this.teamcityAddName(test.title)} ${this.teamcityFlowIdAndParentFlowId(test.title, featureFile)} ${this.teamcityAddDuration(result)} ]`);
+                UUVEventEmitter.getInstance().emitTestFinished({
+                    testName: test.title,
+                    testSuiteName: featureFile,
+                    duration: result.duration
+                });
                 break;
             case "failed":
-                this.logTeamCity(`##teamcity[testFailed ${this.teamcityAddName(test.title)} ${this.teamcityFlowIdAndParentFlowId(test.title, featureFile)} type='comparisonFailure' message='Test failed' ]`);
-                this.logTeamCity(`##teamcity[testFinished ${this.teamcityAddName(test.title)} ${this.teamcityFlowIdAndParentFlowId(test.title, featureFile)} ${this.teamcityAddDuration(result)} ]`);
+                UUVEventEmitter.getInstance().emitTestFailed({
+                    testName: test.title,
+                    testSuiteName: featureFile,
+                    duration: result.duration
+                });
                 break;
             default:
-                this.logTeamCity(`##teamcity[testIgnored ${this.teamcityAddName(test.title)} ${this.teamcityFlowIdAndParentFlowId(test.title, featureFile)} ]`);
+                UUVEventEmitter.getInstance().emitTestIgnored({
+                    testName: test.title,
+                    testSuiteName: featureFile
+                });
         }
     }
 
-    private logTeamcitySuiteFinishedIfNeeded(featureFile: string) {
+    private handleTestSuiteFinishedIfNeeded(featureFile: string) {
         const featureTestCaseStatus = this.featureFileAndTestCaseStatusMap.get(featureFile);
         if (featureTestCaseStatus) {
             if (Object.entries(featureTestCaseStatus).find(([, value]) => value === "todo") === undefined) {
-                this.logTeamCity(`##teamcity[testSuiteFinished ${this.teamcityAddName(featureFile)} ${this.teamcityFlowId(featureFile)} ]`);
+                UUVEventEmitter.getInstance().emitTestSuiteFinished({
+                    testSuiteName: featureFile
+                });
             }
         }
     }
@@ -286,7 +303,10 @@ class UuvPlaywrightReporterHelper {
 
     private initConsoleReportIfNotExists(featureFile: string) {
         if (!this.consoleReportMap.get(featureFile)) {
-            this.logTeamCity(`##teamcity[testSuiteStarted ${this.teamcityAddName(featureFile)} ${this.teamcityFlowId(featureFile)} ${this.teamcityAddCustomField("locationHint", "suite://" + featureFile)} ]`);
+            UUVEventEmitter.getInstance().emitTestSuiteStarted({
+                testSuiteName: featureFile,
+                testSuitelocation: featureFile
+            });
             this.consoleReportMap.set(featureFile, new ReportOfFeature());
         }
     }
@@ -617,34 +637,6 @@ class UuvPlaywrightReporterHelper {
         } else {
             return chalk.redBright(message);
         }
-    }
-
-    public logTeamCity(line) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        if (process.env.enableTeamcityLogging) {
-            console.log(line);
-        }
-    }
-
-    private teamcityFlowId(name) {
-        return "flowId='" + name.replaceAll("'", "|'") + "'";
-    }
-
-    private teamcityFlowIdAndParentFlowId(name, parentName) {
-        return "flowId='" + name.replaceAll("'", "|'") + "' parent='" + parentName.replaceAll("'", "|'") + "'";
-    }
-
-    private teamcityAddName(name) {
-        return "name='" + name.replaceAll("'", "|'") + "'";
-    }
-
-    private teamcityAddDuration(result: TestResult) {
-        return "duration='" + result.duration + "'";
-    }
-
-    private teamcityAddCustomField(fieldName, value) {
-        return `${fieldName}='${value}'`;
     }
 
     private getTagsParameter() {

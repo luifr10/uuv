@@ -70,7 +70,8 @@ export class UUVCliPlaywrightRunner implements UUVCliRunner {
         }
         return `${targetTestFile
             .replaceAll("uuv/e2e/", ".uuv-features-gen/")
-            .replaceAll(".feature", ".feature.spec.js")}`;
+            .replaceAll("e2e/", ".features-gen/")
+            .replaceAll(/\.feature$/g, ".feature.spec.js")}`;
     }
 
     private runPlaywright(options: Partial<UUVCliOptions>) {

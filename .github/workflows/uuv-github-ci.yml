@@ -224,7 +224,7 @@ jobs:
             ${{env.NODE_VERSION}}
       - run: npm ci
       - name: Package runner-cypress
-        run: mkdir -p ./dist/packages && npm run nx package a11y && npm run nx package runner-commons && npm run nx package runner-cypress
+        run: mkdir -p ./dist/packages && npx nx package a11y && npx nx package runner-commons && npx nx package runner-cypress
       - name: Running cypress integration tests
         env:
           UUV_BASE_URL: ${{env.UUV_BASE_URL}}
@@ -269,8 +269,9 @@ jobs:
           name: build-artifacts
           path:
             packages
+      - run: npm ci
       - name: Package runner-playwright
-        run: mkdir -p ./dist/packages && npm run nx package a11y && npm run nx package runner-commons && npm run nx package runner-playwright
+        run: mkdir -p ./dist/packages && npx nx package a11y && npx nx package runner-commons && npx nx package runner-playwright
       - name: Running playwright integration tests
         env:
           UUV_BASE_URL: ${{env.UUV_BASE_URL}}
@@ -393,7 +394,7 @@ jobs:
           UUV_PRIVATE_KEY_PASSWORD: ${{ secrets.UUV_PRIVATE_KEY_PASSWORD }}
           UUV_PRIVATE_KEY: ${{ secrets.UUV_PRIVATE_KEY }}
           UUV_CERTIFICATE_CHAIN: ${{ secrets.UUV_CERTIFICATE_CHAIN }}
-        run: npm install && npm run nx build intellij-plugin && npm run nx publish intellij-plugin
+        run: npm install && npx nx build intellij-plugin && npx nx publish intellij-plugin
 
   publish-docs:
     if: github.ref == 'refs/heads/main'

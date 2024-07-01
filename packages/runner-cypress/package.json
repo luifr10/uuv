@@ -37,8 +37,8 @@
     "package": "npm pack --pack-destination=\"../../dist/packages\"",
     "postinstall": "node postinstall.js",
     "unit-tests": "jest --runInBand --coverage --config=./jest.config.ts",
-    "e2e-test:run": "node test.js e2e",
-    "e2e-test:open": "node test.js open --",
+    "e2e-test:run": "ts-node test.ts e2e",
+    "e2e-test:open": "ts-node test.ts open --",
     "test": "npm run unit-test && npm run e2e-test:run",
     "lint": "eslint -c .eslintrc.json"
   },

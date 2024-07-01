@@ -4,6 +4,7 @@ import minimist from "minimist";
 import path from "path";
 import { UUVCliOptions } from "./options";
 import { isEmpty } from "lodash";
+import cp from "child_process";
 
 export class UUVCliHelper {
     /**
@@ -54,6 +55,11 @@ export class UUVCliHelper {
         const targetTestFile = argv.targetTestFile ? argv.targetTestFile : null;
 
         const reportDir = path.join(projectDir, "reports");
+        // eslint-disable-next-line dot-notation
+        process.env["ENABLE_TEAMCITY_LOGGING"] = env.enableTeamcityLogging;
+        // eslint-disable-next-line dot-notation
+        process.env["ENABLE_VSCODE_LISTENER"] = env.enableVsCodeListener;
+
         return {
             // eslint-disable-next-line dot-notation
             baseUrl: process.env["UUV_BASE_URL"],
@@ -91,5 +97,13 @@ export class UUVCliHelper {
             console.debug(`  -> targetTestFile: ${options.targetTestFile}`);
         }
         console.debug("\n");
+    }
+
+    static startIpcServer () {
+        return cp.fork(path.join(__dirname, "start-ipc-server"));
+    }
+
+    static stopIpcServer (ipcServerProcess: cp.ChildProcess) {
+        return ipcServerProcess.kill();
     }
 }

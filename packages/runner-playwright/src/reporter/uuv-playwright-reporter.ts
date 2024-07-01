@@ -1,15 +1,20 @@
 import { FullConfig, FullResult, Reporter, Suite, TestCase, TestError, TestResult, TestStep } from "@playwright/test/reporter";
 import UuvPlaywrightReporterHelper, { GeneratedReportType } from "./uuv-playwright-reporter-helper";
 import chalk from "chalk";
+import { UUVEventEmitter, UUVListenerHelper } from "@uuv/runner-commons";
 
 class UuvPlawrightReporter implements Reporter {
     private helper: UuvPlaywrightReporterHelper = new UuvPlaywrightReporterHelper();
+
+    constructor() {
+        UUVListenerHelper.build();
+    }
 
     onBegin(config: FullConfig, suite: Suite) {
         const startTimestamp = this.helper.getTimestamp();
         // console.log(`Starting the run with ${suite.allTests().length} tests`);
         this.helper.createTestRunStartedEnvelope(config, suite, startTimestamp);
-        this.helper.logTeamCity("##teamcity[progressStart 'Running UUV Tests']");
+        UUVEventEmitter.getInstance().emitProgressStart();
         console.info(
             chalk.yellow(`Starting the run with ${suite.allTests().length} tests`)
         );
@@ -74,7 +79,7 @@ class UuvPlawrightReporter implements Reporter {
         } else {
             console.error(chalk.red(`Tests executed with status: ${result.status}`));
         }
-        this.helper.logTeamCity("##teamcity[progressFinish 'Running UUV Tests']");
+        UUVEventEmitter.getInstance().emitProgressFinish();
     }
 }
 

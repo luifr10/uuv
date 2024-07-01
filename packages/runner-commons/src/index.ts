@@ -3,6 +3,7 @@ export * from "./step-definition-generator/generate-step-definitions";
 export * from "./step-definition-generator/generate-step-definitions-documentation";
 export * from "./runner/step-definitions/_constant";
 export * from "./runner/step-definitions/_i-context";
+export * from "./runner/event";
 import key from "./assets/i18n/web/template.json";
 export { key };
 export { AccessibleRole } from "./step-definition-generator/accessible-role";
