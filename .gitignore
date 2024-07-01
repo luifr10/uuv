@@ -73,3 +73,6 @@ packages/runner-flutter/test/*_test.dart
 packages/assistant/uuv/.features-gen/
 packages/assistant/test-results/
 packages/assistant/uuv/uuv/reports/
+packages/vscode-extension/.vscode-test/
+packages/vscode-extension/out/
+packages/vscode-extension/*.vsix

@@ -1,0 +1,87 @@
+{
+  "name": "uuv-vscode-extension",
+  "displayName": "UUV E2E Tests",
+  "version": "0.0.1",
+  "description": "VS Code extension for UUV end-to-end tests",
+  "license": "MIT",
+  "icon": "uuv.png",
+  "homepage": "https://orange-opensource.github.io/uuv/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Orange-OpenSource/uuv"
+  },
+  "author": "Louis Fredice NJAKO MOLOM (https://github.com/luifr10) & Stanley SERVICAL (https://github.com/stanlee974)",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "publisher": "e2e-test-quest",
+  "categories": [
+    "Testing"
+  ],
+  "keywords": [
+    "uuv",
+    "e2e",
+    "end2end",
+    "end 2 end",
+    "test",
+    "testing",
+    "accessibility",
+    "accessibilite",
+    "a11y",
+    "cypress",
+    "playwright",
+    "testing-library",
+    "cucumber",
+    "gherkin",
+    "bdd",
+    "tdd",
+    "acceptance"
+  ],
+  "activationEvents": [
+    "workspaceContains:uuv/**/*.feature"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "uuv.open",
+        "title": "UUV Open"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "nx build vscode-extension",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "vscode-test",
+    "vsce-package": "npx vsce package --no-dependencies",
+    "publish": "npx vsce publish --no-dependencies"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.6",
+    "@types/node": "20.x",
+    "@types/vscode": "^1.90.0",
+    "@typescript-eslint/eslint-plugin": "5.62.0",
+    "@typescript-eslint/parser": "5.62.0",
+    "@vscode/test-cli": "^0.0.9",
+    "@vscode/test-electron": "^2.4.0",
+    "@vscode/vsce": "^2.29.0",
+    "eslint": "^8.57.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.4.5",
+    "webpack": "^5.92.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "@cucumber/gherkin": "^28.0.0",
+    "@cucumber/messages": "^25.0.1",
+    "@types/node-ipc": "^9.2.3",
+    "@uuv/runner-commons": "2.16.4",
+    "node-ipc": "^11.1.0"
+  }
+}

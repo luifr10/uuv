@@ -30,6 +30,7 @@ runs:
           packages/runner-commons/node_modules
           packages/runner-cypress/node_modules
           packages/runner-playwright/node_modules
+          packages/vscode-extension/node_modules
     - name: Use Node.js ${{ inputs.node-version }}
       uses: actions/setup-node@v4
       with:
