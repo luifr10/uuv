@@ -58,7 +58,7 @@
     "@ant-design/icons": "^5.0.1",
     "@codemirror/legacy-modes": "^6.4.0",
     "@codemirror/view": "^6.26.3",
-    "@cucumber/cucumber": "9.6.0",
+    "@cucumber/cucumber": "10.8.0",
     "@uiw/codemirror-theme-github": "^4.22.1",
     "@uiw/react-codemirror": "^4.22.1",
     "@uuv/runner-commons": "2.17.0",
