@@ -50,7 +50,7 @@
     "@uuv/runner-commons": "2.17.0",
     "axe-core": "4.9.1",
     "chai-subset": "^1.6.0",
-    "cypress": "13.10.0",
+    "cypress": "13.13.0",
     "cypress-axe": "1.5.0",
     "cypress-real-events": "^1.10.0",
     "is-admin": "4.0.0",
