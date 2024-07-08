@@ -35,8 +35,8 @@ Edit the `.gitignore` file to add the following lines :
     ```
   - Install [UUV VS Code Extension](/docs/tools/uuv-vscode-extension) **for test execution inside ide**
 
-## Dev Containers
-Add the following files :
+## Dev Containers (Optional)
+To configure [Dev Container](https://docs.github.com/en/codespaces/setting-up-your-project-for-codespaces/adding-a-dev-container-configuration/introduction-to-dev-containers), add the following files :
   ```json title='.devcontainer/devcontainer.json'
     {
       "name": "UUV TestSpace",

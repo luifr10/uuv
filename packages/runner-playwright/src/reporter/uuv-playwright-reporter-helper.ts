@@ -10,7 +10,7 @@ import chalkTable from "chalk-table";
 import { UuvCustomFormatter } from "./uuv-custom-formatter";
 import parseTagsExpression from "@cucumber/tag-expressions";
 import path from "path";
-import { UUVEventEmitter } from "@uuv/runner-commons";
+import { UUVEventEmitter } from "@uuv/runner-commons/runner/event";
 
 
 const NANOS_IN_SECOND = 1000000000;

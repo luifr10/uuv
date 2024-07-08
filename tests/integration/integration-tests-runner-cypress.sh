@@ -31,6 +31,7 @@ npm install -D "../$NPM_PACKAGE_COMMONS" "../$NPM_PACKAGE_A11Y" "../$NPM_PACKAGE
 log "I" "Copying test files and dependencies"
 cp -R "${RUNNER_DIR}/e2e/" ./uuv
 cp "../custom-step-definition.feature" ./uuv/e2e
+rm ./uuv/e2e/ko.feature
 mkdir -p ./uuv/cypress/fixtures
 cp -R "${RUNNER_DIR}/cypress/fixtures/" ./uuv/cypress
 

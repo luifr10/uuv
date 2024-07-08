@@ -10,6 +10,7 @@ export default {
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
   moduleNameMapper: {
+    "@uuv/runner-commons/test": "<rootDir>/../runner-commons/src/tests/index.ts",
     "@uuv/runner-commons": "<rootDir>/../runner-commons/src/index.ts"
   },
   coverageDirectory: '../../coverage/packages/runner-playwright',

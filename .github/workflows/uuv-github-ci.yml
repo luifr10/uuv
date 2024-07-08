@@ -152,14 +152,18 @@ jobs:
         with:
           node-version: ${{env.NODE_VERSION}}
           runner-name: "runner-cypress"
-          options: "--generateJunitReport --generateHtmlReport --generateA11yReport"
+          options: "--generateJunitReport --generateHtmlReport --generateA11yReport || echo 'UUV Test executed'"
       - name: Test Report
         uses: MichaelVoelkel/test-reporter@main
         if: success() || failure()
         with:
           name: Report - Unit Tests - Cypress
           path: packages/runner-cypress/reports/e2e/junit-report.xml
-          reporter: jest-junit
+          reporter: java-junit
+          fail-on-error: false
+      - name: Verify Junit Report
+        if: success() || failure()
+        run: npx nx verify-report runner-cypress
 
   unit-tests-playwright:
     runs-on: ubuntu-latest
@@ -173,14 +177,18 @@ jobs:
         with:
           node-version: ${{env.NODE_VERSION}}
           runner-name: "runner-playwright"
-          options: "--generateJunitReport --generateHtmlReport --generateA11yReport"
+          options: "--generateJunitReport --generateHtmlReport --generateA11yReport || echo 'UUV Test executed'"
       - name: Test Report
         uses: MichaelVoelkel/test-reporter@main
         if: success() || failure()
         with:
           name: Report - Unit Tests - Playwright
           path: packages/runner-playwright/reports/e2e/junit-report.xml
-          reporter: jest-junit
+          reporter: java-junit
+          fail-on-error: false
+      - name: Verify Junit Report
+        if: success() || failure()
+        run: npx nx verify-report runner-playwright
 
   unit-tests-runner-flutter:
     runs-on: ubuntu-latest

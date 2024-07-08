@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { UUVEvent, UUVEventTestFailed, UUVEventTestFinished, UUVEventTestIgnored, UUVEventTestStarted, UUVEventTestSuiteFinished, UUVEventTestSuiteStarted, UUVEventType } from "@uuv/runner-commons";
+import { UUVEvent, UUVEventTestFailed, UUVEventTestFinished, UUVEventTestIgnored, UUVEventTestStarted, UUVEventTestSuiteFinished, UUVEventTestSuiteStarted, UUVEventType } from "@uuv/runner-commons/runner/event";
 import { UUV_COMMAND_TIMEOUT } from "./helper";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires

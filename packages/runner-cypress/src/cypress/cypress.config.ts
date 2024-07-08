@@ -7,7 +7,7 @@ import {
   afterSpecHandler
 } from "@badeball/cypress-cucumber-preprocessor";
 import fs from "fs";
-import { UUVListenerHelper, UUVEventEmitter } from "@uuv/runner-commons";
+import { UUVListenerHelper, UUVEventEmitter } from "@uuv/runner-commons/runner/event";
 
 export async function setupNodeEvents (
   on: Cypress.PluginEvents,
@@ -28,11 +28,6 @@ export async function setupNodeEvents (
           fallback: {
             child_process: false,
             fs: false,
-            os: false,
-            net: false,
-            tls: false,
-            dgram: false,
-            util: false,
             path: require.resolve("path-browserify")
           }
         },

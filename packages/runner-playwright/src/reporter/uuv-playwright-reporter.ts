@@ -1,7 +1,7 @@
 import { FullConfig, FullResult, Reporter, Suite, TestCase, TestError, TestResult, TestStep } from "@playwright/test/reporter";
 import UuvPlaywrightReporterHelper, { GeneratedReportType } from "./uuv-playwright-reporter-helper";
 import chalk from "chalk";
-import { UUVEventEmitter, UUVListenerHelper } from "@uuv/runner-commons";
+import { UUVEventEmitter, UUVListenerHelper } from "@uuv/runner-commons/runner/event";
 
 class UuvPlawrightReporter implements Reporter {
     private helper: UuvPlaywrightReporterHelper = new UuvPlaywrightReporterHelper();
