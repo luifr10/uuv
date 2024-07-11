@@ -69,7 +69,7 @@ The `End to End test` is a technique used to verify if an application (web,
 mobile...) behaves as expected, from start to finish. It consists in verifying that the end user can complete the main usage scenarios of the application.
 
 Unlike `unit test` which only aims to verifying the behavior of a function, or  
-the `integration test` which consists in making several modules of the application interact with each other in order to see their good cooperation, the `End to End test` allows to check from a browser (for example for web applications), the `End to End test` allows to check from a browser (for example for web applications) the behavior of your application according to a set of use cases.
+the `integration test` which consists in making several modules of the application interact with each other in order to see their good cooperation, the `End to End test` allows to check from a browser (for example for web applications) the behavior of your application according to a set of use cases.
 
 > During the `E2E test`, the validations consist most of the time in checking the elements returned to the user via the web browser ([DOM](https://developer.mozilla.org/fr/docs/Web/API/Document_Object_Model))
 
