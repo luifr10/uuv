@@ -28,3 +28,8 @@ Feature: Ko
     Then I should see a list named "Available Towns" and containing
       | Tunis   |
       | Limoges |
+
+  Scenario: Error when waiting a mock without instanciate a mock before
+    Then I should consume a mock named "uuvFixture"
+
+

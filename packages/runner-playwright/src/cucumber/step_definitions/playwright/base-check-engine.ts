@@ -16,26 +16,25 @@ import { DEFAULT_TIMEOUT, fs, KEY_PRESS } from "@uuv/runner-commons";
 import { key } from "@uuv/runner-commons/wording/web";
 import { checkA11y, injectAxe } from "axe-playwright";
 import { devices, expect } from "@playwright/test";
-import { Page, Locator } from "playwright";
-import { DataTable } from "@cucumber/cucumber";
+import { Locator, Page } from "playwright";
+import { DataTable, Given, Then, When } from "@cucumber/cucumber";
 import {
-    addCookieWhenValueIsList,
-    COOKIE_NAME, deleteCookieByName,
-    deleteCookieByValue,
-    FILTER_TYPE,
-    findWithRoleAndName,
-    findWithRoleAndNameAndContent,
-    findWithRoleAndNameAndContentDisable,
-    findWithRoleAndNameAndContentEnable,
-    findWithRoleAndNameFocused,
-    getCookie,
-    getPageOrElement,
-    MockType,
-    notFoundWithRoleAndName,
-    withinRoleAndName
+  addCookie,
+  COOKIE_NAME,
+  deleteCookieByName,
+  FILTER_TYPE,
+  findWithRoleAndName,
+  findWithRoleAndNameAndContent,
+  findWithRoleAndNameAndContentDisable,
+  findWithRoleAndNameAndContentEnable,
+  findWithRoleAndNameFocused,
+  getCookie,
+  getPageOrElement,
+  MockCookie,
+  notFoundWithRoleAndName,
+  SelectedElementCookie,
+  withinRoleAndName
 } from "./core-engine";
-
-import { Given, When, Then } from "@cucumber/cucumber";
 import { World } from "../../preprocessor/run/world";
 import { ContextObject, RunOptions } from "axe-core";
 import path from "path";
@@ -61,10 +60,10 @@ Given(
  * key.given.keyboard.startNavigationFromTheTop.description
  * */
 Given(
-    `${key.given.keyboard.startNavigationFromTheTop}`,
-    async function(this: World) {
-        await this.page.mouse.click(0.5, 0.5);
-    }
+ `${key.given.keyboard.startNavigationFromTheTop}`,
+ async function(this: World) {
+   await this.page.mouse.click(0.5, 0.5);
+ }
 );
 
 /**
@@ -79,12 +78,12 @@ Given(`${key.when.visit}`, { timeout: 60 * 1000 }, async function(this: World, s
  * key.when.click.withContext.description
  * */
 When(`${key.when.click.withContext}`, async function(this: World) {
-    const keyBoardFocusTargetObj = keyBoardFocusTarget(this);
-    if ((await keyBoardFocusTargetObj.count()) === 1) {
-        await keyBoardFocusTargetObj.click({ timeout: DEFAULT_TIMEOUT });
-    } else {
-        await getPageOrElement(this).then((element: Locator) => element.click({ timeout: DEFAULT_TIMEOUT }));
-    }
+  const keyBoardFocusTargetObj = keyBoardFocusTarget(this);
+  if ((await keyBoardFocusTargetObj.count()) === 1) {
+    await keyBoardFocusTargetObj.click({ timeout: DEFAULT_TIMEOUT });
+  } else {
+    await getPageOrElement(this).then((element: Locator) => element.click({ timeout: DEFAULT_TIMEOUT }));
+  }
 });
 
 /**
@@ -108,14 +107,14 @@ When(`${key.when.click.withRole}`, async function(this: World, role: string, nam
 When(`${key.when.withinElement.ariaLabel}`, async function(this: World, expectedAriaLabel: string) {
   const sanitizedExpectedAriaLabel = encodeURIComponent(expectedAriaLabel).replaceAll("%20", " ");
   await getPageOrElement(this).then((element) => expect(element.getByLabel(sanitizedExpectedAriaLabel, { exact: true })).toHaveCount(1));
-  await addCookieWhenValueIsList(this, COOKIE_NAME.SELECTED_ELEMENT, { name: FILTER_TYPE.ARIA_LABEL, value: sanitizedExpectedAriaLabel });
+  await addCookie(this, COOKIE_NAME.SELECTED_ELEMENT, new SelectedElementCookie(FILTER_TYPE.ARIA_LABEL, sanitizedExpectedAriaLabel));
 });
 
 /**
  * key.when.resetContext.description
  * */
 When(`${key.when.resetContext}`, async function(this: World) {
-  await this.context.clearCookies();
+  await deleteCookieByName(this, COOKIE_NAME.SELECTED_ELEMENT);
 });
 
 /**
@@ -123,23 +122,23 @@ When(`${key.when.resetContext}`, async function(this: World) {
  * */
 When(`${key.when.withinElement.selector}`, async function(this: World, selector: string) {
   await getPageOrElement(this).then((element) => expect(element.locator(selector)).toHaveCount(1));
-  await addCookieWhenValueIsList(this, COOKIE_NAME.SELECTED_ELEMENT, { name: FILTER_TYPE.SELECTOR, value: selector });
+  await addCookie(this, COOKIE_NAME.SELECTED_ELEMENT, new SelectedElementCookie(FILTER_TYPE.SELECTOR, selector));
 });
 
 /**
  * key.when.type.description
  * */
 When(`${key.when.type}`, async function(this: World, textToType: string) {
-    const keyBoardFocusTargetObj = keyBoardFocusTarget(this);
-    if ((await keyBoardFocusTargetObj.count()) === 1) {
-        await keyBoardFocusTargetObj.type(textToType);
-    } else {
-        await getPageOrElement(this).then(async (element: Locator) => {
-            // console.debug(element);
-            await element.focus({ timeout: 10000 });
-            await element.type(textToType);
-        });
-    }
+  const keyBoardFocusTargetObj = keyBoardFocusTarget(this);
+  if ((await keyBoardFocusTargetObj.count()) === 1) {
+    await keyBoardFocusTargetObj.type(textToType);
+  } else {
+    await getPageOrElement(this).then(async (element: Locator) => {
+      // console.debug(element);
+      await element.focus({ timeout: 10000 });
+      await element.type(textToType);
+    });
+  }
 });
 
 /**
@@ -155,21 +154,21 @@ When(`${key.when.keyboard.multiplePress}`, async function(this: World, nbTimes: 
  * key.when.keyboard.press.description
  * */
 When(`${key.when.keyboard.press}`, async function(this: World, key: string) {
-    await pressKey(this, key);
+  await pressKey(this, key);
 });
 
 /**
  * key.when.keyboard.previousElement.description
  * */
 When(`${key.when.keyboard.previousElement}`, async function(this: World) {
-    await this.page.keyboard.press("ShiftLeft+Tab");
+  await this.page.keyboard.press("ShiftLeft+Tab");
 });
 
 /**
  * key.when.keyboard.nextElement.description
  * */
 When(`${key.when.keyboard.nextElement}`, async function(this: World) {
-    await this.page.keyboard.press("Tab");
+  await this.page.keyboard.press("Tab");
 });
 
 /**
@@ -192,7 +191,7 @@ When(`${key.when.withinElement.roleAndName}`, async function(this: World, role: 
 When(`${key.when.withinElement.testId}`, async function(this: World, testId: string) {
   testId = encodeURIComponent(testId);
   await getPageOrElement(this).then(async (element) => await expect(element.getByTestId(testId)).toHaveCount(1));
-  await addCookieWhenValueIsList(this, COOKIE_NAME.SELECTED_ELEMENT, { name: FILTER_TYPE.TEST_ID, value: testId });
+  await addCookie(this, COOKIE_NAME.SELECTED_ELEMENT, new SelectedElementCookie(FILTER_TYPE.TEST_ID, testId));
 });
 
 /**
@@ -201,10 +200,10 @@ When(`${key.when.withinElement.testId}`, async function(this: World, testId: str
 When(
  `${key.when.mock.withBody}`,
  async function(this: World, verb: string, url: string, name: string, body: any) {
-   await addCookieWhenValueIsList(this, COOKIE_NAME.MOCK_URL, { name: name, url: url });
+   await addCookie(this, COOKIE_NAME.MOCK_URL, new MockCookie(name, url, verb));
    await this.page.route(url, async route => {
-     const json = body;
-     await route.fulfill({ json });
+     await route.fulfill({ body });
+     await afterMock(this, url, verb, name);
    });
  }
 );
@@ -215,9 +214,10 @@ When(
 When(
  `${key.when.mock.withStatusCode}`,
  async function(this: World, verb: string, url: string, name: string, statusCode: number) {
-   await addCookieWhenValueIsList(this, COOKIE_NAME.MOCK_URL, { name: name, url: url });
+   await addCookie(this, COOKIE_NAME.MOCK_URL, new MockCookie(name, url, verb));
    await this.page.route(url, async route => {
      await route.fulfill({ status: statusCode });
+     await afterMock(this, url, verb, name);
    });
  }
 );
@@ -228,10 +228,12 @@ When(
 When(
  `${key.when.mock.withFixture}`,
  async function(this: World, verb: string, url: string, name: string, fixture: any) {
-   await addCookieWhenValueIsList(this, COOKIE_NAME.MOCK_URL, { name: name, url: url });
-   const data = await fs.readFileSync(path.join(getConfigDir(), `playwright/fixtures/${fixture}`));
+   await addCookie(this, COOKIE_NAME.MOCK_URL, new MockCookie(name, url, verb));
+   const data = fs.readFileSync(path.join(getConfigDir(), `playwright/fixtures/${fixture}`), "utf8");
    await this.page.route(url, async route => {
      await route.fulfill({ body: data });
+     await afterMock(this, url, verb, name);
+
    });
  }
 );
@@ -321,7 +323,7 @@ Then(
  * key.then.a11y.axecore.withFixtureOption.description
  * */
 Then(
-     `${key.then.a11y.axecore.withFixtureOption}`,
+ `${key.then.a11y.axecore.withFixtureOption}`,
  async function(this: World, option: any) {
    await injectAxe(this.page as Page);
    const optionFile = await fs.readFileSync(path.join(getConfigDir(), `playwright/fixtures/${option}`));
@@ -332,8 +334,8 @@ Then(
  });
 
 function getConfigDir(): string {
-    // eslint-disable-next-line dot-notation
-    return process.env["CONFIG_DIR"] ? process.env["CONFIG_DIR"] : "";
+  // eslint-disable-next-line dot-notation
+  return process.env["CONFIG_DIR"] ? process.env["CONFIG_DIR"] : "";
 }
 
 /**
@@ -416,10 +418,10 @@ Then(
  * key.then.element.withRoleAndNameFocused.description
  * */
 Then(
-    `${key.then.element.withRoleAndNameFocused}`,
-    async function(this: World, expectedRole: string, name: string) {
-        await findWithRoleAndNameFocused(this, expectedRole, name);
-    }
+ `${key.then.element.withRoleAndNameFocused}`,
+ async function(this: World, expectedRole: string, name: string) {
+   await findWithRoleAndNameFocused(this, expectedRole, name);
+ }
 );
 
 /**
@@ -428,7 +430,7 @@ Then(
 Then(
  `${key.then.element.withSelectorFocused}`,
  async function(this: World, selector: string) {
-   await getPageOrElement(this).then( async(element) => {
+   await getPageOrElement(this).then(async (element) => {
      const locator = element.locator(selector);
      await locator.focus({ timeout: 10000 });
      await expect(locator).toHaveCount(1);
@@ -488,16 +490,16 @@ Then(`${key.then.element.withAriaLabelAndContent}`, async function(this: World, 
  * key.then.element.previousWithRoleAndNameFocused.description
  * */
 When(`${key.then.element.previousWithRoleAndNameFocused}`, async function(this: World, expectedRole: string, name: string) {
-    await this.page.keyboard.press("ShiftLeft+Tab");
-    await findWithRoleAndNameFocused(this, expectedRole, name);
+  await this.page.keyboard.press("ShiftLeft+Tab");
+  await findWithRoleAndNameFocused(this, expectedRole, name);
 });
 
 /**
  * "key.then.element.nextWithRoleAndNameFocused.description
  * */
 When(`${key.then.element.nextWithRoleAndNameFocused}`, async function(this: World, expectedRole: string, name: string) {
-    await this.page.keyboard.press("Tab");
-    await findWithRoleAndNameFocused(this, expectedRole, name);
+  await this.page.keyboard.press("Tab");
+  await findWithRoleAndNameFocused(this, expectedRole, name);
 });
 
 
@@ -506,13 +508,21 @@ When(`${key.then.element.nextWithRoleAndNameFocused}`, async function(this: Worl
  * */
 Then(`${key.then.wait.mock}`, async function(this: World, name: string) {
   const cookie = await getCookie(this, COOKIE_NAME.MOCK_URL);
-  const mockUrls: MockType[] = JSON.parse(cookie.value);
-  const mockUrl: MockType | undefined = mockUrls.find(mock => mock.name === name);
-  await expect(mockUrl).not.toBeUndefined();
-  const requestPromise = await this.page.waitForResponse(mockUrl?.url);
-  const request = await requestPromise;
-  await deleteCookieByValue(this, COOKIE_NAME.MOCK_URL, mockUrl);
-  // console.debug("request: ", request);
+  expect(() => {
+    if (!cookie.isValid()) {
+      throw new Error(`Mock ${name} must be defined before use this sentence`);
+    }
+  }).not.toThrow();
+
+  await expect.poll(async () => {
+    const cookie = await getCookie(this, COOKIE_NAME.MOCK_URL);
+    const mockUrls: MockCookie[] = JSON.parse(cookie.value);
+    const mockUrl = mockUrls.find(mock => mock.name === name);
+    if (mockUrl) {
+      return mockUrl?.isConsumed;
+    }
+    return false;
+  }).toBeDefined();
 });
 
 /**
@@ -563,42 +573,56 @@ Then(
 );
 
 async function pressKey(world: World, key: string) {
-    switch (key) {
-        case KEY_PRESS.TAB:
-            await world.page.keyboard.press("Tab");
-            break;
-        case KEY_PRESS.REVERSE_TAB:
-            await world.page.keyboard.press("ShiftLeft+Tab");
-            break;
-        case KEY_PRESS.UP:
-            await world.page.keyboard.press("ArrowUp");
-            break;
-        case KEY_PRESS.DOWN:
-            await world.page.keyboard.press("ArrowDown");
-            break;
-        case KEY_PRESS.LEFT:
-            await world.page.keyboard.press("ArrowLeft");
-            break;
-        case KEY_PRESS.RIGHT:
-            await world.page.keyboard.press("ArrowRight");
-            break;
-        default:
-            console.error("the command" + key + " is unrecognized.");
-            break;
-    }
-    await deleteCookieByName(world, COOKIE_NAME.SELECTED_ELEMENT);
-    await addCookieWhenValueIsList(world, COOKIE_NAME.SELECTED_ELEMENT, { name: FILTER_TYPE.SELECTOR_PARENT, value: "*:focus" });
+  switch (key) {
+    case KEY_PRESS.TAB:
+      await world.page.keyboard.press("Tab");
+      break;
+    case KEY_PRESS.REVERSE_TAB:
+      await world.page.keyboard.press("ShiftLeft+Tab");
+      break;
+    case KEY_PRESS.UP:
+      await world.page.keyboard.press("ArrowUp");
+      break;
+    case KEY_PRESS.DOWN:
+      await world.page.keyboard.press("ArrowDown");
+      break;
+    case KEY_PRESS.LEFT:
+      await world.page.keyboard.press("ArrowLeft");
+      break;
+    case KEY_PRESS.RIGHT:
+      await world.page.keyboard.press("ArrowRight");
+      break;
+    default:
+      console.error("the command" + key + " is unrecognized.");
+      break;
+  }
+  await deleteCookieByName(world, COOKIE_NAME.SELECTED_ELEMENT);
+  await addCookie(world, COOKIE_NAME.SELECTED_ELEMENT, new SelectedElementCookie(FILTER_TYPE.SELECTOR_PARENT, "*:focus"));
 }
 
 async function click(world: World, role: any, name: string) {
   await getPageOrElement(world).then(async (element) => {
-      const byRole = element.getByRole(role, { name: name, includeHidden: true, exact: true });
-      await expect(byRole).toHaveCount(1);
-      await byRole.click({ timeout: DEFAULT_TIMEOUT });
-      await world.context.clearCookies();
+    const byRole = element.getByRole(role, { name: name, includeHidden: true, exact: true });
+    await expect(byRole).toHaveCount(1);
+    await byRole.click({ timeout: DEFAULT_TIMEOUT });
+    await world.page.waitForLoadState();
+    await deleteCookieByName(world, COOKIE_NAME.SELECTED_ELEMENT);
   });
 }
 
 function keyBoardFocusTarget(world: World) {
-    return world.page.locator(":focus");
+  return world.page.locator(":focus");
+}
+
+async function afterMock(world: World, url: string, verb: string, name: string) {
+  await world.page.waitForResponse(url);
+  const cookie = await getCookie(world, COOKIE_NAME.MOCK_URL);
+  const mockCookie: MockCookie[] = JSON.parse(cookie.value);
+  for (const mock of mockCookie) {
+    if (mock.name === name && mock.verb === verb && mock.url === url) {
+      const newMockCookie = new MockCookie(name, mock.url, mock.verb);
+      newMockCookie.isConsumed = true;
+      await addCookie(world, COOKIE_NAME.MOCK_URL, newMockCookie);
+    }
+  }
 }
