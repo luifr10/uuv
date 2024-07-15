@@ -614,15 +614,19 @@ function keyBoardFocusTarget(world: World) {
   return world.page.locator(":focus");
 }
 
+async function setMockAsConsumed(name: string, mock: MockCookie, world: World<any>) {
+  const newMockCookie = new MockCookie(name, mock.url, mock.verb);
+  newMockCookie.isConsumed = true;
+  await addCookie(world, COOKIE_NAME.MOCK_URL, newMockCookie);
+}
+
 async function afterMock(world: World, url: string, verb: string, name: string) {
   await world.page.waitForResponse(url);
   const cookie = await getCookie(world, COOKIE_NAME.MOCK_URL);
   const mockCookie: MockCookie[] = JSON.parse(cookie.value);
   for (const mock of mockCookie) {
     if (mock.name === name && mock.verb === verb && mock.url === url) {
-      const newMockCookie = new MockCookie(name, mock.url, mock.verb);
-      newMockCookie.isConsumed = true;
-      await addCookie(world, COOKIE_NAME.MOCK_URL, newMockCookie);
+      await setMockAsConsumed(name, mock, world);
     }
   }
 }

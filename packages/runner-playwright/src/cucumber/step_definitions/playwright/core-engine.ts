@@ -139,12 +139,7 @@ export async function getCookie(world: World, cookieName: COOKIE_NAME): Promise<
       return Object.assign(new CustomCookie(), cookieInContext);
     }
   }
-  return Object.assign(new CustomCookie(), {
-    "name": `${COOKIE_VALUE.NOT_EXIST.toString()}`,
-    "value": "[]",
-    "domain": ".github.com",
-    "path": "/"
-  });
+  return new CustomCookie();
 }
 
 export async function deleteCookieByName(world: World, cookieName: COOKIE_NAME) {
