@@ -1,6 +1,12 @@
+export enum UUV_TARGET_COMMAND {
+    OPEN ="open",
+    E2E ="e2e",
+    RUN ="run"
+}
+
 export type UUVCliOptions = {
     baseUrl: string;
-    command: "open" | "e2e";
+    command: UUV_TARGET_COMMAND;
     browser: string;
     targetTestFile: string;
     report: {

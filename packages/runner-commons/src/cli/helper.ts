@@ -2,7 +2,7 @@ import chalk from "chalk";
 import figlet from "figlet";
 import minimist from "minimist";
 import path from "path";
-import { UUVCliOptions } from "./options";
+import { UUV_TARGET_COMMAND, UUVCliOptions } from "./options";
 import { isEmpty } from "lodash";
 import cp from "child_process";
 
@@ -44,8 +44,8 @@ export class UUVCliHelper {
         }
     }
 
-    private static getTargetCommand(argv) {
-        return argv._[0];
+    private static getTargetCommand(argv): UUV_TARGET_COMMAND {
+        return UUV_TARGET_COMMAND[(argv._[0] ).toUpperCase()];
     }
 
     static extractArgs(projectDir: string, defaultBrowser): Partial<UUVCliOptions> {
