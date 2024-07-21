@@ -1,24 +1,3 @@
-## [1.3.1](https://github.com/Orange-OpenSource/uuv/compare/vscode-extension-v1.3.0...vscode-extension-v1.3.1) (2024-07-16)
-
-
-### Bug Fixes
-
-* **runner-commons:** improve uuv command control, [#682](https://github.com/Orange-OpenSource/uuv/issues/682) ([#698](https://github.com/Orange-OpenSource/uuv/issues/698)) ([e5327ce](https://github.com/Orange-OpenSource/uuv/commit/e5327ceb3c3bb1cdb6c6d9f87852ea14ab3b8700))
-
-# [1.3.0](https://github.com/Orange-OpenSource/uuv/compare/vscode-extension-v1.2.1...vscode-extension-v1.3.0) (2024-07-14)
-
-
-### Bug Fixes
-
-* **deps:** update dependency tslib to v2.6.3 ([5f1bd19](https://github.com/Orange-OpenSource/uuv/commit/5f1bd190dce41dd51bbe2cad652fe39a09ff132d))
-
-
-### Features
-
-* **assistant:** update dependency antd to v5.19.1 ([18a90bf](https://github.com/Orange-OpenSource/uuv/commit/18a90bf2d8e0918c8c3f5c10f17eb32a53df5d0e))
-* **runner-cypress:** update dependency cypress-real-events to v1.13.0 ([e3b8dc0](https://github.com/Orange-OpenSource/uuv/commit/e3b8dc06ff6f9fb7cfee89e858676f17e1933af8))
-* **runner-playwright:** update playwright monorepo to v1.45.1 ([6be42dc](https://github.com/Orange-OpenSource/uuv/commit/6be42dc9604f4d786db6c32499319bccda504e29))
-
 ## [1.2.1](https://github.com/Orange-OpenSource/uuv/compare/vscode-extension-v1.2.0...vscode-extension-v1.2.1) (2024-07-08)
 
 

@@ -46,6 +46,10 @@
       {
         "command": "uuv.open",
         "title": "UUV Open"
+      },
+      {
+        "command": "uuv.assistant",
+        "title": "UUV Assistant"
       }
     ],
     "configuration": {

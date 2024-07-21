@@ -11,12 +11,18 @@ You must either have `@uuv/cypress` or `@uuv/playwright` as dev dependency [inst
 ## Features
 
 ### Execute **uuv open**
-Opens the runner : find `UUV Open` vscode command.<br/>
+Open the runner : find `UUV Open` vscode command.<br/>
 ![UUV Open](./packages/vscode-extension/docs/images/uuv-open.png)
 
 ### Execute **uuv e2e**
 From the `Testing view`, you can see and execute your uuv tests.<br/>
 ![UUV E2E](./packages/vscode-extension/docs/images/uuv-e2e.png)
+
+### Execute **uuv assistant**
+[@uuv/assistant](https://orange-opensource.github.io/uuv/docs/tools/uuv-assistant) is a component that helps you generate sentences with a user-centric approach for your test scenario.<br/>
+Open uuv assistant : find `UUV Assistant` vscode command.<br/>
+![UUV Assistant](./packages/vscode-extension/docs/images/uuv-assistant.png)
+
 
 ## Extension settings
 

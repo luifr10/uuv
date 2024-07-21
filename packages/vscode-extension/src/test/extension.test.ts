@@ -6,10 +6,13 @@ import * as vscode from "vscode";
 // import * as myExtension from '../../extension';
 
 suite("UUV Extension", async () => {
-	const allCommands = await vscode.commands.getCommands();
+	test("should contains uuv.open command", async () => {
+		const allCommands = await vscode.commands.getCommands();
+		assert.notEqual(allCommands.indexOf("uuv.open"), -1);
+	});
 
-	test("should contains open command", () => {
-		// assert.equal(allCommands.indexOf("uuv.open"), -1);
-		assert.equal(0, -1);
+	test("should contains uuv.assistant command", async () => {
+		const allCommands = await vscode.commands.getCommands();
+		assert.notEqual(allCommands.indexOf("uuv.assistant"), -1);
 	});
 });

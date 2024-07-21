@@ -86,16 +86,29 @@ export class Helper {
         return uri;
     }
 
-    static buildUUVCommand(target: "open" | "e2e"): string {
-        let command = "";
+    static initUUVConsoleCommandWithProjectDir(): string {
         const uuvExtconfiguration = vscode.workspace.getConfiguration(UUV_VSCODE_CONFIGURATION_SECTION);
-
         if (uuvExtconfiguration.get("projectHomeDir") && uuvExtconfiguration.get("projectHomeDir") !== DEFAULT_PROJECT_DIR) {
-            command = `cd ${uuvExtconfiguration.get("projectHomeDir")} && `;
+            return `cd ${uuvExtconfiguration.get("projectHomeDir")} && `;
         }
+        return "";
+    }
 
+    static buildUUVConsoleCommand(target: "open" | "e2e"): string {
+        let command = this.initUUVConsoleCommandWithProjectDir();
+
+        const uuvExtconfiguration = vscode.workspace.getConfiguration(UUV_VSCODE_CONFIGURATION_SECTION);
         command = `${command}${uuvExtconfiguration.get("useLocalScript") === true ? "npm run uuv" : "npx uuv"}`;
 
         return `${command} ${target}`;
+    }
+
+    static buildUUVAssistantConsoleCommand(targetUrl: string): string {
+        let command = this.initUUVConsoleCommandWithProjectDir();
+
+        const uuvExtconfiguration = vscode.workspace.getConfiguration(UUV_VSCODE_CONFIGURATION_SECTION);
+        command = `${command}${uuvExtconfiguration.get("useLocalScript") === true ? "npm run uuv-assistant" : "npx uuv-assistant"}`;
+
+        return `${command} --targetUrl="${targetUrl}"`;
     }
 }

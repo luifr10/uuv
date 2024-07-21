@@ -2,7 +2,7 @@ import * as vscode from "vscode";
 import { vsCodeListener } from "./uuv-vscode-listener";
 import { Helper } from "./helper";
 
-export function createTestController() {
+export function createUUVTestController() {
     const testController = vscode.tests.createTestController(
         "uuvE2eTests",
         "UUV E2E Tests"
@@ -86,7 +86,7 @@ function runHandler(
         testController.items.forEach(test => queue.push(test));
     }
 
-    terminal.sendText(`${Helper.buildUUVCommand("e2e")} --env="{'enableVsCodeListener':true}"${targetTestArgs}`);
+    terminal.sendText(`${Helper.buildUUVConsoleCommand("e2e")} --env="{'enableVsCodeListener':true}"${targetTestArgs}`);
 
     // For every test that was queued, try to run it. Call run.passed() or run.failed().
     // The `TestMessage` can contain extra information, like a failing location or

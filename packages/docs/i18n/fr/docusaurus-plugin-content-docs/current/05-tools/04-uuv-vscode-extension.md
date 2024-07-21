@@ -14,6 +14,11 @@ Ouvrir le runner : rechercher la commande vscode `UUV Open`.<br/>
 Depuis la `vue Testing`, vous pouvez voir et exécuter vos tests uuv.<br/>
 ![UUV E2E](https://github.com/Orange-OpenSource/uuv/raw/HEAD/packages/vscode-extension/docs/images/uuv-e2e.png)
 
+### Executer **uuv assistant**
+[@uuv/assistant](https://orange-opensource.github.io/uuv/docs/tools/uuv-assistant) est un composant qui vous aide à générer les phrases avec une approche user-centric pour vous scénario de test.<br/>
+Ouvrir l'assistant uuv : rechercher la commande vscode `UUV Open`.<br/>
+![UUV Assistant](https://github.com/Orange-OpenSource/uuv/raw/HEAD/packages//vscode-extension/docs/images/uuv-assistant.png)
+
 ## Paramètres de l'extension
 
 | Parametre             | Obligatoire | Valeur par défaut | Description                                                                                |

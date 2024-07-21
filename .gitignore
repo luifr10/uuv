@@ -76,3 +76,4 @@ packages/assistant/uuv/uuv/reports/
 packages/vscode-extension/.vscode-test/
 packages/vscode-extension/out/
 packages/vscode-extension/*.vsix
+packages/vscode-extension/packages/
