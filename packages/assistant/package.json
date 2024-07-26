@@ -43,7 +43,7 @@
     "build-bundle": "node bundle-script.js",
     "package": "npm pack --pack-destination=\"../../dist/packages\"",
     "lint": "eslint -c .eslintrc.json",
-    "test": "npm run unit-test && npm run e2e-test:run",
+    "test": "npm run unit-tests && npm run e2e-test:run",
     "unit-tests": "jest --coverage",
     "e2e-test:run": "npm run uuv e2e --",
     "e2e-test:open": "npm run uuv open --",

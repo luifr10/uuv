@@ -21,7 +21,9 @@ export enum ActionEnum {
   WITHIN = "Within",
   EXPECT = "Expect",
   CLICK = "Click",
-  KEYBOARD_GLOBAL_NAVIGATION = "Keyboard Navigation"
+  KEYBOARD_GLOBAL_NAVIGATION = "Keyboard Navigation",
+  FORM_COMPLETION_MOUSE = "Form Mouse Completion",
+  FORM_COMPLETION_KEYBOARD = "Form Keyboard Completion"
 }
 
 export enum KeyboardNavigationModeEnum {
@@ -33,4 +35,7 @@ export enum KeyboardNavigationModeEnum {
 export enum AdditionalLayerEnum {
   CURRENT_NAVIGATION = "keyboard-layer-current-navigation",
   EXPECTED_NAVIGATION = "keyboard-layer-expected-navigation",
+  FORM_COMPLETION = "form-layer-completion",
 }
+
+export const UUV_DISABLED_CLASS = "uuv-is-disabled";

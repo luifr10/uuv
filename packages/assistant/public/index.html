@@ -22,7 +22,7 @@
 </head>
 <body style="background-color: #d1cbcb">
 <noscript>You need to enable JavaScript to run this app.</noscript>
-<main role="main">
+<main role="main" style="margin: 0 20px">
   <h1>Grouping Form Data with Fieldset</h1>
 
   <p data-testid='sentence'>The fieldset element is used to group related data in a form, and the legend element defines a caption for the</p>
@@ -37,21 +37,41 @@
   </div>
 
   <form action="/">
+    <div>
+      <label for="range">Range</label>
+      <input type="range" name="range" id="range" min="0" max="100" step="10" value="0">
+    </div>
+    <div>
+      <label for="url">Website</label>
+      <input type="url" name="url" id="url">
+    </div>
+    <div>
+      <label for="power">Power</label>
+      <input type="number" name="power" id="power">
+    </div>
+    <div>
+      <label for="date">Date</label>
+      <input type="date" name="date" id="date">
+    </div>
+    <div>
+      <label for="time">Time</label>
+      <input type="time" name="time" id="time">
+    </div>
     <fieldset data-testid="fieldset">
       <legend aria-label="flegend">Personalia</legend>
       <label for="fname">First name</label><br>
       <input type="text" id="fname" name="fname" value="John" class="fname-class" disabled><br>
       <label for="lname">Last name</label><br>
       <input type="text" id="lname" name="lname" value="Doe"><br><br>
-      <input type="submit" value="Submit">
-      <input type="button" value="Reset">
+      <input type="button" value="anotherButton">
+      <input type="submit" value="firstSubmitButton">
+      <button type="submit">secondSubmitButton</button>
+      <button type="reset">Reset</button>
     </fieldset>
   </form>
   <input type="submit" value="Submit">
 </main>
 <div id="uvv-assistant-root"></div>
-<div id="uvv-assistant-additional-layers">
-  <div id="uvv-assistant-keyboard-layer"></div>
-</div>
+<div id="uvv-assistant-additional-layers"></div>
 </body>
 </html>

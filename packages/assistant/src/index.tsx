@@ -25,7 +25,7 @@ document.addEventListener("UUVAssistantReadyToLoad", (e: any) => {
     console.log("event listened: UUVAssistantReadyToLoad");
     document.body.style.marginRight = `${parseInt(window.getComputedStyle(document.body).marginRight) + UUV_ASSISTANT_BAR_WIDTH}px`;
     const assistantRoot = document.getElementById("uvv-assistant-root");
-    const assistantAdditionalLayersRoot = document.getElementById("uvv-assistant-keyboard-layer");
+    const assistantAdditionalLayersRoot = document.getElementById("uvv-assistant-additional-layers");
     if (assistantRoot && assistantAdditionalLayersRoot) {
         assistantRoot.classList.add("react-container");
         const shadowAssistantRoot = assistantRoot.attachShadow({ mode: "open" });

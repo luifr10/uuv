@@ -16,7 +16,7 @@ class FrAccessibleRole extends AccessibleRole {
         override id: string,
         override name: string,
         private definiteArticle: FR_DEFINITE_ARTICLE,
-        private indefiniteArticle: FR_INDEFINITE_ARTICLE,        
+        private indefiniteArticle: FR_INDEFINITE_ARTICLE,
         override shouldGenerateClickSentence: boolean = false,
         override shouldGenerateTypeSentence: boolean = true,
         override shouldGenerateContainsSentence: boolean = true,

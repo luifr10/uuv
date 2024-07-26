@@ -16,8 +16,7 @@ import React, { useEffect, useState } from "react";
 import uuvLogoJson from "./assets/uuvLogo.json";
 import mouseIcon from "./assets/mouse.json";
 import keyboardIcon from "./assets/keyboard.json";
-
-import { BaseSentence, StepCaseEnum, TranslateHelper, TranslateSentences } from "./helper/TranslateHelper";
+import formIcon from "./assets/form.json";
 import {
   Avatar,
   Button,
@@ -28,7 +27,6 @@ import {
   Menu,
   MenuProps,
   message,
-  RadioChangeEvent,
   Spin,
   theme,
   Tooltip,
@@ -37,17 +35,20 @@ import {
 import { CloseOutlined, CopyOutlined, DoubleLeftOutlined, DoubleRightOutlined } from "@ant-design/icons";
 import { StyleProvider } from "@ant-design/cssinjs";
 import { CssHelper } from "./helper/CssHelper";
-import { FocusableElement, tabbable } from "tabbable";
+import { FocusableElement } from "tabbable";
 
 import CodeMirror, { EditorView, Extension, gutter } from "@uiw/react-codemirror";
 import { StreamLanguage } from "@codemirror/language";
 import { gherkin } from "@codemirror/legacy-modes/mode/gherkin";
 import { githubDark } from "@uiw/codemirror-theme-github";
 
-import { enSentences } from "@uuv/runner-commons/wording/web/en";
-import { KeyboardNavigationHelper } from "./helper/KeyboardNavigationHelper";
+import * as KeyboardNavigationHelper from "./helper/KeyboardNavigationHelper";
+import * as FormCompletionHelper from "./helper/FormCompletionHelper";
 import { buildResultingScript, buildUuvGutter } from "./helper/ResultScriptHelper";
-import { ActionEnum, AdditionalLayerEnum, KeyboardNavigationModeEnum, ResultSentence, Suggestion, VisibilityEnum } from "./Commons";
+import { ActionEnum, AdditionalLayerEnum, KeyboardNavigationModeEnum, ResultSentence, VisibilityEnum } from "./Commons";
+import * as LayerHelper from "./helper/LayerHelper";
+import { SelectionHelper } from "./helper/SelectionHelper";
+import { TranslateSentences } from "./translator/model";
 
 const { Sider } = Layout;
 const { Text } = Typography;
@@ -73,41 +74,14 @@ function UuvAssistant(props: UuvAssistantProps) {
   const [expectedKeyboardNavigation, setExpectedKeyboardNavigation] = useState<FocusableElement[]>([]);
   const [displayedKeyboardNavigation, setDisplayedKeyboardNavigation] = useState<KeyboardNavigationModeEnum>(KeyboardNavigationModeEnum.NONE);
 
-  const jsonBase: BaseSentence[] = enSentences;
-  const Inspector = require("inspector-dom");
-  const inspector = Inspector({
-    root: "body",
-    outlineStyle: "2px solid red",
-    onClick: (el: HTMLElement) => {
-      console.log("value", selectedAction);
-      translate(el, selectedAction).then((translateSentences) => {
-        setVisibility(VisibilityEnum.WITH_RESULT);
-        const data = translateSentences.sentences.map((elem, key) => {
-          return {
-            key: key as React.Key,
-            result: elem
-          } as ResultSentence;
-        });
-        setGeneratedScript(
-         buildResultingScript(
-          "Your amazing feature name",
-          `Action - ${selectedAction}`,
-          data.map(sentence => sentence.result)
-         )
-        );
-        inspector.cancel();
-        setDisplayedResult(selectedAction);
-        setSelectedAction(ActionEnum.NONE);
-        endLoading();
-      });
-    }
-  });
 
-  /* eslint-disable */
+  const selectionHelper = new SelectionHelper(onElementSelection, reset);
+
   useEffect(() => {
     return () => {
       reset();
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -117,42 +91,59 @@ function UuvAssistant(props: UuvAssistantProps) {
   }, [generatedScript]);
 
   useEffect(() => {
-    KeyboardNavigationHelper.removeLayerToShadowDom(props.assistantAdditionalLayersRoot, AdditionalLayerEnum.CURRENT_NAVIGATION);
-    KeyboardNavigationHelper.removeLayerToShadowDom(props.assistantAdditionalLayersRoot, AdditionalLayerEnum.EXPECTED_NAVIGATION);
+    clearAllAdditionalLayer();
     switch (selectedAction) {
       case ActionEnum.WITHIN:
       case ActionEnum.EXPECT:
       case ActionEnum.CLICK:
-        startSelect();
+        selectionHelper.startSelect();
         break;
       case ActionEnum.KEYBOARD_GLOBAL_NAVIGATION:
         setDisplayedKeyboardNavigation(KeyboardNavigationModeEnum.NONE);
-        keyboardNavigation().then(currentKeyboardFocusableElements => {
-          if (currentKeyboardFocusableElements) {
-            setDisplayedKeyboardNavigation(KeyboardNavigationModeEnum.CURRENT_NAVIGATION);
-            setVisibility(VisibilityEnum.WITH_RESULT);
-            setDisplayedResult(ActionEnum.KEYBOARD_GLOBAL_NAVIGATION);
-            setSelectedAction(ActionEnum.NONE);
-          }
+        KeyboardNavigationHelper.getKeyboardNavigation().then(keyboardNavigation => {
+          setExpectedKeyboardNavigation(keyboardNavigation.expected);
+          setCurrentKeyboardNavigation(keyboardNavigation.current);
+          setDisplayedKeyboardNavigation(KeyboardNavigationModeEnum.CURRENT_NAVIGATION);
+          setVisibility(VisibilityEnum.WITH_RESULT);
+          setDisplayedResult(ActionEnum.KEYBOARD_GLOBAL_NAVIGATION);
+          setSelectedAction(ActionEnum.NONE);
         });
+        break;
+      case ActionEnum.FORM_COMPLETION_MOUSE:
+        FormCompletionHelper.show(
+          props.assistantAdditionalLayersRoot,
+          AdditionalLayerEnum.FORM_COMPLETION,
+          [].slice.call(document.forms),
+          buildFormCompletionResultSentence,
+          reset
+        );
         break;
       case ActionEnum.NONE:
       default:
         break;
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedAction]);
 
   useEffect(() => {
     if (displayedKeyboardNavigation !== KeyboardNavigationModeEnum.NONE) {
       let keyboardNavigationElement;
       if (displayedKeyboardNavigation === KeyboardNavigationModeEnum.CURRENT_NAVIGATION) {
-        KeyboardNavigationHelper.switchKeyboardLayer(props.assistantAdditionalLayersRoot, AdditionalLayerEnum.CURRENT_NAVIGATION, currentKeyboardNavigation);
+        KeyboardNavigationHelper.switchKeyboardLayer(
+          props.assistantAdditionalLayersRoot,
+          AdditionalLayerEnum.CURRENT_NAVIGATION,
+          currentKeyboardNavigation
+        );
         keyboardNavigationElement = currentKeyboardNavigation;
       } else {
-        KeyboardNavigationHelper.switchKeyboardLayer(props.assistantAdditionalLayersRoot, AdditionalLayerEnum.EXPECTED_NAVIGATION, expectedKeyboardNavigation);
-        keyboardNavigationElement = expectedKeyboardNavigation
+        KeyboardNavigationHelper.switchKeyboardLayer(
+          props.assistantAdditionalLayersRoot,
+          AdditionalLayerEnum.EXPECTED_NAVIGATION,
+          expectedKeyboardNavigation
+        );
+        keyboardNavigationElement = expectedKeyboardNavigation;
       }
-      buildKeyboardNavigationResultSentence(keyboardNavigationElement).then(resultSentences => {
+      KeyboardNavigationHelper.buildResultSentence(keyboardNavigationElement).then(resultSentences => {
         setGeneratedScript(
             buildResultingScript(
                 "Your amazing feature name",
@@ -163,10 +154,40 @@ function UuvAssistant(props: UuvAssistantProps) {
         endLoading();
       });
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [displayedKeyboardNavigation]);
 
+  function onElementSelection(el: HTMLElement) {
+    console.debug("customTranslator", props.translator);
+    let translator;
+    if (props.translator) {
+      translator = Promise.resolve({ sentences: [props.translator(el)] } as TranslateSentences);
+    } else {
+      translator = selectionHelper.buildResultSentence(el, selectedAction as any, disabledElement !== "");
+    }
+
+    translator.then((translateSentences) => {
+      setVisibility(VisibilityEnum.WITH_RESULT);
+      const data = translateSentences.sentences.map((elem, key) => {
+        return {
+          key: key as React.Key,
+          result: elem
+        } as ResultSentence;
+      });
+      setGeneratedScript(
+          buildResultingScript(
+              "Your amazing feature name",
+              `Action - ${selectedAction}`,
+              data.map(sentence => sentence.result)
+          )
+      );
+      setDisplayedResult(selectedAction);
+      setSelectedAction(ActionEnum.NONE);
+      endLoading();
+    });
+  }
+
   function reset() {
-    inspector.cancel();
     setDisplayedResult(selectedAction);
     setSelectedAction(ActionEnum.NONE);
     setDisabledElement("");
@@ -184,100 +205,20 @@ function UuvAssistant(props: UuvAssistantProps) {
     }
   };
 
-  function startSelect() {
-    const removeDisableHandler = clickOnDisabledElementFeature();
-    document.addEventListener("mouseover", removeDisableHandler);
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") {
-        reset();
-      }
-    });
-    inspector.enable();
-  }
-
-  function clickOnDisabledElementFeature() {
-    return (e: MouseEvent): void => {
-      e.preventDefault();
-      const element = document.elementFromPoint(e.clientX, e.clientY);
-      let internalDisabledElement = disabledElement;
-      if (selectedAction !== ActionEnum.NONE && element && element.hasAttribute("disabled")) {
-        internalDisabledElement = TranslateHelper.getSelector(element);
-        element.removeAttribute("disabled");
-        element.setAttribute("readonly", "true");
-        setDisabledElement(internalDisabledElement);
-      } else {
-        if (internalDisabledElement) {
-          const querySelector = document.querySelector(internalDisabledElement);
-          querySelector?.setAttribute("disabled", "true");
-          querySelector?.removeAttribute("readonly");
-          setDisabledElement("");
-        }
-      }
-    };
-  }
-
-  async function buildKeyboardNavigationResultSentence(focusableElements: FocusableElement[]) {
-    const sentences: string[] = [];
-    const startKeyboardNavigationSentence = jsonBase.find((el: BaseSentence) => el.key === "key.given.keyboard.startNavigationFromTheTop");
-    if (startKeyboardNavigationSentence) {
-      sentences.push(StepCaseEnum.AND + startKeyboardNavigationSentence.wording);
-    }
-    const promises = focusableElements.map(async (node, index, focusableElements) => {
-      const focusBySelectorControlSentence = jsonBase
-          .find((el: BaseSentence) => el.key === "key.then.element.withSelectorFocused");
-      const focusByRoleAndNameControlSentence = jsonBase
-          .find((el: BaseSentence) => el.key === "key.then.element.withRoleAndNameFocused");
-
-      if (focusBySelectorControlSentence && focusByRoleAndNameControlSentence) {
-        const result = await translate(node, ActionEnum.KEYBOARD_GLOBAL_NAVIGATION);
-        result.sentences.forEach((element) => {
-          sentences.push(element);
-        });
-      } else {
-        console.error("sentences next focus element or check focused element is undefined");
-      }
-      return Promise.resolve("");
-    });
-    await Promise.all(promises);
-    return sentences.map((elem, key) => {
-      return {
-        key: key as React.Key,
-        result: elem
-      } as ResultSentence;
-    });
-  }
-
-  function extractExpectedKeyboardNavigation(currentKeyboardFocusableElements: FocusableElement[]) {
-    return [...currentKeyboardFocusableElements].sort((a: FocusableElement, b: FocusableElement) => {
-      const leftRect = a.getBoundingClientRect();
-      const rightRect = b.getBoundingClientRect();
-      if (leftRect.y < rightRect.y) {
-        return -1;
-      }
-      if (leftRect.y === rightRect.y && leftRect.x < rightRect.x) {
-        return -1;
-      }
-      return 1;
-    });
-  }
-
-  async function keyboardNavigation() {
-    const currentKeyboardFocusableElements = tabbable(document.body, {});
-    setCurrentKeyboardNavigation(currentKeyboardFocusableElements);
-    const expectedKeyboardFocusableElements = extractExpectedKeyboardNavigation(currentKeyboardFocusableElements);
-    setExpectedKeyboardNavigation(expectedKeyboardFocusableElements);
-    return currentKeyboardFocusableElements;
-  }
-
-  async function translate(el: FocusableElement, action: string): Promise<TranslateSentences> {
-    console.debug("translator,", props.translator);
-    if (props.translator) {
-      return Promise.resolve({ sentences: [props.translator(el)] } as TranslateSentences);
-    }
-    const translate = await TranslateHelper.translateEngine(el, action, disabledElement !== "");
-    const result: TranslateSentences = { suggestion: new Suggestion() } as TranslateSentences;
-    result.sentences = translate.sentences;
-    return Promise.resolve(result);
+  async function buildFormCompletionResultSentence(selectedForm: HTMLFormElement) {
+    const sentences = await FormCompletionHelper.buildResultSentence(selectedForm);
+    setGeneratedScript(
+      buildResultingScript(
+          "Your amazing feature name",
+          `Action - ${selectedAction}`,
+          sentences
+      )
+    );
+    clearAllAdditionalLayer();
+    setVisibility(VisibilityEnum.WITH_RESULT);
+    setDisplayedResult(ActionEnum.FORM_COMPLETION_MOUSE);
+    setSelectedAction(ActionEnum.NONE);
+    endLoading();
   }
 
   const handleMouseNavigationChoice = (newValue: ActionEnum) => {
@@ -292,11 +233,17 @@ function UuvAssistant(props: UuvAssistantProps) {
     setSelectedAction(ActionEnum.KEYBOARD_GLOBAL_NAVIGATION);
   }
 
+  function handleFormCompletionChoice() {
+    setVisibility(VisibilityEnum.HIDE);
+    setIsLoading(true);
+    setSelectedAction(ActionEnum.FORM_COMPLETION_MOUSE);
+  }
+
   function getItem(
    label: React.ReactNode,
    key: React.Key,
    disabled: boolean,
-   onClick?: Function,
+   onClick?: () => void,
    icon?: React.ReactNode,
    children?: MenuItem[]
   ): MenuItem {
@@ -326,8 +273,10 @@ function UuvAssistant(props: UuvAssistantProps) {
       "Mouse actions",
       "mouse-actions",
       false,
-      () => {},
-        <div className={"menu-custom-svg-container"}><img src={CssHelper.getBase64File(mouseIcon)} aria-hidden={true} alt="" className={"menu-custom-svg-from-black-to-white"}/></div>,
+      undefined,
+        <div className={"menu-custom-svg-container"}>
+          <img src={CssHelper.getBase64File(mouseIcon)} aria-hidden={true} alt="" className={"menu-custom-svg-from-black-to-white"}/>
+        </div>,
       [
         getItem(ActionEnum.EXPECT.toString(), ActionEnum.EXPECT, false, () => {
           handleMouseNavigationChoice(ActionEnum.EXPECT);
@@ -344,11 +293,27 @@ function UuvAssistant(props: UuvAssistantProps) {
       "Keyboard actions",
       "keyboard-actions",
       false,
-      () => {},
-      <div className={"menu-custom-svg-container"}><img src={CssHelper.getBase64File(keyboardIcon)} aria-hidden={true} alt="" className={"menu-custom-svg-from-black-to-white"}/></div>,
+      undefined,
+      <div className={"menu-custom-svg-container"}>
+        <img src={CssHelper.getBase64File(keyboardIcon)} aria-hidden={true} alt="" className={"menu-custom-svg-from-black-to-white"}/>
+      </div>,
       [
         getItem("Keyboard navigation", "KeybNav", false, () => {
           handleKeyboardNavigationChoice();
+        })
+      ]
+    ),
+    getItem(
+      "Form actions",
+      "form-actions",
+      false,
+      undefined,
+      <div className={"menu-custom-svg-container"}>
+        <img src={CssHelper.getBase64File(formIcon)} aria-hidden={true} alt="" className={"menu-custom-svg-from-black-to-white"}/>
+      </div>,
+      [
+        getItem("Form completion with mouse", "FormCompletionMouse", false, () => {
+          handleFormCompletionChoice();
         })
       ]
     )
@@ -358,14 +323,21 @@ function UuvAssistant(props: UuvAssistantProps) {
     setTimeout(() => setIsLoading(false), 100);
   }
 
-  function switchKeyboardNavigationMode({ target: { value } }: RadioChangeEvent): void {
-    setIsLoading(true);
-    setGeneratedScript("");
-    setTimeout(() => setDisplayedKeyboardNavigation(value as KeyboardNavigationModeEnum));
-  }
+  // function switchKeyboardNavigationMode({ target: { value } }: RadioChangeEvent): void {
+  //   setIsLoading(true);
+  //   setGeneratedScript("");
+  //   setTimeout(() => setDisplayedKeyboardNavigation(value as KeyboardNavigationModeEnum));
+  // }
 
   function getBottomButtonLabel() {
     return visibility === VisibilityEnum.WITH_RESULT ? "Close result view" : "Open result view";
+  }
+
+  function clearAllAdditionalLayer() {
+    for (const additionalLayerKey in AdditionalLayerEnum) {
+      const value = AdditionalLayerEnum[additionalLayerKey];
+      LayerHelper.removeLayerToShadowDom(props.assistantAdditionalLayersRoot, value);
+    }
   }
 
   return (
@@ -388,8 +360,7 @@ function UuvAssistant(props: UuvAssistantProps) {
                 <Typography.Title level={2}>Result of <span className={"secondary"}>{displayedResult.toString()}</span></Typography.Title>
                 <Tooltip placement='bottom' title='Close' getPopupContainer={(triggerNode) => getAsideParentInHierarchy(triggerNode)}>
                   <Button type='link' shape='circle' icon={<CloseOutlined />} className='primary' onClick={() => {
-                    KeyboardNavigationHelper.removeLayerToShadowDom(props.assistantAdditionalLayersRoot, AdditionalLayerEnum.CURRENT_NAVIGATION);
-                    KeyboardNavigationHelper.removeLayerToShadowDom(props.assistantAdditionalLayersRoot, AdditionalLayerEnum.EXPECTED_NAVIGATION);
+                    clearAllAdditionalLayer();
                     setVisibility(VisibilityEnum.WITHOUT_RESULT);
                   }} />
                 </Tooltip>
@@ -398,7 +369,13 @@ function UuvAssistant(props: UuvAssistantProps) {
             <div id={"toolbar"}>
               <Flex justify={"space-between"} align={"center"}>
                 <Tooltip placement='bottom' title='Copy' getPopupContainer={(triggerNode) => getAsideParentInHierarchy(triggerNode)}>
-                  <Button type='link' shape='circle' icon={<CopyOutlined />} className='primary' disabled={generatedScript.length === 0} onClick={copyResult} />
+                  <Button type='link'
+                          shape='circle'
+                          icon={<CopyOutlined />}
+                          className='primary'
+                          disabled={generatedScript.length === 0}
+                          onClick={copyResult}
+                  />
                 </Tooltip>
                 {/*{displayedResult === ActionEnum.KEYBOARD_GLOBAL_NAVIGATION ?*/}
                 {/*  <Radio.Group*/}
@@ -437,9 +414,9 @@ function UuvAssistant(props: UuvAssistantProps) {
            id={"uuvAssistantMainBar"}
            onCollapse={(value) => {
              if (value) {
-             setVisibility(VisibilityEnum.WITHOUT_RESULT)
+              setVisibility(VisibilityEnum.WITHOUT_RESULT);
              } else {
-               setVisibility(VisibilityEnum.WITH_RESULT)
+              setVisibility(VisibilityEnum.WITH_RESULT);
              }
            }}>
             <Flex align={"center"} vertical={true}>
