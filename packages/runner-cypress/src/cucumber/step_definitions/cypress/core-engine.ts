@@ -116,3 +116,15 @@ function findByRoleAndName(role: string, name: string) {
    .uuvFoundedElement()
    .should("exist");
 }
+
+export function click(role: string, name: string) {
+    cy.uuvGetContext().then(context => {
+        const parentElement = context.withinFocusedElement;
+        if (parentElement) {
+            cy.uuvFindByRole(role, { name: name }).uuvFoundedElement().click();
+            cy.wrap(new Context()).as("context");
+        } else {
+            cy.findByRole(role, { name: name, ...context }).click();
+        }
+    });
+}

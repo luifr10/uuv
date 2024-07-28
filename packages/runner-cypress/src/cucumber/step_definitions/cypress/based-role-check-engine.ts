@@ -15,6 +15,7 @@
 import { Then, When, } from "@badeball/cypress-cucumber-preprocessor";
 import "../../cypress/commands";
 import {
+    click,
     findWithRoleAndName,
     findWithRoleAndNameAndAttribute,
     findWithRoleAndNameAndContent,
@@ -54,6 +55,16 @@ Then(
 );
 
 // End of General Section
+// Begin of Click Section
+
+/**
+ * key.when.click.description
+ * */
+When(`${key.when.click}`, function(name: string) {
+    click("$roleId", name);
+});
+
+// End of Click Section
 // Begin of Type Section
 
 /**

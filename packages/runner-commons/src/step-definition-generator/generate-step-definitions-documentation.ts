@@ -247,6 +247,8 @@ export function runGenerateDoc(destDir: string) {
         switch (wordingsConf.section) {
             case "contains" :
                 return role.shouldGenerateContainsSentence;
+            case "click" :
+                return role.shouldGenerateClickSentence;
             case "type" :
                 return role.shouldGenerateTypeSentence;
             case "keyboard" :

@@ -283,6 +283,19 @@ export async function checkTextContentLocator(locator: Locator, expectedTextCont
   }
 }
 
+export async function click(world: World, role: any, name: string) {
+  await getPageOrElement(world).then(async (element) => {
+    const byRole = element.getByRole(role, {
+      name: name,
+      exact: true
+    });
+    await expect(byRole).toHaveCount(1, { timeout: await getTimeout(world) });
+    await byRole.click();
+    await world.page.waitForLoadState();
+    await deleteCookieByName(world, COOKIE_NAME.SELECTED_ELEMENT);
+  });
+}
+
 export async function getTimeout(world: World): Promise<number> {
   const cookieTimeout = await getCookie(world, COOKIE_NAME.TIMEOUT);
   if (cookieTimeout?.isValid()) {

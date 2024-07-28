@@ -71,6 +71,12 @@
       "description": "Vérifie l'existence d'un élément Html ayant le rôle $roleId, le [nom accessible](https://russmaxdesign.github.io/html-elements-names/) et décoché",
       "wording": "je dois voir $indefiniteArticle $roleName $namedAdjective {string} décoché(e)",
       "section": "checkable"
+    },
+    {
+      "key": "key.when.click",
+      "description": "Déclenche un click sur l'élément Html ayant le rôle $roleId, le [nom accessible](https://russmaxdesign.github.io/html-elements-names/)",
+      "wording": "je clique sur $definiteArticle$roleName nommé {string}",
+      "section": "click"
     }
   ]
 }

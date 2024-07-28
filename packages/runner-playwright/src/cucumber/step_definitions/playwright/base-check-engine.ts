@@ -19,23 +19,24 @@ import { devices, expect } from "@playwright/test";
 import { Locator, Page } from "playwright";
 import { DataTable, Given, Then, When } from "@cucumber/cucumber";
 import {
-  addCookie,
-  COOKIE_NAME,
-  deleteCookieByName,
-  FILTER_TYPE,
-  findWithRoleAndName,
-  findWithRoleAndNameAndContent,
-  findWithRoleAndNameAndContentDisable,
-  findWithRoleAndNameAndContentEnable,
-  findWithRoleAndNameFocused,
-  getCookie,
-  getPageOrElement,
-  MockCookie,
-  notFoundWithRoleAndName,
-  SelectedElementCookie,
-  TimeoutCookie,
-  withinRoleAndName,
-  getTimeout
+    addCookie,
+    click,
+    COOKIE_NAME,
+    deleteCookieByName,
+    FILTER_TYPE,
+    findWithRoleAndName,
+    findWithRoleAndNameAndContent,
+    findWithRoleAndNameAndContentDisable,
+    findWithRoleAndNameAndContentEnable,
+    findWithRoleAndNameFocused,
+    getCookie,
+    getPageOrElement,
+    MockCookie,
+    notFoundWithRoleAndName,
+    SelectedElementCookie,
+    TimeoutCookie,
+    withinRoleAndName,
+    getTimeout
 } from "./core-engine";
 import { World } from "../../preprocessor/run/world";
 import { ContextObject, RunOptions } from "axe-core";
@@ -89,13 +90,6 @@ When(`${key.when.click.withContext}`, async function(this: World) {
 });
 
 /**
- * key.when.click.button.description
- * */
-When(`${key.when.click.button}`, async function(this: World, name: string) {
-  await click(this, "button", name);
-});
-
-/**
  * key.when.click.withRole.description
  * */
 When(`${key.when.click.withRole}`, async function(this: World, role: string, name: string) {
@@ -133,19 +127,10 @@ When(`${key.when.withinElement.selector}`, async function(this: World, selector:
 });
 
 /**
- * key.when.type.description
+ * key.when.type.withContext.description
  * */
-When(`${key.when.type}`, async function(this: World, textToType: string) {
-  const keyBoardFocusTargetObj = keyBoardFocusTarget(this);
-  if ((await keyBoardFocusTargetObj.count()) === 1) {
-    await keyBoardFocusTargetObj.type(textToType);
-  } else {
-    await getPageOrElement(this).then(async (element: Locator) => {
-      // console.debug(element);
-      await element.focus({ timeout: 10000 });
-      await element.type(textToType);
-    });
-  }
+When(`${key.when.type.withContext}`, async function(this: World, textToType: string) {
+    await type(this, textToType);
 });
 
 /**
@@ -607,19 +592,6 @@ async function pressKey(world: World, key: string) {
   await addCookie(world, COOKIE_NAME.SELECTED_ELEMENT, new SelectedElementCookie(FILTER_TYPE.SELECTOR_PARENT, "*:focus"));
 }
 
-async function click(world: World, role: any, name: string) {
-  await getPageOrElement(world).then(async (element) => {
-    const byRole = element.getByRole(role, {
-      name: name,
-      exact: true
-    });
-    await expect(byRole).toHaveCount(1, { timeout: await getTimeout(world) });
-    await byRole.click();
-    await world.page.waitForLoadState();
-    await deleteCookieByName(world, COOKIE_NAME.SELECTED_ELEMENT);
-  });
-}
-
 function keyBoardFocusTarget(world: World) {
   return world.page.locator(":focus");
 }
@@ -639,4 +611,17 @@ async function afterMock(world: World, url: string, verb: string, name: string) 
       await setMockAsConsumed(name, mock, world);
     }
   }
+}
+
+async function type(world: World, textToType: string) {
+    const keyBoardFocusTargetObj = keyBoardFocusTarget(world);
+    if ((await keyBoardFocusTargetObj.count()) === 1) {
+        await keyBoardFocusTargetObj.type(textToType);
+    } else {
+        await getPageOrElement(world).then(async (element: Locator) => {
+            // console.debug(element);
+            await element.focus({ timeout: 10000 });
+            await element.type(textToType);
+        });
+    }
 }

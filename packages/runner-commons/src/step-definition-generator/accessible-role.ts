@@ -1,6 +1,7 @@
 export abstract class AccessibleRole {
     id!: string;
     name!: string;
+    shouldGenerateClickSentence!: boolean;
     shouldGenerateTypeSentence!: boolean;
     shouldGenerateContainsSentence!: boolean;
     shouldGenerateKeyboardSentence = false;

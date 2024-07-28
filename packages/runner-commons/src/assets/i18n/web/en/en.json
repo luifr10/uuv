@@ -5,16 +5,6 @@
   "wording": "I click"
  },
  {
-  "key": "key.when.click.button",
-  "description": "Triggers a click on the given button with specific name",
-  "wording": "I click on button named {string}"
- },
- {
-  "key": "key.when.click.link",
-  "description": "Triggers a click on the given link with specific name",
-  "wording": "I click on link named {string}"
- },
- {
   "key": "key.when.click.withRole",
   "description": "Triggers a click on the element with given role and specific name",
   "wording": "I click on element with role {string} and name {string}"
@@ -40,7 +30,7 @@
   "wording": "I set timeout with value {int}"
  },
  {
-  "key": "key.when.type",
+  "key": "key.when.type.withContext",
   "description": "Writes the sentence passed as a parameter (useful for example to fill in a form field).<br/>Make sure you've selected an element beforehand with the <strong>within...</strong> phrases.",
   "wording": "I type the sentence {string}"
  },

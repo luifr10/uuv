@@ -71,6 +71,12 @@
       "description": "Checks that an Html element exists with the specified [accessible role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types) and [name](https://russmaxdesign.github.io/html-elements-names/) and is unchecked",
       "wording": "I should see $indefiniteArticle $roleName named {string} unchecked",
       "section": "checkable"
+    },
+    {
+     "key": "key.when.click",
+     "description": "Triggers a click on the element with role $roleId and the specified name",
+     "wording": "I click on $roleName named {string}",
+      "section": "click"
     }
   ]
 }

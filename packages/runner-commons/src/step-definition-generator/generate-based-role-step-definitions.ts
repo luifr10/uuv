@@ -82,6 +82,11 @@ export class BasedRoleStepDefinition extends GenerateFileProcessing {
             }
 
             // Exclude Role based Type sentence if specified
+            if (!role.shouldGenerateClickSentence) {
+                dataUpdated = dataUpdated.replace(/\/\/ Begin of Click Section[\s\S]*?\/\/ End of Click Section/, "");
+            }
+
+            // Exclude Role based Type sentence if specified
             if (!role.shouldGenerateTypeSentence) {
                 dataUpdated = dataUpdated.replace(/\/\/ Begin of Type Section[\s\S]*?\/\/ End of Type Section/, "");
             }

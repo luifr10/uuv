@@ -6,7 +6,9 @@
       "withRole": "",
       "withContext": ""
     },
-    "type": "",
+    "type": {
+      "withContext": ""
+    },
     "keyboard": {
       "multiplePress": "",
       "press": "",

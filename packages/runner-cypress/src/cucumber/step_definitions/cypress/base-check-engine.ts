@@ -19,6 +19,7 @@ import { Method } from "cypress/types/net-stubbing";
 import { key } from "@uuv/runner-commons/wording/web";
 import {
     assertTextContent,
+    click,
     findWithRoleAndName,
     findWithRoleAndNameAndContent,
     findWithRoleAndNameAndContentDisable,
@@ -55,13 +56,6 @@ When(`${key.when.click.withContext}`, function() {
 });
 
 /**
- * key.when.click.button.description
- * */
-When(`${key.when.click.button}`, function(name: string) {
-  click("button", name);
-});
-
-/**
  * key.when.click.withRole.description
  * */
 When(`${key.when.click.withRole}`, function(role: string, name: string) {
@@ -69,17 +63,10 @@ When(`${key.when.click.withRole}`, function(role: string, name: string) {
 });
 
 /**
- * key.when.type.description
+ * key.when.type.withContext.description
  * */
-When(`${key.when.type}`, function(textToType: string) {
-    if (haveKeyBoardFocused()) {
-        cy.focused().type(textToType);
-    } else {
-        cy.uuvCheckContextWithinFocusedElement().then((context) => {
-            context.withinFocusedElement!.focus();
-            context.withinFocusedElement!.type(textToType);
-        });
-    }
+When(`${key.when.type.withContext}`, function(textToType: string) {
+    type(textToType);
 });
 
 /**
@@ -615,20 +602,19 @@ Then(
   function(expectedResult: string) {
    cy.injectUvvA11y();
    cy.checkUvvA11y(A11yReferenceEnum.RGAA, JSON.parse(expectedResult), true);
- });
-
-function click(role: string, name: string) {
-  cy.uuvGetContext().then(context => {
-    const parentElement = context.withinFocusedElement;
-    if (parentElement) {
-      cy.uuvFindByRole(role, { name: name }).uuvFoundedElement().click();
-      cy.wrap(new Context()).as("context");
-    } else {
-      cy.findByRole(role, { name: name, ...context }).click();
-    }
-  });
-}
+});
 
 function haveKeyBoardFocused() {
   return Cypress.$(":focus").length > 0;
+}
+
+function type(textToType: string) {
+    if (haveKeyBoardFocused()) {
+        cy.focused().type(textToType);
+    } else {
+        cy.uuvCheckContextWithinFocusedElement().then((context) => {
+            context.withinFocusedElement!.focus();
+            context.withinFocusedElement!.type(textToType);
+        });
+    }
 }
