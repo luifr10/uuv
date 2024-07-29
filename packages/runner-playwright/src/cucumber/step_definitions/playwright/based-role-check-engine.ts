@@ -85,6 +85,18 @@ When(`${key.when.type}`, async function(this: World, textToType: string, name: s
   });
 });
 
+/**
+ * key.when.enter.description
+ * */
+When(`${key.when.enter}`, async function(this: World, textToType: string, name: string) {
+    await getPageOrElement(this).then(async (element) => {
+        const byRole = await element.getByRole("$roleId", { name: name, includeHidden: true, exact: true });
+        await expect(byRole).toHaveCount(1);
+        await byRole.type(textToType);
+        await deleteCookieByName(this, COOKIE_NAME.SELECTED_ELEMENT);
+    });
+});
+
 // End of Type Section
 // Begin of Content Section
 

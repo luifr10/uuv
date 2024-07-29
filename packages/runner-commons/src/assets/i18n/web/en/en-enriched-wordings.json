@@ -73,6 +73,12 @@
       "section": "checkable"
     },
     {
+      "key": "key.when.enter",
+      "description": "Writes the sentence given as a parameter inside the specified field (useful for example to fill in a form field)",
+      "wording": "I enter the value {string} in $definiteArticle $roleName named {string}",
+      "section": "type"
+    },
+    {
      "key": "key.when.click",
      "description": "Triggers a click on the element with role $roleId and the specified name",
      "wording": "I click on $roleName named {string}",

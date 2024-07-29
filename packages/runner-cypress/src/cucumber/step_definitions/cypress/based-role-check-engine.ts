@@ -74,6 +74,13 @@ When(`${key.when.type}`, function(textToType: string, name: string) {
     cy.uuvFindByRole("$roleId", { name: name }).uuvFoundedElement().type(textToType);
 });
 
+/**
+ * key.when.enter.description
+ * */
+When(`${key.when.enter}`, function(textToType: string, name: string) {
+    cy.uuvFindByRole("$roleId", { name: name }).uuvFoundedElement().type(textToType);
+});
+
 // End of Type Section
 // Begin of Content Section
 

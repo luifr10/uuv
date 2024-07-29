@@ -73,6 +73,12 @@
       "section": "checkable"
     },
     {
+      "key": "key.when.enter",
+      "description": "Saisie de la phrase passée en paramètre dans le champ spécifié(utile par exemple pour remplir un champ de formulaire).",
+      "wording": "j'entre la valeur {string} dans $definiteArticle$roleName $namedAdjective {string}",
+      "section": "type"
+    },
+    {
       "key": "key.when.click",
       "description": "Déclenche un click sur l'élément Html ayant le rôle $roleId, le [nom accessible](https://russmaxdesign.github.io/html-elements-names/)",
       "wording": "je clique sur $definiteArticle$roleName nommé {string}",

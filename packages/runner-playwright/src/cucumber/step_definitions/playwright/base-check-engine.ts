@@ -134,6 +134,13 @@ When(`${key.when.type.withContext}`, async function(this: World, textToType: str
 });
 
 /**
+ * key.when.enter.withContext.description
+ * */
+When(`${key.when.enter.withContext}`, async function(this: World, textToType: string) {
+    await type(this, textToType);
+});
+
+/**
  * key.when.keyboard.multiplePress.description
  * */
 When(`${key.when.keyboard.multiplePress}`, async function(this: World, nbTimes: number, key: string) {

@@ -35,6 +35,11 @@
   "wording": "I type the sentence {string}"
  },
  {
+  "key": "key.when.enter.withContext",
+  "description": "Writes the sentence passed as a parameter (useful for example to fill in a form field).<br/>Make sure you've selected an element beforehand with the <strong>within...</strong> phrases.",
+  "wording": "I enter the value {string}"
+ },
+ {
   "key": "key.when.keyboard.press",
   "description": "Press specified key: <table><thead><tr><th>Key</th><th>Description</th></tr></thead><tbody><tr><td>{tab}</td><td>Tabulation</td></tr><tr><td>{reverseTab}</td><td>Reverse tabulation</td></tr><tr><td>{down}</td><td>Arrow Down</td></tr><tr><td>{right}</td><td>Arrow Right</td></tr><tr><td>{left}</td><td>Arrow Left</td></tr><tr><td>{up}</td><td>Arrow Up</td></tr></tbody></table><br/>Make sure you've selected an element beforehand with the <strong>within...</strong> phrases.",
   "wording": "I press {string}"

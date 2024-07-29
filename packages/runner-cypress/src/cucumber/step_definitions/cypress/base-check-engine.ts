@@ -70,6 +70,13 @@ When(`${key.when.type.withContext}`, function(textToType: string) {
 });
 
 /**
+ * key.when.enter.withContext.description
+ * */
+When(`${key.when.enter.withContext}`, function(textToType: string) {
+    type(textToType);
+});
+
+/**
  * key.when.keyboard.multiplePress.description
  * */
 When(`${key.when.keyboard.multiplePress}`, function(nbTimes: number, key: string) {
