@@ -86,7 +86,7 @@ Fonctionnalité: Dictionnaire français de phrases de base utilisant cypress
       Et je vais à l'intérieur de l'élément ayant pour rôle "textbox" et pour nom "Last name"
       Quand je saisie les mots "Toto"
       Et je reinitialise le contexte
-      Alors je dois voir un élément avec le rôle "textbox" et le nom "Last name" et pour contenu "TotoDoe"
+      Alors je dois voir un élément avec le rôle "textbox" et le nom "Last name" et pour contenu "DoeToto"
 
   Règle: Other
     Scénario: key.given.within.selector

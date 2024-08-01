@@ -102,7 +102,11 @@ When(`${key.when.click.withRole}`, async function(this: World, role: string, nam
  * */
 When(`${key.when.withinElement.ariaLabel}`, async function(this: World, expectedAriaLabel: string) {
   const sanitizedExpectedAriaLabel = encodeURIComponent(expectedAriaLabel).replaceAll("%20", " ");
-  await getPageOrElement(this).then(async (element) => expect(element.getByLabel(sanitizedExpectedAriaLabel, { exact: true })).toHaveCount(1, { timeout: await getTimeout(this) }));
+  await getPageOrElement(this).then(async (element) => {
+    const locator = element.getByLabel(sanitizedExpectedAriaLabel, { exact: true });
+    await expect(locator).toHaveCount(1, { timeout: await getTimeout(this) });
+    await locator.focus({ timeout: 10000 });
+  });
   await addCookie(this, COOKIE_NAME.SELECTED_ELEMENT, new SelectedElementCookie(FILTER_TYPE.ARIA_LABEL, sanitizedExpectedAriaLabel));
 });
 
@@ -122,7 +126,11 @@ When(`${key.when.resetContext}`, async function(this: World) {
  * key.when.withinElement.selector.description
  * */
 When(`${key.when.withinElement.selector}`, async function(this: World, selector: string) {
-  await getPageOrElement(this).then(async (element) => expect(element.locator(selector)).toHaveCount(1, { timeout: await getTimeout(this) }));
+  await getPageOrElement(this).then(async (element) => {
+    const locator = element.locator(selector);
+    await expect(locator).toHaveCount(1, { timeout: await getTimeout(this) });
+    await locator.focus({ timeout: 10000 });
+  });
   await addCookie(this, COOKIE_NAME.SELECTED_ELEMENT, new SelectedElementCookie(FILTER_TYPE.SELECTOR, selector));
 });
 
@@ -189,7 +197,11 @@ When(`${key.when.withinElement.roleAndName}`, async function(this: World, role: 
  * */
 When(`${key.when.withinElement.testId}`, async function(this: World, testId: string) {
   testId = encodeURIComponent(testId);
-  await getPageOrElement(this).then(async (element) => await expect(element.getByTestId(testId)).toHaveCount(1, { timeout: await getTimeout(this) }));
+  await getPageOrElement(this).then(async (element) => {
+    const locator = element.getByTestId(testId);
+    await expect(locator).toHaveCount(1, { timeout: await getTimeout(this) });
+    await locator.focus({ timeout: 10000 });
+  });
   await addCookie(this, COOKIE_NAME.SELECTED_ELEMENT, new SelectedElementCookie(FILTER_TYPE.TEST_ID, testId));
 });
 

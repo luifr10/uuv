@@ -616,12 +616,11 @@ function haveKeyBoardFocused() {
 }
 
 function type(textToType: string) {
-    if (haveKeyBoardFocused()) {
-        cy.focused().type(textToType);
-    } else {
-        cy.uuvCheckContextWithinFocusedElement().then((context) => {
-            context.withinFocusedElement!.focus();
-            context.withinFocusedElement!.type(textToType);
-        });
+  cy.uuvCheckContextWithinFocusedElement(true).then((context) => {
+    if (context.withinFocusedElement) {
+      context.withinFocusedElement!.type(textToType);
+    } else if (haveKeyBoardFocused()) {
+      cy.focused().type(textToType);
     }
+  });
 }

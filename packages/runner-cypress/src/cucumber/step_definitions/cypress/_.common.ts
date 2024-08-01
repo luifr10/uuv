@@ -33,10 +33,10 @@ export const uuvGetContext = (): Chainable<Context> => {
     return cy.get<Context>(`@${contextAlias}`);
 };
 
-export function uuvCheckContextWithinFocusedElement(): Cypress.Chainable<Context> {
+export function uuvCheckContextWithinFocusedElement(dontThrowError = false): Cypress.Chainable<Context> {
     return cy.get<Context>(`@${contextAlias}`)
         .then(context => {
-            if (!context.withinFocusedElement) {
+            if (!context.withinFocusedElement && !dontThrowError) {
                 throw new Error("No element currently selected");
             }
             return context;

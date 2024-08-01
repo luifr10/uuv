@@ -41,7 +41,7 @@ declare global {
     interface Chainable {
       uuvGetContext(contextName?: string): Cypress.Chainable<Context>;
 
-      uuvCheckContextWithinFocusedElement(): Cypress.Chainable<Context>;
+      uuvCheckContextWithinFocusedElement(dontThrowError?: boolean): Cypress.Chainable<Context>;
 
       uuvCheckContextKeyboardFocusedElement(): Cypress.Chainable<Context>;
 

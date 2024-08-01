@@ -56,7 +56,7 @@
     },
     {
       "key": "key.when.type",
-      "description": "Saisie de la phrase passée en paramètre dans le champ spécifié(utile par exemple pour remplir un champ de formulaire).",
+      "description": "Saisie de la phrase passée en paramètre dans le champ spécifié (utile par exemple pour remplir un champ de formulaire).",
       "wording": "je saisie le(s) mot(s) {string} dans $definiteArticle$roleName $namedAdjective {string}",
       "section": "type"
     },
@@ -74,7 +74,7 @@
     },
     {
       "key": "key.when.enter",
-      "description": "Saisie de la phrase passée en paramètre dans le champ spécifié(utile par exemple pour remplir un champ de formulaire).",
+      "description": "Saisie de la phrase passée en paramètre dans le champ spécifié (utile par exemple pour remplir un champ de formulaire).",
       "wording": "j'entre la valeur {string} dans $definiteArticle$roleName $namedAdjective {string}",
       "section": "type"
     },
