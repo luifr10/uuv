@@ -49,6 +49,9 @@ function HomepageHeader() {
                     <a href={'https://marketplace.visualstudio.com/items?itemName=e2e-test-quest.uuv-vscode-extension'} target={'_blank'}>
                         <img alt="VS Code Extension Downloads" src="https://img.shields.io/visual-studio-marketplace/d/e2e-test-quest.uuv-vscode-extension?label=UUV%20VS%20Code%20Extension&cacheSeconds=0"></img>
                     </a>
+                    <a href={'https://hub.docker.com/r/e2etesting/uuv'} target={'_blank'}>
+                        <img alt="Docker pulls" src="https://img.shields.io/docker/pulls/e2etesting/uuv?logo=docker&cacheSeconds=0"></img>
+                    </a>
                 </div>
                 <div className={styles.buttons}>
                     <Link
