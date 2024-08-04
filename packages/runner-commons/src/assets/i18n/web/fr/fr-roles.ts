@@ -19,7 +19,8 @@ class FrAccessibleRole extends AccessibleRole {
         private indefiniteArticle: FR_INDEFINITE_ARTICLE,
         override shouldGenerateTypeSentence: boolean = true,
         override shouldGenerateContainsSentence: boolean = true,
-        override shouldGenerateKeyboardSentence: boolean = false
+        override shouldGenerateKeyboardSentence: boolean = false,
+        override shouldGenerateCheckedSentence: boolean = false
     ) {
         super();
     }
@@ -98,7 +99,8 @@ export const FR_ROLES: AccessibleRole[] = [
         name: "case à cocher",
         definiteArticle: FR_DEFINITE_ARTICLE.LA,
         indefiniteArticle: FR_INDEFINITE_ARTICLE.UNE,
-        shouldGenerateKeyboardSentence: true
+        shouldGenerateKeyboardSentence: true,
+        shouldGenerateCheckedSentence: true
     },
     {
         id: "columnheader",
@@ -310,7 +312,8 @@ export const FR_ROLES: AccessibleRole[] = [
         name: "menu d'élement de bouton radio",
         definiteArticle: FR_DEFINITE_ARTICLE.LE,
         indefiniteArticle: FR_INDEFINITE_ARTICLE.UN,
-        shouldGenerateKeyboardSentence: true
+        shouldGenerateKeyboardSentence: true,
+        shouldGenerateCheckedSentence: true
     },
     {
         id: "meter",
@@ -359,7 +362,8 @@ export const FR_ROLES: AccessibleRole[] = [
         name: "bouton radio",
         definiteArticle: FR_DEFINITE_ARTICLE.LE,
         indefiniteArticle: FR_INDEFINITE_ARTICLE.UN,
-        shouldGenerateKeyboardSentence: true
+        shouldGenerateKeyboardSentence: true,
+        shouldGenerateCheckedSentence: true
     },
     {
         id: "radiogroup",
@@ -581,5 +585,6 @@ export const FR_ROLES: AccessibleRole[] = [
     role.indefiniteArticle,
     role.shouldGenerateContainsSentence,
     role.shouldGenerateContainsSentence,
-    role.shouldGenerateKeyboardSentence
+    role.shouldGenerateKeyboardSentence,
+    role.shouldGenerateCheckedSentence
 ));

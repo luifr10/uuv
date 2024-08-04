@@ -59,6 +59,18 @@
       "description": "Writes the sentence given as a parameter inside the specified field (useful for example to fill in a form field)",
       "wording": "I type the sentence {string} in $definiteArticle $roleName named {string}",
       "section": "type"
+    },
+    {
+      "key": "key.then.element.withRoleAndNameAndChecked",
+      "description": "Checks that an Html element exists with the specified [accessible role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types) and [name](https://russmaxdesign.github.io/html-elements-names/) and is checked",
+      "wording": "I should see $indefiniteArticle $roleName named {string} checked",
+      "section": "checkable"
+    },
+    {
+      "key": "key.then.element.withRoleAndNameAndUnchecked",
+      "description": "Checks that an Html element exists with the specified [accessible role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles#aria_role_types) and [name](https://russmaxdesign.github.io/html-elements-names/) and is unchecked",
+      "wording": "I should see $indefiniteArticle $roleName named {string} unchecked",
+      "section": "checkable"
     }
   ]
 }

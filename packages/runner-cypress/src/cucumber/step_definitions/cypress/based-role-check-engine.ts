@@ -16,6 +16,7 @@ import { Then, When, } from "@badeball/cypress-cucumber-preprocessor";
 import "../../cypress/commands";
 import {
     findWithRoleAndName,
+    findWithRoleAndNameAndAttribute,
     findWithRoleAndNameAndContent,
     findWithRoleAndNameAndContentDisable,
     findWithRoleAndNameAndContentEnable,
@@ -132,3 +133,27 @@ Then(
 );
 
 // End of Keyboard Section
+
+// Begin of Checkable Section
+
+/**
+ * key.then.element.withRoleAndNameAndChecked.description
+ * */
+Then(
+    `${key.then.element.withRoleAndNameAndChecked}`,
+    function(name: string) {
+        findWithRoleAndNameAndAttribute("$roleId", name, "checked", true);
+    }
+);
+
+/**
+ * key.then.element.withRoleAndNameAndUnchecked.description
+ * */
+Then(
+    `${key.then.element.withRoleAndNameAndUnchecked}`,
+    function(name: string) {
+        findWithRoleAndNameAndAttribute("$roleId", name, "checked", false);
+    }
+);
+
+// End of Checkable Section

@@ -102,6 +102,15 @@ export function findWithRoleAndNameAndContentEnable(expectedRole: string, name: 
         .should("eq", undefined);
 }
 
+export function findWithRoleAndNameAndAttribute(expectedRole: string, name: string, attributeName: string, attributeValue: any) {
+    cy.uuvFindByRole(expectedRole, { name })
+        .uuvFoundedElement()
+        .should("exist")
+        .then((elements) => {
+            assert.equal(elements[0][attributeName], attributeValue);
+        });
+}
+
 function findByRoleAndName(role: string, name: string) {
   return cy.uuvFindByRole(role, { name })
    .uuvFoundedElement()

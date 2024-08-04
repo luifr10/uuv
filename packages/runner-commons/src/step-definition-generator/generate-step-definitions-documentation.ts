@@ -251,6 +251,8 @@ export function runGenerateDoc(destDir: string) {
                 return role.shouldGenerateTypeSentence;
             case "keyboard" :
                 return role.shouldGenerateKeyboardSentence;
+            case "checkable" :
+                return role.shouldGenerateCheckedSentence;
             default :
                 return true;
         }

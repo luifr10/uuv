@@ -59,6 +59,18 @@
       "description": "Saisie de la phrase passée en paramètre dans le champ spécifié(utile par exemple pour remplir un champ de formulaire).",
       "wording": "je saisie le(s) mot(s) {string} dans $definiteArticle$roleName $namedAdjective {string}",
       "section": "type"
+    },
+    {
+      "key": "key.then.element.withRoleAndNameAndChecked",
+      "description": "Vérifie l'existence d'un élément Html ayant le rôle $roleId, le [nom accessible](https://russmaxdesign.github.io/html-elements-names/) et coché",
+      "wording": "je dois voir $indefiniteArticle $roleName $namedAdjective {string} coché(e)",
+      "section": "checkable"
+    },
+    {
+      "key": "key.then.element.withRoleAndNameAndUnchecked",
+      "description": "Vérifie l'existence d'un élément Html ayant le rôle $roleId, le [nom accessible](https://russmaxdesign.github.io/html-elements-names/) et décoché",
+      "wording": "je dois voir $indefiniteArticle $roleName $namedAdjective {string} décoché(e)",
+      "section": "checkable"
     }
   ]
 }

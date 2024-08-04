@@ -38,6 +38,8 @@ Fonctionnalité: Navigation au clavier
     Et le prochain élément avec le focus clavier doit être un bouton rotatif nommé "Latitude"
     Et le prochain élément avec le focus clavier doit être un bouton rotatif nommé "Longitude"
     Et le prochain élément avec le focus clavier doit être une boîte à texte nommée "Description"
+    Et le prochain élément avec le focus clavier doit être un bouton radio nommé "Small (under 150000)"
+    Et le prochain élément avec le focus clavier doit être une case à cocher nommée "Allow automatic update"
     Et le prochain élément avec le focus clavier doit être un bouton nommé "Back to town list"
     Et le prochain élément avec le focus clavier doit être un bouton nommé "Submit new town form"
 
@@ -62,6 +64,9 @@ Fonctionnalité: Navigation au clavier
 
      Et le prochain élément avec le focus clavier doit être une boîte à texte nommée "Description"
      Et je saisie les mots "Simple Description"
+
+     Et je vais au prochain élément au clavier
+     Et je vais au prochain élément au clavier
 
      Et le prochain élément avec le focus clavier doit être un bouton nommé "Back to town list"
      Et le prochain élément avec le focus clavier doit être un bouton nommé "Submit new town form"

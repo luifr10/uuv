@@ -36,6 +36,8 @@ Feature: Keyboard Navigation
     And the next keyboard element focused should be a spin button named "Latitude"
     And the next keyboard element focused should be a spin button named "Longitude"
     And the next keyboard element focused should be a text box named "Description"
+    And the next keyboard element focused should be a radio named "Small (under 150000)"
+    And the next keyboard element focused should be a checkbox named "Allow automatic update"
     And the next keyboard element focused should be a button named "Back to town list"
     And the next keyboard element focused should be a button named "Submit new town form"
 
@@ -60,6 +62,9 @@ Feature: Keyboard Navigation
 
     And the next keyboard element focused should be a text box named "Description"
     And I type the sentence "Simple Description"
+
+    And I go to next keyboard element
+    And I go to next keyboard element
 
     And the next keyboard element focused should be a button named "Back to town list"
 

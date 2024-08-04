@@ -46,6 +46,8 @@
       "withRoleAndName": "",
       "withTestId": "",
       "withRoleAndNameAndContent": "",
+      "withRoleAndNameAndChecked": "",
+      "withRoleAndNameAndUnchecked": "",
       "withRoleAndNameFocused": "",
       "nextWithRoleAndNameFocused": "",
       "previousWithRoleAndNameFocused": "",

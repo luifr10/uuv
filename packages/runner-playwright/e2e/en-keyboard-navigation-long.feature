@@ -62,6 +62,12 @@ Feature: Keyboard Navigation - Long
     And I should see a text box named "Description" keyboard focused
     And I go to next keyboard element
 
+    And I should see a radio named "Small (under 150000)" keyboard focused
+    And I go to next keyboard element
+
+    And I should see a checkbox named "Allow automatic update" keyboard focused
+    And I go to next keyboard element
+
     And I should see a button named "Back to town list" keyboard focused
     And I go to next keyboard element
 
@@ -94,6 +100,9 @@ Feature: Keyboard Navigation - Long
 
     And the element with selector "#new-town-description" should be keyboard focused
     And I type the sentence "Simple Description"
+    And I go to next keyboard element
+
+    And I go to next keyboard element
     And I go to next keyboard element
 
     And I should see a button named "Back to town list" keyboard focused

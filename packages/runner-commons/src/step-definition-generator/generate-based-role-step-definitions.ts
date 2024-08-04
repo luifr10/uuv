@@ -91,6 +91,11 @@ export class BasedRoleStepDefinition extends GenerateFileProcessing {
                 dataUpdated = dataUpdated.replace(/\/\/ Begin of Keyboard Section[\s\S]*?\/\/ End of Keyboard Section/, "");
             }
 
+            // Exclude Role based Checked sentence if specified
+            if (!role.shouldGenerateCheckedSentence) {
+                dataUpdated = dataUpdated.replace(/\/\/ Begin of Checkable Section[\s\S]*?\/\/ End of Checkable Section/, "");
+            }
+
             const generatedFilename = generatedFile.replace("$roleId", role.id);
             // console.debug(">>> data", dataUpdated)
             // console.debug(">>> generatedFilename", generatedFilename)

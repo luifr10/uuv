@@ -17,9 +17,10 @@ import { Then, When } from "@cucumber/cucumber";
 import {
   COOKIE_NAME, deleteCookieByName,
   findWithRoleAndName,
+  findWithRoleAndNameAndChecked,
   findWithRoleAndNameAndContent,
   findWithRoleAndNameAndContentDisable,
-  findWithRoleAndNameAndContentEnable, findWithRoleAndNameFocused,
+  findWithRoleAndNameAndContentEnable, findWithRoleAndNameAndUnchecked, findWithRoleAndNameFocused,
   getPageOrElement,
   notFoundWithRoleAndName,
   withinRoleAndName
@@ -137,3 +138,27 @@ Then(
  }
 );
 // End of Keyboard Section
+
+// Begin of Checkable Section
+
+/**
+ * key.then.element.withRoleAndNameAndChecked.description
+ * */
+Then(
+  `${key.then.element.withRoleAndNameAndChecked}`,
+  async function(this: World, name: string) {
+    await findWithRoleAndNameAndChecked(this, "$roleId", name);
+  }
+);
+
+/**
+* key.then.element.withRoleAndNameAndUnchecked.description
+* */
+Then(
+  `${key.then.element.withRoleAndNameAndUnchecked}`,
+  async function(this: World, name: string) {
+    await findWithRoleAndNameAndUnchecked(this, "$roleId", name);
+  }
+);
+
+// End of Checkable Section

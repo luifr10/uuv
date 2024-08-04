@@ -18,7 +18,8 @@ class EnAccessibleRole extends AccessibleRole {
         private indefiniteArticle: INDEFINITE_ARTICLE = INDEFINITE_ARTICLE.A,
         override shouldGenerateTypeSentence: boolean = true,
         override shouldGenerateContainsSentence: boolean = true,
-        override shouldGenerateKeyboardSentence: boolean = false
+        override shouldGenerateKeyboardSentence: boolean = false,
+        override shouldGenerateCheckedSentence: boolean = false
     ) {
         super();
     }
@@ -31,7 +32,8 @@ class EnAccessibleRole extends AccessibleRole {
             input.indefiniteArticle,
             input.shouldGenerateTypeSentence,
             input.shouldGenerateContainsSentence,
-            input.shouldGenerateKeyboardSentence
+            input.shouldGenerateKeyboardSentence,
+            input.shouldGenerateCheckedSentence
         );
     }
 
@@ -60,7 +62,7 @@ export const EN_ROLES: AccessibleRole[] = [
     { id: "banner", name: "banner" },
     { id: "button", name: "button", shouldGenerateKeyboardSentence: true },
     { id: "cell", name: "cell" },
-    { id: "checkbox", name: "checkbox", shouldGenerateKeyboardSentence: true },
+    { id: "checkbox", name: "checkbox", shouldGenerateKeyboardSentence: true, shouldGenerateCheckedSentence: true },
     { id: "columnheader", name: "column header" },
     { id: "combobox", name: "combo box", shouldGenerateKeyboardSentence: true },
     { id: "command", name: "command" },
@@ -94,7 +96,7 @@ export const EN_ROLES: AccessibleRole[] = [
     { id: "menubar", name: "menubar" },
     { id: "menuitem", name: "menuitem", shouldGenerateKeyboardSentence: true },
     { id: "menuitemcheckbox", name: "menuitemcheckbox", shouldGenerateKeyboardSentence: true },
-    { id: "menuitemradio", name: "menuitemradio", shouldGenerateKeyboardSentence: true },
+    { id: "menuitemradio", name: "menuitemradio", shouldGenerateKeyboardSentence: true, shouldGenerateCheckedSentence: true },
     { id: "meter", name: "counter" },
     { id: "navigation", name: "navigation" },
     { id: "none", name: "no" },
@@ -102,7 +104,7 @@ export const EN_ROLES: AccessibleRole[] = [
     { id: "option", name: "option", indefiniteArticle: INDEFINITE_ARTICLE.AN },
     { id: "presentation", name: "presentation" },
     { id: "progressbar", name: "progress bar" },
-    { id: "radio", name: "radio", shouldGenerateKeyboardSentence: true },
+    { id: "radio", name: "radio", shouldGenerateKeyboardSentence: true, shouldGenerateCheckedSentence: true },
     { id: "radiogroup", name: "radio group" },
     { id: "range", name: "range" },
     { id: "region", name: "region" },

@@ -193,6 +193,24 @@ export async function findWithRoleAndNameFocused(world: World, expectedRole: str
   });
 }
 
+export async function findWithRoleAndNameAndChecked(world: World, expectedRole: string, name: string): Promise<any> {
+  expectedRole = encodeURIComponent(expectedRole);
+  await getPageOrElement(world).then(async (element) => {
+    const byRole = await element.getByRole(expectedRole, { name: name, includeHidden: true, exact: true });
+    await expect(byRole).toHaveCount(1);
+    await expect(byRole).toBeChecked();
+  });
+}
+
+export async function findWithRoleAndNameAndUnchecked(world: World, expectedRole: string, name: string): Promise<any> {
+  expectedRole = encodeURIComponent(expectedRole);
+  await getPageOrElement(world).then(async (element) => {
+    const byRole = await element.getByRole(expectedRole, { name: name, includeHidden: true, exact: true });
+    await expect(byRole).toHaveCount(1);
+    await expect(byRole).not.toBeChecked();
+  });
+}
+
 export async function findWithRoleAndNameAndContentDisable(world: World, expectedRole: string, name: string, expectedTextContent: string) {
   expectedRole = encodeURIComponent(expectedRole);
   await getPageOrElement(world).then(async (element) => {

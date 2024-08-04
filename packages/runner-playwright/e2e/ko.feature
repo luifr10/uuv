@@ -3,11 +3,13 @@ Feature: Ko
   Background:
     Given I visit path "https://e2e-test-quest.github.io/weather-app/"
 
+  @ko
   Scenario: Homepage - Bad title
     # Verify elements on landing page
     Then I should see a title named "Welcome to Weather App - ko"
     And I should see a button named "Get started"
 
+  @ko
   Scenario: Weather - Town List must be ok
     # Click on <Get started> button
     When I click on button named "Get started"
@@ -17,6 +19,7 @@ Feature: Ko
       | Tunis   |
       | Limoges |
 
+  @ko
   Scenario: TownResearch - Bad textbox name
     # Click on <Get started> button
     When I click on button named "Get started"
@@ -29,7 +32,24 @@ Feature: Ko
       | Tunis   |
       | Limoges |
 
+  @ko
   Scenario: Error when waiting a mock without instanciate a mock before
     Then I should consume a mock named "uuvFixture"
 
+  @ko
+  Scenario: Radio button - Ko unchecked
+      Then I should see a radio named "Small (under 150000)" unchecked
+
+  @ko
+  Scenario: Radio button - Ko checked
+      Then I should see a radio named "Medium (150000 to 1 million)" checked
+
+  @ko
+  Scenario: Checkbox - Ko unchecked
+      Then I should see a checkbox named "Allow automatic update" checked
+
+  @ko
+  Scenario: Checkbox - Ko checked
+      When I click on element with role "checkbox" and name "Allow automatic update"
+      Then I should see a checkbox named "Allow automatic update" unchecked
 

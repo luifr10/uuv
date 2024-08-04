@@ -4,6 +4,7 @@ export abstract class AccessibleRole {
     shouldGenerateTypeSentence!: boolean;
     shouldGenerateContainsSentence!: boolean;
     shouldGenerateKeyboardSentence = false;
+    shouldGenerateCheckedSentence = false;
 
     abstract getDefiniteArticle(): string;
 
