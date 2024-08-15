@@ -4,7 +4,7 @@ This project was generated using [Nx](https://nx.dev).
 
 ## Prerequisites
 
-- Node JS >= 18.12.0
+- Node JS = 20.x.x
 - Java 17
 
 ## Setup workspace
@@ -141,6 +141,20 @@ Playwright engine to execute UUV E2E Tests
 | `e2e-test:open`    | Run E2E tests in headful mode  |
 | `unit-tests`       | Run unit tests                 |
 | `package`          | npm packaging                  |
+| `semantic-release` | execute semantic release       |
+
+### vscode-extension
+
+Vscode extension that helps you execute and write your uuv E2E Tests.
+
+#### Main targets
+
+| Target             | Description                    |
+|--------------------|--------------------------------|
+| `lint`             | Execute linter                 |
+| `build`            | Build project                  |
+| `test`             | Run all tests                  |
+| `publish`          | publish                        |
 | `semantic-release` | execute semantic release       |
 
 ## Useful information
