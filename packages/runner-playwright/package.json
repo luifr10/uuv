@@ -47,7 +47,7 @@
     "@playwright/test": "^1.44.1",
     "@uuv/runner-commons": "2.24.0",
     "axe-core": "4.10.0",
-    "axe-playwright": "2.0.1",
+    "axe-playwright": "2.0.2",
     "chalk-table": "^1.0.2",
     "chokidar": "3.5.3",
     "cucumber-json-report-formatter": "0.1.4",
