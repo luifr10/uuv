@@ -49,14 +49,12 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-      - name: Installing Wine
-        run: sudo apt-get update -y && sudo apt install wine64
       - name: Build artifacts
         uses: ./.github/actions/nx-run-many
         with:
           node-version: ${{env.NODE_VERSION}}
           target: "build"
-          exclude: "runner-flutter"
+          exclude: "assistant-electron,runner-flutter"
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
@@ -80,6 +78,39 @@ jobs:
           name: github-pages
           path: packages/docs/build
 
+  build-electron:
+    runs-on: ubuntu-latest
+    needs: install
+    steps:
+      - uses: actions/checkout@v4
+      - name: Installing Wine
+        run: sudo apt-get update -y && sudo apt install wine64
+      - name: Cache node modules
+        uses: actions/cache@v4
+        with:
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('./package-lock.json') }}
+          path: |
+            node_modules
+            packages/assistant/node_modules
+            packages/docs/node_modules
+            packages/a11y/node_modules
+            packages/runner-commons/node_modules
+            packages/runner-cypress/node_modules
+            packages/runner-playwright/node_modules
+            packages/vscode-extension/node_modules
+      - name: Use Node.js ${{ inputs.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.node-version }}
+      - name: Build artifacts
+        run: npx nx build assistant-electron --verbose
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts-electron
+          path: |
+            packages/assistant-electron/dist/uuv-assistant-win32-x64.zip
+
   unit-tests:
     runs-on: ubuntu-latest
     needs: install
@@ -101,7 +132,7 @@ jobs:
 
   unit-tests-a11y:
     runs-on: ubuntu-latest
-    needs: [ lint, unit-tests, build ]
+    needs: [ lint, unit-tests, build, build-electron ]
     steps:
       - uses: actions/checkout@v4
       - uses: browser-actions/setup-chrome@v1
@@ -121,7 +152,7 @@ jobs:
 
   integration-tests-assistant:
     runs-on: ubuntu-latest
-    needs: [ lint, unit-tests, build]
+    needs: [ lint, unit-tests, build, build-electron ]
     steps:
       - uses: actions/checkout@v4
       - name: Running assistant integration tests
@@ -142,7 +173,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: cypress/browsers:node18.12.0-chrome107
-    needs: [ lint, unit-tests, build ]
+    needs: [ lint, unit-tests, build, build-electron ]
     steps:
       - uses: actions/checkout@v4
       - name: Running cypress unit tests
@@ -167,7 +198,7 @@ jobs:
 
   unit-tests-playwright:
     runs-on: ubuntu-latest
-    needs: [ lint, unit-tests, build ]
+    needs: [ lint, unit-tests, build, build-electron ]
     steps:
       - uses: actions/checkout@v4
       - name: Running playwright unit tests
@@ -192,7 +223,7 @@ jobs:
 
   unit-tests-runner-flutter:
     runs-on: ubuntu-latest
-    needs: [ lint, unit-tests, build ]
+    needs: [ lint, unit-tests, build, build-electron ]
     steps:
       - uses: actions/checkout@v3
       - name: Running runner-flutter unit tests
@@ -206,7 +237,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: e2etesting/uuv
-    needs: [ lint, unit-tests, build ]
+    needs: [ lint, unit-tests, build, build-electron ]
     steps:
       - uses: actions/checkout@v4
       - name: Cache node modules
@@ -258,7 +289,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: e2etesting/uuv
-    needs: [ lint, unit-tests, build ]
+    needs: [ lint, unit-tests, build, build-electron ]
     steps:
       - uses: actions/checkout@v4
       - name: Cache node modules
@@ -278,8 +309,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: build-artifacts
-          path:
-            packages
+          path: packages
       - run: npm ci
       - name: Package runner-playwright
         run: mkdir -p ./dist/packages && npx nx package a11y && npx nx package runner-commons && npx nx package runner-playwright
@@ -330,6 +360,11 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: build-artifacts
+          path: packages
+      - name: Download build electron artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts-electron
           path: packages
       - name: Release public packages
         uses: ./.github/actions/nx-run-many

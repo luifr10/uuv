@@ -22,6 +22,7 @@ import {
   findWithRoleAndNameAndContentDisable,
   findWithRoleAndNameAndContentEnable, findWithRoleAndNameAndUnchecked, findWithRoleAndNameFocused,
   getPageOrElement,
+  getTimeout,
   notFoundWithRoleAndName,
   withinRoleAndName
 } from "./core-engine";
@@ -62,8 +63,8 @@ Then(
  * */
 When(`${key.when.type}`, async function(this: World, textToType: string, name: string) {
   await getPageOrElement(this).then(async (element) => {
-    const byRole = await element.getByRole("$roleId", { name: name, includeHidden: true, exact: true });
-    await expect(byRole).toHaveCount(1);
+    const byRole = await element.getByRole("$roleId", { name: name, exact: true });
+    await expect(byRole).toHaveCount(1, { timeout: await getTimeout(this) });
     await byRole.type(textToType);
     await deleteCookieByName(this, COOKIE_NAME.SELECTED_ELEMENT);
   });

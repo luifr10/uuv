@@ -14,11 +14,13 @@
 
 import { World } from "../../preprocessor/run/world";
 import { Cookie, expect, Locator as LocatorTest } from "@playwright/test";
+import { DEFAULT_TIMEOUT } from "@uuv/runner-commons";
 import { Locator, Page } from "playwright";
 
 export enum COOKIE_NAME {
-  SELECTED_ELEMENT = "withinFocusedElement",
-  MOCK_URL = "mockUrl"
+  TIMEOUT = "uuv.timeout",
+  SELECTED_ELEMENT = "uuv.withinFocusedElement",
+  MOCK_URL = "uuv.mockUrl"
 }
 
 export enum COOKIE_VALUE {
@@ -61,6 +63,11 @@ export class MockCookie implements CustomCookieValue {
 
 export class SelectedElementCookie implements CustomCookieValue {
   constructor(public name: string, public value: string) {
+  }
+}
+
+export class TimeoutCookie implements CustomCookieValue {
+  constructor(public name: string, public value: number) {
   }
 }
 
@@ -122,6 +129,9 @@ export async function addCookie(world: World, cookieName: COOKIE_NAME, newCookie
       // console.debug("cookieValueJSON", JSON.stringify(cookieValue));
       break;
     case COOKIE_NAME.SELECTED_ELEMENT:
+      cookieValue.push(newCookie);
+      break;
+    case COOKIE_NAME.TIMEOUT:
       cookieValue.push(newCookie);
       break;
   }
@@ -271,4 +281,15 @@ export async function checkTextContentLocator(locator: Locator, expectedTextCont
       }
     }
   }
+}
+
+export async function getTimeout(world: World): Promise<number> {
+  const cookieTimeout = await getCookie(world, COOKIE_NAME.TIMEOUT);
+  if (cookieTimeout?.isValid()) {
+    const timeoutCookies: TimeoutCookie[] = JSON.parse(cookieTimeout.value);
+    if (timeoutCookies.length > 0) {
+      return timeoutCookies[0].value;
+    }
+  }
+  return DEFAULT_TIMEOUT;
 }

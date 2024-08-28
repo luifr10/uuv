@@ -619,7 +619,7 @@ function click(role: string, name: string) {
       cy.uuvFindByRole(role, { name: name }).uuvFoundedElement().click();
       cy.wrap(new Context()).as("context");
     } else {
-      cy.findByRole(role, { name: name }).click();
+      cy.findByRole(role, { name: name, ...context }).click();
     }
   });
 }

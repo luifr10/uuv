@@ -53,3 +53,9 @@ Feature: Ko
       When I click on element with role "checkbox" and name "Allow automatic update"
       Then I should see a checkbox named "Allow automatic update" unchecked
 
+  @ko
+  Scenario: click failed with custom timeout
+    Given I visit path "https://e2e-test-quest.github.io/simple-webapp/"
+    When I click on button named "Start timer"
+    And I set timeout with value 9000
+    Then I click on button named "Timer ended"

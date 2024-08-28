@@ -33,7 +33,9 @@ import {
   MockCookie,
   notFoundWithRoleAndName,
   SelectedElementCookie,
-  withinRoleAndName
+  TimeoutCookie,
+  withinRoleAndName,
+  getTimeout
 } from "./core-engine";
 import { World } from "../../preprocessor/run/world";
 import { ContextObject, RunOptions } from "axe-core";
@@ -115,6 +117,7 @@ When(`${key.when.withinElement.ariaLabel}`, async function(this: World, expected
  * */
 When(`${key.when.resetContext}`, async function(this: World) {
   await deleteCookieByName(this, COOKIE_NAME.SELECTED_ELEMENT);
+  await deleteCookieByName(this, COOKIE_NAME.TIMEOUT);
 });
 
 /**
@@ -175,7 +178,7 @@ When(`${key.when.keyboard.nextElement}`, async function(this: World) {
  * key.when.timeout.description
  * */
 When(`${key.when.timeout}`, async function(this: World, newTimeout: number) {
-  await this.testInfo.setTimeout(newTimeout);
+  await addCookie(this, COOKIE_NAME.TIMEOUT, new TimeoutCookie("timeout", newTimeout));
 });
 
 /**
@@ -602,9 +605,12 @@ async function pressKey(world: World, key: string) {
 
 async function click(world: World, role: any, name: string) {
   await getPageOrElement(world).then(async (element) => {
-    const byRole = element.getByRole(role, { name: name, includeHidden: true, exact: true });
-    await expect(byRole).toHaveCount(1);
-    await byRole.click({ timeout: DEFAULT_TIMEOUT });
+    const byRole = element.getByRole(role, {
+      name: name,
+      exact: true
+    });
+    await expect(byRole).toHaveCount(1, { timeout: await getTimeout(world) });
+    await byRole.click();
     await world.page.waitForLoadState();
     await deleteCookieByName(world, COOKIE_NAME.SELECTED_ELEMENT);
   });

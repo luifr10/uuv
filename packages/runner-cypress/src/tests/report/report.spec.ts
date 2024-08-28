@@ -10,8 +10,8 @@ describe("Runner Cypress JunitReport", () => {
     });
 
     test("Should have good results", () => {
-        expect(report.testsuites.tests).toEqual("123");
-        expect(report.testsuites.failures).toEqual("7");
+        expect(report.testsuites.tests).toEqual("125");
+        expect(report.testsuites.failures).toEqual("8");
         expect(report.testsuites.errors).toBeUndefined();
         expect(report.testsuites.skipped).toBeUndefined();
     });
@@ -24,5 +24,10 @@ describe("Runner Cypress JunitReport", () => {
     test("Should fail for test : Ko TownResearch - Bad textbox name", () => {
         const testCase = JunitReportHelper.getTestCase(report, "Ko", "Ko TownResearch - Bad textbox name");
         expect(testCase?.failure._).toContain("Timed out retrying after 6000ms: Unable to find an accessible element with the role \"textbox\" and name \"Search for a town3\"");
+    });
+
+    test("Should fail for test : Ko click failed with custom timeout", () => {
+        const testCase = JunitReportHelper.getTestCase(report, "Ko", "Ko click failed with custom timeout");
+        expect(testCase?.failure._).toContain("Timed out retrying after 9000ms: Unable to find an accessible element with the role \"button\" and name \"Timer ended\"");
     });
 });

@@ -8,8 +8,7 @@
     "a11y",
     "runner-cypress",
     "runner-playwright",
-    "assistant",
-    "assistant-electron"
+    "assistant"
   ],
   "targets": {
     "semantic-release": {
