@@ -108,7 +108,7 @@ When(`${key.when.click.withRole}`, async function(this: World, role: string, nam
  * */
 When(`${key.when.withinElement.ariaLabel}`, async function(this: World, expectedAriaLabel: string) {
   const sanitizedExpectedAriaLabel = encodeURIComponent(expectedAriaLabel).replaceAll("%20", " ");
-  await getPageOrElement(this).then((element) => expect(element.getByLabel(sanitizedExpectedAriaLabel, { exact: true })).toHaveCount(1));
+  await getPageOrElement(this).then(async (element) => expect(element.getByLabel(sanitizedExpectedAriaLabel, { exact: true })).toHaveCount(1, { timeout: await getTimeout(this) }));
   await addCookie(this, COOKIE_NAME.SELECTED_ELEMENT, new SelectedElementCookie(FILTER_TYPE.ARIA_LABEL, sanitizedExpectedAriaLabel));
 });
 
@@ -124,7 +124,7 @@ When(`${key.when.resetContext}`, async function(this: World) {
  * key.when.withinElement.selector.description
  * */
 When(`${key.when.withinElement.selector}`, async function(this: World, selector: string) {
-  await getPageOrElement(this).then((element) => expect(element.locator(selector)).toHaveCount(1));
+  await getPageOrElement(this).then(async (element) => expect(element.locator(selector)).toHaveCount(1, { timeout: await getTimeout(this) }));
   await addCookie(this, COOKIE_NAME.SELECTED_ELEMENT, new SelectedElementCookie(FILTER_TYPE.SELECTOR, selector));
 });
 
@@ -193,7 +193,7 @@ When(`${key.when.withinElement.roleAndName}`, async function(this: World, role: 
  * */
 When(`${key.when.withinElement.testId}`, async function(this: World, testId: string) {
   testId = encodeURIComponent(testId);
-  await getPageOrElement(this).then(async (element) => await expect(element.getByTestId(testId)).toHaveCount(1));
+  await getPageOrElement(this).then(async (element) => await expect(element.getByTestId(testId)).toHaveCount(1, { timeout: await getTimeout(this) }));
   await addCookie(this, COOKIE_NAME.SELECTED_ELEMENT, new SelectedElementCookie(FILTER_TYPE.TEST_ID, testId));
 });
 
@@ -245,7 +245,7 @@ When(
  * key.then.element.withSelector.description
  * */
 Then(`${key.then.element.withSelector}`, async function(this: World, selector: string) {
-  await getPageOrElement(this).then((element) => expect(element.locator(selector)).toHaveCount(1));
+  await getPageOrElement(this).then(async (element) => expect(element.locator(selector)).toHaveCount(1, { timeout: await getTimeout(this) }));
 });
 
 /**
@@ -286,14 +286,14 @@ Then(`${key.then.element.withRoleAndName}`, async function(this: World, role: st
  * */
 Then(`${key.then.element.withContent}`, async function(this: World, textContent: string) {
   // TODO partie pris de faire en exactitude. A voir si on doit faire 2 phrases https://playwright.dev/docs/api/class-locator#locator-get-by-text
-  await getPageOrElement(this).then((element) => expect(element.getByText(textContent, { exact: true })).toHaveCount(1));
+  await getPageOrElement(this).then(async (element) => expect(element.getByText(textContent, { exact: true })).toHaveCount(1, { timeout: await getTimeout(this) }));
 });
 
 /**
  * key.then.element.not.withContent.description
  * */
 Then(`${key.then.element.not.withContent}`, async function(this: World, textContent: string) {
-  await getPageOrElement(this).then((element) => expect(element.getByText(textContent, { exact: true })).toHaveCount(0));
+  await getPageOrElement(this).then(async (element) => expect(element.getByText(textContent, { exact: true })).toHaveCount(0, { timeout: await getTimeout(this) }));
 });
 
 /**
@@ -301,7 +301,7 @@ Then(`${key.then.element.not.withContent}`, async function(this: World, textCont
  * */
 Then(`${key.then.element.withTestId}`, async function(this: World, testId: string) {
   testId = encodeURIComponent(testId);
-  await getPageOrElement(this).then((element) => expect(element.getByTestId(testId, { exact: true })).toHaveCount(1));
+  await getPageOrElement(this).then(async (element) => expect(element.getByTestId(testId, { exact: true })).toHaveCount(1, { timeout: await getTimeout(this) }));
 });
 
 /**
@@ -309,7 +309,7 @@ Then(`${key.then.element.withTestId}`, async function(this: World, testId: strin
  * */
 Then(`${key.then.element.not.withTestId}`, async function(this: World, testId: string) {
   testId = encodeURIComponent(testId);
-  await getPageOrElement(this).then((element) => expect(element.getByTestId(testId, { exact: true })).toHaveCount(0));
+  await getPageOrElement(this).then(async (element) => expect(element.getByTestId(testId, { exact: true })).toHaveCount(0, { timeout: await getTimeout(this) }));
 });
 
 /**
@@ -436,7 +436,7 @@ Then(
    await getPageOrElement(this).then(async (element) => {
      const locator = element.locator(selector);
      await locator.focus({ timeout: 10000 });
-     await expect(locator).toHaveCount(1);
+     await expect(locator).toHaveCount(1, { timeout: await getTimeout(this) });
      await expect(locator).toBeFocused();
    });
  });
@@ -466,7 +466,7 @@ Then(
  * */
 Then(`${key.then.element.withAriaLabel}`, async function(this: World, expectedAriaLabel: string) {
   expectedAriaLabel = encodeURIComponent(expectedAriaLabel);
-  await getPageOrElement(this).then((element) => expect(element.getByLabel(expectedAriaLabel, { exact: true })).toHaveCount(1));
+  await getPageOrElement(this).then(async (element) => expect(element.getByLabel(expectedAriaLabel, { exact: true })).toHaveCount(1, { timeout: await getTimeout(this) }));
 });
 
 /**
@@ -474,7 +474,7 @@ Then(`${key.then.element.withAriaLabel}`, async function(this: World, expectedAr
  * */
 Then(`${key.then.element.not.withAriaLabel}`, async function(this: World, expectedAriaLabel: string) {
   expectedAriaLabel = encodeURIComponent(expectedAriaLabel);
-  await getPageOrElement(this).then((element) => expect(element.getByLabel(expectedAriaLabel, { exact: true })).toHaveCount(0));
+  await getPageOrElement(this).then(async (element) => expect(element.getByLabel(expectedAriaLabel, { exact: true })).toHaveCount(0, { timeout: await getTimeout(this) }));
 });
 
 /**
@@ -484,7 +484,7 @@ Then(`${key.then.element.withAriaLabelAndContent}`, async function(this: World, 
   expectedAriaLabel = encodeURIComponent(expectedAriaLabel);
   await getPageOrElement(this).then(async (element) => {
     const byLabel = element.getByLabel(expectedAriaLabel, { exact: true });
-    await expect(byLabel).toHaveCount(1);
+    await expect(byLabel).toHaveCount(1, { timeout: await getTimeout(this) });
     await expect(byLabel.filter({ hasText: expectedTextContent })).toHaveCount(1);
   });
 });
