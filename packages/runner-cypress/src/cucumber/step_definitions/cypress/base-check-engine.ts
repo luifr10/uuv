@@ -212,6 +212,11 @@ When(`${key.when.withinElement.selector}`, function(selector: string) {
  * */
 When(`${key.when.resetContext}`, function() {
     cy.wrap(new Context()).as("context");
+    if (haveKeyBoardFocused()) {
+        cy.focused().blur();
+    } else {
+        cy.window().trigger("blur");
+    }
 });
 
 /**

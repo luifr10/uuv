@@ -118,6 +118,10 @@ When(`${key.when.withinElement.ariaLabel}`, async function(this: World, expected
 When(`${key.when.resetContext}`, async function(this: World) {
   await deleteCookieByName(this, COOKIE_NAME.SELECTED_ELEMENT);
   await deleteCookieByName(this, COOKIE_NAME.TIMEOUT);
+  const keyBoardFocusTargetObj = keyBoardFocusTarget(this);
+  if ((await keyBoardFocusTargetObj.count()) === 1) {
+    await keyBoardFocusTargetObj.blur();
+  }
 });
 
 /**

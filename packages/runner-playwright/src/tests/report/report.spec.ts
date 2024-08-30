@@ -10,7 +10,7 @@ describe("Runner Playwright JunitReport", () => {
     });
 
     test("Should have good results", () => {
-        expect(report.testsuites.tests).toEqual("122");
+        expect(report.testsuites.tests).toEqual("123");
         expect(report.testsuites.failures).toEqual("8");
         expect(report.testsuites.errors).toEqual("0");
         expect(report.testsuites.skipped).toEqual("0");
@@ -23,7 +23,7 @@ describe("Runner Playwright JunitReport", () => {
 
     test("Should fail for test : Ko Homepage - Bad title", () => {
         const testCase = JunitReportHelper.getTestCase(report, "ko.feature.spec.js", "Ko › Homepage - Bad title");
-        expect(testCase?.failure._).toContain("Error: Timed out 5000ms waiting for expect(locator).toHaveCount(expected)");
+        expect(testCase?.failure._).toContain("Error: Timed out 6000ms waiting for expect(locator).toHaveCount(expected)");
         expect(testCase?.failure._).toContain("Locator: getByRole('heading', { name: 'Welcome to Weather App - ko', exact: true, includeHidden: true })");
     });
 
