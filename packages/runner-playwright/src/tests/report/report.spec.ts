@@ -10,7 +10,7 @@ describe("Runner Playwright JunitReport", () => {
     });
 
     test("Should have good results", () => {
-        expect(report.testsuites.tests).toEqual("127");
+        expect(report.testsuites.tests).toEqual("128");
         expect(report.testsuites.failures).toEqual("8");
         expect(report.testsuites.errors).toEqual("0");
         expect(report.testsuites.skipped).toEqual("0");

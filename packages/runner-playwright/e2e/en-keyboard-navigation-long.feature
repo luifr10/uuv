@@ -91,7 +91,7 @@ Feature: Keyboard Navigation - Long
     And I go to next keyboard element
 
     And I should see a spin button named "Latitude" keyboard focused
-    And I type the sentence "10"
+    And I enter the value "10"
     And I go to next keyboard element
 
     And I should see a spin button named "Longitude" keyboard focused

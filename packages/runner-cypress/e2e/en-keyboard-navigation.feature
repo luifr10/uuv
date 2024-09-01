@@ -55,7 +55,7 @@ Feature: Keyboard Navigation
     And I type the sentence "Paris"
 
     And the next keyboard element focused should be a spin button named "Latitude"
-    And I type the sentence "10"
+    And I enter the value "10"
 
     And the next keyboard element focused should be a spin button named "Longitude"
     And I type the sentence "123"
