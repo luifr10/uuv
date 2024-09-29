@@ -66,7 +66,7 @@ Then(
  * key.when.click.description
  * */
 When(`${key.when.click}`, async function(this: World, name: string) {
-    await click(this, "button", name);
+    await click(this, "$roleId", name);
 });
 
 
