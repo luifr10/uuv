@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ "main" ]
 
+permissions:
+  contents: read
+  actions: read
+  checks: write
 
 env:
   NODE_VERSION: 20.8.1
