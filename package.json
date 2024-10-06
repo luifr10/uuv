@@ -45,7 +45,7 @@
     "@nx/jest": "18.3.5",
     "@nx/js": "18.3.5",
     "@nx/webpack": "18.3.5",
-    "@nxrocks/nx-flutter": "^8.1.0",
+    "@nxrocks/nx-flutter": "^9.0.0",
     "@theunderscorer/nx-semantic-release": "2.4.0",
     "@types/jest": "29.5.13",
     "@types/node": "20.12.12",
