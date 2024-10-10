@@ -57,7 +57,9 @@ function HomepageHeader() {
                     <Link
                         className={`${styles.button} button button--primary button--lg`}
                         to="docs/intro">
-                        <img src={'img/rocket.svg'} className={styles.buttonIconGetStarted}/>
+                        <div className={styles.buttonIconWrapper}>
+                            <span className={styles.buttonIconGetStarted}></span>
+                        </div>
                         <Translate id="homepage.callToAction">Getting Started</Translate>
                     </Link>
                 </div>
@@ -70,7 +72,7 @@ export default function Home(): JSX.Element {
     const {siteConfig} = useDocusaurusContext();
     return (
         <Layout
-            title={`Homepage`}
+            title={`Homepage`}  
             description={translate({
                 id: 'homepage.headline',
                 message: 'Discovering your application by usecase validation'
