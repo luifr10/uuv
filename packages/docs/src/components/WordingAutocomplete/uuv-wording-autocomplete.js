@@ -57,23 +57,34 @@ export function UuvWordingAutocomplete({lang}) {
     };
 
     return (
-        <PrimeReactProvider>
-            <div className="flex AutocompleteContainer">
-                <div className="p-float-label Autocomplete">
-                    <AutoComplete
-                        inputId="ac"
-                        field="suggestion"
-                        value={value}
-                        suggestions={items}
-                        completeMethod={search}
-                        itemTemplate={itemTemplate}
-                        onChange={(e) => setValue(e.value)}
-                        onSelect={(e) => onSelect(e.value)}
-                    />
-                        <label htmlFor="ac">{placeholder}</label>
+        <div 
+            className="searchBar" 
+            style={{
+                position: 'sticky', 
+                zIndex: 100,
+                padding: '30px',
+                top: 25,
+                left: 10
+            }}
+        >
+            <PrimeReactProvider>
+                <div className="flex AutocompleteContainer">
+                    <div className="p-float-label Autocomplete">
+                        <AutoComplete
+                            inputId="ac"
+                            field="suggestion"
+                            value={value}
+                            suggestions={items}
+                            completeMethod={search}
+                            itemTemplate={itemTemplate}
+                            onChange={(e) => setValue(e.value)}
+                            onSelect={(e) => onSelect(e.value)}
+                            />
+                            <label htmlFor="ac">{placeholder}</label>
+                    </div>
                 </div>
-            </div>
-            <Toast ref={toast} />
-        </PrimeReactProvider>
+                <Toast ref={toast} />
+            </PrimeReactProvider>
+        </div>
     );
 }
