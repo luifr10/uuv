@@ -10,8 +10,8 @@ describe("Runner Cypress JunitReport", () => {
     });
 
     test("Should have good results", () => {
-        expect(report.testsuites.tests).toEqual("131");
-        expect(report.testsuites.failures).toEqual("8");
+        expect(report.testsuites.tests).toEqual("132");
+        expect(report.testsuites.failures).toEqual("9");
         expect(report.testsuites.errors).toBeUndefined();
         expect(report.testsuites.skipped).toBeUndefined();
     });
@@ -29,5 +29,10 @@ describe("Runner Cypress JunitReport", () => {
     test("Should fail for test : Ko click failed with custom timeout", () => {
         const testCase = JunitReportHelper.getTestCase(report, "Ko", "Ko click failed with custom timeout");
         expect(testCase?.failure._).toContain("Timed out retrying after 9000ms: Unable to find an accessible element with the role \"button\" and name \"Timer ended\"");
+    });
+
+    test("Should fail for test : Ko axe core failed", () => {
+        const testCase = JunitReportHelper.getTestCase(report, "Ko", "Ko axe core failed");
+        expect(testCase?.failure._).toContain("A11y validation failed: expected 1 to equal 0");
     });
 });
