@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/Orange-OpenSource/uuv/compare/docker-images-v1.0.0...docker-images-v1.1.0) (2024-10-24)
+
+
+### Features
+
+* add a11y-dashboard and a11y-dashboard-api project to workspace, [#460](https://github.com/Orange-OpenSource/uuv/issues/460) ([59dd5cc](https://github.com/Orange-OpenSource/uuv/commit/59dd5ccd3fab325b50a0693dedf16e5efaf9924a))
+
 # 1.0.0 (2024-10-24)
 
 
