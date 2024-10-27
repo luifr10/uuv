@@ -46,7 +46,7 @@
     "@cucumber/tag-expressions": "^6.0.0",
     "@playwright/test": "^1.44.1",
     "@uuv/runner-commons": "2.32.0",
-    "axe-core": "4.10.1",
+    "axe-core": "4.10.2",
     "axe-playwright": "2.0.3",
     "chalk-table": "^1.0.2",
     "chokidar": "3.5.3",
