@@ -5,10 +5,10 @@
   "author": "Louis Fredice NJAKO MOLOM (https://github.com/luifr10) & Stanley SERVICAL (https://github.com/stanlee974)",
   "description": "A solution to facilitate the writing and execution of E2E tests understandable by any human being using cucumber(BDD) and cypress",
   "license": "MIT",
-  "homepage": "https://orange-opensource.github.io/uuv/",
+  "homepage": "https://e2e-test-quest.github.io/uuv/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Orange-OpenSource/uuv"
+    "url": "https://github.com/e2e-test-quest/uuv"
   },
   "bin": {
     "uuv": "bin/uuv"

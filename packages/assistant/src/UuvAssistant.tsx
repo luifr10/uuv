@@ -1,7 +1,6 @@
 /**
  * Software Name : UUV
  *
- * SPDX-FileCopyrightText: Copyright (c) Orange SA
  * SPDX-License-Identifier: MIT
  *
  * This software is distributed under the MIT License,
@@ -424,7 +423,7 @@ function UuvAssistant(props: UuvAssistantProps) {
                 <Avatar className={"uuvAssistantAvatar"} size='large'>
                   <Tooltip placement='top' title='Go to steps definition'
                            getPopupContainer={(triggerNode) => getAsideParentInHierarchy(triggerNode)}>
-                    <a href='https://orange-opensource.github.io/uuv/docs/category/description-of-sentences'>
+                    <a href='https://e2e-test-quest.github.io/uuv/docs/category/description-of-sentences'>
                       <img
                        src={CssHelper.getBase64File(uuvLogoJson)}
                        alt='UUV logo'

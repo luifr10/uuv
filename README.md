@@ -1,7 +1,7 @@
 <p align="center">  
-<a href="https://orange-opensource.github.io/uuv/">  
+<a href="https://e2e-test-quest.github.io/uuv/">  
 <picture>  
-<img alt="UUV Logo" src="https://orange-opensource.github.io/uuv/img/uuv.png">  
+<img alt="UUV Logo" src="https://e2e-test-quest.github.io/uuv/img/uuv.png">  
 </picture>  
 </a>  
 </p>  
@@ -17,9 +17,9 @@ Make test writing fast, understandable by any human understanding English or Fre
 
 ## Benefits
 - If used correctly, integrates accessibility from the development stage
-- A living documentation is possible because we propose an unified language for developers and non-developers with a [rich dictionary](https://orange-opensource.github.io/uuv/docs/category/step-definition) of ready-to-use sentences
-- [@uuv/assistant](https://orange-opensource.github.io/uuv/docs/tools/uuv-assistant) that facilitates the writing of tests by suggesting the most accessible sentences
-- [JetBrains Plugin](https://orange-opensource.github.io/uuv/docs/tools/uuv-jetbrains-plugin) that helps you to write and execute your UUV E2E tests from JetBrains IDEs
+- A living documentation is possible because we propose an unified language for developers and non-developers with a [rich dictionary](https://e2e-test-quest.github.io/uuv/docs/category/step-definition) of ready-to-use sentences
+- [@uuv/assistant](https://e2e-test-quest.github.io/uuv/docs/tools/uuv-assistant) that facilitates the writing of tests by suggesting the most accessible sentences
+- [JetBrains Plugin](https://e2e-test-quest.github.io/uuv/docs/tools/uuv-jetbrains-plugin) that helps you to write and execute your UUV E2E tests from JetBrains IDEs
 - Integrates several runtime engines: Cypress / Playwright
 - User friendly and standardized execution report([example](https://e2e-test-quest.github.io/kata-e2e-uuv/06-go-further/))
   ### <u>Comparison</u>
@@ -46,7 +46,7 @@ we see that the sentence proposed by **UUV is the most understandable** of all
 | UUV | Then I should see a title named "Result"|
 
 ## Documentation
-<a href="https://orange-opensource.github.io/uuv/"><img src="https://img.shields.io/badge/documentation-black?&style=for-the-badge&logo=github&logoColor=white" alt="documentation"/></a>
+<a href="https://e2e-test-quest.github.io/uuv/"><img src="https://img.shields.io/badge/documentation-black?&style=for-the-badge&logo=github&logoColor=white" alt="documentation"/></a>
 
 ## Libraries
 <a href="https://www.npmjs.com/package/@uuv/a11y"><img src="https://img.shields.io/badge/@uuv/a11y-uuv library to perform a11y checks-brown?logo=npm" alt="UUV a11y npm library"/></a>  
@@ -90,11 +90,11 @@ To answer the above issues and many others, our solution is to set up a coherent
 
 ## License
 
-[<a href="https://github.com/Orange-OpenSource/uuv/blob/main/LICENSE">  
+[<a href="https://github.com/e2e-test-quest/uuv/blob/main/LICENSE">  
 <img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT license"/>  
 </a>](https://spdx.org/licenses/MIT.html)
 
-This project is licensed under the terms of the [MIT license](https://github.com/Orange-OpenSource/uuv/blob/main/LICENSE).
+This project is licensed under the terms of the [MIT license](https://github.com/e2e-test-quest/uuv/blob/main/LICENSE).
 
 ## Authors
 

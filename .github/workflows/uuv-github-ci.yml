@@ -106,9 +106,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ inputs.node-version }}
-      - name: Build artifacts
+      - name: Build artifacts electron
         run: npx nx build assistant-electron --verbose
-      - name: Upload build artifact
+      - name: Upload build artifact electron
         uses: actions/upload-artifact@v4
         with:
           name: build-artifacts-electron

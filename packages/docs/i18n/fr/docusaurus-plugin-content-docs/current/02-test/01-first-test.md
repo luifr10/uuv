@@ -14,5 +14,5 @@ Feature: Hello World
     Then I should see a title named "Welcome to Weather App"
 ```
 Vous pouvez trouver d'autres exemples de test ici :
-- [weather-app.feature](https://github.com/Orange-OpenSource/uuv/blob/main/example/weather-app.feature)
+- [weather-app.feature](https://github.com/e2e-test-quest/uuv/blob/main/example/weather-app.feature)
 - [Kata E2E UUV](https://github.com/e2e-test-quest/kata-e2e-uuv/) : une serie d'exercices pour apprendre à écrire des scénarios

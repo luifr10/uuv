@@ -1,8 +1,8 @@
 # intellij-plugin
 <p align="center">  
-<a href="https://orange-opensource.github.io/uuv/">  
+<a href="https://e2e-test-quest.github.io/uuv/">  
 <picture>  
-<img alt="UUV Logo" src="https://orange-opensource.github.io/uuv/img/uuv.png">  
+<img alt="UUV Logo" src="https://e2e-test-quest.github.io/uuv/img/uuv.png">  
 </picture>  
 </a>  
 </p>   

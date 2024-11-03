@@ -8,7 +8,7 @@
   <name>UUV</name>
 
   <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
-  <vendor email="131726886+luifr10@users.noreply.github.com;32981008+stanlee974@users.noreply.github.com" url="https://github.com/Orange-OpenSource/uuv">UUV</vendor>
+  <vendor email="131726886+luifr10@users.noreply.github.com;32981008+stanlee974@users.noreply.github.com" url="https://github.com/e2e-test-quest/uuv">UUV</vendor>
 
   <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
        Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
@@ -20,10 +20,10 @@
     <h2 id="useful-links">Useful links</h2>
     <h3 id="source">Source</h3>
     <ul>
-      <li>Github: <a href="https://github.com/Orange-OpenSource/uuv">https://github.com/Orange-OpenSource/uuv</a></li>
+      <li>Github: <a href="https://github.com/e2e-test-quest/uuv">https://github.com/e2e-test-quest/uuv</a></li>
       <li><h3 id="documentation">Documentation</h3>
       </li>
-      <li>Use manual: <a href="https://orange-opensource.github.io/uuv/">https://orange-opensource.github.io/uuv/</a></li>
+      <li>Use manual: <a href="https://e2e-test-quest.github.io/uuv/">https://e2e-test-quest.github.io/uuv/</a></li>
       <li>Article: <a href="https://medium.com/@njakolouis/user-centric-e2e-testing-1f99bdd6105f">https://medium.com/@njakolouis/user-centric-e2e-testing-1f99bdd6105f</a></li>
     </ul>
     <h3 id="demo">Demo</h3>

@@ -11,7 +11,7 @@ This project was generated using [Nx](https://nx.dev).
 
 1. Retrieve sources
     ```shell
-    git clone git@github.com:Orange-OpenSource/uuv.git
+    git clone git@github.com:e2e-test-quest/uuv.git
     ```
 2. Install dependencies
     ```shell

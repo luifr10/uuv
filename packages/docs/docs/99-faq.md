@@ -75,7 +75,7 @@ Edit the `package.json` file to add the following line in the script section :
 ## Cannot run tests with jetbrains-plugin
 
 ### Case 1 : Open or Run command is null
-Target script attribute is automatically deleted sometimes. you must fill the field **Target Script attribute** of UUV run/debug configuration with open or e2e ([bug traced](https://github.com/Orange-OpenSource/uuv/issues/305 "Opening in new tab bug 305 of Orange OpenSource/uuv")).
+Target script attribute is automatically deleted sometimes. you must fill the field **Target Script attribute** of UUV run/debug configuration with open or e2e ([bug traced](https://github.com/e2e-test-quest/uuv/issues/305 "Opening in new tab bug 305 of Orange OpenSource/uuv")).
 
 #### Message
 

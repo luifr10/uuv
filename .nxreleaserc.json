@@ -7,7 +7,7 @@
     "packages/intellij-plugin/gradle.properties"
   ],
   "github": false,
-  "repositoryUrl": "https://github.com/Orange-OpenSource/uuv",
+  "repositoryUrl": "https://github.com/e2e-test-quest/uuv",
   "branches": [
     "main"
   ],

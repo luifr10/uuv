@@ -75,7 +75,7 @@ Modifier le fichier `package.json` pour rajouter les lignes suivantes dans la se
 ## Vous n'arrivez pas à exécuter les tests jetbrains-plugin
 
 ### Cas 1 : l'attribut Target script est nulle
-De temps en temps, l'**attribut Target script** s'efface. Il faut donc l'alimenter avec open ou e2e ([bug identifié](https://github.com/Orange-OpenSource/uuv/issues/305 "Ouverture dans un nouvel onglet du bug 305"))
+De temps en temps, l'**attribut Target script** s'efface. Il faut donc l'alimenter avec open ou e2e ([bug identifié](https://github.com/e2e-test-quest/uuv/issues/305 "Ouverture dans un nouvel onglet du bug 305"))
 
 #### Message
 

@@ -8,16 +8,16 @@ This extension helps you to write and execute your UUV E2E tests from Visual Stu
 
 ### Execute **uuv open**
 Open the runner : find `UUV Open` vscode command.<br/>
-![UUV Open](https://github.com/Orange-OpenSource/uuv/raw/HEAD/packages/vscode-extension/docs/images/uuv-open.png)
+![UUV Open](https://github.com/e2e-test-quest/uuv/raw/HEAD/packages/vscode-extension/docs/images/uuv-open.png)
 
 ### Execute **uuv e2e**
 From the `Testing view`, you can see and execute your uuv tests.<br/>
-![UUV E2E](https://github.com/Orange-OpenSource/uuv/raw/HEAD/packages/vscode-extension/docs/images/uuv-e2e.png)
+![UUV E2E](https://github.com/e2e-test-quest/uuv/raw/HEAD/packages/vscode-extension/docs/images/uuv-e2e.png)
 
 ### Execute **uuv assistant**
-[@uuv/assistant](https://orange-opensource.github.io/uuv/docs/tools/uuv-assistant) is a component that helps you generate sentences with a user-centric approach for your test scenario.<br/>
+[@uuv/assistant](https://e2e-test-quest.github.io/uuv/docs/tools/uuv-assistant) is a component that helps you generate sentences with a user-centric approach for your test scenario.<br/>
 Open uuv assistant : find `UUV Assistant` vscode command.<br/>
-![UUV Assistant](https://github.com/Orange-OpenSource/uuv/raw/HEAD/packages//vscode-extension/docs/images/uuv-assistant.png)
+![UUV Assistant](https://github.com/e2e-test-quest/uuv/raw/HEAD/packages//vscode-extension/docs/images/uuv-assistant.png)
 
 ## Extension settings
 

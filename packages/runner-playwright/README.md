@@ -1,9 +1,9 @@
 
 # @uuv/playwright
 <p align="center">  
-<a href="https://orange-opensource.github.io/uuv/">  
+<a href="https://e2e-test-quest.github.io/uuv/">  
 <picture>  
-<img alt="UUV Logo" src="https://orange-opensource.github.io/uuv/img/uuv.png">  
+<img alt="UUV Logo" src="https://e2e-test-quest.github.io/uuv/img/uuv.png">  
 </picture>  
 </a>  
 </p>  
@@ -66,9 +66,9 @@ We can use the playwright engine(`@uuv/playwright`) to run test or cypress with 
 
 ## Benefits
 - If used correctly, integrates accessibility from the development stage
-- A living documentation is possible because we propose an unified language for developers and non-developers with a [rich dictionary](https://orange-opensource.github.io/uuv/docs/category/step-definition) of ready-to-use sentences
+- A living documentation is possible because we propose an unified language for developers and non-developers with a [rich dictionary](https://e2e-test-quest.github.io/uuv/docs/category/step-definition) of ready-to-use sentences
 - [@uuv/assistant](https://www.npmjs.com/package/@uuv/assistant) that facilitates the writing of tests by suggesting the most accessible sentences
-- [JetBrains Plugin](https://orange-opensource.github.io/uuv/docs/tools/uuv-jetbrains-plugin) that helps you to write and execute your UUV E2E tests from JetBrains IDEs
+- [JetBrains Plugin](https://e2e-test-quest.github.io/uuv/docs/tools/uuv-jetbrains-plugin) that helps you to write and execute your UUV E2E tests from JetBrains IDEs
 - Integrates several runtime engines: Cypress / Playwright
 - User friendly and standardized execution report([example](https://e2e-test-quest.github.io/kata-e2e-uuv/
   ### <u>Comparison</u>
@@ -96,7 +96,7 @@ we see that the sentence proposed by **UUV is the most understandable** of all
 
 
 ## Documentation
-<a href="https://orange-opensource.github.io/uuv/"><img src="https://img.shields.io/badge/documentation-black?&style=for-the-badge&logo=github&logoColor=white" alt="documentation"/></a>
+<a href="https://e2e-test-quest.github.io/uuv/"><img src="https://img.shields.io/badge/documentation-black?&style=for-the-badge&logo=github&logoColor=white" alt="documentation"/></a>
 
 ## Installation
 
@@ -109,12 +109,12 @@ or
 yarn add -D @uuv/playwright
 ``` 
 ## Configuration  (optional)
-<a href="https://orange-opensource.github.io/uuv/docs/getting-started/configuration"><img src="https://img.shields.io/badge/Configure%20Playwright%20doc-red?&style=for-the-badge&logo=github&logoColor=white" alt="documentation for configure uuv playwright"/></a>
+<a href="https://e2e-test-quest.github.io/uuv/docs/getting-started/configuration"><img src="https://img.shields.io/badge/Configure%20Playwright%20doc-red?&style=for-the-badge&logo=github&logoColor=white" alt="documentation for configure uuv playwright"/></a>
 
 ## Usage
 
 ### Scenarios example
-You can find test examples here : [weather-app.feature](https://github.com/Orange-OpenSource/uuv/blob/main/example/weather-app.feature)
+You can find test examples here : [weather-app.feature](https://github.com/e2e-test-quest/uuv/blob/main/example/weather-app.feature)
 
 ### Write test
 To write your first test, create the file `uuv/e2e/first-test.feature` in the project root with the following content :
@@ -128,7 +128,7 @@ To write your first test, create the file `uuv/e2e/first-test.feature` in the pr
 
 For more details, please go to the documentation:
 
-<a href="https://orange-opensource.github.io/uuv/docs/test/first-test"><img src="https://img.shields.io/badge/Write%20test%20doc-red?&style=for-the-badge&logo=github&logoColor=white" alt="documentation for write test"/></a>
+<a href="https://e2e-test-quest.github.io/uuv/docs/test/first-test"><img src="https://img.shields.io/badge/Write%20test%20doc-red?&style=for-the-badge&logo=github&logoColor=white" alt="documentation for write test"/></a>
 
 ### Run test
 
@@ -162,15 +162,15 @@ yarn uuv e2e --browser=edge --env="{'TAGS':'@mobile'}" --generateHtmlReport --ta
 
 For more details, please go to the documentation:
 
-<a href="https://orange-opensource.github.io/uuv/docs/test/running-test"><img src="https://img.shields.io/badge/Run%20test%20doc-red?&style=for-the-badge&logo=github&logoColor=white" alt="documentation for run test"/></a>
+<a href="https://e2e-test-quest.github.io/uuv/docs/test/running-test"><img src="https://img.shields.io/badge/Run%20test%20doc-red?&style=for-the-badge&logo=github&logoColor=white" alt="documentation for run test"/></a>
 
 ## License
 
-[<a href="https://github.com/Orange-OpenSource/uuv/blob/main/LICENSE">  
+[<a href="https://github.com/e2e-test-quest/uuv/blob/main/LICENSE">  
 <img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT license"/>  
 </a>](https://spdx.org/licenses/MIT.html)
 
-This project is licensed under the terms of the [MIT license](https://github.com/Orange-OpenSource/uuv/blob/main/LICENSE).
+This project is licensed under the terms of the [MIT license](https://github.com/e2e-test-quest/uuv/blob/main/LICENSE).
 
 ## Authors
 

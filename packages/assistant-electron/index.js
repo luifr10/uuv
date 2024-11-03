@@ -1,7 +1,6 @@
 /**
  * Software Name : UUV
  *
- * SPDX-FileCopyrightText: Copyright (c) Orange SA
  * SPDX-License-Identifier: MIT
  *
  * This software is distributed under the MIT License,
@@ -17,7 +16,7 @@ const path = require("path");
 const fs = require('fs');
 
 const IS_DEV = process.env.ELECTRON_IS_DEV;
-const BASE_URL = "https://orange-opensource.github.io/uuv/assistant/";
+const BASE_URL = "https://e2e-test-quest.github.io/uuv/assistant/";
 const ASSISTANT_SCRIPT = "uuv-assistant-resources.bundle.js";
 
 async function downloadAssistantScript() {

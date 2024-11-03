@@ -1,9 +1,9 @@
 
 # @uuv/a11y
 <div align="center">  
-<a href="https://orange-opensource.github.io/uuv/">  
+<a href="https://e2e-test-quest.github.io/uuv/">  
 <picture>  
-<img alt="UUV Logo" src="https://orange-opensource.github.io/uuv/img/uuv.png">  
+<img alt="UUV Logo" src="https://e2e-test-quest.github.io/uuv/img/uuv.png">  
 </picture>  
 </a>  
 </div>  
@@ -70,7 +70,7 @@ For each criterion of the RGAA, the following algorithm is executed :
 
  ![Diagram a11Y RGAA](https://unpkg.com/@uuv/a11y/docs/diagram-a11y-rgaa.png)
 
-**Consult [this page](https://orange-opensource.github.io/uuv/docs/tools/uuv-a11y#rgaa) to find out which RGAA verifications are implemented in the library**
+**Consult [this page](https://e2e-test-quest.github.io/uuv/docs/tools/uuv-a11y#rgaa) to find out which RGAA verifications are implemented in the library**
 </p>  
 
 ## Usage
@@ -156,22 +156,22 @@ For each criterion of the RGAA, the following algorithm is executed :
                }
                """
           ```
-   You can also see the [French example](https://github.com/Orange-OpenSource/uuv/blob/main/example/fr-rgaa.feature) or the complete [English example](https://github.com/Orange-OpenSource/uuv/blob/main/example/en-rgaa.feature).
+   You can also see the [French example](https://github.com/e2e-test-quest/uuv/blob/main/example/fr-rgaa.feature) or the complete [English example](https://github.com/e2e-test-quest/uuv/blob/main/example/en-rgaa.feature).
 3. Then execute your tests :
     ```shell
     npx uuv e2e
     ```
 
 ## Want to contribute ?
-Your help is welcome, see the [Contributors guide](https://github.com/Orange-OpenSource/uuv/blob/main/packages/a11y/CONTRIBUTING.md).
+Your help is welcome, see the [Contributors guide](https://github.com/e2e-test-quest/uuv/blob/main/packages/a11y/CONTRIBUTING.md).
 
 ## License
 
-[<a href="https://github.com/Orange-OpenSource/uuv/blob/main/LICENSE">  
+[<a href="https://github.com/e2e-test-quest/uuv/blob/main/LICENSE">  
 <img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT license"/>  
 </a>](https://spdx.org/licenses/MIT.html)
 
-This project is licensed under the terms of the [MIT license](https://github.com/Orange-OpenSource/uuv/blob/main/LICENSE).
+This project is licensed under the terms of the [MIT license](https://github.com/e2e-test-quest/uuv/blob/main/LICENSE).
 
 ## Authors
 
