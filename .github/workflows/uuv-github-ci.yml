@@ -369,7 +369,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: build-artifacts-electron
-          path: packages
+          path: packages/assistant-electron/dist
       - name: Release public packages
         uses: ./.github/actions/nx-run-many
         env:
