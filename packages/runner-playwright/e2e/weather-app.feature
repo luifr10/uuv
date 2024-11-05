@@ -57,7 +57,7 @@ Feature: Weather App example
 
   Scenario: Fill new town form
     Given I visit path "https://e2e-test-quest.github.io/weather-app/?isStarted=true"
-    And I mock a request GET on url "https://e2e-test-quest.github.io/weather-app/assets/data/mock.json" named "mock-new-town" with fixture mock-new-town.json
+    And I mock a request GET on url "https://e2e-test-quest.github.io/weather-app/data/mock.json" named "mock-new-town" with fixture mock-new-town.json
     And I mock a request POST on url "https://e2e-test-quest.github.io/weather-app/api" named "mock-post-new-town" with content "Success"
 
     When I click on button named "Add new town"

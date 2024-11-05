@@ -45,7 +45,7 @@ Fonctionnalité: Navigation au clavier
 
   Scénario: Fill new town form with keyboard
     Etant donné que je visite l'Url "https://e2e-test-quest.github.io/weather-app/?isStarted=true"
-     Et je simule une requête GET sur l'url "https://e2e-test-quest.github.io/weather-app/assets/data/mock.json" nommée "mock-new-town" avec le fichier suivant mock-new-town.json
+     Et je simule une requête GET sur l'url "https://e2e-test-quest.github.io/weather-app/data/mock.json" nommée "mock-new-town" avec le fichier suivant mock-new-town.json
      Et je simule une requête POST sur l'url "https://e2e-test-quest.github.io/weather-app/api" nommée "mock-post-new-town" avec le contenu suivant "Success"
 
     Quand je clique sur le bouton nommé "Add new town"
