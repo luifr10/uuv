@@ -229,7 +229,7 @@ jobs:
     runs-on: ubuntu-22.04
     needs: [ lint, unit-tests, build, build-electron ]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Running runner-flutter unit tests
         uses: ./.github/actions/nx-test-flutter-runner
         with:
