@@ -24,9 +24,12 @@ cd "$WORKING_DIR"
 
 log "I" "Creating new npm project"
 npm init -y
+cp -f "../package-playwright.json" "package.json"
+A11Y_VERSION="../$NPM_PACKAGE_A11Y"
+sed -i "s|to-replace|${A11Y_VERSION}|" package.json
 
 log "I" "Installing npm dependencies"
-npm install -D "../$NPM_PACKAGE_COMMONS" "../$NPM_PACKAGE_A11Y" "../$NPM_PACKAGE_PLAYWRIGHT"
+npm install -D "../$NPM_PACKAGE_COMMONS" "../$NPM_PACKAGE_PLAYWRIGHT"
 
 log "I" "Copying test files and dependencies"
 cp -R "${RUNNER_DIR}/e2e/" ./uuv

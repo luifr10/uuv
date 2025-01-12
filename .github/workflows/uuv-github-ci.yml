@@ -377,6 +377,11 @@ jobs:
         with:
           name: build-artifacts
           path: packages
+      - name: Use Node.js ${{ inputs.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version:
+            ${{env.NODE_VERSION}}
       - run: npm ci
       - name: Package runner-playwright
         run: mkdir -p ./dist/packages && npx nx package a11y && npx nx package runner-commons && npx nx package runner-playwright
